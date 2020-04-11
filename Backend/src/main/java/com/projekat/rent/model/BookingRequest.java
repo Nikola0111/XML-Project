@@ -1,0 +1,1 @@
+package com.projekat.rent.model;
