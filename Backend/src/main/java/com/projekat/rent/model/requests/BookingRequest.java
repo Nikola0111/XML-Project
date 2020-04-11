@@ -1,6 +1,9 @@
 package com.projekat.rent.model.requests;
 
-public class BookingRequests{
+import com.projekat.rent.enums.RequestStates;
+import com.projekat.rent.model.EndUser;
+
+class BookingRequests{
     
     private EndUser requestingUser;
 

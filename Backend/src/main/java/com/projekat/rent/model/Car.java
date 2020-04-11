@@ -1,6 +1,12 @@
 package com.projekat.rent.model;
 
+import com.projekat.rent.enums.CarClass;
+import com.projekat.rent.enums.FuelType;
+import com.projekat.rent.enums.TransmissionType;
+
 public class Car {
+
+    private String model;
 
     private String brand;
 

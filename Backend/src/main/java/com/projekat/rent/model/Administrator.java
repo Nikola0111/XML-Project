@@ -1,31 +1,30 @@
-import com.projekat.rent.model;
+package com.projekat.rent.model;
 
-public class Administrator extends User{
+import com.projekat.rent.model.User;
+
+public class Administrator extends User {
 
     private String surname;
 
-    private String jmbg;
+    private long jmbg;
 
-
-	
-
+    public Administrator() {
+        super();
+    }
 
     public String getSurname() {
-        return this.surname;
+        return surname;
     }
 
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
-    public String getJmbg() {
-        return this.jmbg;
+    public long getJmbg() {
+        return jmbg;
     }
 
-    public void setJmbg(String jmbg) {
+    public void setJmbg(long jmbg) {
         this.jmbg = jmbg;
     }
-
-
-
 }

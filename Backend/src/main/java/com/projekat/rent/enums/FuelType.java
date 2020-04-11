@@ -1,4 +1,4 @@
-import com.projekat.rent.enums;
+package com.projekat.rent.enums;
 
 public enum FuelType{
     GASOLINE,
