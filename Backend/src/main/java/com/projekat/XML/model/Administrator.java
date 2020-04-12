@@ -1,6 +1,4 @@
-package com.projekat.rent.model;
-
-import com.projekat.rent.model.User;
+package com.projekat.XML.model;
 
 public class Administrator extends User {
 

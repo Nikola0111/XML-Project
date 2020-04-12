@@ -1,8 +1,8 @@
-package com.projekat.rent.model;
+package com.projekat.XML.model;
 
-import com.projekat.rent.enums.CarClass;
-import com.projekat.rent.enums.FuelType;
-import com.projekat.rent.enums.TransmissionType;
+import com.projekat.XML.enums.CarClass;
+import com.projekat.XML.enums.FuelType;
+import com.projekat.XML.enums.TransmissionType;
 
 public class Car {
 

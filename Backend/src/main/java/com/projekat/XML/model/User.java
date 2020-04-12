@@ -1,4 +1,4 @@
-package com.projekat.rent.model;
+package com.projekat.XML.model;
 
 public class User {
 
