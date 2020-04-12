@@ -1,8 +1,8 @@
-package com.projekat.rent.model;
+package com.projekat.XML.model;
 
-import com.projekat.rent.enums.CarClass;
-import com.projekat.rent.enums.FuelType;
-import com.projekat.rent.enums.TransmissionType;
+import com.projekat.XML.enums.CarClass;
+import com.projekat.XML.enums.FuelType;
+import com.projekat.XML.enums.TransmissionType;
 
 public class Car {
 
@@ -21,6 +21,17 @@ public class Car {
     private int travelled;
   
     private int carSeats;
+
+    public Car(String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int price, int travelled, int carSeats) {
+        this.model = model;
+        this.brand = brand;
+        this.fuelType = fuelType;
+        this.transType = transType;
+        this.carClass = carClass;
+        this.price = price;
+        this.travelled = travelled;
+        this.carSeats = carSeats;
+    }
 
     public String getBrand() {
 		return this.brand;
