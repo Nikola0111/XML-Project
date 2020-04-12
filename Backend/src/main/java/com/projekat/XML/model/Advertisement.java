@@ -6,6 +6,8 @@ import com.projekat.XML.enums.TransmissionType;
 
 public class Advertisement {
 
+    private Long id;
+
     private String name;
 
     private String model;
@@ -26,7 +28,7 @@ public class Advertisement {
 
    
 
-    public Car(String name,String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int travelled, int carSeats, double price) {
+    public Advertisement(String name,String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int travelled, int carSeats, double price) {
         this.name=name;
         this.model = model;
         this.brand = brand;
@@ -103,6 +105,14 @@ public class Advertisement {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 
 }
