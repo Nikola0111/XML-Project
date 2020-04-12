@@ -1,4 +1,4 @@
-package com.projekat.rent.enums;
+package com.projekat.XML.enums;
 
 public enum CarClass{
     OLD_TIMER,
