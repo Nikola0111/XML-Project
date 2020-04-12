@@ -1,4 +1,4 @@
-package com.projekat.rent;
+package com.projekat.XML;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

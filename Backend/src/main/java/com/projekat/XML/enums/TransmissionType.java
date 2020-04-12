@@ -1,8 +1,8 @@
-import com.projekat.rent.enums;
+package com.projekat.XML.enums;
 
 
 public enum TransmissionType{
     MANUAL,
     AUTOMATIC,
-    SEMI-AUTOMATIC,    
+    SEMI_AUTOMATIC,
 }

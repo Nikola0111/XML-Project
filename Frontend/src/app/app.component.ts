@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {RegisterService} from './services/registration_service/register.service';
+import {EndUser} from './model/endUser';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angularclient';
+
+  constructor(private registrationService: RegisterService) {}
+
+  register() {
+    this.registrationService.register(new EndUser()).subscribe();
+  }
 }
