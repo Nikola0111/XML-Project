@@ -1,5 +1,12 @@
 package com.projekat.XML.model;
 
-public class EndUser {
+import javax.persistence.Entity;
 
+//@Entity
+public class EndUser extends User{
+
+    @Override
+    public String toString() {
+        return "EndUser{}";
+    }
 }
