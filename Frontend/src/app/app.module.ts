@@ -10,8 +10,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RegistracijaComponent } from './registracija/registracija.component';
 import {RouterModule} from '@angular/router';
 import { AgmCoreModule} from '@agm/core';
-
-import { RegistrationComponent } from './modules/registration/registration.component';
+import { AdvertisementComponent } from './modules/advertisement/advertisement.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AdvertisementService } from './modules/service/advertisement.service';
 
 
 @NgModule({
@@ -19,16 +20,19 @@ import { RegistrationComponent } from './modules/registration/registration.compo
     AppComponent,
     NavbarComponent,
     RegistracijaComponent,
-    RegistrationComponent
+    AdvertisementComponent
+
 ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
     RouterModule.forRoot([
-      { path: 'registracija', component: RegistracijaComponent },
-      { path: '', redirectTo: 'registracija', pathMatch: 'full' }
+      { path: '', component: RegistracijaComponent },
+      {path: 'app-advertisement', component:AdvertisementComponent},
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -37,7 +41,7 @@ import { RegistrationComponent } from './modules/registration/registration.compo
 
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [AdvertisementService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

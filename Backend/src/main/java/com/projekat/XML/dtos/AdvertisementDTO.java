@@ -1,10 +1,16 @@
-package com.projekat.XML.model;
+package com.projekat.XML.dtos;
 
 import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
 
-public class Car {
+public class AdvertisementDTO {
+
+    private Long id;
+
+    private String name;
+
+    
 
     private String model;
 
@@ -16,21 +22,32 @@ public class Car {
 
     private CarClass carClass;
 
-    private int price;
-
     private int travelled;
   
     private int carSeats;
 
-    public Car(String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int price, int travelled, int carSeats) {
+    private double price;
+
+   
+
+    public AdvertisementDTO(String name,String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int travelled, int carSeats, double price) {
+        this.name=name;
         this.model = model;
         this.brand = brand;
         this.fuelType = fuelType;
         this.transType = transType;
         this.carClass = carClass;
-        this.price = price;
         this.travelled = travelled;
         this.carSeats = carSeats;
+        this.price=price;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getBrand() {
@@ -73,13 +90,6 @@ public class Car {
         this.carClass = carClass;
     }
 
-    public int getPrice() {
-        return this.price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     public int getTravelled() {
         return this.travelled;
@@ -98,7 +108,13 @@ public class Car {
     }
 
 
+    public double getPrice() {
+        return this.price;
+    }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
 
 }

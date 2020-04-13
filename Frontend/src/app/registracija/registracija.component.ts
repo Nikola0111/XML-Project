@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EndUser } from '../model/endUser';
+import { RegisterService } from '../services/registration_service/register.service';
 
 @Component({
   selector: 'app-registracija',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistracijaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private registracijaService:  RegisterService ){ }
 
   ngOnInit() {
+  }
+
+  klikni(){
+    this.registracijaService.register(new EndUser()).subscribe();
   }
 
 }

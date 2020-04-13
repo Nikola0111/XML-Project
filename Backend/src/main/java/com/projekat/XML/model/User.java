@@ -5,24 +5,24 @@ import javax.persistence.*;
 //@Entity
 public class User {
 
-    //@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@Column(name = "name", nullable = false)
+  //  @Column(name = "name", nullable = false)
     private String name;
 
     //@Column(name = "surname", nullable = false)
     private String surname;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "login_info", referencedColumnName = "username")
-//    private LoginInfo loginInfo;
+  // @OneToOne(cascade = CascadeType.ALL)
+  // @JoinColumn(name = "login_info", referencedColumnName = "username")
+   //private LoginInfo loginInfo;
 
-    //@Column(name = "jmbg", unique = true, nullable = false)
+   // @Column(name = "jmbg", unique = true, nullable = false)
     private String jmbg;
 
-    //@Column(name = "phone_number")
+   // @Column(name = "phone_number")
     private String phoneNumber;
 
     public User(Long id, String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber) {
