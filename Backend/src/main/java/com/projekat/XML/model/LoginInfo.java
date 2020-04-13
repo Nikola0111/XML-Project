@@ -9,13 +9,13 @@ public class LoginInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    //@Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false)
     private String username;
 
-    //@Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     public LoginInfo(String email, String username, String password) {

@@ -14,6 +14,6 @@ export class RegisterService {
 
   public register(endUser: EndUser) {
     const body = JSON.stringify(endUser);
-    return this.http.post<EndUser>('/server/user/register', body, httpOptions);
+    return this.http.post<EndUser>('/server/enduser/register', body, httpOptions);
   }
 }
