@@ -1,7 +1,7 @@
-package com.projekat.rent.controller;
+package com.projekat.XML.controller;
 
 import com.projekat.XML.dtos.AdvertisementDTO;
-import com.projekat.rent.service.AdvertisementService;
+import com.projekat.XML.service.AdvertisementService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,7 +26,8 @@ public class AdvertisementController {
 	@PostMapping(value="/save", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Long> save(@RequestBody AdvertisementDTO advertisementDTO) {
 
-
+		System.out.println(advertisementDTO.getName()+advertisementDTO.getModel()+advertisementDTO.getBrand());
+		System.out.println("AMIN");
 		advertisementService.save(advertisementDTO);
 
 		return new ResponseEntity<>(HttpStatus.OK);

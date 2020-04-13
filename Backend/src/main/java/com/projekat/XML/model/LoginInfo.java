@@ -2,11 +2,11 @@ package com.projekat.XML.model;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 public class LoginInfo {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //@Column(name = "email", nullable = false)
