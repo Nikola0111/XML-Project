@@ -34,6 +34,7 @@ export class AdvertisementComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log("ISPISE");
     this.advertisementService.save(this.advertisement).subscribe();
   }
 

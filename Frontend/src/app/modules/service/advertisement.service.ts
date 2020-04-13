@@ -12,6 +12,7 @@ const httpOptions = {
     constructor(private http: HttpClient) {}
 
       public save(advertisement: Advertisement) {
+        console.log(advertisement);
           const body = JSON.stringify(advertisement);
           return this.http.post<Advertisement>('/server/advertisement/save', body, httpOptions);
       }
