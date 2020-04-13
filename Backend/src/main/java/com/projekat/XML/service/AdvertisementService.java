@@ -17,9 +17,8 @@ public class AdvertisementService {
 	AdvertisementRepository advertisementRepository;
 	
 	public Advertisement save(AdvertisementDTO advertisementDTO) {
-
-        
-      return advertisementRepository.save(new Advertisement(advertisementDTO.getName(), advertisementDTO.getModel(), advertisementDTO.getBrand(),advertisementDTO.getFuelType(),advertisementDTO.getTransType(),advertisementDTO.getCarClass(),advertisementDTO.getTravelled(), advertisementDTO.getCarSeats(),advertisementDTO.getPrice()));
+		System.out.println(advertisementDTO);
+		return advertisementRepository.save(new Advertisement(advertisementDTO.getName(), advertisementDTO.getModel(), advertisementDTO.getBrand(),advertisementDTO.getFuelType(),advertisementDTO.getTransType(),advertisementDTO.getCarClass(),advertisementDTO.getTravelled(), advertisementDTO.getCarSeats(),advertisementDTO.getPrice()));
 	}
 	
 	public List<Advertisement> findAll() {

@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NavbarComponent } from './navbar/navbar.component';
-import { RegistracijaComponent } from './registracija/registracija.component';
+import { RegistracijaComponent } from './modules/home/registracija/registracija.component';
 import {RouterModule} from '@angular/router';
 import { AgmCoreModule} from '@agm/core';
 import { AdvertisementComponent } from './modules/advertisement/advertisement.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdvertisementService } from './modules/service/advertisement.service';
+import { LoginComponent } from './modules/home/login/login.component';
+import { HomepageComponent } from './modules/home/homepage/homepage.component';
 
 
 @NgModule({
@@ -20,8 +22,9 @@ import { AdvertisementService } from './modules/service/advertisement.service';
     AppComponent,
     NavbarComponent,
     RegistracijaComponent,
-    AdvertisementComponent
-
+    AdvertisementComponent,
+    LoginComponent,
+    HomepageComponent
 ],
   imports: [
     BrowserModule,
@@ -31,8 +34,8 @@ import { AdvertisementService } from './modules/service/advertisement.service';
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: RegistracijaComponent },
-      {path: 'app-advertisement', component:AdvertisementComponent},
+      { path: '', component: HomepageComponent },
+      {path: 'app-advertisement', component: AdvertisementComponent},
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
