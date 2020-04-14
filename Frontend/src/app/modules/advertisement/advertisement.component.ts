@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup,ReactiveFormsModule} from '@angular/forms';
 import { Advertisement } from 'src/app/model/advertisement';
 import { AdvertisementService } from '../service/advertisement.service';
+import { TransmissionType } from 'src/app/enums/transmissionType';
+import { FuelType } from 'src/app/enums/fuelType';
+import { CarClass } from 'src/app/enums/carClass';
 
 @Component({
   selector: 'app-advertisement',
@@ -13,6 +16,9 @@ export class AdvertisementComponent implements OnInit {
   forma: FormGroup;
   submitted = false;
   advertisement: Advertisement;
+  fuelType: string;
+  transmissionType: string;
+  carClass: string;
 
   constructor(private formBuilder: FormBuilder,
               private advertisementService: AdvertisementService) {
@@ -35,6 +41,29 @@ export class AdvertisementComponent implements OnInit {
 
   onSubmit() {
     console.log("ISPISE");
+    if (this.fuelType === 'Gasoline') {
+      this.advertisement.fuelType = 0;
+    } else if (this.fuelType === 'Gas') {
+      this.advertisement.fuelType = 1;
+    } else if (this.fuelType === 'Diesel') {
+      this.advertisement.fuelType = 2;
+    }
+
+    if ( this.transmissionType === 'Manual') {
+      this.advertisement.transmissionType = 0;
+    } else if ( this.transmissionType === 'Automatic') {
+      this.advertisement.transmissionType = 1;
+    } else if ( this.transmissionType === 'Semi-Automatic') {
+      this.advertisement.transmissionType = 2;
+    }
+
+    if ( this.carClass === 'Old-Timer') {
+      this.advertisement.carClass = 0;
+    } else if ( this.carClass === 'City-Car') {
+      this.advertisement.carClass = 1;
+    } else if ( this.carClass === 'SUV') {
+      this.advertisement.carClass = 2;
+    }
     this.advertisementService.save(this.advertisement).subscribe();
   }
 

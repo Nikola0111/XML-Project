@@ -16,4 +16,9 @@ const httpOptions = {
           const body = JSON.stringify(advertisement);
           return this.http.post<Advertisement>('/server/advertisement/save', body, httpOptions);
       }
+
+      public getAll() {
+        this.requestUrl = '/server/advertisement/all';
+        return this.http.get<Array<Advertisement>>(this.requestUrl, httpOptions);
+        }
   }

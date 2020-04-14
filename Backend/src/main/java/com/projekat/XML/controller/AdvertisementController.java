@@ -1,6 +1,7 @@
 package com.projekat.XML.controller;
 
 import com.projekat.XML.dtos.AdvertisementDTO;
+import com.projekat.XML.model.Advertisement;
 import com.projekat.XML.service.AdvertisementService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,9 @@ import org.springframework.http.ResponseEntity;
 
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "advertisement")
@@ -32,4 +32,10 @@ public class AdvertisementController {
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<Advertisement>> getAll() {
+        List<Advertisement> advertisements = advertisementService.findAll();
+        return new ResponseEntity<>(advertisements, HttpStatus.OK);
+    }
 }

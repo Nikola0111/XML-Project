@@ -18,7 +18,7 @@ public class AdvertisementDTO {
 
     private FuelType fuelType;
 
-    private TransmissionType transType;
+    private TransmissionType transmissionType;
 
     private CarClass carClass;
 
@@ -30,12 +30,12 @@ public class AdvertisementDTO {
 
    
 
-    public AdvertisementDTO(String name,String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int travelled, int carSeats, double price) {
+    public AdvertisementDTO(String name,String model, String brand, FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelled, int carSeats, double price) {
         this.name=name;
         this.model = model;
         this.brand = brand;
         this.fuelType = fuelType;
-        this.transType = transType;
+        this.transmissionType = transmissionType;
         this.carClass = carClass;
         this.travelled = travelled;
         this.carSeats = carSeats;
@@ -75,11 +75,11 @@ public class AdvertisementDTO {
     }
 
     public TransmissionType getTransType() {
-        return this.transType;
+        return this.transmissionType;
     }
 
     public void setTransType(TransmissionType transType) {
-        this.transType = transType;
+        this.transmissionType = transType;
     }
 
     public CarClass getCarClass() {

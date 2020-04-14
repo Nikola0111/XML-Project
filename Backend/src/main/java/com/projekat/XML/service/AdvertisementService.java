@@ -18,6 +18,7 @@ public class AdvertisementService {
 	
 	public Advertisement save(AdvertisementDTO advertisementDTO) {
 		System.out.println(advertisementDTO);
+		System.out.println(advertisementDTO.getFuelType());
 		return advertisementRepository.save(new Advertisement(advertisementDTO.getName(), advertisementDTO.getModel(), advertisementDTO.getBrand(),advertisementDTO.getFuelType(),advertisementDTO.getTransType(),advertisementDTO.getCarClass(),advertisementDTO.getTravelled(), advertisementDTO.getCarSeats(),advertisementDTO.getPrice()));
 	}
 	
