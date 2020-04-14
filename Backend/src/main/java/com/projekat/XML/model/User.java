@@ -2,34 +2,36 @@ package com.projekat.XML.model;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
+@Table(name = "user_entity")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-  //  @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    //@Column(name = "surname", nullable = false)
+    @Column(name = "surname", nullable = false)
     private String surname;
 
-  // @OneToOne(cascade = CascadeType.ALL)
-  // @JoinColumn(name = "login_info", referencedColumnName = "username")
-   //private LoginInfo loginInfo;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "login_info", referencedColumnName = "username")
+    private LoginInfo loginInfo;
 
-   // @Column(name = "jmbg", unique = true, nullable = false)
+    @Column(name = "jmbg", unique = true, nullable = false)
     private String jmbg;
 
-   // @Column(name = "phone_number")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     public User(Long id, String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-        //this.loginInfo = loginInfo;
+        this.loginInfo = loginInfo;
         this.jmbg = jmbg;
         this.phoneNumber = phoneNumber;
     }
@@ -46,13 +48,13 @@ public class User {
         this.surname = surname;
     }
 
-//    public LoginInfo getLoginInfo() {
-//        return loginInfo;
-//    }
-//
-//    public void setLoginInfo(LoginInfo loginInfo) {
-//        this.loginInfo = loginInfo;
-//    }
+    public LoginInfo getLoginInfo() {
+        return loginInfo;
+    }
+
+    public void setLoginInfo(LoginInfo loginInfo) {
+        this.loginInfo = loginInfo;
+    }
 
     public String getJmbg() {
         return jmbg;
@@ -85,6 +87,5 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-
 
 }

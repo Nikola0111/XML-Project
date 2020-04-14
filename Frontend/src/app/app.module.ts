@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NavbarComponent } from './navbar/navbar.component';
-import { RegistracijaComponent } from './registracija/registracija.component';
+import { RegistracijaComponent } from './modules/home/registracija/registracija.component';
 import {RouterModule} from '@angular/router';
 import { AgmCoreModule} from '@agm/core';
 import { AdvertisementComponent } from './modules/advertisement/advertisement.component';
@@ -18,6 +18,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 
+import { HomepageComponent } from './modules/home/homepage/homepage.component';
+
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { MatSortModule } from '@angular/material/sort';
     NavbarComponent,
     RegistracijaComponent,
     AdvertisementComponent,
-    AdvertisementListComponent
+
+    LoginComponent,
+    HomepageComponent
 
 ],
   imports: [
@@ -36,9 +41,11 @@ import { MatSortModule } from '@angular/material/sort';
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forRoot([
+
       { path: '', component: RegistracijaComponent },
       {path: 'app-advertisement', component: AdvertisementComponent},
       { path: 'advertisement-list', component: AdvertisementListComponent},
+
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
