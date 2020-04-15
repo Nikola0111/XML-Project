@@ -15,13 +15,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
 
-    @PostMapping(value = "/register", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EndUser> register(@RequestBody EndUser endUser){
-        userService.register(endUser);
-
-        return new ResponseEntity<>(endUser, HttpStatus.OK);
-    }
 }

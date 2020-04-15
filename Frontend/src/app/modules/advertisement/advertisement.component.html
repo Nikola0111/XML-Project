@@ -1,0 +1,59 @@
+<div>
+  <app-navbar></app-navbar>
+<form (ngSubmit)="onSubmit()" [formGroup]="forma" class="form-style-9">
+  <ul>
+  <li>
+      <input [(ngModel)] = "this.advertisement.name" formControlName="name" name="name" class="field-style field-full align-none" placeholder="Name" />
+  </li>
+  <li>
+    
+    <input [(ngModel)] = "this.advertisement.model" formControlName="model" name="model" class="field-style field-full align-none" placeholder="Model" />
+  </li>
+
+  <li>
+    <input [(ngModel)] = "this.advertisement.brand" formControlName="brand" name="brand" class="field-style field-full align-none" placeholder="Brand" />
+  </li>
+
+  <li>
+    <select [(ngModel)] = "this.fuelType" formControlName="fuelType" name="fuelType" class="field-style field-full align-none" placeholder="Fuel Type" >
+      <option>Gasoline</option>
+      <option>Gas</option>
+      <option>Diesel</option>
+    </select>
+  </li>
+
+  <li>
+    <select [(ngModel)] = "this.transmissionType" formControlName="transmissionType" name="transmissionType" class="field-style field-full align-none" placeholder="Transmission Type" >
+      <option>Manual</option>
+      <option>Automatic</option>
+      <option>Semi-Automatic</option>
+    </select>
+  </li>
+
+  <li>
+    <select [(ngModel)] = "this.carClass" formControlName="carClass" name="carClass" class="field-style field-full align-none" placeholder="Car Class" >
+      <option>Old-Timer</option>
+      <option>City-Car</option>
+      <option>Suv</option>
+    </select>
+  </li>
+
+  <li>
+    <input [(ngModel)] = "this.advertisement.travelled" formControlName="travelled"  name="travelled" class="field-style field-full align-none" placeholder="Travelled" />
+  </li>
+
+  <li>
+    <input [(ngModel)] = "this.advertisement.price" formControlName="price" name="price" class="field-style field-full align-none" placeholder="Price" />
+  </li>
+
+  <li>
+    <input [(ngModel)] = "this.advertisement.carSeats" formControlName="carSeats" name="carSeats" class="field-style field-full align-none" placeholder="Car seats" />
+  </li>
+
+  <li>
+    <input type="submit" value="Add" />
+  </li>
+  </ul>
+  </form>
+
+</div>

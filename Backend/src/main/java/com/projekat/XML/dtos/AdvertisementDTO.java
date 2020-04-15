@@ -1,22 +1,16 @@
-package com.projekat.XML.model;
+package com.projekat.XML.dtos;
 
 import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+public class AdvertisementDTO {
 
-@Entity
-public class Advertisement {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
     private String name;
+
+    
 
     private String model;
 
@@ -24,7 +18,7 @@ public class Advertisement {
 
     private FuelType fuelType;
 
-    private TransmissionType transType;
+    private TransmissionType transmissionType;
 
     private CarClass carClass;
 
@@ -34,20 +28,26 @@ public class Advertisement {
 
     private double price;
 
-   public Advertisement(){
+   
 
-   }
-
-    public Advertisement(String name,String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int travelled, int carSeats, double price) {
+    public AdvertisementDTO(String name,String model, String brand, FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelled, int carSeats, double price) {
         this.name=name;
         this.model = model;
         this.brand = brand;
         this.fuelType = fuelType;
-        this.transType = transType;
+        this.transmissionType = transmissionType;
         this.carClass = carClass;
         this.travelled = travelled;
         this.carSeats = carSeats;
         this.price=price;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getBrand() {
@@ -75,11 +75,11 @@ public class Advertisement {
     }
 
     public TransmissionType getTransType() {
-        return this.transType;
+        return this.transmissionType;
     }
 
     public void setTransType(TransmissionType transType) {
-        this.transType = transType;
+        this.transmissionType = transType;
     }
 
     public CarClass getCarClass() {
@@ -115,14 +115,6 @@ public class Advertisement {
     public void setPrice(double price) {
         this.price = price;
     }
-
-    public Long getId() {
-		return this.id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 
 }
