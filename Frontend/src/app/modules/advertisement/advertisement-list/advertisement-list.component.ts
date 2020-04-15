@@ -4,7 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { AdvertisementListDataSource, AdvertisementListItem } from './advertisement-list-datasource';
 import {Advertisement} from '../../../model/advertisement';
-import { AdvertisementService } from 'src/app/services/advertisement.service/advertisement.service';
+
+import {AdvertisementService} from '../../../services/advertisement.service/advertisement.service';
 
 
 @Component({

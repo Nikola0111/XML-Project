@@ -11,6 +11,10 @@ public class EndUser extends User {
     @Column(name = "broj_zahteva", nullable = false)
     private int broj_zahteva;
 
+    public  EndUser() {
+
+    }
+
     public EndUser(Long id, String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber, int broj_zahteva) {
         super(id, name, surname, loginInfo, jmbg, phoneNumber);
         this.broj_zahteva = broj_zahteva;
