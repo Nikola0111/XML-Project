@@ -42,28 +42,28 @@ export class AdvertisementComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.advertisement.fuelType === 0) {
-      this.advertisement.fuelType = FuelType.GASOLINE;
-    } else if (this.advertisement.fuelType === 1) {
-      this.advertisement.fuelType = FuelType.GAS;
-    } else if (this.advertisement.fuelType === 2) {
-      this.advertisement.fuelType = FuelType.DISEL;
+    if (this.fuelType === 'Gasoline') {
+      this.advertisement.fuelType = 0;
+    } else if (this.fuelType === 'Gas') {
+      this.advertisement.fuelType = 1;
+    } else if (this.fuelType === 'Diesel') {
+      this.advertisement.fuelType = 2;
     }
 
-    if ( this.advertisement.transmissionType === 0) {
-      this.advertisement.transmissionType = TransmissionType.MANUAL;
-    } else if ( this.advertisement.transmissionType === 1) {
-      this.advertisement.transmissionType = TransmissionType.AUTOMATIC;
-    } else if ( this.advertisement.transmissionType === 2) {
-      this.advertisement.transmissionType = TransmissionType.SEMI_AUTOMATIC;
+    if ( this.transmissionType === 'Manual') {
+      this.advertisement.transmissionType = 0;
+    } else if ( this.transmissionType === 'Automatic') {
+      this.advertisement.transmissionType = 1;
+    } else if ( this.transmissionType === 'Semi-Automatic') {
+      this.advertisement.transmissionType = 2;
     }
 
-    if ( this.advertisement.carClass === 0) {
-      this.advertisement.carClass = CarClass.OLD_TIMER;
-    } else if ( this.advertisement.carClass === 1) {
-      this.advertisement.carClass = CarClass.CITY_CAR;
-    } else if ( this.advertisement.carClass === 2) {
-      this.advertisement.carClass = CarClass.SUV;
+    if ( this.carClass === 'Old-Timer') {
+      this.advertisement.carClass = 0;
+    } else if ( this.carClass === 'City-Car') {
+      this.advertisement.carClass = 1;
+    } else if ( this.carClass === 'SUV') {
+      this.advertisement.carClass = 2;
     }
 
     this.advertisementService.save(this.advertisement).subscribe();
