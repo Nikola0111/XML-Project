@@ -1,9 +1,10 @@
 package com.projekat.XML.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class LoginInfo {
+public class LoginInfo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +18,10 @@ public class LoginInfo {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    public LoginInfo() {
+
+    }
 
     public LoginInfo(String email, String username, String password) {
         this.email = email;

@@ -6,7 +6,7 @@
 
         <div class="navbar-header">
           <button class="navbar-toggle" data-target="#mobile_menu" data-toggle="collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-          <a href="#" class="navbar-brand">GROUP.COM</a>
+          <a href="#" class="navbar-brand">RENT-A-CAR</a>
         </div>
 
         <div class="navbar-collapse collapse" id="mobile_menu">
@@ -40,15 +40,9 @@
               </form>
             </li>
           </ul>
-
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login / Sign Up <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Sign Up</a></li>
-              </ul>
-            </li>
+            <li (click)="showRegister()" ><a href="#"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+            <li (click)="showLogin()" ><a href="#"><span class="fa fa-sign-in "></span> Sign up</a></li>
           </ul>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RegisterService} from './modules/service/register.service';
+import {RegisterService} from './modules/service/RegisterService/register.service';
 import {EndUser} from './model/endUser';
 
 @Component({

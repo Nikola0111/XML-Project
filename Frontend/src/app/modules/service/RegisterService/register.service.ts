@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {EndUser} from '../../model/endUser';
+import {EndUser} from '../../../model/endUser';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
