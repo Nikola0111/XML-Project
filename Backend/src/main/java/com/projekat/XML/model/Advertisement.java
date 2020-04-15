@@ -16,6 +16,8 @@ public class Advertisement {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+
+
     private String name;
 
     private String model;
@@ -124,5 +126,12 @@ public class Advertisement {
 		this.id = id;
 	}
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 }

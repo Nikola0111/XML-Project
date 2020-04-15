@@ -19,7 +19,7 @@ export class AdvertisementComponent implements OnInit {
   submitted = false;
   advertisement: Advertisement;
   fuelType: string;
-  transmissionType: string;
+  transType: string;
   carClass: string;
 
   constructor(private formBuilder: FormBuilder,
@@ -33,7 +33,7 @@ export class AdvertisementComponent implements OnInit {
       model: [''],
       brand: [''],
       fuelType: [''],
-      transmissionType: [''],
+      transType: [''],
       carClass: [''],
       travelled: [''],
       price: [''],
@@ -50,12 +50,12 @@ export class AdvertisementComponent implements OnInit {
       this.advertisement.fuelType = 2;
     }
 
-    if ( this.transmissionType === 'Manual') {
-      this.advertisement.transmissionType = 0;
-    } else if ( this.transmissionType === 'Automatic') {
-      this.advertisement.transmissionType = 1;
-    } else if ( this.transmissionType === 'Semi-Automatic') {
-      this.advertisement.transmissionType = 2;
+    if ( this.transType === 'Manual') {
+      this.advertisement.transType = 0;
+    } else if ( this.transType === 'Automatic') {
+      this.advertisement.transType = 1;
+    } else if ( this.transType === 'Semi-Automatic') {
+      this.advertisement.transType = 2;
     }
 
     if ( this.carClass === 'Old-Timer') {
