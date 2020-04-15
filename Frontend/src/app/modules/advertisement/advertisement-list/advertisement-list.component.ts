@@ -26,6 +26,7 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   constructor(private advertisementService: AdvertisementService) {
   }
 
+  
 
   ngOnInit() {
     this.dataSource = new AdvertisementListDataSource(null);
