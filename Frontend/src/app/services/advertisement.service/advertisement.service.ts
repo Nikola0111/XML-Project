@@ -6,19 +6,19 @@ const httpOptions = {
     headers: new HttpHeaders({'Content-Type' : 'application/json'})
   };
 
-  @Injectable()
+@Injectable()
   export class AdvertisementService {
     private requestUrl: string;
     constructor(private http: HttpClient) {}
 
       public save(advertisement: Advertisement) {
         console.log(advertisement);
-          const body = JSON.stringify(advertisement);
-          return this.http.post<Advertisement>('/server/advertisement/save', body, httpOptions);
+        const body = JSON.stringify(advertisement);
+        return this.http.post<Advertisement>('/server/advertisement/save', body, httpOptions);
       }
-
       public getAll() {
-        this.requestUrl = '/server/advertisement/all';
-        return this.http.get<Array<Advertisement>>(this.requestUrl, httpOptions);
-        }
+      this.requestUrl = '/server/advertisement/all';
+      return this.http.get<Array<Advertisement>>(this.requestUrl, httpOptions);
+      }
   }
+

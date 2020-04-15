@@ -35,7 +35,7 @@ public class Advertisement {
     private double price;
 
    public Advertisement(){
-       
+
    }
 
     public Advertisement(String name,String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int travelled, int carSeats, double price) {

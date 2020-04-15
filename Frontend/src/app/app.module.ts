@@ -14,10 +14,11 @@ import {RouterModule} from '@angular/router';
 import { AgmCoreModule} from '@agm/core';
 import { AdvertisementComponent } from './modules/advertisement/advertisement.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AdvertisementService } from './modules/service/advertisement.service';
-import { LoginComponent } from './modules/home/login/login.component';
+import { AdvertisementService } from './services/advertisement.service/advertisement.service';
+import { AdvertisementListComponent } from './modules/advertisement/advertisement-list/advertisement-list.component';
 import { HomepageComponent } from './modules/home/homepage/homepage.component';
-import {AdvertisementListComponent} from './modules/advertisement/advertisement-list/advertisement-list.component';
+import { LoginComponent } from './modules/home/login/login.component';
+
 
 
 @NgModule({
@@ -26,9 +27,12 @@ import {AdvertisementListComponent} from './modules/advertisement/advertisement-
     NavbarComponent,
     RegistracijaComponent,
     AdvertisementComponent,
+
     LoginComponent,
+
     HomepageComponent,
     AdvertisementListComponent
+
 ],
   imports: [
     BrowserModule,
@@ -41,13 +45,19 @@ import {AdvertisementListComponent} from './modules/advertisement/advertisement-
     MatPaginatorModule,
     MatSortModule,
     RouterModule.forRoot([
-      { path: '', component: HomepageComponent },
+
+      { path: '', component: RegistracijaComponent },
       {path: 'app-advertisement', component: AdvertisementComponent},
+      { path: 'advertisement-list', component: AdvertisementListComponent},
+
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
       libraries: ['places']
-    })
+    }),
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
 
   ],
   exports: [RouterModule],

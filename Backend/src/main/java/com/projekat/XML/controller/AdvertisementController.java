@@ -38,4 +38,5 @@ public class AdvertisementController {
         List<Advertisement> advertisements = advertisementService.findAll();
         return new ResponseEntity<>(advertisements, HttpStatus.OK);
     }
+
 }
