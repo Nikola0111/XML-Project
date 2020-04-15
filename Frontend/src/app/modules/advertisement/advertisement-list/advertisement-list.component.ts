@@ -22,7 +22,7 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   dialogData: Advertisement;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transmissionType', 'carClass', 'travelled', 'price', 'carSeats'];
+  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats'];
 
   constructor(private advertisementService: AdvertisementService) {
   }
@@ -43,5 +43,6 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+    console.log(this.dataSource);
   }
 }

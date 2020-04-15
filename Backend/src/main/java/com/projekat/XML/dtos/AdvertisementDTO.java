@@ -3,6 +3,7 @@ package com.projekat.XML.dtos;
 import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
+import com.projekat.XML.model.Advertisement;
 
 public class AdvertisementDTO {
 
@@ -40,6 +41,11 @@ public class AdvertisementDTO {
         this.travelled = travelled;
         this.carSeats = carSeats;
         this.price=price;
+    }
+
+    public AdvertisementDTO(Advertisement ad)
+    {
+
     }
 
     public String getName() {

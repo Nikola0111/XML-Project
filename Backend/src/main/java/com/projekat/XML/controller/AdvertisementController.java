@@ -36,6 +36,9 @@ public class AdvertisementController {
     @GetMapping(value = "/all")
     public ResponseEntity<List<Advertisement>> getAll() {
         List<Advertisement> advertisements = advertisementService.findAll();
+        for(Advertisement ad : advertisements) {
+			System.out.println(ad.getName());
+		}
         return new ResponseEntity<>(advertisements, HttpStatus.OK);
     }
 

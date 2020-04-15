@@ -14,7 +14,7 @@ export interface AdvertisementListItem {
   model: string;
   brand: string;
   fuelType: FuelType;
-  transmissionType: TransmissionType;
+  transType: TransmissionType;
   carClass: CarClass;
   travelled: number;
   price: number;
@@ -91,7 +91,7 @@ export class AdvertisementListDataSource extends DataSource<AdvertisementListIte
         case 'model': return compare(a.model, b.model, isAsc);
         case 'brand': return compare(a.brand, b.brand, isAsc);
         case 'fuelType': return compare(a.fuelType, b.fuelType, isAsc);
-        case 'transmissionType': return compare(a.transmissionType, b.transmissionType, isAsc);
+        case 'transmissionType': return compare(a.transType, b.transType, isAsc);
         case 'carClass': return compare(a.carClass, b.carClass, isAsc);
         case 'travelled': return compare(a.travelled, b.travelled, isAsc);
         case 'price': return compare(a.price, b.price, isAsc);
