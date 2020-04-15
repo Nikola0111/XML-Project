@@ -33,10 +33,10 @@ public class AdvertisementController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/all")
-	public ResponseEntity<List<Advertisement>> getAll() {
-		List<Advertisement> advertisements = advertisementService.findAll();
-		return new ResponseEntity<>(advertisements, HttpStatus.OK);
-	}
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<Advertisement>> getAll() {
+        List<Advertisement> advertisements = advertisementService.findAll();
+        return new ResponseEntity<>(advertisements, HttpStatus.OK);
+    }
 
 }

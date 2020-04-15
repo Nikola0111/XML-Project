@@ -21,3 +21,4 @@ const httpOptions = {
       return this.http.get<Array<Advertisement>>(this.requestUrl, httpOptions);
       }
   }
+

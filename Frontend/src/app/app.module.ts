@@ -5,7 +5,9 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegistracijaComponent } from './modules/home/registracija/registracija.component';
 import {RouterModule} from '@angular/router';
@@ -14,11 +16,8 @@ import { AdvertisementComponent } from './modules/advertisement/advertisement.co
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdvertisementService } from './services/advertisement.service/advertisement.service';
 import { AdvertisementListComponent } from './modules/advertisement/advertisement-list/advertisement-list.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-
 import { HomepageComponent } from './modules/home/homepage/homepage.component';
+import { LoginComponent } from './modules/home/login/login.component';
 
 
 
@@ -30,7 +29,9 @@ import { HomepageComponent } from './modules/home/homepage/homepage.component';
     AdvertisementComponent,
 
     LoginComponent,
-    HomepageComponent
+
+    HomepageComponent,
+    AdvertisementListComponent
 
 ],
   imports: [
@@ -40,6 +41,9 @@ import { HomepageComponent } from './modules/home/homepage/homepage.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     RouterModule.forRoot([
 
       { path: '', component: RegistracijaComponent },
