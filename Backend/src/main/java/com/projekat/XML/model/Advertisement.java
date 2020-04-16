@@ -4,10 +4,7 @@ import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Advertisement {
@@ -36,11 +33,16 @@ public class Advertisement {
 
     private double price;
 
+    @ManyToOne
+    @JoinColumn
+    private User postedBy;
+
+
    public Advertisement(){
 
    }
 
-    public Advertisement(String name,String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int travelled, int carSeats, double price) {
+    public Advertisement(String name,String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int travelled, int carSeats, double price,User postedBy) {
         this.name=name;
         this.model = model;
         this.brand = brand;
@@ -50,6 +52,7 @@ public class Advertisement {
         this.travelled = travelled;
         this.carSeats = carSeats;
         this.price=price;
+        this.postedBy=postedBy;
     }
 
     public String getBrand() {
@@ -133,5 +136,13 @@ public class Advertisement {
     public void setName(String name)
     {
         this.name = name;
+    }
+    
+    public User getPostedBy() {
+        return this.postedBy;
+    }
+
+    public void setPostedBy(User postedBy) {
+        this.postedBy = postedBy;
     }
 }

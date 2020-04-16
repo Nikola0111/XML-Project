@@ -15,8 +15,8 @@ public class EndUser extends User {
 
     }
 
-    public EndUser(Long id, String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber, int broj_zahteva) {
-        super(id, name, surname, loginInfo, jmbg, phoneNumber);
+    public EndUser( String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber, int broj_zahteva) {
+        super( name, surname, loginInfo, jmbg, phoneNumber);
         this.broj_zahteva = broj_zahteva;
     }
 
