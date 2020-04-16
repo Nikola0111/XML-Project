@@ -2,6 +2,7 @@ package com.projekat.XML.controller;
 
 import com.projekat.XML.model.User;
 
+import com.projekat.XML.repository.UserRepository;
 import com.projekat.XML.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,8 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
 
 @RestController
@@ -22,8 +26,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+
+    private UserRepository userRepository;
+
     @PostMapping(value = "/login", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> Login(@RequestBody User user, @Context HttpServletRequest request){
+    public ResponseEntity<User> Login(@RequestBody User user){
 
         System.out.println(user.getLoginInfo().getEmail() + " " + user.getLoginInfo().getPassword());
 
@@ -34,10 +42,14 @@ public class UserController {
             return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
         }
 
-        System.out.println("Account with email " + userDB.getLoginInfo().getEmail() + "has been logged in");
 
         //Sacuvati korisnika u sesiji
-        request.getSession().setAttribute("ulogovanKorisnik", userDB.getJmbg());
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder
+                .currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+
+        session.setAttribute("user", userDB.getId());
+
         return new ResponseEntity<>(userDB, HttpStatus.OK);
     }
 
