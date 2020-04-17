@@ -8,7 +8,11 @@ import {SessionService} from '../modules/service/SessionService/session.service'
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private sessionService: SessionService) { }
+ 
+
+  constructor(private sessionService: SessionService) { 
+    
+  }
 
   ngOnInit() {
     this.sessionService.login = false;
@@ -24,5 +28,7 @@ export class NavbarComponent implements OnInit {
     this.sessionService.register  = false;
     this.sessionService.login  = true;
   }
+
+
 
 }

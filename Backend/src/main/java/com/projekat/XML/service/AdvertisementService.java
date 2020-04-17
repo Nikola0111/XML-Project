@@ -2,8 +2,6 @@ package com.projekat.XML.service;
 
 import com.projekat.XML.dtos.AdvertisementDTO;
 import com.projekat.XML.model.Advertisement;
-//import com.projekat.XML.repository.AdvertisementRepository;
-import com.projekat.XML.model.User;
 import com.projekat.XML.repository.AdvertisementRepository;
 import com.projekat.XML.repository.UserRepository;
 
@@ -30,6 +28,9 @@ public class AdvertisementService {
 		HttpSession session = attr.getRequest().getSession(true);
 
 		Long id = (Long) session.getAttribute("user");
+
+		//kada se kreira korisnik kreira mu se i korpa u koju ce moci da dodaje oglase!
+		
 
 		return advertisementRepository.save(new Advertisement(advertisementDTO.getName(), advertisementDTO.getModel(), advertisementDTO.getBrand(),advertisementDTO.getFuelType(),advertisementDTO.getTransType(),advertisementDTO.getCarClass(),advertisementDTO.getTravelled(), advertisementDTO.getCarSeats(),advertisementDTO.getPrice(),userRepository.findOneByid(id)));
 	}

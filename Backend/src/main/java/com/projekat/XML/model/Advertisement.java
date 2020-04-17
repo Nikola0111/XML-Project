@@ -7,7 +7,7 @@ import com.projekat.XML.enums.TransmissionType;
 import javax.persistence.*;
 
 @Entity
-public class Advertisement {
+public class Advertisement  {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
