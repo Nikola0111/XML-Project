@@ -18,6 +18,7 @@ import { AdvertisementService } from './services/advertisement.service/advertise
 import { AdvertisementListComponent } from './modules/advertisement/advertisement-list/advertisement-list.component';
 import { HomepageComponent } from './modules/home/homepage/homepage.component';
 import { LoginComponent } from './modules/home/login/login.component';
+import {MatFormFieldModule} from '@angular/material';
 
 
 
@@ -46,9 +47,9 @@ import { LoginComponent } from './modules/home/login/login.component';
     MatSortModule,
     RouterModule.forRoot([
 
-      { path: '', component: RegistracijaComponent },
+      {path: '', component: RegistracijaComponent},
       {path: 'app-advertisement', component: AdvertisementComponent},
-      { path: 'advertisement-list', component: AdvertisementListComponent},
+      {path: 'advertisement-list', component: AdvertisementListComponent},
 
     ]),
     AgmCoreModule.forRoot({
@@ -57,7 +58,8 @@ import { LoginComponent } from './modules/home/login/login.component';
     }),
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatFormFieldModule
 
   ],
   exports: [RouterModule],
