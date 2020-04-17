@@ -4,7 +4,12 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { AdvertisementListDataSource, AdvertisementListItem } from './advertisement-list-datasource';
 import {Advertisement} from '../../../model/advertisement';
+
+
 import {AdvertisementService} from '../../../services/advertisement.service/advertisement.service';
+import { from } from 'rxjs';
+import { NavbarComponent } from 'src/app/navbar/navbar.component';
+
 
 @Component({
   selector: 'app-advertisement-list',
@@ -18,13 +23,15 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   dataSource: AdvertisementListDataSource;
   advertisements: Advertisement[];
   dialogData: Advertisement;
+  selected: Advertisement;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transmissionType', 'carClass', 'travelled', 'price', 'carSeats'];
+  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats',"button"];
 
   constructor(private advertisementService: AdvertisementService) {
   }
 
+  
 
   ngOnInit() {
     this.dataSource = new AdvertisementListDataSource(null);
@@ -33,12 +40,29 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
         this.advertisements = data;
         this.dataSource = new AdvertisementListDataSource(this.advertisements);
       }
+      
     );
+    
+    
+  }
+
+  public save(advertisement: Advertisement) {
+    this.selected=advertisement;
+    console.log(this.selected);
+    console.log("Pogodi dugme")
+    this.advertisementService.addAd(this.selected).subscribe();
+
+    
   }
 
   ngAfterViewInit() {
+    this.table.dataSource = this.dataSource;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+    
+    console.log(this.dataSource);
+  }
+  ngBeforeViewInit(){
+    
   }
 }

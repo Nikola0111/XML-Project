@@ -27,8 +27,7 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    public User(Long id, String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber) {
-        this.id = id;
+    public User(String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber) {
         this.name = name;
         this.surname = surname;
         this.loginInfo = loginInfo;

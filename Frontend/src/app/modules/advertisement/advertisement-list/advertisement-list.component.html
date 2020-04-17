@@ -1,5 +1,6 @@
 
 <div class="mat-elevation-z8">
+  <app-navbar></app-navbar>
   <table mat-table class="full-width-table" matSort aria-label="Elements">
     <!-- Id Column -->
     <ng-container matColumnDef="name">
@@ -23,9 +24,9 @@
       <td mat-cell *matCellDef="let row">{{row.fuelType}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="transmissionType">
+    <ng-container matColumnDef="transType">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Transmission Type</th>
-      <td mat-cell *matCellDef="let row">{{row.transmissionType}}</td>
+      <td mat-cell *matCellDef="let row">{{row.transType}}</td>
     </ng-container>
 
     <ng-container matColumnDef="carClass">
@@ -46,6 +47,11 @@
     <ng-container matColumnDef="carSeats">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Car Seats</th>
       <td mat-cell *matCellDef="let row">{{row.carSeats}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="button">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Add to cart</th>
+      <td mat-cell *matCellDef="let row"><button style="background-color:green;color:white;height:40px;width:100px" (click)="save(row)">Add</button></td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

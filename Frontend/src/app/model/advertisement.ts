@@ -8,7 +8,7 @@ export class Advertisement {
   model: string;
   brand: string;
   fuelType: FuelType;
-  transmissionType: TransmissionType;
+  transType: TransmissionType;
   carClass: CarClass;
   travelled: number;
   price: number;
