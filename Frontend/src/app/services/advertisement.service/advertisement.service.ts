@@ -20,5 +20,11 @@ const httpOptions = {
       this.requestUrl = '/server/advertisement/all';
       return this.http.get<Array<Advertisement>>(this.requestUrl, httpOptions);
       }
+
+      public addAd(advertisement :Advertisement){
+        const body = JSON.stringify(advertisement);
+        return this.http.post<Advertisement>('/server/advertisement/addAdv', body, httpOptions);
+        
+      }
   }
 

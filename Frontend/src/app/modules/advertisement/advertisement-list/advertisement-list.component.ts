@@ -5,7 +5,10 @@ import { MatTable } from '@angular/material/table';
 import { AdvertisementListDataSource, AdvertisementListItem } from './advertisement-list-datasource';
 import {Advertisement} from '../../../model/advertisement';
 
+
 import {AdvertisementService} from '../../../services/advertisement.service/advertisement.service';
+import { from } from 'rxjs';
+import { NavbarComponent } from 'src/app/navbar/navbar.component';
 
 
 @Component({
@@ -47,6 +50,8 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
     this.selected=advertisement;
     console.log(this.selected);
     console.log("Pogodi dugme")
+    this.advertisementService.addAd(this.selected).subscribe();
+
     
   }
 
