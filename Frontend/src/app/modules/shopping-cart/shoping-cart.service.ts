@@ -6,9 +6,9 @@ const httpOptions = {
     headers: new HttpHeaders({'Content-Type' : 'application/json'})
   };
 
-  @Injectable({
-    providedIn: 'root'
-  })
+
+  
+@Injectable()
   export class ShopingCartService {
     private requestUrl: string;
     constructor(private http: HttpClient) {}

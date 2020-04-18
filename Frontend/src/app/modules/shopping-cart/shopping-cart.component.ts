@@ -25,7 +25,7 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
   selected: Advertisement;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats',"button"];
+  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats',"checkbox","button"];
 
 
   constructor(private shopingCartService:ShopingCartService){}
