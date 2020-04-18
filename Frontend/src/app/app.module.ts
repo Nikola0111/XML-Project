@@ -18,6 +18,10 @@ import { AdvertisementService } from './services/advertisement.service/advertise
 import { AdvertisementListComponent } from './modules/advertisement/advertisement-list/advertisement-list.component';
 import { HomepageComponent } from './modules/home/homepage/homepage.component';
 import { LoginComponent } from './modules/home/login/login.component';
+import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
+import { ShopingCartService } from './modules/shopping-cart/shoping-cart.service';
+
+
 
 
 
@@ -31,7 +35,9 @@ import { LoginComponent } from './modules/home/login/login.component';
     LoginComponent,
 
     HomepageComponent,
-    AdvertisementListComponent
+    AdvertisementListComponent,
+    ShoppingCartComponent,
+    
 
 ],
   imports: [
@@ -49,6 +55,7 @@ import { LoginComponent } from './modules/home/login/login.component';
       { path: '', component: RegistracijaComponent },
       {path: 'app-advertisement', component: AdvertisementComponent},
       { path: 'advertisement-list', component: AdvertisementListComponent},
+      {path: 'shoppingCart' , component: ShoppingCartComponent}
 
     ]),
     AgmCoreModule.forRoot({
@@ -61,7 +68,7 @@ import { LoginComponent } from './modules/home/login/login.component';
 
   ],
   exports: [RouterModule],
-  providers: [AdvertisementService],
+  providers: [AdvertisementService,ShopingCartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

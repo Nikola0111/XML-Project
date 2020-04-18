@@ -54,6 +54,18 @@ public class AdvertisementController {
 			System.out.println(ad.getName());
 		}
         return new ResponseEntity<>(advertisements, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/forCart")
+    public ResponseEntity<List<Advertisement>> getAllForCart() {
+		
+	   
+		List<Advertisement> advertisements = shoppingCartService.fotCart();
+
+		System.out.println("pogodio je kontroler, broj oglasa vraca=="+advertisements.size());
+		
+        return new ResponseEntity<>(advertisements, HttpStatus.OK);
     }
+
 
 }
