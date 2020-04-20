@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {EndUser} from '../../../model/endUser';
-import {EndUserServiceService} from '../../service/EndUserService/end-user-service.service';
+import {EndUserServiceService} from '../../../services/EndUserService/end-user-service.service';
 
 @Component({
   selector: 'app-zahtevi-registracija',

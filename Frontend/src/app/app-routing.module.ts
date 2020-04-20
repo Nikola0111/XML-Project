@@ -9,6 +9,7 @@ import {AdministratorComponent} from './modules/administrator/home/administrator
 
 const routes: Routes = [
   { path: '', component: HomepageComponent},
+  { path: 'homepage', component: HomepageComponent},
   { path: 'administrator', component: AdministratorComponent},
   { path: 'advertisement', component: AdvertisementComponent},
   { path: 'app-advertisement-list', component: AdvertisementListComponent,

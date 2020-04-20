@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {User} from '../../../model/user';
+import {User} from '../../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class SessionService {
   isAdmin = false;
   /////////////////////////////// Uloge
   /////////////////////////////// Admin komponente
-  adminhome = true  ;
+  adminhome = true ;
   requests = false;
   /////////////////////////////// Admin komponente
   constructor() { }

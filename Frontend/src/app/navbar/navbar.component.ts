@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {SessionService} from '../modules/service/SessionService/session.service';
-import {UserType} from '../enums/UserType';
+import {SessionService} from '../services/SessionService/session.service';
+import { LoginService } from '../services/LoginService/login.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,9 +10,8 @@ import {UserType} from '../enums/UserType';
 })
 export class NavbarComponent implements OnInit {
 
-  isAdmin = false;
-
-  constructor(private sessionService: SessionService) {
+  constructor(private sessionService: SessionService, private loginService: LoginService, private router: Router) {
+    console.log(this.sessionService.isAdmin);
   }
 
   ngOnInit() {
@@ -37,5 +37,13 @@ export class NavbarComponent implements OnInit {
   showHome() {
     this.sessionService.adminhome = true;
     this.sessionService.requests = false;
+  }
+
+  logOut() {
+    this.sessionService.ulogovaniKorisnik = undefined;
+    console.log(this.sessionService.ulogovaniKorisnik);
+    this.sessionService.isAdmin = false;
+    this.router.navigate(['']);
+    this.loginService.logOut().subscribe();
   }
 }

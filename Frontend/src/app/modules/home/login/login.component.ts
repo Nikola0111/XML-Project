@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {LoginService} from '../../service/LoginService/login.service';
+import {LoginService} from '../../../services/LoginService/login.service';
 import {User} from '../../../model/user';
-import {SessionService} from '../../service/SessionService/session.service';
+import {SessionService} from '../../../services/SessionService/session.service';
 import {Router} from '@angular/router';
 import {UserType} from '../../../enums/UserType';
 
@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
         if (data.userType.toString() === 'ADMINISTRATOR') {
           console.log('administrator je');
           this.sessionService.isAdmin = true;
+          console.log(this.sessionService.isAdmin + ' Admin registrovan');
           this.router.navigate(['/administrator']);
         }
       },

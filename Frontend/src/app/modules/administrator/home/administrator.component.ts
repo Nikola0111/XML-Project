@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SessionService} from '../../service/SessionService/session.service';
+import {SessionService} from '../../../services/SessionService/session.service';
 
 @Component({
   selector: 'app-administrator',

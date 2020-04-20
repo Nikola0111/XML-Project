@@ -18,10 +18,13 @@ import { AdvertisementService } from './services/advertisement.service/advertise
 import { AdvertisementListComponent } from './modules/advertisement/advertisement-list/advertisement-list.component';
 import { HomepageComponent } from './modules/home/homepage/homepage.component';
 import { LoginComponent } from './modules/home/login/login.component';
-import {MatFormFieldModule} from '@angular/material';
+import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
+import { ShopingCartService } from './modules/shopping-cart/shoping-cart.service';
+import { MatFormFieldModule } from '@angular/material';
 import { AdministratorComponent } from './modules/administrator/home/administrator.component';
 import { ZahteviRegistracijaComponent } from './modules/administrator/zahtevi-registracija/zahtevi-registracija.component';
 import { CommonModule } from '@angular/common';
+
 
 
 @NgModule({
@@ -36,7 +39,8 @@ import { CommonModule } from '@angular/common';
     HomepageComponent,
     AdvertisementListComponent,
     AdministratorComponent,
-    ZahteviRegistracijaComponent
+    ZahteviRegistracijaComponent,
+    ShoppingCartComponent
 
 ],
   imports: [
@@ -46,14 +50,14 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    CommonModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatFormFieldModule,
-    CommonModule
+    MatFormFieldModule
   ],
   exports: [RouterModule],
-  providers: [AdvertisementService],
+  providers: [AdvertisementService, ShopingCartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
