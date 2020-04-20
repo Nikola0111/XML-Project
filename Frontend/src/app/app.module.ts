@@ -20,7 +20,7 @@ import { HomepageComponent } from './modules/home/homepage/homepage.component';
 import { LoginComponent } from './modules/home/login/login.component';
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
 import { ShopingCartService } from './modules/shopping-cart/shoping-cart.service';
-
+import {MatFormFieldModule} from '@angular/material';
 
 
 
@@ -52,10 +52,14 @@ import { ShopingCartService } from './modules/shopping-cart/shoping-cart.service
     MatSortModule,
     RouterModule.forRoot([
 
-      { path: '', component: RegistracijaComponent },
+      {path: '', component: RegistracijaComponent},
       {path: 'app-advertisement', component: AdvertisementComponent},
+
       { path: 'advertisement-list', component: AdvertisementListComponent},
       {path: 'shoppingCart' , component: ShoppingCartComponent}
+
+      {path: 'advertisement-list', component: AdvertisementListComponent},
+
 
     ]),
     AgmCoreModule.forRoot({
@@ -64,7 +68,8 @@ import { ShopingCartService } from './modules/shopping-cart/shoping-cart.service
     }),
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatFormFieldModule
 
   ],
   exports: [RouterModule],
