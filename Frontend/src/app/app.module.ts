@@ -21,7 +21,9 @@ import { LoginComponent } from './modules/home/login/login.component';
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
 import { ShopingCartService } from './modules/shopping-cart/shoping-cart.service';
 import {MatFormFieldModule} from '@angular/material';
-
+import { AdministratorComponent } from './modules/administrator/home/administrator.component';
+import { ZahteviRegistracijaComponent } from './modules/administrator/zahtevi-registracija/zahtevi-registracija.component';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -31,14 +33,12 @@ import {MatFormFieldModule} from '@angular/material';
     NavbarComponent,
     RegistracijaComponent,
     AdvertisementComponent,
-
     LoginComponent,
-
     HomepageComponent,
     AdvertisementListComponent,
-    ShoppingCartComponent,
-    
-
+    AdministratorComponent,
+    ZahteviRegistracijaComponent,
+    ShoppingCartComponent
 ],
   imports: [
     BrowserModule,
@@ -47,19 +47,14 @@ import {MatFormFieldModule} from '@angular/material';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
+    CommonModule,
     RouterModule.forRoot([
-
       {path: '', component: RegistracijaComponent},
+      {path: 'homepage', component: HomepageComponent},
       {path: 'app-advertisement', component: AdvertisementComponent},
-
-      { path: 'advertisement-list', component: AdvertisementListComponent},
+      {path: 'advertisement-list', component: AdvertisementListComponent},
+      {path: 'administrator', component: AdministratorComponent},
       {path: 'shoppingCart' , component: ShoppingCartComponent}
-
-      
-
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -72,7 +67,7 @@ import {MatFormFieldModule} from '@angular/material';
 
   ],
   exports: [RouterModule],
-  providers: [AdvertisementService,ShopingCartService],
+  providers: [AdvertisementService, ShopingCartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

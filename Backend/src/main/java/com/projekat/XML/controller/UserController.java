@@ -44,12 +44,10 @@ public class UserController {
     }
 
     @GetMapping(value = "/logout")
-    public ResponseEntity<String> getAllForCart() {
-		
-	   userService.logOut();
-		
-		
-        return new ResponseEntity<>("Izlogovan", HttpStatus.OK);
+    public ResponseEntity getAllForCart() {
+	    userService.logOut();
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

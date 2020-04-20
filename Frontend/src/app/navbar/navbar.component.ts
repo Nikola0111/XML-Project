@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {SessionService} from '../modules/service/SessionService/session.service';
-import { LoginService } from '../modules/service/LoginService/login.service';
+import {Component, OnInit} from '@angular/core';
+import {SessionService} from '../services/SessionService/session.service';
+import { LoginService } from '../services/LoginService/login.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,10 +10,8 @@ import { LoginService } from '../modules/service/LoginService/login.service';
 })
 export class NavbarComponent implements OnInit {
 
- 
-
-  constructor(private sessionService: SessionService,private loginService:LoginService) { 
-    
+  constructor(private sessionService: SessionService, private loginService: LoginService, private router: Router) {
+    console.log(this.sessionService.isAdmin);
   }
 
   ngOnInit() {
@@ -30,10 +29,21 @@ export class NavbarComponent implements OnInit {
     this.sessionService.login  = true;
   }
 
-  logOut(){
-    this.loginService.logOut().subscribe();
+  showRequests() {
+    this.sessionService.requests = true;
+    this.sessionService.adminhome = false;
   }
 
+  showHome() {
+    this.sessionService.adminhome = true;
+    this.sessionService.requests = false;
+  }
 
-
+  logOut() {
+    this.sessionService.ulogovaniKorisnik = undefined;
+    console.log(this.sessionService.ulogovaniKorisnik);
+    this.sessionService.isAdmin = false;
+    this.router.navigate(['']);
+    this.loginService.logOut().subscribe();
+  }
 }

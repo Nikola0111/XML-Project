@@ -9,6 +9,10 @@ import com.projekat.XML.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class EndUserService {
 
@@ -33,5 +37,28 @@ public class EndUserService {
 
     public User findByJmbg(String jmbg){
         return userRepository.findByJmbg(jmbg);
+    }
+
+    public List<EndUser> getUnregistered(){ return endUserRepository.findByActivity(false); }
+
+    @Transactional
+    public void acceptRegistration(Long id){
+        Optional opt = endUserRepository.findById(id);
+
+        if(opt.isPresent()){
+            EndUser endUser = (EndUser) opt.get();
+
+            endUser.setAccount_activated(true);
+            endUserRepository.save(endUser);
+        }
+    }
+
+    @Transactional
+    public void rejectRegistration(Long id){
+        Optional opt = endUserRepository.findById(id);
+
+        if(opt.isPresent()){
+            endUserRepository.delete((EndUser) opt.get());
+        }
     }
 }
