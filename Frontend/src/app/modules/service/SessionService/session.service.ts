@@ -10,5 +10,12 @@ export class SessionService {
   register: boolean;
   ulogovaniKorisnik: User;
   /////////////////////////////// Registracija i login
+  /////////////////////////////// Uloge
+  isAdmin = false;
+  /////////////////////////////// Uloge
+  /////////////////////////////// Admin komponente
+  adminhome = true  ;
+  requests = false;
+  /////////////////////////////// Admin komponente
   constructor() { }
 }

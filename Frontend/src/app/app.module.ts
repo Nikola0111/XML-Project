@@ -19,7 +19,9 @@ import { AdvertisementListComponent } from './modules/advertisement/advertisemen
 import { HomepageComponent } from './modules/home/homepage/homepage.component';
 import { LoginComponent } from './modules/home/login/login.component';
 import {MatFormFieldModule} from '@angular/material';
-
+import { AdministratorComponent } from './modules/administrator/home/administrator.component';
+import { ZahteviRegistracijaComponent } from './modules/administrator/zahtevi-registracija/zahtevi-registracija.component';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import {MatFormFieldModule} from '@angular/material';
     LoginComponent,
 
     HomepageComponent,
-    AdvertisementListComponent
+    AdvertisementListComponent,
+    AdministratorComponent,
+    ZahteviRegistracijaComponent
 
 ],
   imports: [
@@ -45,22 +49,8 @@ import {MatFormFieldModule} from '@angular/material';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    RouterModule.forRoot([
-
-      {path: '', component: RegistracijaComponent},
-      {path: 'app-advertisement', component: AdvertisementComponent},
-      {path: 'advertisement-list', component: AdvertisementListComponent},
-
-    ]),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
-      libraries: ['places']
-    }),
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatFormFieldModule
-
+    MatFormFieldModule,
+    CommonModule
   ],
   exports: [RouterModule],
   providers: [AdvertisementService],

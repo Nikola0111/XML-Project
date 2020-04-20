@@ -4,10 +4,12 @@ import { RegistracijaComponent } from './modules/home/registracija/registracija.
 import { AdvertisementComponent } from './modules/advertisement/advertisement.component';
 import {HomepageComponent} from './modules/home/homepage/homepage.component';
 import {AdvertisementListComponent} from './modules/advertisement/advertisement-list/advertisement-list.component';
+import {AdministratorComponent} from './modules/administrator/home/administrator.component';
 
 
 const routes: Routes = [
   { path: '', component: HomepageComponent},
+  { path: 'administrator', component: AdministratorComponent},
   { path: 'advertisement', component: AdvertisementComponent},
   { path: 'app-advertisement-list', component: AdvertisementListComponent,
     children: [

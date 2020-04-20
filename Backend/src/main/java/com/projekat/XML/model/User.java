@@ -1,5 +1,7 @@
 package com.projekat.XML.model;
 
+import com.projekat.XML.enums.UserType;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,7 +20,7 @@ public class User {
     private String surname;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "login_info", referencedColumnName = "username")
+    @JoinColumn(name = "login_info", referencedColumnName = "id")
     private LoginInfo loginInfo;
 
     @Column(name = "jmbg", unique = true, nullable = false)
@@ -27,12 +29,16 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    public User(String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber) {
+    @Column(name = "user_type")
+    private UserType userType;
+
+    public User(String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber, UserType ut) {
         this.name = name;
         this.surname = surname;
         this.loginInfo = loginInfo;
         this.jmbg = jmbg;
         this.phoneNumber = phoneNumber;
+        this.userType = ut;
     }
 
     public User() {
@@ -87,4 +93,11 @@ public class User {
         this.id = id;
     }
 
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
 }

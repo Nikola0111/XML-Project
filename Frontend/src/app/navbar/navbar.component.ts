@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SessionService} from '../modules/service/SessionService/session.service';
+import {UserType} from '../enums/UserType';
 
 @Component({
   selector: 'app-navbar',
@@ -8,10 +9,9 @@ import {SessionService} from '../modules/service/SessionService/session.service'
 })
 export class NavbarComponent implements OnInit {
 
- 
+  isAdmin = false;
 
-  constructor(private sessionService: SessionService) { 
-    
+  constructor(private sessionService: SessionService) {
   }
 
   ngOnInit() {
@@ -29,6 +29,13 @@ export class NavbarComponent implements OnInit {
     this.sessionService.login  = true;
   }
 
+  showRequests() {
+    this.sessionService.requests = true;
+    this.sessionService.adminhome = false;
+  }
 
-
+  showHome() {
+    this.sessionService.adminhome = true;
+    this.sessionService.requests = false;
+  }
 }

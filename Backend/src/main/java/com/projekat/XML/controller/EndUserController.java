@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.print.attribute.standard.Media;
+import java.util.List;
 
 
 @RestController
@@ -42,8 +42,30 @@ public class EndUserController {
             return new ResponseEntity<>("jmbg", HttpStatus.BAD_REQUEST);
         }
 
-        endUser.setBroj_zahteva(0);
+        endUser.setNumber_of_requests(0);
+        endUser.setAccount_activated(false);
         endUserService.save(endUser);
         return new ResponseEntity<>("ok", HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getUnregistered", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EndUser>> getUnregistered(){
+        List<EndUser> users = endUserService.getUnregistered();
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/accept", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> acceptRegistration(@RequestBody Long id){
+        endUserService.acceptRegistration(id);
+
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/reject", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> rejectRegistration(@RequestBody Long id){
+        endUserService.rejectRegistration(id);
+
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }
