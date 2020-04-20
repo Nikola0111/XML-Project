@@ -58,8 +58,7 @@ import {MatFormFieldModule} from '@angular/material';
       { path: 'advertisement-list', component: AdvertisementListComponent},
       {path: 'shoppingCart' , component: ShoppingCartComponent}
 
-      {path: 'advertisement-list', component: AdvertisementListComponent},
-
+      
 
     ]),
     AgmCoreModule.forRoot({
