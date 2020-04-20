@@ -5,6 +5,7 @@ import { MatTable } from '@angular/material/table';
 import { ShoppingCartDataSource, ShoppingCartItem } from './shopping-cart-datasource';
 import { Advertisement } from 'src/app/model/advertisement';
 import { ShopingCartService } from './shoping-cart.service';
+import { AdvertisementInCart } from 'src/app/model/advertisementInCart';
 
 
 
@@ -20,12 +21,13 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
   @ViewChild(MatTable, {static: false}) table: MatTable<ShoppingCartItem>;
   dataSource: ShoppingCartDataSource;
 
-  advertisements: Advertisement[];
-  dialogData: Advertisement;
-  selected: Advertisement;
+  advertisements: AdvertisementInCart[];
+  dialogData: AdvertisementInCart;
+  selected: AdvertisementInCart;
+  sameOwner: AdvertisementInCart[];
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats',"checkbox","button"];
+  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass','owner', "checkbox","button"];
 
 
   constructor(private shopingCartService:ShopingCartService){}
@@ -35,10 +37,31 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
     this.shopingCartService.getAllForCart().subscribe(
       data => {
         this.advertisements = data;
-        this.dataSource = new ShoppingCartDataSource(this.advertisements);
+        this.sameOwner= data;
+
+        this.sameOwner.forEach(same => {
+          
+            this.advertisements.forEach(element => {
+              
+              if(same.id!=element.id){
+
+              if(same.postedBy.jmbg===element.postedBy.jmbg){
+                same.owner=true;
+              }
+              
+            
+            }
+
+            });
+
+        });
+        
+
+        this.dataSource = new ShoppingCartDataSource(this.sameOwner);
       }
       
     );
+
     
   }
 
