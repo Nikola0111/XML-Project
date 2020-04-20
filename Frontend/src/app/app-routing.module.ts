@@ -17,9 +17,6 @@ const routes: Routes = [
       { path: 'advertisement', component: AdvertisementComponent}
     ]
   }
-
-
-
 ];
 
 @NgModule({

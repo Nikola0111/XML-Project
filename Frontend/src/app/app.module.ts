@@ -20,7 +20,7 @@ import { HomepageComponent } from './modules/home/homepage/homepage.component';
 import { LoginComponent } from './modules/home/login/login.component';
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
 import { ShopingCartService } from './modules/shopping-cart/shoping-cart.service';
-import { MatFormFieldModule } from '@angular/material';
+import {MatFormFieldModule} from '@angular/material';
 import { AdministratorComponent } from './modules/administrator/home/administrator.component';
 import { ZahteviRegistracijaComponent } from './modules/administrator/zahtevi-registracija/zahtevi-registracija.component';
 import { CommonModule } from '@angular/common';
@@ -33,15 +33,12 @@ import { CommonModule } from '@angular/common';
     NavbarComponent,
     RegistracijaComponent,
     AdvertisementComponent,
-
     LoginComponent,
-
     HomepageComponent,
     AdvertisementListComponent,
     AdministratorComponent,
     ZahteviRegistracijaComponent,
     ShoppingCartComponent
-
 ],
   imports: [
     BrowserModule,
@@ -51,10 +48,23 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
+    RouterModule.forRoot([
+      {path: '', component: RegistracijaComponent},
+      {path: 'homepage', component: HomepageComponent},
+      {path: 'app-advertisement', component: AdvertisementComponent},
+      {path: 'advertisement-list', component: AdvertisementListComponent},
+      {path: 'administrator', component: AdministratorComponent},
+      {path: 'shoppingCart' , component: ShoppingCartComponent}
+    ]),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
+      libraries: ['places']
+    }),
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule
+
   ],
   exports: [RouterModule],
   providers: [AdvertisementService, ShopingCartService],
