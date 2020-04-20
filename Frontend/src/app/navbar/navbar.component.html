@@ -26,7 +26,7 @@
             <li><a [routerLink]="['/advertisement-list']">Advertisement List</a></li>
             <li><a [routerLink]="['/advertisement']">DodajOglas</a></li>
             
-            <li> <a href="#">
+            <li> <a [routerLink]="['/shoppingCart']">
               <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart
             </a></li>
             <li><a href="#">Contact Us</a></li>
@@ -46,6 +46,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li (click)="showRegister()" ><a href="#"><span class="glyphicon glyphicon-user"></span> Register</a></li>
             <li (click)="showLogin()" ><a href="#"><span class="fa fa-sign-in "></span> Sign up</a></li>
+            <li (click)="logOut()" ><a href="#"><span class="fa fa-sign-out "></span> Sign out</a></li>
           </ul>
         </div>
       </div>

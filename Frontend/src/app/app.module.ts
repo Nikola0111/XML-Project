@@ -18,7 +18,10 @@ import { AdvertisementService } from './services/advertisement.service/advertise
 import { AdvertisementListComponent } from './modules/advertisement/advertisement-list/advertisement-list.component';
 import { HomepageComponent } from './modules/home/homepage/homepage.component';
 import { LoginComponent } from './modules/home/login/login.component';
+import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
+import { ShopingCartService } from './modules/shopping-cart/shoping-cart.service';
 import {MatFormFieldModule} from '@angular/material';
+
 
 
 
@@ -32,7 +35,9 @@ import {MatFormFieldModule} from '@angular/material';
     LoginComponent,
 
     HomepageComponent,
-    AdvertisementListComponent
+    AdvertisementListComponent,
+    ShoppingCartComponent,
+    
 
 ],
   imports: [
@@ -49,7 +54,12 @@ import {MatFormFieldModule} from '@angular/material';
 
       {path: '', component: RegistracijaComponent},
       {path: 'app-advertisement', component: AdvertisementComponent},
+
+      { path: 'advertisement-list', component: AdvertisementListComponent},
+      {path: 'shoppingCart' , component: ShoppingCartComponent}
+
       {path: 'advertisement-list', component: AdvertisementListComponent},
+
 
     ]),
     AgmCoreModule.forRoot({
@@ -63,7 +73,7 @@ import {MatFormFieldModule} from '@angular/material';
 
   ],
   exports: [RouterModule],
-  providers: [AdvertisementService],
+  providers: [AdvertisementService,ShopingCartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
