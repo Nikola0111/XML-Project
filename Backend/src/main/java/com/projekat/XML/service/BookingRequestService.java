@@ -146,6 +146,31 @@ public class BookingRequestService {
         
     }
 
+
+    public List<BookingRequest> getAllForRenter(){
+       
+    
+    
+        return bookingRequestRepository.findByUserForId(getLogedUserId());
+    }
+
+    public List<Long> getGroupsForRequest (){
+        List<Long> group=new ArrayList<Long>();
+
+        for (BookingRequest bookingRequest : bookingRequestRepository.findByUserForId(getLogedUserId())) {
+            
+            if(!group.contains(bookingRequest.getGroupId())){
+
+                group.add(bookingRequest.getGroupId());
+
+            }
+        }
+
+        return group;
+
+
+    }
+
     public Long getLogedUserId(){
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession(true);

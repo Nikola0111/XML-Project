@@ -24,6 +24,8 @@ import {MatFormFieldModule} from '@angular/material';
 import { AdministratorComponent } from './modules/administrator/home/administrator.component';
 import { ZahteviRegistracijaComponent } from './modules/administrator/zahtevi-registracija/zahtevi-registracija.component';
 import { CommonModule } from '@angular/common';
+import { RepresentRequestsComponent } from './modules/repsresent-requests/repsresent-requests.component';
+import { RepresentRequestsService } from './modules/repsresent-requests/represent-requests.service';
 
 
 
@@ -38,7 +40,8 @@ import { CommonModule } from '@angular/common';
     AdvertisementListComponent,
     AdministratorComponent,
     ZahteviRegistracijaComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    RepresentRequestsComponent
 ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { CommonModule } from '@angular/common';
       {path: 'app-advertisement', component: AdvertisementComponent},
       {path: 'advertisement-list', component: AdvertisementListComponent},
       {path: 'administrator', component: AdministratorComponent},
-      {path: 'shoppingCart' , component: ShoppingCartComponent}
+      {path: 'shoppingCart' , component: ShoppingCartComponent},
+      {path: 'requests', component:RepresentRequestsComponent}
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -67,7 +71,7 @@ import { CommonModule } from '@angular/common';
 
   ],
   exports: [RouterModule],
-  providers: [AdvertisementService, ShopingCartService],
+  providers: [AdvertisementService, ShopingCartService, RepresentRequestsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
