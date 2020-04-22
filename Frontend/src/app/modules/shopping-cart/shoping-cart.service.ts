@@ -20,5 +20,12 @@ const httpOptions = {
       return this.http.get<Array<AdvertisementInCart>>(this.requestUrl, httpOptions);
       }
 
+      
+      public sentRequests(advertisements :Advertisement[]){
+        const body = JSON.stringify(advertisements);
+        return this.http.post<Advertisement[]>('/server/booking/save', body, httpOptions);
+        
+      }
+
   }
 

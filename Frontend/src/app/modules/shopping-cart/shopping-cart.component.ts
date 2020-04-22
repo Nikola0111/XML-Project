@@ -27,7 +27,7 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
   sameOwner: AdvertisementInCart[];
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass','owner', "checkbox","button"];
+  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass','owner', "checkbox"];
 
 
   constructor(private shopingCartService:ShopingCartService){}
@@ -40,6 +40,7 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
         this.sameOwner= data;
 
         this.sameOwner.forEach(same => {
+            
           
             this.advertisements.forEach(element => {
               
@@ -65,7 +66,14 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
     
   }
 
+  sendRequest(){
+    console.log("Pogodio dugme u ts");
+    this.shopingCartService.sentRequests(this.sameOwner).subscribe();
+
+  }
+
   
+
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
