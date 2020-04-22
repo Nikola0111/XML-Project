@@ -78,16 +78,25 @@ public class BookingRequestService {
            BookingRequest request=bookingRequestRepository.findTopByOrderByIdDesc();
            Long lastGroupId;
          
+           System.out.println(request);
             
-            try{
-                lastGroupId=request.getGroupId();
-               
+            if(request==null){
+                lastGroupId=Long.valueOf(0);
 
             }
-            catch(Exception e){
-                lastGroupId=Long.valueOf(0);
-              
+            else{
+                lastGroupId=request.getGroupId();
             }
+
+            // try{
+            //     lastGroupId=request.getGroupId();
+               
+
+            // }
+            // catch(Exception e){
+            //     lastGroupId=Long.valueOf(0);
+              
+            // }
 
            
 

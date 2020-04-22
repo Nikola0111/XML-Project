@@ -40,6 +40,7 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
         this.sameOwner= data;
 
         this.sameOwner.forEach(same => {
+            
           
             this.advertisements.forEach(element => {
               
@@ -72,6 +73,7 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
   }
 
   
+
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;

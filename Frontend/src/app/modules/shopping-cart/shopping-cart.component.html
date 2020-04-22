@@ -46,7 +46,7 @@
 
     <ng-container  matColumnDef="checkbox">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Send Solo Request</th>
-      <td mat-cell *matCellDef="let row">  <input *ngIf="row.owner==true" type="checkbox" id="solo" name="solo" value="solo"></td>
+      <td mat-cell *matCellDef="let row">  <input *ngIf="row.owner==true" type="checkbox"  [(ngModel)]="row.together" id="checkBox" name="checkBox"></td>
     </ng-container>
 
 

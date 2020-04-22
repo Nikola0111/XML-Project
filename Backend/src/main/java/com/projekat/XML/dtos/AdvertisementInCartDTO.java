@@ -50,6 +50,7 @@ public class AdvertisementInCartDTO {
         this.postedBy=user;
         this.owner=owner;
         this.together=together;
+        
     }
 
     public AdvertisementInCartDTO(Advertisement ad)
