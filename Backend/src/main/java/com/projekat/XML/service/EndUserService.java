@@ -41,8 +41,14 @@ public class EndUserService {
 
     public List<EndUser> getUnregistered(){ return endUserRepository.findByActivity(false); }
 
+    public List<EndUser> getAdminUnregistered(){ return endUserRepository.findByAdminApproved(false); }
+
+    public EndUser findById(Long id){
+        return endUserRepository.findById(id).get();
+    }
+
     @Transactional
-    public void acceptRegistration(Long id){
+    public EndUser acceptRegistration(Long id){
         Optional opt = endUserRepository.findById(id);
 
         if(opt.isPresent()){
@@ -50,7 +56,27 @@ public class EndUserService {
 
             endUser.setAccount_activated(true);
             endUserRepository.save(endUser);
+
+            return endUser;
         }
+
+        return null;
+    }
+
+    @Transactional
+    public EndUser changeAdminActivated(Long id){
+        Optional opt = endUserRepository.findById(id);
+
+        if(opt.isPresent()){
+            EndUser endUser = (EndUser) opt.get();
+
+            endUser.setAdminApproved(true);
+            endUserRepository.save(endUser);
+
+            return endUser;
+        }
+
+        return null;
     }
 
     @Transactional
