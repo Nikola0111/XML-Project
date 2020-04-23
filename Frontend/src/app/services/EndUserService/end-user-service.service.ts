@@ -17,6 +17,10 @@ export class EndUserServiceService {
     return this.http.get<EndUser[]>('server/enduser/getUnregistered', httpOptions);
   }
 
+  public getAdminUnregistered(){
+    return this.http.get<EndUser[]>('server/enduser/getAdminUnregistered', httpOptions);
+  }
+
   public confirm(id: number){
     return this.http.post<string>('server/enduser/accept', id, httpOptions);
   }

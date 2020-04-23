@@ -24,6 +24,7 @@ import {MatFormFieldModule} from '@angular/material';
 import { AdministratorComponent } from './modules/administrator/home/administrator.component';
 import { ZahteviRegistracijaComponent } from './modules/administrator/zahtevi-registracija/zahtevi-registracija.component';
 import { CommonModule } from '@angular/common';
+import { RegisterConfirmComponent } from './modules/home/register-confirm/register-confirm.component';
 
 
 
@@ -38,7 +39,8 @@ import { CommonModule } from '@angular/common';
     AdvertisementListComponent,
     AdministratorComponent,
     ZahteviRegistracijaComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    RegisterConfirmComponent
 ],
   imports: [
     BrowserModule,
@@ -49,6 +51,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     CommonModule,
     RouterModule.forRoot([
+      {path: 'registrationConfirm.html', component: RegisterConfirmComponent},
       {path: '', component: RegistracijaComponent},
       {path: 'homepage', component: HomepageComponent},
       {path: 'app-advertisement', component: AdvertisementComponent},

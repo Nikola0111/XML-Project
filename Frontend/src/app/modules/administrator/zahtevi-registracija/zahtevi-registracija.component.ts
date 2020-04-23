@@ -10,11 +10,10 @@ import {EndUserServiceService} from '../../../services/EndUserService/end-user-s
 export class ZahteviRegistracijaComponent implements OnInit {
   endusers: EndUser[];
   constructor(private endUserService: EndUserServiceService) {
-    this.endUserService.getUnregistered().subscribe(data =>
-      {
+    this.endUserService.getAdminUnregistered().subscribe(data => {
         this.endusers = data;
-        console.log(this.endusers);}
-    );
+        console.log(this.endusers);
+    });
   }
 
   ngOnInit() {
@@ -23,13 +22,13 @@ export class ZahteviRegistracijaComponent implements OnInit {
 
   accept(endUser: EndUser){
     this.endUserService.confirm(endUser.id).subscribe(data => {
-      this.endUserService.getUnregistered().subscribe(newData => this.endusers = newData);
+      this.endUserService.getAdminUnregistered().subscribe(newData => this.endusers = newData);
     });
   }
 
   reject(endUser: EndUser){
     this.endUserService.reject(endUser.id).subscribe(data => {
-      this.endUserService.getUnregistered().subscribe(newData => this.endusers = newData);
+      this.endUserService.getAdminUnregistered().subscribe(newData => this.endusers = newData);
     });
   }
 
