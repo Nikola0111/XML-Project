@@ -24,7 +24,10 @@ import {MatFormFieldModule} from '@angular/material';
 import { AdministratorComponent } from './modules/administrator/home/administrator.component';
 import { ZahteviRegistracijaComponent } from './modules/administrator/zahtevi-registracija/zahtevi-registracija.component';
 import { CommonModule } from '@angular/common';
+import { RepresentRequestsComponent } from './modules/repsresent-requests/repsresent-requests.component';
+import { RepresentRequestsService } from './modules/repsresent-requests/represent-requests.service';
 import { RegisterConfirmComponent } from './modules/home/register-confirm/register-confirm.component';
+
 
 
 
@@ -40,7 +43,9 @@ import { RegisterConfirmComponent } from './modules/home/register-confirm/regist
     AdministratorComponent,
     ZahteviRegistracijaComponent,
     ShoppingCartComponent,
+    RepresentRequestsComponent,
     RegisterConfirmComponent
+
 ],
   imports: [
     BrowserModule,
@@ -57,7 +62,8 @@ import { RegisterConfirmComponent } from './modules/home/register-confirm/regist
       {path: 'app-advertisement', component: AdvertisementComponent},
       {path: 'advertisement-list', component: AdvertisementListComponent},
       {path: 'administrator', component: AdministratorComponent},
-      {path: 'shoppingCart' , component: ShoppingCartComponent}
+      {path: 'shoppingCart' , component: ShoppingCartComponent},
+      {path: 'requests', component:RepresentRequestsComponent}
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -70,7 +76,7 @@ import { RegisterConfirmComponent } from './modules/home/register-confirm/regist
 
   ],
   exports: [RouterModule],
-  providers: [AdvertisementService, ShopingCartService],
+  providers: [AdvertisementService, ShopingCartService, RepresentRequestsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
