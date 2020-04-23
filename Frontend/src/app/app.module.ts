@@ -9,7 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { NavbarComponent } from './navbar/navbar.component';
-import { RegistracijaComponent } from './modules/home/registracija/registracija.component';
+import { RegistracijaComponent } from './modules/home/register_users/registracija.component';
 import {RouterModule} from '@angular/router';
 import { AgmCoreModule} from '@agm/core';
 import { AdvertisementComponent } from './modules/advertisement/advertisement.component';
@@ -27,6 +27,7 @@ import { CommonModule } from '@angular/common';
 import { RepresentRequestsComponent } from './modules/repsresent-requests/repsresent-requests.component';
 import { RepresentRequestsService } from './modules/repsresent-requests/represent-requests.service';
 import { RegisterConfirmComponent } from './modules/home/register-confirm/register-confirm.component';
+import { AgentRegisterComponent } from './modules/administrator/agent-register/agent-register.component';
 
 
 
@@ -44,7 +45,8 @@ import { RegisterConfirmComponent } from './modules/home/register-confirm/regist
     ZahteviRegistracijaComponent,
     ShoppingCartComponent,
     RepresentRequestsComponent,
-    RegisterConfirmComponent
+    RegisterConfirmComponent,
+    AgentRegisterComponent
 
 ],
   imports: [

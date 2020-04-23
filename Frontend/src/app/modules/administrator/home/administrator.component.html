@@ -32,6 +32,7 @@
     </div>
 
     <app-zahtevi-registracija *ngIf="sessionService.requests"></app-zahtevi-registracija>
+    <app-agent-register style = "margin-top: -30%" *ngIf="sessionService.agentreg"></app-agent-register>
     <div *ngIf="sessionService.adminhome" class = "content">
       Nesto
     </div>

@@ -28,16 +28,25 @@ export class NavbarComponent implements OnInit {
     this.sessionService.register  = false;
     this.sessionService.login  = true;
   }
-
+  //Admin components
   showRequests() {
     this.sessionService.requests = true;
     this.sessionService.adminhome = false;
+    this.sessionService.agentreg = false;
   }
 
   showHome() {
     this.sessionService.adminhome = true;
     this.sessionService.requests = false;
+    this.sessionService.agentreg = false;
   }
+
+  showAgentReg(){
+    this.sessionService.adminhome = false;
+    this.sessionService.requests = false;
+    this.sessionService.agentreg = true;
+  }
+  //Admin components
 
   logOut() {
     this.sessionService.ulogovaniKorisnik = undefined;
