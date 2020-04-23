@@ -14,8 +14,9 @@ export class SessionService {
   isAdmin = false;
   /////////////////////////////// Uloge
   /////////////////////////////// Admin komponente
-  adminhome = true ;
+  adminhome = true;
   requests = false;
+  agentreg = false;
   /////////////////////////////// Admin komponente
   constructor() { }
 }

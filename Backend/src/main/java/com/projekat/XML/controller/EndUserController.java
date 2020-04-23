@@ -4,25 +4,20 @@ import com.projekat.XML.model.EndUser;
 import com.projekat.XML.model.LoginInfo;
 import com.projekat.XML.model.User;
 import com.projekat.XML.model.VerificationToken;
-import com.projekat.XML.repository.VerificationTokenRepository;
 import com.projekat.XML.service.EndUserService;
 import com.projekat.XML.service.MailSenderService;
 import com.projekat.XML.service.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.context.request.WebRequest;
 
 import javax.print.attribute.standard.Media;
 import java.util.List;
-import java.util.Properties;
+
 import java.util.UUID;
 
 
