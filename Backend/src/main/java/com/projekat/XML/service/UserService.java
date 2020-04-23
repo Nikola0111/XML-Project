@@ -42,4 +42,6 @@ public class UserService {
         session.invalidate();
         System.out.println("Izlogovao se");
     }
+
+
 }

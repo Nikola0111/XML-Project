@@ -21,10 +21,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    
-
-    
-
     @PostMapping(value = "/login", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> Login(@RequestBody User user){
 

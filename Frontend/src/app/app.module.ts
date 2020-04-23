@@ -26,6 +26,8 @@ import { ZahteviRegistracijaComponent } from './modules/administrator/zahtevi-re
 import { CommonModule } from '@angular/common';
 import { RepresentRequestsComponent } from './modules/repsresent-requests/repsresent-requests.component';
 import { RepresentRequestsService } from './modules/repsresent-requests/represent-requests.service';
+import { RegisterConfirmComponent } from './modules/home/register-confirm/register-confirm.component';
+
 
 
 
@@ -41,7 +43,9 @@ import { RepresentRequestsService } from './modules/repsresent-requests/represen
     AdministratorComponent,
     ZahteviRegistracijaComponent,
     ShoppingCartComponent,
-    RepresentRequestsComponent
+    RepresentRequestsComponent,
+    RegisterConfirmComponent
+
 ],
   imports: [
     BrowserModule,
@@ -52,6 +56,7 @@ import { RepresentRequestsService } from './modules/repsresent-requests/represen
     FormsModule,
     CommonModule,
     RouterModule.forRoot([
+      {path: 'registrationConfirm.html', component: RegisterConfirmComponent},
       {path: '', component: RegistracijaComponent},
       {path: 'homepage', component: HomepageComponent},
       {path: 'app-advertisement', component: AdvertisementComponent},
