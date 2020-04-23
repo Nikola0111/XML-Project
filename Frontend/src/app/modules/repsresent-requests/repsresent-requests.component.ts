@@ -10,6 +10,7 @@ import { BookingRequest } from 'src/app/model/requests/bookingRequest';
 export class RepresentRequestsComponent implements OnInit {
   groups: number[];
   requests: BookingRequest[];
+  napravioJedan: number;
 
 
   constructor(private representRequestsService:RepresentRequestsService) { }
@@ -26,10 +27,14 @@ export class RepresentRequestsComponent implements OnInit {
     this.representRequestsService.getAllRequests().subscribe(
       data => {
         this.requests = data;
+        this.napravioJedan=0;
         
       }
       
     );
+
+
   }
 
+  
 }

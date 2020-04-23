@@ -4,24 +4,85 @@
 
 
 
-    <div *ngFor="let group of groups">
+    <div class="form" *ngFor="let group of groups">
 
-        <table border="1">
+        <table>
+
+            <div>
+                <tr> 
+                    <th>
+                        Name
+                    </th>
+    
+                    <th>
+                        Model
+                    </th>
+    
+                    <th>
+                        Brand
+                    </th>
+    
+                    <th>
+                        Fuel Type
+                    </th>
+    
+                    <th>
+                        Trans Type
+                    </th>
+    
+                    <th>
+                        Travelled
+                    </th>
+    
+                    <th>
+                        Price
+                    </th>
+    
+                </tr>
+            </div>
 
         <div *ngFor="let request of requests">
+            
 
             <tr *ngIf="group==request.groupId">
-            
                 <td>
-                {{request.advertisement.name}}
+                    {{request.advertisement.name}}
                 </td>
-    
-    
+
+                <td>
+                    {{request.advertisement.model}}
+                </td>
+
+                <td>
+                    {{request.advertisement.brand}}
+                </td>
+
+                <td>
+                    {{request.advertisement.fuelType}}
+
+                </td>
+
+                <td>
+                    {{request.advertisement.transType}}
+                </td>
+
+                <td>
+                    {{request.advertisement.travelled}}
+                </td>
+
+                <td>
+                    {{request.advertisement.price}}
+                </td>
+
             </tr>
 
+            
+
         </div>
-    </table>
+
         
+    </table>
+    <button  style="background-color:green;color:white;height:40px;width:100px" (click)="sendRequest()">Accept Request</button>
     </div>
 
 
