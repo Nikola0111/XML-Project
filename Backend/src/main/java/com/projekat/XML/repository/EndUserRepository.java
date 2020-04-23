@@ -8,4 +8,6 @@ import java.util.List;
 public interface EndUserRepository extends JpaRepository<EndUser, Long> {
 
     public List<EndUser> findByActivity(boolean activity);
+
+    public List<EndUser> findByAdminApproved(boolean admin);
 }
