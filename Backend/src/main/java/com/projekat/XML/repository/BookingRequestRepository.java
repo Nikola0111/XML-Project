@@ -11,5 +11,6 @@ public interface BookingRequestRepository extends JpaRepository <BookingRequest,
 
 public BookingRequest findOneByid(Long id);
 
-
+public BookingRequest findTopByOrderByIdDesc();
+    
 }

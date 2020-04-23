@@ -1,14 +1,13 @@
 package com.projekat.XML.model.requests;
-
-import java.util.ArrayList;
-
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.projekat.XML.enums.RequestStates;
+import com.projekat.XML.model.Advertisement;
 
 @Entity
 public class BookingRequest{
@@ -17,18 +16,31 @@ public class BookingRequest{
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    private Long userId;
+    private Long userForId;
+
+    private Long userToId;
 
     private RequestStates stateOfRequest;
 
-    private ArrayList<Long> advertisementIdList;
+    @ManyToOne
+    @JoinColumn
+    private Advertisement advertisement;
 
+    private Long groupId;
+
+   
+    private boolean together;
+
+  
     
 
-    public BookingRequest(Long userId, RequestStates stateOfRequest, ArrayList<Long> advertisementIdList) {
-        this.userId = userId;
+    public BookingRequest(Long userForId,Long userToId,Long groupId, RequestStates stateOfRequest, Advertisement advertisement, boolean together) {
+        this.userForId = userForId;
+        this.userToId=userToId;
+        this.groupId=groupId;
         this.stateOfRequest = stateOfRequest;
-        this.advertisementIdList = advertisementIdList;
+        this.advertisement=advertisement;
+        this.together=together;
     }
 
     public BookingRequest() {
@@ -42,12 +54,12 @@ public class BookingRequest{
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getUserForId() {
+        return userForId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserForId(Long userId) {
+        this.userForId = userId;
     }
 
     public RequestStates getStateOfRequest() {
@@ -58,13 +70,39 @@ public class BookingRequest{
         this.stateOfRequest = stateOfRequest;
     }
 
-    public ArrayList<Long> getAdvertisementIdList() {
-        return advertisementIdList;
+    public Advertisement getAdvertisement() {
+        return this.advertisement;
     }
 
-    public void setAdvertisementIdList(ArrayList<Long> advertisementIdList) {
-        this.advertisementIdList = advertisementIdList;
+    public void setAdvertisement(Advertisement advertisement) {
+        this.advertisement = advertisement;
     }
+
+    public boolean isTogether() {
+        return this.together;
+    }
+
+    public void setTogether(boolean together) {
+        this.together = together;
+    }
+
+    
+    public Long getUserToId() {
+        return this.userToId;
+    }
+
+    public void setUserToId(Long userToId) {
+        this.userToId = userToId;
+    }
+
+    public Long getGroupId() {
+        return this.groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
     
 
 }

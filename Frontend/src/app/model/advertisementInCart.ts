@@ -16,6 +16,7 @@ export class AdvertisementInCart {
   carSeats: number;
   postedBy: User;
   owner: boolean;
+  together:boolean;
   
 
   constructor() {
