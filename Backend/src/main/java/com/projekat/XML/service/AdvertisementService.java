@@ -77,7 +77,7 @@ public class AdvertisementService {
 		for(Advertisement ad : filteredAds)
 		{
 			taken = 0;
-			if(filterAdsDTO.getTimeFrom() == null && filterAdsDTO.getTimeTo() == null) {
+			if(filterAdsDTO.getTimeFrom() == null || filterAdsDTO.getTimeTo() == null) {
 				for (Termin termin : zakazaniTermini) {
 
 					if (termin.Ad.getID == ad.getId()) {
