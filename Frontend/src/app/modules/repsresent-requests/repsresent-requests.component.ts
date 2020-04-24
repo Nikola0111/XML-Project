@@ -36,5 +36,11 @@ export class RepresentRequestsComponent implements OnInit {
 
   }
 
+  acceptRequest(group: number){
+
+    this.representRequestsService.acceptRequest(group).subscribe();
+
+  }
+
   
 }

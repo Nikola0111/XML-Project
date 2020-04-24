@@ -34,6 +34,18 @@ BookingRequestService bookingRequestService;
     }
 
 
+    @PostMapping(value = "/acceptRequest")
+    public ResponseEntity<Long> Login(@RequestBody Long grupa){
+
+        System.out.println("Pogodio prihvatanje zahteva grupe: " + grupa);
+
+        bookingRequestService.acceptRequest(grupa);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+
 
     @GetMapping(value = "/getAllForMe")
     public ResponseEntity<List<BookingRequest>> getAllForCart() {

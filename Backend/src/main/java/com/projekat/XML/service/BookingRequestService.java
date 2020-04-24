@@ -149,8 +149,6 @@ public class BookingRequestService {
 
     public List<BookingRequest> getAllForRenter(){
        
-    
-    
         return bookingRequestRepository.findByUserForId(getLogedUserId());
     }
 
@@ -171,7 +169,22 @@ public class BookingRequestService {
 
     }
 
-    public Long getLogedUserId(){
+
+    public void acceptRequest(Long grupa){
+
+        System.out.println("Broj zahteva"+bookingRequestRepository.findAllByGroupId(grupa).size());
+
+        for (BookingRequest request : bookingRequestRepository.findAllByGroupId(grupa)) {
+            
+            
+            request.setStateOfRequest(RequestStates.RESERVED);
+
+            bookingRequestRepository.save(request);
+
+        }
+    }
+
+    private Long getLogedUserId(){
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession(true);
     
