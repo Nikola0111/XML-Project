@@ -1,6 +1,7 @@
 package com.projekat.XML.controller;
 
 import com.projekat.XML.dtos.AdvertisementDTO;
+import com.projekat.XML.dtos.FilterAdsDTO;
 import com.projekat.XML.model.Advertisement;
 import com.projekat.XML.service.AdvertisementService;
 import com.projekat.XML.service.ShoppingCartService;
@@ -55,5 +56,11 @@ public class AdvertisementController {
 		}
         return new ResponseEntity<>(advertisements, HttpStatus.OK);
     }
+
+	@GetMapping(value="/filterAdv", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Advertisement>> filterAds(@RequestBody FilterAdsDTO filterAdsDTO) {
+		System.out.println("POGODIO");
+		return new ResponseEntity<>(advertisementService.filterAds(filterAdsDTO), HttpStatus.OK);
+	}
 
 }
