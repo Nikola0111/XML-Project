@@ -1,5 +1,6 @@
 package com.projekat.XML.service;
 
+import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.projekat.XML.model.User;
@@ -43,5 +44,14 @@ public class UserService {
         System.out.println("Izlogovao se");
     }
 
+    public List<User> findAll()
+    {
+        return userRepository.findAll();
+    }
+
+    public User findOneByid(Long id)
+    {
+        return userRepository.findOneByid(id);
+    }
 
 }

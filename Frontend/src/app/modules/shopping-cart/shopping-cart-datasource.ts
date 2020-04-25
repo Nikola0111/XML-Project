@@ -7,6 +7,7 @@ import { Advertisement } from 'src/app/model/advertisement';
 import { FuelType } from 'src/app/enums/fuelType';
 import { TransmissionType } from 'src/app/enums/transmissionType';
 import { CarClass } from 'src/app/enums/carClass';
+import { AdvertisementInCart } from 'src/app/model/advertisementInCart';
 
 
 // TODO: Replace this with your own data model type
@@ -76,6 +77,7 @@ export class ShoppingCartDataSource extends DataSource<ShoppingCartItem > {
     return data.splice(startIndex, this.paginator.pageSize);
   }
 
+  
   /**
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.

@@ -169,6 +169,10 @@ public class BookingRequestService {
 
     }
 
+    public List<BookingRequest> findAll()
+    {
+        return bookingRequestRepository.findAll();
+    }
 
     public void acceptRequest(Long grupa){
 

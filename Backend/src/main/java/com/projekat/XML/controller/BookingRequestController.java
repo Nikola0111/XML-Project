@@ -35,7 +35,7 @@ BookingRequestService bookingRequestService;
 
 
     @PostMapping(value = "/acceptRequest")
-    public ResponseEntity<Long> Login(@RequestBody Long grupa){
+    public ResponseEntity<Long> acceptRequest(@RequestBody Long grupa){
 
         System.out.println("Pogodio prihvatanje zahteva grupe: " + grupa);
 

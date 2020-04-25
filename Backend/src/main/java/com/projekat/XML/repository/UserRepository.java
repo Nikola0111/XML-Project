@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     public User findByJmbg(String jmbg);
 
-   public  User findOneByid(Long id);
+    public  User findOneByid(Long id);
 
 }
