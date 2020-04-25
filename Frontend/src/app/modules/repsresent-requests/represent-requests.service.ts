@@ -28,9 +28,10 @@ const httpOptions = {
         return this.http.get<Array<number>>(this.requestUrl, httpOptions);
         }
 
-      public sentRequests(advertisements :Advertisement[]){
-        const body = JSON.stringify(advertisements);
-        return this.http.post<Advertisement[]>('/server/booking/save', body, httpOptions);
+      public acceptRequest(group : number){
+        
+        console.log("Odobreni zahtevi");
+        return this.http.post<number>('/server/booking/acceptRequest', group, httpOptions);
         
       }
 

@@ -27,6 +27,10 @@ import { CommonModule } from '@angular/common';
 import { RepresentRequestsComponent } from './modules/repsresent-requests/repsresent-requests.component';
 import { RepresentRequestsService } from './modules/repsresent-requests/represent-requests.service';
 import { RegisterConfirmComponent } from './modules/home/register-confirm/register-confirm.component';
+import { PorukeComponent } from './modules/poruke/poruke.component';
+import { PorukeService } from './modules/poruke/poruke.component.service';
+import { ConversationComponent } from './modules/conversation/conversation.component';
+import { ConversationService } from './modules/conversation/conversation.service';
 import { AgentRegisterComponent } from './modules/administrator/agent-register/agent-register.component';
 
 
@@ -46,7 +50,10 @@ import { AgentRegisterComponent } from './modules/administrator/agent-register/a
     ShoppingCartComponent,
     RepresentRequestsComponent,
     RegisterConfirmComponent,
+    PorukeComponent,
+    ConversationComponent,
     AgentRegisterComponent
+
 
 ],
   imports: [
@@ -65,7 +72,10 @@ import { AgentRegisterComponent } from './modules/administrator/agent-register/a
       {path: 'advertisement-list', component: AdvertisementListComponent},
       {path: 'administrator', component: AdministratorComponent},
       {path: 'shoppingCart' , component: ShoppingCartComponent},
-      {path: 'requests', component:RepresentRequestsComponent}
+      {path: 'requests', component: RepresentRequestsComponent},
+      {path: 'inbox', component: PorukeComponent},
+      { path: 'conversation/:id', component: ConversationComponent}
+
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -78,7 +88,7 @@ import { AgentRegisterComponent } from './modules/administrator/agent-register/a
 
   ],
   exports: [RouterModule],
-  providers: [AdvertisementService, ShopingCartService, RepresentRequestsService],
+  providers: [AdvertisementService, ShopingCartService, RepresentRequestsService, PorukeService, ConversationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
