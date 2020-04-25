@@ -13,6 +13,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     public User findByJmbg(String jmbg);
 
+
     public  User findOneByid(Long id);
+
+    public User findByLoginInfo_Email(String email);
+
+    public User findByLoginInfo_Username(String username);
+
+
 
 }

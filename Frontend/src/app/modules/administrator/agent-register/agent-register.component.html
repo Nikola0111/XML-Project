@@ -1,0 +1,29 @@
+<form [formGroup]="forma" (ngSubmit)="onSubmit()">
+  <p>
+    <label  class="floatLabel">Name</label>
+    <input [(ngModel)]="agent.name" formControlName="name" id="name" name="name" type="text">
+  </p>
+  <p>
+    <label class="floatLabel">Surname</label>
+    <input id="surname" name="surname" formControlName="surname" [(ngModel)]="agent.surname" type="text">
+  </p>
+  <p>
+    <label class="floatLabel">Username</label>
+    <input id="username" name="username" formControlName="username" [(ngModel)]="agent.username" type="text">
+  </p>
+  <p>
+    <label class="floatLabel">E-mail</label>
+    <input id="email" name="email" formControlName="email" [(ngModel)]="agent.email" type="text">
+  </p>
+  <p>
+    <label class="floatLabel">Jmbg</label>
+    <input id="jmbg" name="username" formControlName="jmbg" [(ngModel)]="agent.jmbg" type="text">
+  </p>
+  <p>
+    <label class="floatLabel">Phone number</label>
+    <input id="phone" name="phone" formControlName="phone" [(ngModel)]="agent.phone" type="text">
+  </p>
+  <p>
+    <input type="submit" id="submit">
+  </p>
+</form>

@@ -9,7 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { NavbarComponent } from './navbar/navbar.component';
-import { RegistracijaComponent } from './modules/home/registracija/registracija.component';
+import { RegistracijaComponent } from './modules/home/register_users/registracija.component';
 import {RouterModule} from '@angular/router';
 import { AgmCoreModule} from '@agm/core';
 import { AdvertisementComponent } from './modules/advertisement/advertisement.component';
@@ -31,6 +31,7 @@ import { PorukeComponent } from './modules/poruke/poruke.component';
 import { PorukeService } from './modules/poruke/poruke.component.service';
 import { ConversationComponent } from './modules/conversation/conversation.component';
 import { ConversationService } from './modules/conversation/conversation.service';
+import { AgentRegisterComponent } from './modules/administrator/agent-register/agent-register.component';
 
 
 
@@ -50,7 +51,9 @@ import { ConversationService } from './modules/conversation/conversation.service
     RepresentRequestsComponent,
     RegisterConfirmComponent,
     PorukeComponent,
-    ConversationComponent
+    ConversationComponent,
+    AgentRegisterComponent
+
 
 ],
   imports: [
