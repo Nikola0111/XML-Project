@@ -34,4 +34,14 @@ public class UserService {
         shoppingCartService.save(userDB.getId());
 
     }
+
+    public void logOut(){
+
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+		HttpSession session = attr.getRequest().getSession(true);
+        session.invalidate();
+        System.out.println("Izlogovao se");
+    }
+
+
 }

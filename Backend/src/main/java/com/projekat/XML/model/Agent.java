@@ -1,17 +1,17 @@
 package com.projekat.XML.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.projekat.XML.enums.UserType;
+
+import javax.persistence.*;
 
 @Entity
 public class Agent extends User {
 
+    @Column
+    private int number_ads;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-
+    public Agent(String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber, UserType ut, int number_ads) {
+        super(name, surname, loginInfo, jmbg, phoneNumber, ut);
+        this.number_ads = number_ads;
+    }
 }

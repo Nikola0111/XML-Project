@@ -24,15 +24,15 @@ public class FilterAdsDTO {
 
     private int carSeats;
 
-    private LocalDateTime timeFrom;
+    private String timeFrom;
 
-    private LocalDateTime timeTo;
+    private String timeTo;
 
     public FilterAdsDTO() {
 
     }
 
-    public FilterAdsDTO(FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelledFrom, int travelledTo, double priceFrom, double priceTo, int carSeats, LocalDateTime timeFrom, LocalDateTime timeTo) {
+    public FilterAdsDTO(FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelledFrom, int travelledTo, double priceFrom, double priceTo, int carSeats, String timeFrom, String timeTo) {
         this.fuelType = fuelType;
         this.transmissionType = transmissionType;
         this.carClass = carClass;
@@ -120,19 +120,19 @@ public class FilterAdsDTO {
         this.carSeats = carSeats;
     }
 
-    public LocalDateTime getTimeFrom() {
+    public String getTimeFrom() {
         return timeFrom;
     }
 
-    public void setTimeFrom(LocalDateTime timeFrom) {
+    public void setTimeFrom(String timeFrom) {
         this.timeFrom = timeFrom;
     }
 
-    public LocalDateTime getTimeTo() {
+    public String getTimeTo() {
         return timeTo;
     }
 
-    public void setTimeTo(LocalDateTime timeTo) {
+    public void setTimeTo(String timeTo) {
         this.timeTo = timeTo;
     }
 

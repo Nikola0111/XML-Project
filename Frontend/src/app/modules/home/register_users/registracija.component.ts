@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EndUser } from '../../../model/endUser';
-import { RegisterService } from '../../service/RegisterService/register.service';
+import { RegisterService } from '../../../services/RegisterService/register.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -19,15 +19,27 @@ export class RegistracijaComponent implements OnInit {
     this.endUser = new EndUser();
   }
 
+  // ngOnInit() {
+  //   this.forma = this.formBuilder.group({
+  //     name: ['', [Validators.required, Validators.pattern('^[A-Z][a-z]+')]],
+  //     surname: ['', [Validators.required, Validators.pattern('^[A-Z][a-z]+')]],
+  //     username: ['', Validators.required],
+  //     email: ['', [Validators.required, Validators.email]],
+  //     password: ['', [Validators.required, Validators.minLength(5), Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$')]],
+  //     jmbg: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(13)]],
+  //     phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(9),  Validators.maxLength(12)]]
+  //   });
+  // }
+
   ngOnInit() {
     this.forma = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.pattern('^[A-Z][a-z]+')]],
-      surname: ['', [Validators.required, Validators.pattern('^[A-Z][a-z]+')]],
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(5), Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$')]],
-      jmbg: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(13)]],
-      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(9),  Validators.maxLength(12)]]
+      name: [''],
+      surname: [''],
+      username: [''],
+      email: [''],
+      password: [''],
+      jmbg: [''],
+      phoneNumber: ['']
     });
   }
 
@@ -37,10 +49,6 @@ export class RegistracijaComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    if (this.forma.invalid){
-      console.log(this.endUser)
-      return;
-    }
     console.log(this.endUser)
     this.loading = true;
 

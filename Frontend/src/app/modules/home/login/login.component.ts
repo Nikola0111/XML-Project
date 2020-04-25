@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {EndUser} from '../../../model/endUser';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {LoginService} from '../../service/LoginService/login.service';
+import {LoginService} from '../../../services/LoginService/login.service';
 import {User} from '../../../model/user';
-import {SessionService} from '../../service/SessionService/session.service';
+import {SessionService} from '../../../services/SessionService/session.service';
+import {Router} from '@angular/router';
+import {UserType} from '../../../enums/UserType';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ import {SessionService} from '../../service/SessionService/session.service';
 export class LoginComponent implements OnInit {
   user: User;
   forma: FormGroup;
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService, private sessionService: SessionService) {
+  constructor(private formBuilder: FormBuilder, private loginService: LoginService, private sessionService: SessionService,
+              private router: Router) {
     this.user = new User();
   }
 
@@ -29,6 +31,13 @@ export class LoginComponent implements OnInit {
       data => {
         console.log(data);
         this.sessionService.ulogovaniKorisnik = data;
+        console.log('proverava')
+        if (data.userType.toString() === 'ADMINISTRATOR') {
+          console.log('administrator je');
+          this.sessionService.isAdmin = true;
+          console.log(this.sessionService.isAdmin + ' Admin registrovan');
+          this.router.navigate(['/administrator']);
+        }
       },
       error => alert('Neuspesno logovanje')
     );

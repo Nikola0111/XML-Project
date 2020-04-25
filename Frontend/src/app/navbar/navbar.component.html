@@ -3,13 +3,12 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
-
         <div class="navbar-header">
           <button class="navbar-toggle" data-target="#mobile_menu" data-toggle="collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
           <a href="#" class="navbar-brand">RENT-A-CAR</a>
         </div>
-
-        <div class="navbar-collapse collapse" id="mobile_menu">
+        <div >
+        <div *ngIf="sessionService.ulogovaniKorisnik === undefined" class="navbar-collapse collapse" id="mobile_menu">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">About Us <span class="caret"></span></a>
@@ -25,8 +24,9 @@
             <li><a [routerLink]="['/registracija']">Welcome</a></li>
             <li><a [routerLink]="['/advertisement-list']">Advertisement List</a></li>
             <li><a [routerLink]="['/advertisement']">DodajOglas</a></li>
-            
-            <li> <a href="#">
+            <li><a [routerLink]="['/requests']">Requests</a></li>
+
+            <li> <a [routerLink]="['/shoppingCart']">
               <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart
             </a></li>
             <li><a href="#">Contact Us</a></li>
@@ -44,10 +44,26 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li (click)="showRegister()" ><a href="#"><span class="glyphicon glyphicon-user"></span> Register</a></li>
-            <li (click)="showLogin()" ><a href="#"><span class="fa fa-sign-in "></span> Sign up</a></li>
+            <li class = "button" (click)="showRegister()" ><a><span class="glyphicon glyphicon-user"></span> Register</a></li>
+            <li class = "button" (click)="showLogin()" ><a><span class="fa fa-sign-in "></span> Sign in</a></li>
+            <li class = "button" (click)="logOut()" ><a><span class="fa fa-sign-out "></span> Sign out</a></li>
           </ul>
         </div>
+        </div>
+        <!--Administrator navbar-->
+        <div *ngIf="sessionService.isAdmin">
+          <div class="navbar-collapse collapse" id="mobile_menu_admin">
+            <ul class="nav navbar-nav">
+              <li class = "button" (click)="showHome()"><a>Home</a></li>
+              <li class = "button" (click)="showRequests()"><a>Requests</a></li>
+              <li class = "button" (click)="showAgentReg()"><a>Register Agents</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class = "button" [routerLink]="['']" (click)="logOut()"><a><span class="fa fa-sign-out"></span> Sign out</a></li>
+            </ul>
+          </div>
+        </div>
+        <!--Administrator navbar-->
       </div>
     </div>
   </div>

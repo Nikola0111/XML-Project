@@ -16,7 +16,7 @@
         </mat-error>
       </li>
       <li>
-        <input [(ngModel)] = "endUser.loginInfo.username" formControlName="username" name="username" class="field-style field-full align-none" placeholder="username" />
+        <input [(ngModel)] = "endUser.loginInfo.username" formControlName="username" name="username" class="field-style field-full align-none" placeholder="Username" />
         <mat-error *ngIf="submitted && f.surname.errors">
           <div *ngIf="f.username.errors.required">Username is obligatory </div>
         </mat-error>

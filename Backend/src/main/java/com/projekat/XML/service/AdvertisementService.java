@@ -74,6 +74,9 @@ public class AdvertisementService {
 		}
 
 		/*int taken = 0;
+
+		LocalDateTime timeFrom = LocalDateTime.parse(filterAdsDTO.getTimeFrom());
+		LocalDateTime timeTo = LocalDateTime.parse(filterAdsDTO.getTimeTo());
 		for(Advertisement ad : filteredAds)
 		{
 			taken = 0;
@@ -82,13 +85,13 @@ public class AdvertisementService {
 
 					if (termin.Ad.getID == ad.getId()) {
 						if(filterAdsDTO.getTimeFrom() != null) {
-							if (filterAdsDTO.getTimeFrom().isAfter(zakazaniTermin.getStartTime) && filterAdsDTO.getTimeFrom().isBefore(zakazaniTermin.getEndTime())) {
+							if (timeFrom.isAfter(zakazaniTermin.getStartTime) && timeFrom.isBefore(zakazaniTermin.getEndTime())) {
 								taken = 1;
 							}
 						}
 
 						if(filterAdsDTO.getTimeTo() != null) {
-							if (filterAdsDTO.getTimeTo().isAfter(zakazaniTermin.getStartTime) && filterAdsDTO.getTimeTo().isBefore(zakazaniTermin.getEndTime())) {
+							if (timeTo.isAfter(zakazaniTermin.getStartTime) && timeTo.isBefore(zakazaniTermin.getEndTime())) {
 								taken = 1;
 							}
 						}

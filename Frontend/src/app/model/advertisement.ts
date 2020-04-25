@@ -13,7 +13,7 @@ export class Advertisement {
   travelled: number;
   price: number;
   carSeats: number;
-
+  
 
   constructor() {
 

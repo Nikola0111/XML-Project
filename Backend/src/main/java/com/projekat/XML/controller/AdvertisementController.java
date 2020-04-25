@@ -55,12 +55,25 @@ public class AdvertisementController {
 			System.out.println(ad.getName());
 		}
         return new ResponseEntity<>(advertisements, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/forCart")
+    public ResponseEntity<List<Advertisement>> getAllForCart() {
+		
+	   
+		List<Advertisement> advertisements = shoppingCartService.fotCart();
+
+		System.out.println("pogodio je kontroler, broj oglasa vraca=="+advertisements.size());
+		
+        return new ResponseEntity<>(advertisements, HttpStatus.OK);
     }
+
 
 	@GetMapping(value="/filterAdv", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Advertisement>> filterAds(@RequestBody FilterAdsDTO filterAdsDTO) {
 		System.out.println("POGODIO");
 		return new ResponseEntity<>(advertisementService.filterAds(filterAdsDTO), HttpStatus.OK);
 	}
+
 
 }
