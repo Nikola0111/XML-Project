@@ -16,5 +16,8 @@ export class BookingRequest {
 
     together: boolean;
    
+    timeFrom: Date;
+
+    timeTo: Date;
 
 }

@@ -8,7 +8,9 @@
           <a href="#" class="navbar-brand">RENT-A-CAR</a>
         </div>
         <div >
-        <div *ngIf="sessionService.ulogovaniKorisnik === undefined || sessionService.pwChanging === true" class="navbar-collapse collapse" id="mobile_menu">
+
+        <div  id="mobile_menu">
+
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">About Us <span class="caret"></span></a>
@@ -45,8 +47,8 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class = "button" (click)="showRegister()" ><a><span class="glyphicon glyphicon-user"></span> Register</a></li>
-            <li class = "button" (click)="showLogin()" ><a><span class="fa fa-sign-in "></span> Sign in</a></li>
+            <li *ngIf="sessionService.ulogovaniKorisnik === undefined" class="navbar-collapse collapse" class = "button" (click)="showRegister()" ><a><span class="glyphicon glyphicon-user"></span> Register</a></li>
+            <li *ngIf="sessionService.ulogovaniKorisnik === undefined" class="navbar-collapse collapse" class = "button" (click)="showLogin()" ><a><span class="fa fa-sign-in "></span> Sign in</a></li>
             <li class = "button" (click)="logOut()" ><a><span class="fa fa-sign-out "></span> Sign out</a></li>
           </ul>
         </div>
