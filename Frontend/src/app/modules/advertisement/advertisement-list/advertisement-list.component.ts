@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { AdvertisementListDataSource, AdvertisementListItem } from './advertisement-list-datasource';
 import { Advertisement } from '../../../model/advertisement';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { AdvertisementService } from '../../../services/advertisement.service/advertisement.service';
 import { from, forkJoin } from 'rxjs';
@@ -33,14 +33,14 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   transmissionType: string;
   carClass: string;
 
-itemInCart: ItemInCart;
+  itemInCart: ItemInCart;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats', "button"];
 
 
   constructor(private formBuilder: FormBuilder, private advertisementService: AdvertisementService) {
-    this.itemInCart=new ItemInCart();
+    this.itemInCart = new ItemInCart();
   }
 
 
@@ -75,8 +75,8 @@ itemInCart: ItemInCart;
   }
 
   public save(advertisement: Advertisement) {
-  
-    this.itemInCart.advertisement=advertisement;
+
+    this.itemInCart.advertisement = advertisement;
     console.log(this.itemInCart);
     this.advertisementService.addAd(this.itemInCart).subscribe();
 
@@ -93,31 +93,34 @@ itemInCart: ItemInCart;
       this.filterAdsDTO.fuelType = 2;
     }
 
-    if ( this.transmissionType === 'Manual') {
+    if (this.transmissionType === 'Manual') {
       this.filterAdsDTO.transmissionType = 0;
-    } else if ( this.transmissionType === 'Automatic') {
+    } else if (this.transmissionType === 'Automatic') {
       this.filterAdsDTO.transmissionType = 1;
-    } else if ( this.transmissionType === 'Semi-Automatic') {
+    } else if (this.transmissionType === 'Semi-Automatic') {
       this.filterAdsDTO.transmissionType = 2;
     }
 
-    if ( this.carClass === 'Old-Timer') {
+    if (this.carClass === 'Old-Timer') {
       this.filterAdsDTO.carClass = 0;
-    } else if ( this.carClass === 'City-Car') {
+    } else if (this.carClass === 'City-Car') {
       this.filterAdsDTO.carClass = 1;
-    } else if ( this.carClass === 'SUV') {
+    } else if (this.carClass === 'SUV') {
       this.filterAdsDTO.carClass = 2;
     }
-    
+
     this.itemInCart.timeFrom = this.filterAdsDTO.timeFrom;
     this.itemInCart.timeTo = this.filterAdsDTO.timeTo;
-    
+
 
     this.dataSource = new AdvertisementListDataSource(null);
     this.advertisementService.filter(this.filterAdsDTO).subscribe(
       data => {
         this.advertisements = data;
         this.dataSource.data = data;
+        this.table.dataSource = this.dataSource;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
         console.log(this.dataSource.data);
         console.log(data);
       }
