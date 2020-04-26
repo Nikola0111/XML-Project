@@ -24,15 +24,15 @@ public class FilterAdsDTO {
 
     private int carSeats;
 
-    private String timeFrom;
+    private LocalDateTime timeFrom;
 
-    private String timeTo;
+    private LocalDateTime timeTo;
 
     public FilterAdsDTO() {
 
     }
 
-    public FilterAdsDTO(FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelledFrom, int travelledTo, double priceFrom, double priceTo, int carSeats, String timeFrom, String timeTo) {
+    public FilterAdsDTO(FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelledFrom, int travelledTo, double priceFrom, double priceTo, int carSeats, LocalDateTime timeFrom, LocalDateTime timeTo) {
         this.fuelType = fuelType;
         this.transmissionType = transmissionType;
         this.carClass = carClass;
@@ -43,17 +43,6 @@ public class FilterAdsDTO {
         this.carSeats = carSeats;
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
-    }
-
-    public FilterAdsDTO(FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelledFrom, int travelledTo, double priceFrom, double priceTo, int carSeats) {
-        this.fuelType = fuelType;
-        this.transmissionType = transmissionType;
-        this.carClass = carClass;
-        this.travelledFrom = travelledFrom;
-        this.travelledTo = travelledTo;
-        this.priceFrom = priceFrom;
-        this.priceTo = priceTo;
-        this.carSeats = carSeats;
     }
 
     public FuelType getFuelType() {
@@ -120,19 +109,19 @@ public class FilterAdsDTO {
         this.carSeats = carSeats;
     }
 
-    public String getTimeFrom() {
+    public LocalDateTime getTimeFrom() {
         return timeFrom;
     }
 
-    public void setTimeFrom(String timeFrom) {
+    public void setTimeFrom(LocalDateTime timeFrom) {
         this.timeFrom = timeFrom;
     }
 
-    public String getTimeTo() {
+    public LocalDateTime getTimeTo() {
         return timeTo;
     }
 
-    public void setTimeTo(String timeTo) {
+    public void setTimeTo(LocalDateTime timeTo) {
         this.timeTo = timeTo;
     }
 

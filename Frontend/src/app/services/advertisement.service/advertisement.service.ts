@@ -1,11 +1,8 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Advertisement } from 'src/app/model/advertisement';
-<<<<<<< HEAD
 import { FilterAdsDTO } from 'src/app/model/filterAdsDTO';
-=======
 import { ItemInCart } from 'src/app/model/itemInCart';
->>>>>>> master
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type' : 'application/json'})

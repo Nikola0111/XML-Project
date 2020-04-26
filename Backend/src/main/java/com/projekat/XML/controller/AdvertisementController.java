@@ -50,7 +50,7 @@ public class AdvertisementController {
 	
 
 
-	@GetMapping(value="/filterAdv", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/filterAdv", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Advertisement>> filterAds(@RequestBody FilterAdsDTO filterAdsDTO) {
 		System.out.println("POGODIO");
 		return new ResponseEntity<>(advertisementService.filterAds(filterAdsDTO), HttpStatus.OK);

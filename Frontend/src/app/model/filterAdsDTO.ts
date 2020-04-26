@@ -11,8 +11,9 @@ export class FilterAdsDTO {
   priceFrom: number;
   priceTo: number;
   carSeats: number;
-  timeFrom: string;
-  timeTo: string;
+  timeFrom: Date;
+  timeTo: Date;
+  
   
 
   constructor() {

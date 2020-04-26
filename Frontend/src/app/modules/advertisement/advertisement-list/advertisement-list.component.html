@@ -5,7 +5,7 @@
   <form (ngSubmit)="filter()" [formGroup]="filterForm" class="form-style-9">
     <ul>
       <li>
-        <select [(ngModel)]="this.filterAdsDTO.fuelType" formControlName="fuelType" name="fuelType"
+        <select [(ngModel)]="this.fuelType" formControlName="fuelType" name="fuelType"
           class="field-style field-full align-none" placeholder="Fuel Type">
           <option>Gasoline</option>
           <option>Gas</option>
@@ -14,7 +14,7 @@
       </li>
 
       <li>
-        <select [(ngModel)]="this.filterAdsDTO.transmissionType" formControlName="transmissionType" name="transType"
+        <select [(ngModel)]="this.transmissionType" formControlName="transmissionType" name="transType"
           class="field-style field-full align-none" placeholder="Transmission Type">
           <option>Manual</option>
           <option>Automatic</option>
@@ -23,7 +23,7 @@
       </li>
 
       <li>
-        <select [(ngModel)]="this.filterAdsDTO.carClass" formControlName="carClass" name="carClass"
+        <select [(ngModel)]="this.carClass" formControlName="carClass" name="carClass"
           class="field-style field-full align-none" placeholder="Car Class">
           <option>Old-Timer</option>
           <option>City-Car</option>
@@ -60,14 +60,9 @@
           class="field-style field-full align-none" [(ngModel)]="this.filterAdsDTO.timeFrom" />
       </li>
 
-      <!-- <li>
+      <li>
         <input type="datetime-local" formControlName="timeTo" name="timeTo" class="field-style field-full align-none"
           [(ngModel)]="this.filterAdsDTO.timeTo" />
-      </li> -->
-
-      <li>
-        <input type="datetimet" [(ngModel)]="this.filterAdsDTO.timeTo" formControlName="timeFrom" name="timeTo"
-          class="field-style field-full align-none" placeholder="Start" />
       </li>
 
 
