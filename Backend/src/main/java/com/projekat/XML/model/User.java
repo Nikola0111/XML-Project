@@ -100,4 +100,40 @@ public class User {
     public void setUserType(UserType userType) {
         this.userType = userType;
     }
+
+    public String getPassword(){
+        return this.loginInfo.getPassword();
+    }
+
+    public void setPassword(String password){
+        this.loginInfo.setPassword(password);
+    }
+
+    public String getUsername(){
+        return this.loginInfo.getUsername();
+    }
+
+    public void setUsername(String username){
+        this.loginInfo.setUsername(username);
+    }
+
+    public void setEmail(String email){
+        this.loginInfo.setEmail(email);
+    }
+
+    public String getEmail(){
+        return this.loginInfo.getEmail();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", loginInfo=" + loginInfo +
+                ", jmbg='" + jmbg + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", userType=" + userType +
+                '}';
+    }
 }

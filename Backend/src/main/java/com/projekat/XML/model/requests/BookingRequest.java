@@ -1,4 +1,6 @@
 package com.projekat.XML.model.requests;
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,8 +18,10 @@ public class BookingRequest{
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    //onaj ko je objavio
     private Long userForId;
 
+    //onaj ko podnosi
     private Long userToId;
 
     private RequestStates stateOfRequest;
@@ -32,15 +36,22 @@ public class BookingRequest{
     private boolean together;
 
   
-    
+    private LocalDateTime timeFrom;
 
-    public BookingRequest(Long userForId,Long userToId,Long groupId, RequestStates stateOfRequest, Advertisement advertisement, boolean together) {
+    private LocalDateTime timeTo;
+
+  
+
+    public BookingRequest(Long userForId,Long userToId,Long groupId, 
+     RequestStates stateOfRequest, Advertisement advertisement, boolean together,LocalDateTime timeFrom, LocalDateTime timeTo) {
         this.userForId = userForId;
         this.userToId=userToId;
         this.groupId=groupId;
         this.stateOfRequest = stateOfRequest;
         this.advertisement=advertisement;
         this.together=together;
+        this.timeFrom=timeFrom;
+        this.timeTo=timeTo;
     }
 
     public BookingRequest() {
@@ -103,6 +114,20 @@ public class BookingRequest{
         this.groupId = groupId;
     }
 
-    
+    public LocalDateTime getTimeFrom() {
+        return this.timeFrom;
+    }
+
+    public void setTimeFrom(LocalDateTime timeFrom) {
+        this.timeFrom = timeFrom;
+    }
+
+    public LocalDateTime getTimeTo() {
+        return this.timeTo;
+    }
+
+    public void setTimeTo(LocalDateTime timeTo) {
+        this.timeTo = timeTo;
+    }
 
 }

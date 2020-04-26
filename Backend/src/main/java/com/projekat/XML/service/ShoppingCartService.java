@@ -1,8 +1,8 @@
 package com.projekat.XML.service;
-
-import com.projekat.XML.model.Advertisement;
+import com.projekat.XML.dtos.ItemInCartDTO;
+import com.projekat.XML.model.ItemInCart;
 import com.projekat.XML.model.ShoppingCart;
-import com.projekat.XML.repository.AdvertisementRepository;
+import com.projekat.XML.repository.ItemInCartRepository;
 import com.projekat.XML.repository.ShoppingCartRepository;
 import com.projekat.XML.repository.UserRepository;
 
@@ -27,7 +27,7 @@ public class ShoppingCartService {
     UserRepository userRepository;
 
     @Autowired
-    AdvertisementRepository advertisementRepository;
+    ItemInCartRepository itemInCartRepository;
 
 public void save(Long id){
 
@@ -35,33 +35,38 @@ public void save(Long id){
 
 }
 
-public void addAdvertisement(Long advId){
+
+public void addAItemInCart(Long itemId){
 
     
 
     ShoppingCart cart=shoppingCartRepository.findOneByuserId(getLogedUserId());
-    cart.addOneAdv(advId);
+    cart.addOneItemInCart(itemId);
     shoppingCartRepository.save(cart);
 }
 
-public List<Advertisement> fotCart(){
+
+
+
+
+public List<ItemInCart> fotCart(){
     List< Long> oglasi=new ArrayList<>();
-    List<Advertisement> vrati=new ArrayList<Advertisement>();
+    List<ItemInCart> vrati=new ArrayList<ItemInCart>();
 
     for(ShoppingCart shoppingCart: shoppingCartRepository.findAll()) {
         if(shoppingCart.getUserId().equals(getLogedUserId())){
-            oglasi=shoppingCart.getAdvList();
+            oglasi=shoppingCart.getItemInCartList();
         }
 
 
     }
-    for(Advertisement advertisement: advertisementRepository.findAll()){
+    for(ItemInCart itemInCart: itemInCartRepository.findAll()){
     
         for(Long id : oglasi){
         
-            if(advertisement.getId().equals(id)){
+            if(itemInCart.getId().equals(id)){
              
-                vrati.add(advertisement);
+                vrati.add(itemInCart);
             }
         }
 

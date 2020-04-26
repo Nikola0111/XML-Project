@@ -9,7 +9,11 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import { AdvertisementService } from '../../../services/advertisement.service/advertisement.service';
 import { from, forkJoin } from 'rxjs';
 import { NavbarComponent } from 'src/app/navbar/navbar.component';
+<<<<<<< HEAD
 import { FilterAdsDTO } from 'src/app/model/filterAdsDTO';
+=======
+import { ItemInCart } from 'src/app/model/itemInCart';
+>>>>>>> master
 
 
 @Component({
@@ -25,15 +29,24 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   advertisements: Advertisement[];
   dialogData: Advertisement;
   selected: Advertisement;
+<<<<<<< HEAD
   filterForm: FormGroup;
   filterAdsDTO: FilterAdsDTO = new FilterAdsDTO();
   fuelType: string;
   transmissionType: string;
   carClass: string;
+=======
+itemInCart: ItemInCart;
+>>>>>>> master
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats', "button"];
 
+<<<<<<< HEAD
   constructor(private formBuilder: FormBuilder, private advertisementService: AdvertisementService) {
+=======
+  constructor(private advertisementService: AdvertisementService) {
+    this.itemInCart=new ItemInCart();
+>>>>>>> master
   }
 
 
@@ -67,10 +80,22 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   }
 
   public save(advertisement: Advertisement) {
+<<<<<<< HEAD
     this.selected = advertisement;
     console.log(this.selected);
     console.log("Pogodi dugme")
     this.advertisementService.addAd(this.selected).subscribe();
+=======
+   
+    this.itemInCart.advertisement=advertisement;
+    console.log(this.itemInCart);
+    var from = new Date("2015-03-25 12:00:00");
+    var to = new Date("2015-03-25 15:00:00");
+    this.itemInCart.timeFrom=from;
+    this.itemInCart.timeTo=to;
+
+    this.advertisementService.addAd(this.itemInCart).subscribe();
+>>>>>>> master
 
 
   }

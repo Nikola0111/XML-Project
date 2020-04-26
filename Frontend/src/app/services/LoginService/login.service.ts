@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {EndUser} from '../../model/endUser';
 import {User} from '../../model/user';
 import {Observable} from 'rxjs';
+import {UserDTO} from '../../dtos/user-dto';
 
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
@@ -21,10 +22,15 @@ export class LoginService {
 
   }
 
+  public passwordChanged(userDTO: UserDTO) {
+    const body = JSON.stringify(userDTO);
+    return this.http.post('/server/user/passwordChange', body, httpOptions);
+  }
+
   public logOut() {
-    console.log("Izlogovan");
+    console.log('Izlogovan');
 
     this.requestUrl = '/server/user/logout';
-    return this.http.get<String>(this.requestUrl, httpOptions);
+    return this.http.get<string>(this.requestUrl, httpOptions);
     }
 }

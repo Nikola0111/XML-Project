@@ -3,6 +3,7 @@ package com.projekat.XML.controller;
 import java.util.List;
 
 import com.projekat.XML.dtos.AdvertisementInCartDTO;
+import com.projekat.XML.dtos.ItemInCartDTO;
 import com.projekat.XML.model.requests.BookingRequest;
 import com.projekat.XML.service.BookingRequestService;
 
@@ -24,7 +25,7 @@ public class BookingRequestController {
 BookingRequestService bookingRequestService;
 
     @PostMapping(value = "/save", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> Login(@RequestBody List<AdvertisementInCartDTO> lista){
+    public ResponseEntity<Long> Login(@RequestBody List<ItemInCartDTO> lista){
 
         System.out.println("Pogodio je back");
 
@@ -32,6 +33,18 @@ BookingRequestService bookingRequestService;
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
+    @PostMapping(value = "/acceptRequest")
+    public ResponseEntity<Long> acceptRequest(@RequestBody Long grupa){
+
+        System.out.println("Pogodio prihvatanje zahteva grupe: " + grupa);
+
+        bookingRequestService.acceptRequest(grupa);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 
 

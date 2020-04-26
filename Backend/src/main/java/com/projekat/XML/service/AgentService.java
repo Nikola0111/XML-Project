@@ -9,6 +9,11 @@ import com.projekat.XML.repository.AgentRepository;
 import com.projekat.XML.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Service
 public class AgentService {
@@ -42,10 +47,26 @@ public class AgentService {
 
         LoginInfo loginInfo = new LoginInfo(userDTO.getEmail(), userDTO.getUsername(), userDTO.getPassword());
 
-        Agent agent = new Agent(userDTO.getName(), userDTO.getSurname(), loginInfo, userDTO.getJmbg(), userDTO.getPhone(), UserType.AGENT, 0);
+        Agent agent = new Agent(userDTO.getName(), userDTO.getSurname(), loginInfo, userDTO.getJmbg(),
+                userDTO.getPhone(), UserType.AGENT, 0, true);
 
         agentRepository.save(agent);
 
         return 0;
+    }
+
+    public boolean checkPasswordChanged(){
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder
+                .currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+        Long id = (Long) session.getAttribute("user");
+
+        Optional opt = agentRepository.findById(id);
+        if(opt.isPresent()){
+            Agent agent = (Agent) opt.get();
+            return agent.isFirst_login() ? false : true;
+        }
+
+        return false;
     }
 }

@@ -4,22 +4,18 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { Advertisement } from 'src/app/model/advertisement';
-import { FuelType } from 'src/app/enums/fuelType';
-import { TransmissionType } from 'src/app/enums/transmissionType';
-import { CarClass } from 'src/app/enums/carClass';
+
+import { ItemInCart } from 'src/app/model/itemInCart';
 
 
 // TODO: Replace this with your own data model type
 export interface ShoppingCartItem  {
-  name: string;
-  model: string;
-  brand: string;
-  fuelType: FuelType;
-  transType: TransmissionType;
-  carClass: CarClass;
-  travelled: number;
-  price: number;
-  carSeats: number;
+id:number;
+ advertisement:Advertisement;
+ timeFrom: Date;
+ timeTo: Date;
+ owner:boolean;
+ together:boolean;
 
 }
 
@@ -33,13 +29,13 @@ const EXAMPLE_DATA: ShoppingCartItem [] = [
  * (including sorting, pagination, and filtering).
  */
 export class ShoppingCartDataSource extends DataSource<ShoppingCartItem > {
-  data: Advertisement[];
+  data: ItemInCart[];
   paginator: MatPaginator;
   sort: MatSort;
 
-  constructor(advertisements: Array<Advertisement>) {
+  constructor(items: Array<ItemInCart>) {
     super();
-    this.data = advertisements;
+    this.data = items;
   }
 
   /**
@@ -76,6 +72,7 @@ export class ShoppingCartDataSource extends DataSource<ShoppingCartItem > {
     return data.splice(startIndex, this.paginator.pageSize);
   }
 
+  
   /**
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
@@ -88,16 +85,7 @@ export class ShoppingCartDataSource extends DataSource<ShoppingCartItem > {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'model': return compare(a.model, b.model, isAsc);
-        case 'brand': return compare(a.brand, b.brand, isAsc);
-        case 'fuelType': return compare(a.fuelType, b.fuelType, isAsc);
-        case 'transmissionType': return compare(a.transType, b.transType, isAsc);
-        case 'carClass': return compare(a.carClass, b.carClass, isAsc);
-        case 'travelled': return compare(a.travelled, b.travelled, isAsc);
-        case 'price': return compare(a.price, b.price, isAsc);
-        case 'carSeats': return compare(a.carSeats, b.carSeats, isAsc);
-
+       
         default: return 0;
       }
     });
