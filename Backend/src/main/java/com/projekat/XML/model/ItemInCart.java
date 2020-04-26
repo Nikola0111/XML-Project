@@ -8,10 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 
 @Entity
-public class Booking  {
+public class ItemInCart {
 
 
     @Id
@@ -21,7 +23,8 @@ public class Booking  {
    
     private Long userId;
     
-    
+    @ManyToOne
+    @JoinColumn
     private Advertisement advertisement;
 
     private LocalDateTime timeFrom;
@@ -30,12 +33,18 @@ public class Booking  {
 
    
 
-    public Booking(){
+    public ItemInCart(){
         
     }
 
-    public Booking( Long userId, Advertisement adv, LocalDateTime from, LocalDateTime to) {
+    public ItemInCart( Long userId, Advertisement adv, LocalDateTime from, LocalDateTime to) {
         this.userId =userId;
+        this.advertisement= adv;
+        this.timeFrom=from;
+        this.timeTo=to;
+    }
+
+    public ItemInCart( Advertisement adv, LocalDateTime from, LocalDateTime to) {
         this.advertisement= adv;
         this.timeFrom=from;
         this.timeTo=to;

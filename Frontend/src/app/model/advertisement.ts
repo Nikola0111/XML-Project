@@ -1,6 +1,7 @@
 import {FuelType} from '../enums/fuelType';
 import {TransmissionType} from '../enums/transmissionType';
 import {CarClass} from '../enums/carClass';
+import {User} from '../model/user';
 
 export class Advertisement {
   id: number;
@@ -13,6 +14,7 @@ export class Advertisement {
   travelled: number;
   price: number;
   carSeats: number;
+  postedBy: User;
   
 
   constructor() {

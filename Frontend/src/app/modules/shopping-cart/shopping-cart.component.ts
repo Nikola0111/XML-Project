@@ -7,7 +7,7 @@ import { Advertisement } from 'src/app/model/advertisement';
 import { ShopingCartService } from './shoping-cart.service';
 import { AdvertisementInCart } from 'src/app/model/advertisementInCart';
 
-
+import { ItemInCart } from 'src/app/model/itemInCart';
 
 
 @Component({
@@ -22,49 +22,43 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
   dataSource: ShoppingCartDataSource;
 
   advertisements: AdvertisementInCart[];
-  dialogData: AdvertisementInCart;
+  dialogData: ItemInCart;
   selected: AdvertisementInCart;
-  sameOwner: AdvertisementInCart[];
+
+
+  sameOwner: ItemInCart[];
+  itemsInCart: ItemInCart[];
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass','owner', "checkbox", "button"];
-
+//DODATI 'timeFrom' I 'timeTo'
 
   constructor(private shopingCartService:ShopingCartService){}
+
 
   ngOnInit() {
     this.dataSource = new ShoppingCartDataSource(null);
     this.shopingCartService.getAllForCart().subscribe(
       data => {
-        this.advertisements = data;
+        this.itemsInCart = data;
         this.sameOwner= data;
-
         this.sameOwner.forEach(same => {
-            
-          
-            this.advertisements.forEach(element => {
+            this.itemsInCart.forEach(element => {
               
               if(same.id!=element.id){
 
-              if(same.postedBy.jmbg===element.postedBy.jmbg){
+              if(same.advertisement.postedBy.jmbg===element.advertisement.postedBy.jmbg){
                 same.owner=true;
               }
-              
-            
             }
-
             });
-
         });
-        
-
         this.dataSource = new ShoppingCartDataSource(this.sameOwner);
       }
-      
     );
-
-    
   }
+
+
 
   sendRequest(){
     console.log("Pogodio dugme u ts");
@@ -72,16 +66,17 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
 
   }
 
-  remove(advertisement :AdvertisementInCart){
-    console.log("pogodi ga")
-    this.dataSource.data.splice(this.dataSource.data.indexOf(advertisement), 1);
+  
 
-    //this.sameOwner.splice(this.sameOwner.indexOf(advertisement),1);
+  
+  remove(itemInCart: ItemInCart){
+    console.log("pogodi ga")
+    this.dataSource.data.splice(this.dataSource.data.indexOf(itemInCart), 1);
+
+    //this.sameOwner.splice(this.sameOwner.indexOf(booking),1);
     //this.dataSource=new ShoppingCartDataSource(this.sameOwner);
   
   }
-
-  
 
 
   ngAfterViewInit() {

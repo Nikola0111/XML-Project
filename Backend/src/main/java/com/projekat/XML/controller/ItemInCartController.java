@@ -3,7 +3,7 @@ package com.projekat.XML.controller;
 import java.util.List;
 
 import com.projekat.XML.dtos.ItemInCartDTO;
-import com.projekat.XML.model.ItemInCart;
+import com.projekat.XML.service.ItemInCartService;
 import com.projekat.XML.service.ShoppingCartService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +17,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "shoppingCart")
-public class ShoppingCartController {
+@RequestMapping(value = "itemInCart")
+public class ItemInCartController {
 
 
     @Autowired
-	private ShoppingCartService shoppingCartService;
+	private ItemInCartService itemInCartService;
     
 
 
-    @GetMapping(value = "/forCart")
-    public ResponseEntity<List<ItemInCart>> getAllForCart() {
-		
-	   
-		List<ItemInCart> items = shoppingCartService.fotCart();
-
-		System.out.println("pogodio je kontroler, broj oglasa vraca=="+items.size());
-		
-        return new ResponseEntity<>(items, HttpStatus.OK);
-    }
+    
 
 
-   
+    @PostMapping(value="/addItem", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Long> addAdvToCart(@RequestBody ItemInCartDTO itemInCartDTO) {
+
+		System.out.println("POGODIO");
+		itemInCartService.save(itemInCartDTO);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
     
 }

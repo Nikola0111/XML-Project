@@ -21,16 +21,16 @@ public class ShoppingCart  {
     private Long userId;
     
     
-    private ArrayList<Long> advList;
+    private ArrayList<Long> itemInCartList;
 
 
     public ShoppingCart(){
         
     }
 
-    public ShoppingCart( Long userId, ArrayList<Long> advList) {
+    public ShoppingCart( Long userId, ArrayList<Long> itemInCartList) {
         this.userId =userId;
-        this.advList = advList;
+        this.itemInCartList = itemInCartList;
     }
 
     public Long getId() {
@@ -49,16 +49,16 @@ public class ShoppingCart  {
         this.userId = userId;
     }
 
-    public List<Long> getAdvList() {
-        return this.advList;
+    public List<Long> getItemInCartList() {
+        return this.itemInCartList;
     }
 
-    public void setAdvList(ArrayList<Long> advList) {
-        this.advList = advList;
+    public void setItemInCartList(ArrayList<Long> ItemInCartList) {
+        this.itemInCartList = ItemInCartList;
     }
 
-    public void addOneAdv(Long adv){
-        this.advList.add(adv);
+    public void addOneItemInCart(Long adv){
+        this.itemInCartList.add(adv);
     }
 
    
