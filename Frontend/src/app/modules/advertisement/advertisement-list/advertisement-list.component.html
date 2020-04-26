@@ -56,13 +56,18 @@
           class="field-style field-full align-none" placeholder="Car seats" />
       </li>
       <li>
-        <input type="datetime-local" formControlName="timeFrom" name="timeFrom" class="field-style field-full align-none"
-          [ngModel]="this.filterAdsDTO.timeFrom | date:'yyyy-MM-ddTHH:mm'" />
+        <input type="datetime-local" formControlName="timeFrom" name="timeFrom"
+          class="field-style field-full align-none" [(ngModel)]="this.filterAdsDTO.timeFrom" />
       </li>
 
-      <li>
+      <!-- <li>
         <input type="datetime-local" formControlName="timeTo" name="timeTo" class="field-style field-full align-none"
-          [ngModel]="this.filterAdsDTO.timeTo | date:'yyyy-MM-ddTHH:mm'" />
+          [(ngModel)]="this.filterAdsDTO.timeTo" />
+      </li> -->
+
+      <li>
+        <input type="datetimet" [(ngModel)]="this.filterAdsDTO.timeTo" formControlName="timeFrom" name="timeTo"
+          class="field-style field-full align-none" placeholder="Start" />
       </li>
 
 
