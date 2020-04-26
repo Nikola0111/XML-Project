@@ -1,5 +1,6 @@
 package com.projekat.XML.controller;
 
+import com.projekat.XML.dtos.UserDTO;
 import com.projekat.XML.model.User;
 import com.projekat.XML.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping(value = "/passwordChange", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> changePassword(@RequestBody UserDTO userDTO){
+        userService.changePassword(userDTO.getJmbg(), userDTO.getPassword());
 
+        return new ResponseEntity<Long>((long) 1, HttpStatus.OK);
+    }
 
 }

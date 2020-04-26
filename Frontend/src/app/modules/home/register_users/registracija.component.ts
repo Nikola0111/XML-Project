@@ -53,7 +53,10 @@ export class RegistracijaComponent implements OnInit {
     this.loading = true;
 
     this.registerService.register(this.endUser).subscribe(
-      data => alert('uspesna registracija'),
+      data => {
+        console.log(data);
+        alert('uspesna registracija');
+      },
       error => {
         if (error.error === 'username'){
           alert('The username is taken!');

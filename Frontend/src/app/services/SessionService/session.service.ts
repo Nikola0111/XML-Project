@@ -12,11 +12,15 @@ export class SessionService {
   /////////////////////////////// Registracija i login
   /////////////////////////////// Uloge
   isAdmin = false;
+  isAgent = false;
   /////////////////////////////// Uloge
   /////////////////////////////// Admin komponente
   adminhome = true;
   requests = false;
   agentreg = false;
   /////////////////////////////// Admin komponente
+  /////////////////////////////// Random
+  pwChanging = false;
+
   constructor() { }
 }
