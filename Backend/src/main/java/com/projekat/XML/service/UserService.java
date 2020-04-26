@@ -1,5 +1,6 @@
 package com.projekat.XML.service;
 
+import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.projekat.XML.dtos.UserDTO;
@@ -63,10 +64,17 @@ public class UserService {
             agentRepository.save(agent);
         }else{
             user.setPassword(password);
-
             userRepository.save(user);
         }
+    }
+  
+    public List<User> findAll()
+    {
+        return userRepository.findAll();
+    }
 
-
+    public User findOneByid(Long id)
+    {
+        return userRepository.findOneByid(id);
     }
 }

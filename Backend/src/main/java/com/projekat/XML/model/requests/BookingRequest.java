@@ -16,8 +16,10 @@ public class BookingRequest{
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    //onaj ko je objavio
     private Long userForId;
 
+    //onaj ko podnosi
     private Long userToId;
 
     private RequestStates stateOfRequest;

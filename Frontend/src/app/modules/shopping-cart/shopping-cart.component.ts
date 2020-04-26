@@ -27,7 +27,7 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
   sameOwner: AdvertisementInCart[];
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass','owner', "checkbox"];
+  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass','owner', "checkbox", "button"];
 
 
   constructor(private shopingCartService:ShopingCartService){}
@@ -70,6 +70,15 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
     console.log("Pogodio dugme u ts");
     this.shopingCartService.sentRequests(this.sameOwner).subscribe();
 
+  }
+
+  remove(advertisement :AdvertisementInCart){
+    console.log("pogodi ga")
+    this.dataSource.data.splice(this.dataSource.data.indexOf(advertisement), 1);
+
+    //this.sameOwner.splice(this.sameOwner.indexOf(advertisement),1);
+    //this.dataSource=new ShoppingCartDataSource(this.sameOwner);
+  
   }
 
   
