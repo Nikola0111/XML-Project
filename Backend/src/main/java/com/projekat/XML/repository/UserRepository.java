@@ -2,7 +2,6 @@ package com.projekat.XML.repository;
 
 
 import com.projekat.XML.model.User;
-import com.projekat.XML.model.VerificationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

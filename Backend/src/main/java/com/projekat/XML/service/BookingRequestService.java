@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import com.projekat.XML.dtos.AdvertisementInCartDTO;
 import com.projekat.XML.enums.RequestStates;
-import com.projekat.XML.model.User;
 import com.projekat.XML.model.requests.BookingRequest;
 import com.projekat.XML.repository.AdvertisementRepository;
 import com.projekat.XML.repository.BookingRequestRepository;
