@@ -6,6 +6,7 @@ import { ShoppingCartDataSource, ShoppingCartItem } from './shopping-cart-dataso
 import { Advertisement } from 'src/app/model/advertisement';
 import { ShopingCartService } from './shoping-cart.service';
 import { AdvertisementInCart } from 'src/app/model/advertisementInCart';
+import {SessionService} from '../../services/SessionService/session.service';
 
 
 
@@ -30,7 +31,9 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
   displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass','owner', "checkbox", "button"];
 
 
-  constructor(private shopingCartService:ShopingCartService){}
+  constructor(private shopingCartService: ShopingCartService, private sessionService: SessionService){
+    console.log(this.sessionService.ulogovaniKorisnik);
+  }
 
   ngOnInit() {
     this.dataSource = new ShoppingCartDataSource(null);
@@ -40,30 +43,30 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
         this.sameOwner= data;
 
         this.sameOwner.forEach(same => {
-            
-          
+
+
             this.advertisements.forEach(element => {
-              
+
               if(same.id!=element.id){
 
               if(same.postedBy.jmbg===element.postedBy.jmbg){
                 same.owner=true;
               }
-              
-            
+
+
             }
 
             });
 
         });
-        
+
 
         this.dataSource = new ShoppingCartDataSource(this.sameOwner);
       }
-      
+
     );
 
-    
+
   }
 
   sendRequest(){
@@ -78,10 +81,10 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
 
     //this.sameOwner.splice(this.sameOwner.indexOf(advertisement),1);
     //this.dataSource=new ShoppingCartDataSource(this.sameOwner);
-  
+
   }
 
-  
+
 
 
   ngAfterViewInit() {

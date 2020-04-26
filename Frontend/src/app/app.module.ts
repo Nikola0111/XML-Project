@@ -81,7 +81,9 @@ import { AgentComponent } from './modules/agent/agent.component';
       {path: 'requests', component: RepresentRequestsComponent},
       {path: 'agent', component: AgentComponent},
       {path: 'inbox', component: PorukeComponent},
-      { path: 'conversation/:id', component: ConversationComponent}
+      {path: 'login', component: LoginComponent},
+      {path: 'register', component: RegistracijaComponent},
+      {path: 'conversation/:id', component: ConversationComponent}
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
