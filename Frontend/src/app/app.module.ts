@@ -28,6 +28,8 @@ import { RepresentRequestsComponent } from './modules/repsresent-requests/repsre
 import { RepresentRequestsService } from './modules/repsresent-requests/represent-requests.service';
 import { RegisterConfirmComponent } from './modules/home/register-confirm/register-confirm.component';
 import { AgentRegisterComponent } from './modules/administrator/agent-register/agent-register.component';
+import { IzmenaLozinkeComponent } from './modules/shared/izmena-lozinke/izmena-lozinke.component';
+import { AgentComponent } from './modules/agent/agent.component';
 
 
 
@@ -46,7 +48,9 @@ import { AgentRegisterComponent } from './modules/administrator/agent-register/a
     ShoppingCartComponent,
     RepresentRequestsComponent,
     RegisterConfirmComponent,
-    AgentRegisterComponent
+    AgentRegisterComponent,
+    IzmenaLozinkeComponent,
+    AgentComponent
 
 ],
   imports: [
@@ -59,13 +63,15 @@ import { AgentRegisterComponent } from './modules/administrator/agent-register/a
     CommonModule,
     RouterModule.forRoot([
       {path: 'registrationConfirm.html', component: RegisterConfirmComponent},
+      {path: 'izmenaLozinke', component: IzmenaLozinkeComponent},
       {path: '', component: RegistracijaComponent},
       {path: 'homepage', component: HomepageComponent},
       {path: 'app-advertisement', component: AdvertisementComponent},
       {path: 'advertisement-list', component: AdvertisementListComponent},
       {path: 'administrator', component: AdministratorComponent},
       {path: 'shoppingCart' , component: ShoppingCartComponent},
-      {path: 'requests', component:RepresentRequestsComponent}
+      {path: 'requests', component: RepresentRequestsComponent},
+      {path: 'agent', component: AgentComponent}
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',

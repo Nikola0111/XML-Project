@@ -18,7 +18,7 @@ export class RegisterService {
   public register(endUser: EndUser) {
     endUser.userType = UserType.ENDUSER;
     const body = JSON.stringify(endUser);
-    return this.http.post<EndUser>('/server/enduser/register', body, httpOptions);
+    return this.http.post<string>('/server/enduser/register', body, httpOptions);
   }
 
   public registerAgent(userDTO: UserDTO){

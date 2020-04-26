@@ -5,6 +5,7 @@ import {User} from '../../../model/user';
 import {SessionService} from '../../../services/SessionService/session.service';
 import {Router} from '@angular/router';
 import {UserType} from '../../../enums/UserType';
+import {AgentService} from '../../../services/AgentService/agent.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import {UserType} from '../../../enums/UserType';
 export class LoginComponent implements OnInit {
   user: User;
   forma: FormGroup;
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService, private sessionService: SessionService,
+  constructor(private agentService: AgentService, private formBuilder: FormBuilder, private loginService: LoginService, private sessionService: SessionService,
               private router: Router) {
     this.user = new User();
   }
@@ -35,8 +36,21 @@ export class LoginComponent implements OnInit {
         if (data.userType.toString() === 'ADMINISTRATOR') {
           console.log('administrator je');
           this.sessionService.isAdmin = true;
+          this.sessionService.isAgent = false;
           console.log(this.sessionService.isAdmin + ' Admin registrovan');
           this.router.navigate(['/administrator']);
+        } else if (data.userType.toString() === 'AGENT') {
+          this.agentService.checkPasswordChanged().subscribe(isChanged =>{
+            if (isChanged === false){
+              this.sessionService.pwChanging = true;
+              this.router.navigate(['/izmenaLozinke']);
+            } else {
+              this.sessionService.isAgent = true;
+              this.sessionService.isAdmin = false;
+              this.router.navigate(['/agent']);
+            }
+          });
+
         }
       },
       error => alert('Neuspesno logovanje')
