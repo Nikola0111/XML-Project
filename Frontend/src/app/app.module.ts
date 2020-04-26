@@ -15,11 +15,17 @@ import { AgmCoreModule} from '@agm/core';
 import { AdvertisementComponent } from './modules/advertisement/advertisement.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdvertisementService } from './services/advertisement.service/advertisement.service';
-import { AdvertisementListComponent } from './modules/advertisement/advertisement-list/advertisement-list.component';
+import {
+  AdvertisementListComponent, ImagesDialogComponent
+} from './modules/advertisement/advertisement-list/advertisement-list.component';
 import { HomepageComponent } from './modules/home/homepage/homepage.component';
 import { LoginComponent } from './modules/home/login/login.component';
-
-
+import { MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
+import {NgImageSliderModule} from 'ng-image-slider';
+import {ImageModelService} from './services/imageModel.service/imageModel.service';
 
 @NgModule({
   declarations: [
@@ -27,11 +33,10 @@ import { LoginComponent } from './modules/home/login/login.component';
     NavbarComponent,
     RegistracijaComponent,
     AdvertisementComponent,
-
     LoginComponent,
-
     HomepageComponent,
-    AdvertisementListComponent
+    AdvertisementListComponent,
+    ImagesDialogComponent
 
 ],
   imports: [
@@ -44,11 +49,12 @@ import { LoginComponent } from './modules/home/login/login.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatButtonModule,
     RouterModule.forRoot([
 
-      { path: '', component: RegistracijaComponent },
+      {path: '', component: RegistracijaComponent},
       {path: 'app-advertisement', component: AdvertisementComponent},
-      { path: 'advertisement-list', component: AdvertisementListComponent},
+      {path: 'advertisement-list', component: AdvertisementListComponent},
 
     ]),
     AgmCoreModule.forRoot({
@@ -57,11 +63,15 @@ import { LoginComponent } from './modules/home/login/login.component';
     }),
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
-
+    MatSortModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDialogModule,
+    NgImageSliderModule
   ],
   exports: [RouterModule],
-  providers: [AdvertisementService],
-  bootstrap: [AppComponent]
+  providers: [AdvertisementService, ImageModelService],
+  bootstrap: [AppComponent],
+  entryComponents: [ImagesDialogComponent]
 })
 export class AppModule { }

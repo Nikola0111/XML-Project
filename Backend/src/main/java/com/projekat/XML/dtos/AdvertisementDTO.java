@@ -4,14 +4,20 @@ import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
 import com.projekat.XML.model.Advertisement;
+import com.projekat.XML.model.ImageModel;
+import com.sun.xml.messaging.saaj.soap.ImageDataContentHandler;
+
+import java.io.File;
+import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class AdvertisementDTO {
 
     private Long id;
 
     private String name;
-
-    
 
     private String model;
 
@@ -29,9 +35,11 @@ public class AdvertisementDTO {
 
     private double price;
 
+    private ArrayList<ImageModel> images;
+
    
 
-    public AdvertisementDTO(String name,String model, String brand, FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelled, int carSeats, double price) {
+    public AdvertisementDTO(String name,String model, String brand, FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelled, int carSeats, double price, ArrayList<ImageModel> images) {
         this.name=name;
         this.model = model;
         this.brand = brand;
@@ -41,6 +49,7 @@ public class AdvertisementDTO {
         this.travelled = travelled;
         this.carSeats = carSeats;
         this.price=price;
+        this.images = images;
     }
 
     public AdvertisementDTO(Advertisement ad)
@@ -96,7 +105,6 @@ public class AdvertisementDTO {
         this.carClass = carClass;
     }
 
-
     public int getTravelled() {
         return this.travelled;
     }
@@ -113,7 +121,6 @@ public class AdvertisementDTO {
         this.carSeats = carSeats;
     }
 
-
     public double getPrice() {
         return this.price;
     }
@@ -122,5 +129,11 @@ public class AdvertisementDTO {
         this.price = price;
     }
 
+    public ArrayList<ImageModel> getImages() {
+        return images;
+    }
 
+    public void setImages(ArrayList<ImageModel> images) {
+        this.images = images;
+    }
 }

@@ -3,9 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Advertisement} from 'src/app/model/advertisement';
 import {AdvertisementService} from '../../services/advertisement.service/advertisement.service';
-import {FuelType} from '../../enums/fuelType';
-import {TransmissionType} from '../../enums/transmissionType';
-import {CarClass} from '../../enums/carClass';
+import {ImageModelService} from '../../services/imageModel.service/imageModel.service';
+import {ImageModel} from '../../model/imageModel';
 
 
 @Component({
@@ -14,6 +13,12 @@ import {CarClass} from '../../enums/carClass';
   styleUrls: ['./advertisement.component.css']
 })
 export class AdvertisementComponent implements OnInit {
+
+  constructor(private formBuilder: FormBuilder,
+              private advertisementService: AdvertisementService,
+              private imageModelService: ImageModelService) {
+    this.advertisement = new Advertisement();
+  }
   loading = false;
   forma: FormGroup;
   submitted = false;
@@ -22,10 +27,11 @@ export class AdvertisementComponent implements OnInit {
   transType: string;
   carClass: string;
 
-  constructor(private formBuilder: FormBuilder,
-              private advertisementService: AdvertisementService) {
-                this.advertisement = new Advertisement();
-               }
+  imagesUrl: string[];
+  reader: FileReader;
+  formData: FormData;
+  selectedFiles: Array<File> = new Array<File>();
+  imageModel: ImageModel;
 
   ngOnInit(): void {
     this.forma = this.formBuilder.group({
@@ -37,7 +43,8 @@ export class AdvertisementComponent implements OnInit {
       carClass: [''],
       travelled: [''],
       price: [''],
-      carSeats: ['']
+      carSeats: [''],
+      images: ['']
     });
   }
 
@@ -66,7 +73,30 @@ export class AdvertisementComponent implements OnInit {
       this.advertisement.carClass = 2;
     }
 
+    this.onUpload();
+
     this.advertisementService.save(this.advertisement).subscribe();
   }
 
+  onFileSelected(event) {
+    console.log(event);
+    this.selectedFiles = new Array<File>();
+    this.selectedFiles = event.target.files;
+  }
+
+  onUpload() {
+    if (this.selectedFiles.length === 0) {
+      return;
+    }
+    this.advertisement.images = new Array<ImageModel>();
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.selectedFiles.length; i++) {
+      // this.imageModelService.uploadImage(this.selectedFiles[i]);
+      this.imageModel = new ImageModel();
+      this.imageModel.name = this.selectedFiles[i].name;
+      this.imageModel.type = this.selectedFiles[i].type;
+      this.advertisement.images.push(this.imageModel);
+      this.imageModelService.save(this.selectedFiles[i]).subscribe();
+    }
+  }
 }

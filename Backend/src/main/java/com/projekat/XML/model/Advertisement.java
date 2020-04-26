@@ -3,20 +3,18 @@ package com.projekat.XML.model;
 import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
+import com.sun.xml.messaging.saaj.soap.ImageDataContentHandler;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
+@Table(name = "advertisement")
 public class Advertisement {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-
-
 
     private String name;
 
@@ -36,11 +34,13 @@ public class Advertisement {
 
     private double price;
 
+    private ArrayList<ImageModel> images;
+
    public Advertisement(){
 
    }
 
-    public Advertisement(String name,String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int travelled, int carSeats, double price) {
+    public Advertisement(String name,String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int travelled, int carSeats, double price, ArrayList<ImageModel> images) {
         this.name=name;
         this.model = model;
         this.brand = brand;
@@ -50,6 +50,7 @@ public class Advertisement {
         this.travelled = travelled;
         this.carSeats = carSeats;
         this.price=price;
+        this.images = images;
     }
 
     public String getBrand() {
@@ -92,7 +93,6 @@ public class Advertisement {
         this.carClass = carClass;
     }
 
-
     public int getTravelled() {
         return this.travelled;
     }
@@ -108,7 +108,6 @@ public class Advertisement {
     public void setCarSeats(int carSeats) {
         this.carSeats = carSeats;
     }
-
 
     public double getPrice() {
         return this.price;
@@ -133,5 +132,13 @@ public class Advertisement {
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public ArrayList<ImageModel> getImages() {
+        return images;
+    }
+
+    public void setImages(ArrayList<ImageModel> images) {
+        this.images = images;
     }
 }

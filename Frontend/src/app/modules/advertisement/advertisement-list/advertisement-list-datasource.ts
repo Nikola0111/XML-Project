@@ -19,7 +19,6 @@ export interface AdvertisementListItem {
   travelled: number;
   price: number;
   carSeats: number;
-
 }
 
 // TODO: replace this with real data from your application

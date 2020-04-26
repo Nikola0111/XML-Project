@@ -1,6 +1,7 @@
 import {FuelType} from '../enums/fuelType';
 import {TransmissionType} from '../enums/transmissionType';
 import {CarClass} from '../enums/carClass';
+import {ImageModel} from './imageModel';
 
 export class Advertisement {
   id: number;
@@ -13,7 +14,7 @@ export class Advertisement {
   travelled: number;
   price: number;
   carSeats: number;
-
+  images: Array<ImageModel>;
 
   constructor() {
 
