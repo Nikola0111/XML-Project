@@ -1,9 +1,10 @@
 .full-width-table {
-  width: 100%;
+  width: 70% !important;
+  float: left;
 }
 
 .form-style-9{
-	max-width: 450px;
+	max-width: 30% !important;
 	background: #FAFAFA;
 	padding: 30px;
 	margin: 50px auto;
