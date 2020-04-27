@@ -145,4 +145,6 @@ public class Advertisement  {
     public void setPostedBy(User postedBy) {
         this.postedBy = postedBy;
     }
+
+
 }

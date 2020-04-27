@@ -33,7 +33,10 @@ import { ConversationComponent } from './modules/conversation/conversation.compo
 import { ConversationService } from './modules/conversation/conversation.service';
 import { AgentRegisterComponent } from './modules/administrator/agent-register/agent-register.component';
 import { IzmenaLozinkeComponent } from './modules/shared/izmena-lozinke/izmena-lozinke.component';
-import { AgentComponent } from './modules/agent/agent.component';
+import { AgentComponent } from './modules/agent/home/agent.component';
+import { CreateReportComponent } from './modules/agent/create-report/create-report.component';
+import { AgentsCarsComponent } from './modules/agent/agents-cars/agents-cars.component';
+import {CarDTO} from './dtos/car-dto';
 
 
 
@@ -57,7 +60,9 @@ import { AgentComponent } from './modules/agent/agent.component';
     AgentComponent,
     PorukeComponent,
     ConversationComponent,
-    AgentRegisterComponent
+    AgentRegisterComponent,
+    CreateReportComponent,
+    AgentsCarsComponent
 
 
 ],
@@ -72,6 +77,7 @@ import { AgentComponent } from './modules/agent/agent.component';
     RouterModule.forRoot([
       {path: 'registrationConfirm.html', component: RegisterConfirmComponent},
       {path: 'izmenaLozinke', component: IzmenaLozinkeComponent},
+      {path: 'report/:id', component: CreateReportComponent},
       {path: '', component: RegistracijaComponent},
       {path: 'homepage', component: HomepageComponent},
       {path: 'app-advertisement', component: AdvertisementComponent},

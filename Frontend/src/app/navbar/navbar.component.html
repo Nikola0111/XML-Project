@@ -16,11 +16,12 @@
             <li *ngIf="sessionService.ulogovaniKorisnik === undefined"><a [routerLink]="['/advertisement']">DodajOglas</a></li>
             <li *ngIf="sessionService.ulogovaniKorisnik === undefined"><a [routerLink]="['/inbox']">Inbox</a></li>
             <li *ngIf="sessionService.ulogovaniKorisnik === undefined"><a [routerLink]="['/requests']">Requests</a></li>
-            <li *ngIf="sessionService.ulogovaniKorisnik === undefined"><a [routerLink]="['/shoppingCart']">
+            <li *ngIf="sessionService.isEndUser"><a [routerLink]="['/shoppingCart']">
               <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart
             </a></li>
             <li *ngIf="sessionService.isAdmin" class = "button" (click)="showRequests()"><a>Requests</a></li>
             <li *ngIf="sessionService.isAdmin" class = "button" (click)="showAgentReg()"><a>Register Agents</a></li>
+            <li *ngIf="sessionService.isAgent" class = "button" (click)="createReport()"><a>Create Report</a></li>
           </ul>
 <!--          <ul class="nav navbar-nav">-->
 <!--            <li>-->

@@ -40,6 +40,7 @@ export class IzmenaLozinkeComponent implements OnInit {
       this.sessionService.pwChanging = false;
       this.sessionService.isAgent = true;
       this.sessionService.isAdmin = false;
+      this.sessionService.isEndUser = false;
       alert('Password successfully changed!');
       this.router.navigate(['/agent']);
     });

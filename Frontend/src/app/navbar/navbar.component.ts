@@ -46,6 +46,17 @@ export class NavbarComponent implements OnInit {
   }
   // Admin components
 
+  createReport() {
+    this.sessionService.homeAgent = false;
+    this.sessionService.report = true;
+  }
+
+  showHomeAgent() {
+    this.sessionService.report = false;
+    this.sessionService.homeAgent = true;
+  }
+
+
   logOut() {
     this.sessionService.ulogovaniKorisnik = undefined;
     console.log(this.sessionService.ulogovaniKorisnik);
