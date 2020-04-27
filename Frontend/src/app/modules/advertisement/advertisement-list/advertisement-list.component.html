@@ -2,7 +2,7 @@
   <app-navbar></app-navbar>
 
   <h2>Filter oglasa</h2>
-  <form (ngSubmit)="filter()" [formGroup]="filterForm" class="form-style-9">
+  <form (ngSubmit)="filter()" [formGroup]="filterForm" class="form-style-9" style="width: 20%; float: left; margin: 20px;">
     <ul>
       <li>
         <select [(ngModel)]="this.fuelType" formControlName="fuelType" name="fuelType"
@@ -139,4 +139,4 @@
 
 </div>
 
-<button mat-raised-button [routerLink]="['/advertisement']">Add</button>
+<!-- <button mat-raised-button [routerLink]="['/advertisement']">Add</button> -->
