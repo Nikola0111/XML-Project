@@ -1,11 +1,13 @@
 package com.projekat.XML.service;
 
+import com.projekat.XML.dtos.CarDTO;
+import com.projekat.XML.dtos.CarReportDTO;
 import com.projekat.XML.dtos.UserDTO;
 import com.projekat.XML.enums.UserType;
-import com.projekat.XML.model.Agent;
-import com.projekat.XML.model.LoginInfo;
-import com.projekat.XML.model.User;
+import com.projekat.XML.model.*;
+import com.projekat.XML.repository.AdvertisementRepository;
 import com.projekat.XML.repository.AgentRepository;
+import com.projekat.XML.repository.CarReportRepository;
 import com.projekat.XML.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,6 +27,12 @@ public class AgentService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AdvertisementRepository advertisementRepository;
+
+    @Autowired
+    private CarReportRepository carReportRepository;
 
     public int save(UserDTO userDTO) {
         User user;
@@ -68,5 +78,42 @@ public class AgentService {
         }
 
         return false;
+    }
+
+    public List<CarDTO> findOwnersCars(){
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder
+                .currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+        Long id = (Long) session.getAttribute("user");
+        List<Advertisement> advertisements = advertisementRepository.findAllByPostedBy_Id(id);
+        List<CarDTO> cars = new ArrayList<CarDTO>();
+        for(int i = 0;i < advertisements.size(); i++){
+            CarDTO car = new CarDTO();
+            Advertisement ad = advertisements.get(i);
+
+            car.setId(ad.getId());
+            car.setBrand(ad.getBrand());
+            car.setCarClass(ad.getCarClass());
+            car.setCarSeats(ad.getCarSeats());
+            car.setFuelType(ad.getFuelType());
+            car.setModel(ad.getModel());
+            car.setName(ad.getModel());
+            car.setTransType(ad.getTransType());
+            car.setTravelled(ad.getTravelled());
+
+            cars.add(car);
+        }
+
+        return cars;
+    }
+
+    public void saveReport(CarReportDTO carReportDTO){
+        Advertisement ad = advertisementRepository.findOneByid(carReportDTO.getCarId());
+
+        ad.setTravelled(ad.getTravelled() + carReportDTO.getTravelled());
+
+        CarReport newReport = new CarReport(carReportDTO.getTravelled(), carReportDTO.getComment(), ad);
+
+        carReportRepository.save(newReport);
     }
 }
