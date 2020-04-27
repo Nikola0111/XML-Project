@@ -61,6 +61,14 @@ public class ShoppingCart  {
         this.itemInCartList.add(adv);
     }
 
+    public void removeOneItemInCart(Long adv){
+        this.itemInCartList.remove(adv);
+    }
+
+    public void removeAllItems(){
+        this.itemInCartList.clear();
+    }
+
    
 
 }

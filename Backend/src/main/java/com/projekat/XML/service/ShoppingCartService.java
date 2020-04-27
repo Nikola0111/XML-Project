@@ -1,5 +1,5 @@
 package com.projekat.XML.service;
-import com.projekat.XML.dtos.ItemInCartDTO;
+
 import com.projekat.XML.model.ItemInCart;
 import com.projekat.XML.model.ShoppingCart;
 import com.projekat.XML.repository.ItemInCartRepository;
@@ -43,6 +43,28 @@ public void addAItemInCart(Long itemId){
     ShoppingCart cart=shoppingCartRepository.findOneByuserId(getLogedUserId());
     cart.addOneItemInCart(itemId);
     shoppingCartRepository.save(cart);
+}
+
+public void removeItemInCart(Long itemId){
+
+    ShoppingCart cart=shoppingCartRepository.findOneByid(getLogedUserId());
+    cart.removeOneItemInCart(itemId);
+    shoppingCartRepository.save(cart);
+
+}
+
+public void removeAll(){
+    ShoppingCart cart=shoppingCartRepository.findOneByid(getLogedUserId());
+    cart.removeAllItems();
+    shoppingCartRepository.save(cart);
+
+}
+
+public ShoppingCart getShoppingCart(Long id){
+
+    
+
+return shoppingCartRepository.findOneByuserId(id);
 }
 
 

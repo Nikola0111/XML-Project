@@ -1,11 +1,15 @@
 package com.projekat.XML.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.projekat.XML.dtos.AdvertisementInCartDTO;
 import com.projekat.XML.dtos.ItemInCartDTO;
+import com.projekat.XML.model.ItemInCart;
 import com.projekat.XML.model.requests.BookingRequest;
 import com.projekat.XML.service.BookingRequestService;
+import com.projekat.XML.service.ItemInCartService;
+import com.projekat.XML.service.ShoppingCartService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,14 +28,25 @@ public class BookingRequestController {
 @Autowired
 BookingRequestService bookingRequestService;
 
+@Autowired
+ItemInCartService itemInCartService;
+
+@Autowired
+ShoppingCartService shoppingCartService;
+
     @PostMapping(value = "/save", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> Login(@RequestBody List<ItemInCartDTO> lista){
+    public ResponseEntity<List<ItemInCart>> Login(@RequestBody List<ItemInCartDTO> lista){
 
         System.out.println("Pogodio je back");
 
         bookingRequestService.makeRequests(lista);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        itemInCartService.removeAll();
+
+
+
+
+        return new ResponseEntity<>(shoppingCartService.fotCart(),HttpStatus.OK);
     }
 
 
