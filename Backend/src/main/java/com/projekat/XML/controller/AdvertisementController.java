@@ -1,6 +1,7 @@
 package com.projekat.XML.controller;
 
 import com.projekat.XML.dtos.AdvertisementDTO;
+import com.projekat.XML.dtos.FilterAdsDTO;
 import com.projekat.XML.model.Advertisement;
 import com.projekat.XML.service.AdvertisementService;
 import com.projekat.XML.service.ShoppingCartService;
@@ -23,8 +24,7 @@ public class AdvertisementController {
 	@Autowired
 	private AdvertisementService advertisementService;
 
-	@Autowired
-	private ShoppingCartService shoppingCartService;
+	
 
 
 	@PostMapping(value="/save", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,15 +37,7 @@ public class AdvertisementController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PostMapping(value="/addAdv", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Long> addAdvToCart(@RequestBody AdvertisementDTO advertisementDTO) {
-
-		System.out.println("POGODIO");
-		System.out.println("ID JE "+advertisementDTO.getId());
-		shoppingCartService.addAdvertisement(advertisementDTO.getId());
-
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+	
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<Advertisement>> getAll() {
@@ -56,16 +48,13 @@ public class AdvertisementController {
         return new ResponseEntity<>(advertisements, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/forCart")
-    public ResponseEntity<List<Advertisement>> getAllForCart() {
-		
-	   
-		List<Advertisement> advertisements = shoppingCartService.fotCart();
 
-		System.out.println("pogodio je kontroler, broj oglasa vraca=="+advertisements.size());
-		
-        return new ResponseEntity<>(advertisements, HttpStatus.OK);
-    }
+
+	@PostMapping(value="/filterAdv", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Advertisement>> filterAds(@RequestBody FilterAdsDTO filterAdsDTO) {
+		System.out.println("POGODIO");
+		return new ResponseEntity<>(advertisementService.filterAds(filterAdsDTO), HttpStatus.OK);
+	}
 
 
 }

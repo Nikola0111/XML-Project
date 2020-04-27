@@ -8,7 +8,7 @@ import { ShopingCartService } from './shoping-cart.service';
 import { AdvertisementInCart } from 'src/app/model/advertisementInCart';
 import {SessionService} from '../../services/SessionService/session.service';
 
-
+import { ItemInCart } from 'src/app/model/itemInCart';
 
 
 @Component({
@@ -23,68 +23,83 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
   dataSource: ShoppingCartDataSource;
 
   advertisements: AdvertisementInCart[];
-  dialogData: AdvertisementInCart;
+  dialogData: ItemInCart;
   selected: AdvertisementInCart;
-  sameOwner: AdvertisementInCart[];
+
+
+  sameOwner: ItemInCart[];
+  itemsInCart: ItemInCart[];
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass','owner', "checkbox", "button"];
-
+//DODATI 'timeFrom' I 'timeTo'
 
   constructor(private shopingCartService: ShopingCartService, private sessionService: SessionService){
     console.log(this.sessionService.ulogovaniKorisnik);
   }
 
+
   ngOnInit() {
     this.dataSource = new ShoppingCartDataSource(null);
     this.shopingCartService.getAllForCart().subscribe(
       data => {
-        this.advertisements = data;
+        this.itemsInCart = data;
         this.sameOwner= data;
-
         this.sameOwner.forEach(same => {
-
-
-            this.advertisements.forEach(element => {
-
+            this.itemsInCart.forEach(element => {
+              
               if(same.id!=element.id){
 
-              if(same.postedBy.jmbg===element.postedBy.jmbg){
+              if(same.advertisement.postedBy.jmbg===element.advertisement.postedBy.jmbg){
                 same.owner=true;
               }
-
-
             }
-
             });
-
         });
 
-
         this.dataSource = new ShoppingCartDataSource(this.sameOwner);
+      }
+    );
+  }
+
+
+
+  sendRequest(){
+    console.log("Pogodio dugme u ts");
+   
+    this.dataSource = new ShoppingCartDataSource(null);
+    this.shopingCartService.sentRequests(this.sameOwner).subscribe(
+      data => {
+    
+        this.dataSource.data = data;
+        this.table.dataSource = this.dataSource;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        console.log(this.dataSource.data);
+        console.log(data);
+      }
+
+    );
+  }
+
+  remove(itemInCart: ItemInCart){
+    console.log("pogodi ga");
+    this.dataSource = new ShoppingCartDataSource(null);
+    this.shopingCartService.removeFromCart(itemInCart).subscribe(
+      data => {
+    
+        this.dataSource.data = data;
+        this.table.dataSource = this.dataSource;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        console.log(this.dataSource.data);
+        console.log(data);
       }
 
     );
 
-
+ 
   }
-
-  sendRequest(){
-    console.log("Pogodio dugme u ts");
-    this.shopingCartService.sentRequests(this.sameOwner).subscribe();
-
-  }
-
-  remove(advertisement :AdvertisementInCart){
-    console.log("pogodi ga")
-    this.dataSource.data.splice(this.dataSource.data.indexOf(advertisement), 1);
-
-    //this.sameOwner.splice(this.sameOwner.indexOf(advertisement),1);
-    //this.dataSource=new ShoppingCartDataSource(this.sameOwner);
-
-  }
-
-
 
 
   ngAfterViewInit() {

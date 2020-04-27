@@ -5,9 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import com.projekat.XML.dtos.AdvertisementInCartDTO;
+import com.projekat.XML.dtos.ItemInCartDTO;
 import com.projekat.XML.enums.RequestStates;
-import com.projekat.XML.model.User;
 import com.projekat.XML.model.requests.BookingRequest;
 import com.projekat.XML.repository.AdvertisementRepository;
 import com.projekat.XML.repository.BookingRequestRepository;
@@ -29,21 +28,21 @@ public class BookingRequestService {
 
 
 
-    public void makeRequests(List<AdvertisementInCartDTO> listaZahteva){
+    public void makeRequests(List<ItemInCartDTO> listaZahteva){
         //pretrazujem za svakog vlasnika, ako se pogodi da je isti, pogledam dal ide oglas odvojeno ili zajedno i na osnovu toga 
         //ubacujem u listu, cuvam i obrisem, onda se predje na sledeceg vlasnika
         //EROR STA AKO JE U PRVOJ LISTI OPET ISTI
         List<Long> vlasnici=new ArrayList<Long>();
-        List<AdvertisementInCartDTO> copyList=listaZahteva;
-        ArrayList<AdvertisementInCartDTO> together=new ArrayList<>();
-        ArrayList<AdvertisementInCartDTO> seprate=new ArrayList<>();
+        List<ItemInCartDTO> copyList=listaZahteva;
+        ArrayList<ItemInCartDTO> together=new ArrayList<>();
+        ArrayList<ItemInCartDTO> seprate=new ArrayList<>();
 
 
-        for (AdvertisementInCartDTO advertisementInCartDTO : listaZahteva) {
+        for (ItemInCartDTO ItemInCartDTO : listaZahteva) {
             
-            if(!vlasnici.contains(advertisementInCartDTO.getPostedBy().getId())){
+            if(!vlasnici.contains(ItemInCartDTO.getAdvertisement().getPostedBy().getId())){
 
-                vlasnici.add(advertisementInCartDTO.getPostedBy().getId());
+                vlasnici.add(ItemInCartDTO.getAdvertisement().getPostedBy().getId());
 
             }
         }
@@ -53,9 +52,9 @@ public class BookingRequestService {
 
         for (Long id: vlasnici) {
             
-            for (AdvertisementInCartDTO adv :copyList) {
+            for (ItemInCartDTO adv :copyList) {
                 
-                if(adv.getPostedBy().getId().equals(id)){
+                if(adv.getAdvertisement().getPostedBy().getId().equals(id)){
 
                     if(adv.isTogether()){
 
@@ -104,11 +103,11 @@ public class BookingRequestService {
             
             if(!seprate.isEmpty()){
 
-                for (AdvertisementInCartDTO advertisementInCartDTO2 : seprate) {
+                for (ItemInCartDTO ItemInCartDTO2 : seprate) {
                 
                 lastGroupId++;
-                bookingRequestRepository.save(new BookingRequest( advertisementInCartDTO2.getPostedBy().getId(),getLogedUserId(),
-                 lastGroupId, RequestStates.PENDING,advertisementRepository.findOneByid(advertisementInCartDTO2.getId()) , advertisementInCartDTO2.isTogether()));
+                bookingRequestRepository.save(new BookingRequest( ItemInCartDTO2.getAdvertisement().getPostedBy().getId(),getLogedUserId(),
+                 lastGroupId, RequestStates.PENDING,ItemInCartDTO2.getAdvertisement() , ItemInCartDTO2.isTogether(),ItemInCartDTO2.getTimeFrom(),ItemInCartDTO2.getTimeTo()));
 
 
 
@@ -125,11 +124,11 @@ public class BookingRequestService {
 
             if(!together.isEmpty()){
 
-                for (AdvertisementInCartDTO advertisementInCartDTO : together) {
+                for (ItemInCartDTO ItemInCartDTO : together) {
                     
-                bookingRequestRepository.save(new BookingRequest( advertisementInCartDTO.getPostedBy().getId(),getLogedUserId(),
-                lastGroupId, RequestStates.PENDING,advertisementRepository.findOneByid(advertisementInCartDTO.getId()),
-                 advertisementInCartDTO.isTogether()));
+                bookingRequestRepository.save(new BookingRequest( ItemInCartDTO.getAdvertisement().getPostedBy().getId(),getLogedUserId(),
+                lastGroupId, RequestStates.PENDING,ItemInCartDTO.getAdvertisement(),
+                 ItemInCartDTO.isTogether(),ItemInCartDTO.getTimeFrom(),ItemInCartDTO.getTimeTo()));
 
 
                 }

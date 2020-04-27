@@ -2,11 +2,8 @@ package com.projekat.XML.service;
 
 import java.util.List;
 import javax.servlet.http.HttpSession;
-
-import com.projekat.XML.dtos.UserDTO;
 import com.projekat.XML.enums.UserType;
 import com.projekat.XML.model.Agent;
-import com.projekat.XML.model.LoginInfo;
 import com.projekat.XML.model.User;
 import com.projekat.XML.repository.AgentRepository;
 import com.projekat.XML.repository.UserRepository;
@@ -21,8 +18,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private ShoppingCartService shoppingCartService;
 
     @Autowired
     private AgentRepository agentRepository;
@@ -40,7 +35,7 @@ public class UserService {
         HttpSession session = attr.getRequest().getSession(true);
 
         session.setAttribute("user", userDB.getId());
-        shoppingCartService.save(userDB.getId());
+        
 
     }
 

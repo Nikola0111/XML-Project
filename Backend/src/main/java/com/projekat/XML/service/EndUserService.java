@@ -25,33 +25,44 @@ public class EndUserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void save(EndUser endUser) { endUserRepository.save(endUser);}
+    @Autowired
+    private ShoppingCartService shoppingCartService;
 
-    public LoginInfo findByEmail(String email) {
-        return  loginInfoRepository.findByEmail(email);
+    public void save(EndUser endUser) {
+
+        endUserRepository.save(endUser);
+        shoppingCartService.save(endUser.getId());
     }
 
-    public LoginInfo findByUsername(String username){
+    public LoginInfo findByEmail(String email) {
+        return loginInfoRepository.findByEmail(email);
+    }
+
+    public LoginInfo findByUsername(String username) {
         return loginInfoRepository.findByUsername(username);
     }
 
-    public User findByJmbg(String jmbg){
+    public User findByJmbg(String jmbg) {
         return userRepository.findByJmbg(jmbg);
     }
 
-    public List<EndUser> getUnregistered(){ return endUserRepository.findByActivity(false); }
+    public List<EndUser> getUnregistered() {
+        return endUserRepository.findByActivity(false);
+    }
 
-    public List<EndUser> getAdminUnregistered(){ return endUserRepository.findByAdminApproved(false); }
+    public List<EndUser> getAdminUnregistered() {
+        return endUserRepository.findByAdminApproved(false);
+    }
 
-    public EndUser findById(Long id){
+    public EndUser findById(Long id) {
         return endUserRepository.findById(id).get();
     }
 
     @Transactional
-    public EndUser acceptRegistration(Long id){
+    public EndUser acceptRegistration(Long id) {
         Optional opt = endUserRepository.findById(id);
 
-        if(opt.isPresent()){
+        if (opt.isPresent()) {
             EndUser endUser = (EndUser) opt.get();
 
             endUser.setAccount_activated(true);
@@ -64,10 +75,10 @@ public class EndUserService {
     }
 
     @Transactional
-    public EndUser changeAdminActivated(Long id){
+    public EndUser changeAdminActivated(Long id) {
         Optional opt = endUserRepository.findById(id);
 
-        if(opt.isPresent()){
+        if (opt.isPresent()) {
             EndUser endUser = (EndUser) opt.get();
 
             endUser.setAdminApproved(true);
@@ -80,10 +91,10 @@ public class EndUserService {
     }
 
     @Transactional
-    public void rejectRegistration(Long id){
+    public void rejectRegistration(Long id) {
         Optional opt = endUserRepository.findById(id);
 
-        if(opt.isPresent()){
+        if (opt.isPresent()) {
             endUserRepository.delete((EndUser) opt.get());
         }
     }

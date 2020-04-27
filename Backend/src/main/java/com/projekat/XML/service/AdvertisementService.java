@@ -1,6 +1,7 @@
 package com.projekat.XML.service;
 
 import com.projekat.XML.dtos.AdvertisementDTO;
+import com.projekat.XML.dtos.FilterAdsDTO;
 import com.projekat.XML.model.Advertisement;
 import com.projekat.XML.repository.AdvertisementRepository;
 import com.projekat.XML.repository.UserRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -42,5 +44,67 @@ public class AdvertisementService {
 	
 	public Advertisement findOneByid(Long id) {
 		return advertisementRepository.findOneByid(id);
+	}
+
+
+	public List<Advertisement> filterAds(FilterAdsDTO filterAdsDTO)
+	{
+		List<Advertisement> allAds = advertisementRepository.findAll();
+		List<Advertisement> filteredAds = new ArrayList<Advertisement>();
+		List<Advertisement> filteredAvailableAds = new ArrayList<Advertisement>();
+
+/*
+		List<ListaZakazanihTermina> zakazani
+*/
+
+		for(Advertisement ad : allAds)
+		{
+			if((ad.getFuelType() == filterAdsDTO.getFuelType() || filterAdsDTO.getFuelType() == null) &&
+					(ad.getTransType() == filterAdsDTO.getTransmissionType() || filterAdsDTO.getTransmissionType() == null) &&
+					(ad.getCarClass() == filterAdsDTO.getCarClass() || filterAdsDTO.getCarClass() == null) &&
+					(ad.getTravelled() >= filterAdsDTO.getTravelledFrom() || filterAdsDTO.getTravelledFrom() == 0) &&
+					(ad.getTravelled() <= filterAdsDTO.getTravelledTo() || filterAdsDTO.getTravelledTo() == 0) &&
+					(ad.getFuelType() == filterAdsDTO.getFuelType() || filterAdsDTO.getFuelType() == null) &&
+					(ad.getPrice() >= filterAdsDTO.getPriceFrom() || filterAdsDTO.getPriceFrom() == 0) &&
+					(ad.getPrice() <= filterAdsDTO.getPriceTo() || filterAdsDTO.getPriceTo() == 0))
+			{
+				filteredAds.add(ad);
+			}
+
+		}
+
+		/*int taken = 0;
+
+		LocalDateTime timeFrom = LocalDateTime.parse(filterAdsDTO.getTimeFrom());
+		LocalDateTime timeTo = LocalDateTime.parse(filterAdsDTO.getTimeTo());
+		for(Advertisement ad : filteredAds)
+		{
+			taken = 0;
+			if(filterAdsDTO.getTimeFrom() == null || filterAdsDTO.getTimeTo() == null) {
+				for (Termin termin : zakazaniTermini) {
+
+					if (termin.Ad.getID == ad.getId()) {
+						if(filterAdsDTO.getTimeFrom() != null) {
+							if (timeFrom.isAfter(zakazaniTermin.getStartTime) && timeFrom.isBefore(zakazaniTermin.getEndTime())) {
+								taken = 1;
+							}
+						}
+
+						if(filterAdsDTO.getTimeTo() != null) {
+							if (timeTo.isAfter(zakazaniTermin.getStartTime) && timeTo.isBefore(zakazaniTermin.getEndTime())) {
+								taken = 1;
+							}
+						}
+					}
+				}
+			}
+			if(taken == 0)
+			{
+				filteredAvailableAds.add(ad);
+			}
+		}*/
+
+		//KAD SE OTKOMENTARISE, VRACACE FILTEREDAVAILABLEADS
+		return filteredAds;
 	}
 }
