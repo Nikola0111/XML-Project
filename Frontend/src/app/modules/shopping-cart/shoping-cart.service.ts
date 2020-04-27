@@ -33,5 +33,12 @@ const httpOptions = {
         
       }
 
+      public removeFromCart(itemInCart : ItemInCart){
+
+        const body=JSON.stringify(itemInCart);
+        return this.http.post<ItemInCart []>('/server/itemInCart/remove',body,httpOptions);
+
+      }
+
   }
 

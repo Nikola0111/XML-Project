@@ -62,20 +62,42 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
 
   sendRequest(){
     console.log("Pogodio dugme u ts");
-    this.shopingCartService.sentRequests(this.sameOwner).subscribe();
+   
+    this.dataSource = new ShoppingCartDataSource(null);
+    this.shopingCartService.sentRequests(this.sameOwner).subscribe(
+      data => {
+    
+        this.dataSource.data = data;
+        this.table.dataSource = this.dataSource;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        console.log(this.dataSource.data);
+        console.log(data);
+      }
 
+    );
   }
 
   
 
-  
-  remove(itemInCart: ItemInCart){
-    console.log("pogodi ga")
-    this.dataSource.data.splice(this.dataSource.data.indexOf(itemInCart), 1);
 
-    //this.sameOwner.splice(this.sameOwner.indexOf(booking),1);
-    //this.dataSource=new ShoppingCartDataSource(this.sameOwner);
-  
+  remove(itemInCart: ItemInCart){
+    console.log("pogodi ga");
+    this.dataSource = new ShoppingCartDataSource(null);
+    this.shopingCartService.removeFromCart(itemInCart).subscribe(
+      data => {
+    
+        this.dataSource.data = data;
+        this.table.dataSource = this.dataSource;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        console.log(this.dataSource.data);
+        console.log(data);
+      }
+
+    );
+
+ 
   }
 
 

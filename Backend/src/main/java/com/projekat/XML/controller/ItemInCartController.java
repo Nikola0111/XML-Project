@@ -1,8 +1,10 @@
 package com.projekat.XML.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.projekat.XML.dtos.ItemInCartDTO;
+import com.projekat.XML.model.ItemInCart;
 import com.projekat.XML.service.ItemInCartService;
 import com.projekat.XML.service.ShoppingCartService;
 
@@ -37,5 +39,15 @@ public class ItemInCartController {
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-    
+	
+	
+    @PostMapping(value="/remove", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ItemInCart>> removeFromCart(@RequestBody ItemInCart itemInCart) {
+		
+		
+		List<ItemInCart> items=itemInCartService.remove(itemInCart);
+
+		return new ResponseEntity<>(items,HttpStatus.OK);
+	}
+	
 }
