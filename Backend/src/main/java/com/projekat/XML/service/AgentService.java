@@ -1,5 +1,6 @@
 package com.projekat.XML.service;
 
+import com.projekat.XML.dtos.AgentDTO;
 import com.projekat.XML.dtos.CarDTO;
 import com.projekat.XML.dtos.CarReportDTO;
 import com.projekat.XML.dtos.UserDTO;
@@ -34,31 +35,31 @@ public class AgentService {
     @Autowired
     private CarReportRepository carReportRepository;
 
-    public int save(UserDTO userDTO) {
+    public int save(AgentDTO agentDTO) {
         User user;
 
-        user = userRepository.findByLoginInfo_Username(userDTO.getUsername());
+        user = userRepository.findByLoginInfo_Username(agentDTO.getUsername());
 
         if(user != null){
             return 1;
         }
 
-        user = userRepository.findByLoginInfo_Email(userDTO.getEmail());
+        user = userRepository.findByLoginInfo_Email(agentDTO.getEmail());
 
         if(user != null){
             return 2;
         }
 
-        user = userRepository.findByJmbg(userDTO.getJmbg());
+        user = userRepository.findByJmbg(agentDTO.getJmbg());
 
         if(user != null){
             return 3;
         }
 
-        LoginInfo loginInfo = new LoginInfo(userDTO.getEmail(), userDTO.getUsername(), userDTO.getPassword());
+        LoginInfo loginInfo = new LoginInfo(agentDTO.getEmail(), agentDTO.getUsername(), agentDTO.getPassword());
 
-        Agent agent = new Agent(userDTO.getName(), userDTO.getSurname(), loginInfo, userDTO.getJmbg(),
-                userDTO.getPhone(), UserType.AGENT, 0, true);
+        Agent agent = new Agent(agentDTO.getName(), agentDTO.getSurname(), loginInfo, agentDTO.getJmbg(),
+                agentDTO.getPhone(), UserType.AGENT, 0, true, agentDTO.getAdress(), agentDTO.getBsregnum());
 
         agentRepository.save(agent);
 

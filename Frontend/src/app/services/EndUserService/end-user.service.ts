@@ -8,7 +8,7 @@ const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/jso
 @Injectable({
   providedIn: 'root'
 })
-export class EndUserServiceService {
+export class EndUserService {
 
   constructor(private http: HttpClient) { }
 
@@ -27,5 +27,21 @@ export class EndUserServiceService {
 
   public reject(id: number) {
     return this.http.post<string>('server/enduser/reject', id, httpOptions);
+  }
+
+  public getRegisteredUsers() {
+    return this.http.get<EndUser[]>('/server/enduser/getRegisteredUsers', httpOptions);
+  }
+
+  public deactivate(jmbg: string) {
+    return this.http.post(`/server/enduser/deactivate/${jmbg}`, httpOptions);
+  }
+
+  public block(jmbg: string) {
+    return this.http.post(`/server/enduser/block/${jmbg}`, httpOptions);
+  }
+
+  public unblock(jmbg: string) {
+    return this.http.post(`/server/enduser/unblock/${jmbg}`, httpOptions);
   }
 }

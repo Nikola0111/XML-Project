@@ -30,9 +30,9 @@
         <img class="rounded" src = "./assets/admin.png"/>
       </div>
     </div>
-
     <app-zahtevi-registracija *ngIf="sessionService.requests"></app-zahtevi-registracija>
-    <app-agent-register style = "margin-top: -30%" *ngIf="sessionService.agentreg"></app-agent-register>
+    <app-agent-register style = "float:right; margin-right: 60%;width: 150px" *ngIf="sessionService.agentreg"></app-agent-register>
+    <app-user-managment *ngIf="sessionService.manageUsers" ></app-user-managment>
     <div *ngIf="sessionService.adminhome" class = "content">
       Nesto
     </div>
