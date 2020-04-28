@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.projekat.XML.dtos.AdvertisementInCartDTO;
 import com.projekat.XML.dtos.ItemInCartDTO;
+import com.projekat.XML.enums.RequestStates;
 import com.projekat.XML.model.ItemInCart;
 import com.projekat.XML.model.requests.BookingRequest;
 import com.projekat.XML.service.BookingRequestService;
@@ -87,6 +88,32 @@ ShoppingCartService shoppingCartService;
 		
         return new ResponseEntity<>(groups, HttpStatus.OK);
     }
+
+
+    
+   
+
+    @PostMapping(value = "/getAllSpecificForBuyer")
+    public ResponseEntity<List<BookingRequest>> getAllSpecificForBuyer(@RequestBody RequestStates state){
+
+        List<BookingRequest> requests = bookingRequestService.getAllSpecificForBuyer(state);
+
+		System.out.println("pogodio je kontroler, broj oglasa vraca=="+requests.size());
+		
+        return new ResponseEntity<>(requests, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/grups")
+    public ResponseEntity<List<Long>> getAllSpecificGroupsForBuyer(@RequestBody RequestStates state){
+
+        List<Long> groups = bookingRequestService.getSpecificGroupsForBuyer(state);
+
+		System.out.println("pogodio je kontroler, broj grupa=="+groups.size());
+		
+        return new ResponseEntity<>(groups, HttpStatus.OK);
+    }
+
+    
 
     
 }

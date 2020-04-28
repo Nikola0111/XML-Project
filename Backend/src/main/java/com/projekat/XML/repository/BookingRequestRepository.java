@@ -16,6 +16,9 @@ public BookingRequest findOneByid(Long id);
 
 public List<BookingRequest> findByUserForId(Long userForId);
 
+public List<BookingRequest> findByUserToId(Long userForId);
+
+
 public List<BookingRequest> findAllByGroupId(Long groupId);
 
 public BookingRequest findTopByOrderByIdDesc();

@@ -34,6 +34,8 @@ import { ConversationService } from './modules/conversation/conversation.service
 import { AgentRegisterComponent } from './modules/administrator/agent-register/agent-register.component';
 import { IzmenaLozinkeComponent } from './modules/shared/izmena-lozinke/izmena-lozinke.component';
 import { AgentComponent } from './modules/agent/agent.component';
+import { HistoryComponent } from './modules/history/history.component';
+import { HistoryService } from './modules/history/history.component.service';
 
 
 
@@ -57,7 +59,8 @@ import { AgentComponent } from './modules/agent/agent.component';
     AgentComponent,
     PorukeComponent,
     ConversationComponent,
-    AgentRegisterComponent
+    AgentRegisterComponent,
+    HistoryComponent
 
 
 ],
@@ -81,7 +84,8 @@ import { AgentComponent } from './modules/agent/agent.component';
       {path: 'requests', component: RepresentRequestsComponent},
       {path: 'agent', component: AgentComponent},
       {path: 'inbox', component: PorukeComponent},
-      { path: 'conversation/:id', component: ConversationComponent}
+      { path: 'conversation/:id', component: ConversationComponent},
+      {path: 'history', component: HistoryComponent }
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -94,7 +98,7 @@ import { AgentComponent } from './modules/agent/agent.component';
 
   ],
   exports: [RouterModule],
-  providers: [AdvertisementService, ShopingCartService, RepresentRequestsService, PorukeService, ConversationService],
+  providers: [AdvertisementService, ShopingCartService, RepresentRequestsService, PorukeService, ConversationService,HistoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
