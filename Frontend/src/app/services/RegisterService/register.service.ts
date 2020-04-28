@@ -4,6 +4,7 @@ import {EndUser} from '../../model/endUser';
 import {UserType} from '../../enums/UserType';
 import {Observable} from 'rxjs';
 import {UserDTO} from '../../dtos/user-dto';
+import {AgentDTO} from '../../dtos/agent-dto';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -21,8 +22,8 @@ export class RegisterService {
     return this.http.post<string>('/server/enduser/register', body, httpOptions);
   }
 
-  public registerAgent(userDTO: UserDTO){
-    const body = JSON.stringify(userDTO);
+  public registerAgent(agentDTO: AgentDTO){
+    const body = JSON.stringify(agentDTO);
     return this.http.post<number>('server/agent/register', body, httpOptions);
   }
 

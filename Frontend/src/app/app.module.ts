@@ -37,6 +37,7 @@ import { AgentComponent } from './modules/agent/home/agent.component';
 import { CreateReportComponent } from './modules/agent/create-report/create-report.component';
 import { AgentsCarsComponent } from './modules/agent/agents-cars/agents-cars.component';
 import {CarDTO} from './dtos/car-dto';
+import { UserManagmentComponent } from './modules/administrator/user-managment/user-managment.component';
 
 
 
@@ -62,7 +63,8 @@ import {CarDTO} from './dtos/car-dto';
     ConversationComponent,
     AgentRegisterComponent,
     CreateReportComponent,
-    AgentsCarsComponent
+    AgentsCarsComponent,
+    UserManagmentComponent
 
 
 ],

@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserDTO} from '../../../dtos/user-dto';
 import {RegisterService} from '../../../services/RegisterService/register.service';
 import {SessionService} from '../../../services/SessionService/session.service';
+import {AgentDTO} from '../../../dtos/agent-dto';
 
 @Component({
   selector: 'app-agent-register',
@@ -10,7 +11,7 @@ import {SessionService} from '../../../services/SessionService/session.service';
   styleUrls: ['./agent-register.component.css']
 })
 export class AgentRegisterComponent implements OnInit {
-  agent: UserDTO = new UserDTO();
+  agent: AgentDTO = new AgentDTO();
   forma: FormGroup;
   constructor(private formBuilder: FormBuilder, private registerService: RegisterService, private sessionService: SessionService) { }
 
@@ -20,9 +21,10 @@ export class AgentRegisterComponent implements OnInit {
       surname: [''],
       username: [''],
       email: [''],
-      password: [''],
       jmbg: [''],
-      phone: ['']
+      phone: [''],
+      bsregnum: [''],
+      adress: ['']
     });
   }
 
