@@ -151,19 +151,54 @@ public class BookingRequestService {
         return bookingRequestRepository.findByUserForId(getLogedUserId());
     }
 
-   
+    public void cancelRequest(Long group){
+
+        for (BookingRequest request : bookingRequestRepository.findAllByGroupId(group)) {
+            
+            request.setStateOfRequest(RequestStates.CANCELED);
+            bookingRequestRepository.save(request);
+        }
+
+    }
 
    
 
-    public List<Long> getGroupsForRequest (){
-        List<Long> group=new ArrayList<Long>();
+   
 
+  
+
+    public List<BookingRequest> getAllSpecificForAgent(RequestStates state){
+        List<BookingRequest> needed=new ArrayList<BookingRequest>();
+ 
+ 
         for (BookingRequest bookingRequest : bookingRequestRepository.findByUserForId(getLogedUserId())) {
             
+             
+ 
+ 
+             if(bookingRequest.getStateOfRequest().equals(state)){
+                 needed.add(bookingRequest);
+             }
+ 
+        }
+         return needed;
+     }
+
+
+     public List<Long> getSpecificGroupsForAgent (RequestStates state){
+        List<Long> group=new ArrayList<Long>();
+        System.out.println(getLogedUserId());
+        
+        for (BookingRequest bookingRequest : bookingRequestRepository.findByUserForId(getLogedUserId())) {
+            
+           
+
             if(!group.contains(bookingRequest.getGroupId())){
-
+               
+                if(bookingRequest.getStateOfRequest().equals(state)){
+                   
                 group.add(bookingRequest.getGroupId());
-
+                }
             }
         }
 

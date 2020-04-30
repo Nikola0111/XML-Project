@@ -34,7 +34,7 @@ import { ConversationService } from './modules/conversation/conversation.service
 import { AgentRegisterComponent } from './modules/administrator/agent-register/agent-register.component';
 import { IzmenaLozinkeComponent } from './modules/shared/izmena-lozinke/izmena-lozinke.component';
 
-import { AgentComponent } from './modules/agent/agent.component';
+
 import { HistoryComponent } from './modules/history/history.component';
 import { HistoryService } from './modules/history/history.component.service';
 import { CreateReportComponent } from './modules/agent/create-report/create-report.component';
@@ -61,11 +61,10 @@ import { UserManagmentComponent } from './modules/administrator/user-managment/u
     RegisterConfirmComponent,
     AgentRegisterComponent,
     IzmenaLozinkeComponent,
-    AgentComponent,
     PorukeComponent,
     ConversationComponent,
     AgentRegisterComponent,
-    HistoryComponent
+    HistoryComponent,
     CreateReportComponent,
     AgentsCarsComponent,
     UserManagmentComponent
@@ -92,7 +91,6 @@ import { UserManagmentComponent } from './modules/administrator/user-managment/u
       {path: 'administrator', component: AdministratorComponent},
       {path: 'shoppingCart' , component: ShoppingCartComponent},
       {path: 'requests', component: RepresentRequestsComponent},
-      {path: 'agent', component: AgentComponent},
       {path: 'inbox', component: PorukeComponent},
       { path: 'conversation/:id', component: ConversationComponent},
       {path: 'history', component: HistoryComponent },

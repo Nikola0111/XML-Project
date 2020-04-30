@@ -148,7 +148,25 @@ export class HistoryComponent implements OnInit {
 public cancelRequest(group: number){
 
   this.historyService.cancelRequest(group).subscribe();
+  this.historyService.getSpecificGroupsForCart(this.requestStatus).subscribe(
+       
+    data=>{
+      this.groups=data;
 
+      this.historyService.getAllSpecificRequests(this.requestStatus).subscribe(
+
+        data=>{
+          this.requests=data;
+
+        
+        }
+
+      )
+      this.checker=0;
+    },
+    
+  
+  )
 
 }
 

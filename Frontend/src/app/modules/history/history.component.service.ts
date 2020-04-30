@@ -32,12 +32,7 @@ const httpOptions = {
       return this.http.post<Array<number>>(this.requestUrl, state, httpOptions);
           }
 
-      public acceptRequest(group : number){
-        
-        console.log("Odobreni zahtevi");
-        return this.http.post<number>('/server/booking/acceptRequest', group, httpOptions);
-        
-      }
+     
 
       public cancelRequest(group : number ){
 

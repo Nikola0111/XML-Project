@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Advertisement } from 'src/app/model/advertisement';
 import { AdvertisementInCart } from 'src/app/model/advertisementInCart';
 import { BookingRequest } from 'src/app/model/requests/bookingRequest';
+import { RequestStates } from 'src/app/enums/requestStates';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type' : 'application/json'})
@@ -15,19 +16,24 @@ const httpOptions = {
     private requestUrl: string;
     constructor(private http: HttpClient) {}
 
+      public   getAllSpecificRequests(state: RequestStates) {
+        this.requestUrl = '/server/booking/getAllForAgent';
+        return this.http.post<Array<BookingRequest>>(this.requestUrl, state ,httpOptions);
+        }
     
-      public getAllRequests() {
-      this.requestUrl = '/server/booking/getAllForMe';
-      return this.http.get<Array<BookingRequest>>(this.requestUrl, httpOptions);
+          
+    
+      public getSpecificGroupsForCart(state: RequestStates) {
+      this.requestUrl =  '/server/booking/getGroupsForAgent';
+      return this.http.post<Array<number>>(this.requestUrl, state, httpOptions);
+          }
+
+       public cancelRequest(group : number ){
+
+         return this.http.post<number>('server/booking/cancelRequest', group,httpOptions );
       }
 
-      
-
-      public getGroupsForCart() {
-        this.requestUrl = '/server/booking/getGroupsForMe';
-        return this.http.get<Array<number>>(this.requestUrl, httpOptions);
-        }
-
+     
       public acceptRequest(group : number){
         
         console.log("Odobreni zahtevi");

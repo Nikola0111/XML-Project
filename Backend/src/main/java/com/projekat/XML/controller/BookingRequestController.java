@@ -50,6 +50,30 @@ ShoppingCartService shoppingCartService;
         return new ResponseEntity<>(shoppingCartService.fotCart(),HttpStatus.OK);
     }
 
+    @PostMapping(value = "/getAllForAgent")
+    public ResponseEntity<List<BookingRequest>> getAllSpecificForAgent(@RequestBody RequestStates state){
+
+		
+	   
+		List<BookingRequest> requests = bookingRequestService.getAllSpecificForAgent(state);
+
+		System.out.println("pogodio je kontroler, broj oglasa vraca=="+requests.size());
+		
+        return new ResponseEntity<>(requests, HttpStatus.OK);
+    }
+
+  
+    
+    @PostMapping(value = "/getGroupsForAgent")
+    public ResponseEntity<List<Long>> getAllSpecificGroupsForAgent(@RequestBody RequestStates state){
+                
+		List<Long> groups = bookingRequestService.getSpecificGroupsForAgent(state);
+
+		System.out.println("pogodio je kontroler, broj grupa=="+groups.size());
+		
+        return new ResponseEntity<>(groups, HttpStatus.OK);
+    }
+
 
     @PostMapping(value = "/acceptRequest")
     public ResponseEntity<Long> acceptRequest(@RequestBody Long grupa){
@@ -83,12 +107,12 @@ ShoppingCartService shoppingCartService;
         return new ResponseEntity<>(groups, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/cancerRequest")
+    @PostMapping(value = "/cancelRequest")
     public ResponseEntity<Long> cancelRequest(@RequestBody Long group ){
 
-       
 
-		System.out.println("pogodio je kontroler, broj grupe=="+group);
+        bookingRequestService.cancelRequest(group);
+		
 		
         return new ResponseEntity<>( HttpStatus.OK);
     }
