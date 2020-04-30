@@ -20,23 +20,28 @@ const httpOptions = {
      
 
 
-        public   getAllSpecificRequests(state: RequestStates) {
-          this.requestUrl = '/server/booking/getAllSpecificForBuyer';
-          return this.http.post<Array<BookingRequest>>(this.requestUrl, state ,httpOptions);
-          }
+      public   getAllSpecificRequests(state: RequestStates) {
+        this.requestUrl = '/server/booking/getAllSpecificForBuyer';
+        return this.http.post<Array<BookingRequest>>(this.requestUrl, state ,httpOptions);
+        }
     
           
     
-          public getSpecificGroupsForCart(state: RequestStates) {
-            this.requestUrl = '/server/booking/grups';
-            return this.http.post<Array<number>>(this.requestUrl, state, httpOptions);
-            }
+      public getSpecificGroupsForCart(state: RequestStates) {
+      this.requestUrl = '/server/booking/grups';
+      return this.http.post<Array<number>>(this.requestUrl, state, httpOptions);
+          }
 
       public acceptRequest(group : number){
         
         console.log("Odobreni zahtevi");
         return this.http.post<number>('/server/booking/acceptRequest', group, httpOptions);
         
+      }
+
+      public cancelRequest(group : number ){
+
+        return this.http.post<number>('server/booking/cancelRequest', group,httpOptions );
       }
 
   }

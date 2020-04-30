@@ -92,13 +92,16 @@
             </td>
           </tr>
         </div>
-      </table>
-      <button
-        style="background-color: green; color: white; height: 40px; width: 100px;"
-        (click)="acceptRequest(group)"
+        <div>
+          <button *ngIf="checker==0"
+        style="background-color: red; color: white; height: 40px; width: 100px;"
+        (click)="cancelRequest(group)"
       >
         Accept Request
       </button>
+        </div>
+      </table>
+      
     </div>
   </div>
   

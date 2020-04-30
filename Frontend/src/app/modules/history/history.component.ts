@@ -14,7 +14,7 @@ export class HistoryComponent implements OnInit {
   groups: number[];
   requests: BookingRequest[];
   requestStatus: RequestStates;
-  
+  checker: number;
   status:string;
   
 
@@ -42,6 +42,7 @@ export class HistoryComponent implements OnInit {
       }
       
     );
+    this.checker=0;
   }
 
   public onChange(event): void {
@@ -62,6 +63,7 @@ export class HistoryComponent implements OnInit {
             }
   
           )
+          this.checker=0;
         },
         
       
@@ -83,6 +85,7 @@ export class HistoryComponent implements OnInit {
             }
   
           )
+          this.checker=1;
         },
         
       
@@ -113,6 +116,7 @@ export class HistoryComponent implements OnInit {
             }
   
           )
+          this.checker=1;
         },
       
       )
@@ -132,11 +136,21 @@ export class HistoryComponent implements OnInit {
             }
   
           )
+          this.checker=1;
         },
       
       )
     }
 
 }
+
+
+public cancelRequest(group: number){
+
+  this.historyService.cancelRequest(group).subscribe();
+
+
+}
+
 
 }

@@ -60,36 +60,6 @@ ShoppingCartService shoppingCartService;
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
-
-
-    @GetMapping(value = "/getAllForMe")
-    public ResponseEntity<List<BookingRequest>> getAllForCart() {
-		
-	   
-		List<BookingRequest> requests = bookingRequestService.getAllForRenter();
-
-		System.out.println("pogodio je kontroler, broj oglasa vraca=="+requests.size());
-		
-        return new ResponseEntity<>(requests, HttpStatus.OK);
-    }
-
-  
-    @GetMapping(value = "/getGroupsForMe")
-    public ResponseEntity<List<Long>> getAllGroupsForCart() {
-		
-       
-        
-        
-		List<Long> groups = bookingRequestService.getGroupsForRequest();
-
-		System.out.println("pogodio je kontroler, broj grupa=="+groups.size());
-		
-        return new ResponseEntity<>(groups, HttpStatus.OK);
-    }
-
-
     
    
 
@@ -113,7 +83,15 @@ ShoppingCartService shoppingCartService;
         return new ResponseEntity<>(groups, HttpStatus.OK);
     }
 
-    
+    @PostMapping(value = "/cancerRequest")
+    public ResponseEntity<Long> cancelRequest(@RequestBody Long group ){
+
+       
+
+		System.out.println("pogodio je kontroler, broj grupe=="+group);
+		
+        return new ResponseEntity<>( HttpStatus.OK);
+    }
 
     
 }

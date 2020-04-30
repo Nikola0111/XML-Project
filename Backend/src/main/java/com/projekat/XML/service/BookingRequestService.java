@@ -194,12 +194,16 @@ public class BookingRequestService {
 
     public List<Long> getSpecificGroupsForBuyer (RequestStates state){
         List<Long> group=new ArrayList<Long>();
-
+        System.out.println(getLogedUserId());
+        
         for (BookingRequest bookingRequest : bookingRequestRepository.findByUserToId(getLogedUserId())) {
             
-            if(!group.contains(bookingRequest.getGroupId())){
+            System.out.println("prolazi kroz for");
 
+            if(!group.contains(bookingRequest.getGroupId())){
+                System.out.println("Usao u if");
                 if(bookingRequest.getStateOfRequest().equals(state)){
+                    System.out.println("Usao drugi if");
                 group.add(bookingRequest.getGroupId());
                 }
             }
