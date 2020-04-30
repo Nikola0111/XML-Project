@@ -20,33 +20,51 @@ export class NavbarComponent implements OnInit {
   }
 
   showRegister() {
-    this.sessionService.register  = true;
-    this.sessionService.login  = false;
+    this.router.navigate(['/register']);
   }
 
   showLogin() {
-    this.sessionService.register  = false;
-    this.sessionService.login  = true;
+    this.router.navigate(['/login']);
   }
-  //Admin components
+  // Admin components
   showRequests() {
     this.sessionService.requests = true;
     this.sessionService.adminhome = false;
     this.sessionService.agentreg = false;
+    this.sessionService.manageUsers = false;
   }
 
   showHome() {
     this.sessionService.adminhome = true;
     this.sessionService.requests = false;
     this.sessionService.agentreg = false;
+    this.sessionService.manageUsers = false;
   }
 
-  showAgentReg(){
+  showAgentReg() {
     this.sessionService.adminhome = false;
     this.sessionService.requests = false;
     this.sessionService.agentreg = true;
+    this.sessionService.manageUsers = false;
   }
-  //Admin components
+
+  manageUsers() {
+    this.sessionService.adminhome = false;
+    this.sessionService.requests = false;
+    this.sessionService.agentreg = false;
+    this.sessionService.manageUsers = true;
+  }
+  // Admin components
+
+  createReport() {
+    this.sessionService.homeAgent = false;
+    this.sessionService.report = true;
+  }
+
+  showHomeAgent() {
+    this.sessionService.report = false;
+    this.sessionService.homeAgent = true;
+  }
 
   logOut() {
     this.sessionService.ulogovaniKorisnik = undefined;

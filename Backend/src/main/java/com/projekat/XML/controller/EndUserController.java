@@ -120,4 +120,31 @@ public class EndUserController {
         verificationTokenService.delete(endUser.getId());
         return new ResponseEntity(0, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/getRegisteredUsers", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EndUser>> getRegisteredUsers(){
+        List<EndUser> data = endUserService.getRegisteredUsers();
+        return new ResponseEntity<>(data, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/deactivate/{jmbg}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Integer> deactivateAccount(@PathVariable("jmbg") String jmbg){
+        Integer ret = endUserService.deactivate(jmbg);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/block/{jmbg}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> blockAccount(@PathVariable("jmbg") String jmbg){
+        Boolean ret = endUserService.block(jmbg);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/unblock/{jmbg}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> unblockAccount(@PathVariable("jmbg") String jmbg){
+        Boolean ret = endUserService.unblock(jmbg);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+    }
 }

@@ -13,14 +13,19 @@ export class SessionService {
   /////////////////////////////// Uloge
   isAdmin = false;
   isAgent = false;
+  isEndUser = false;
   /////////////////////////////// Uloge
   /////////////////////////////// Admin komponente
   adminhome = true;
   requests = false;
   agentreg = false;
+  manageUsers = false;
   /////////////////////////////// Admin komponente
   /////////////////////////////// Random
   pwChanging = false;
-
+  /////////////////////////////// Agent komponente
+  homeAgent = true;
+  report = false;
+  enterReport = false;
   constructor() { }
 }

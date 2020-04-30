@@ -6,6 +6,7 @@ import { ShoppingCartDataSource, ShoppingCartItem } from './shopping-cart-dataso
 import { Advertisement } from 'src/app/model/advertisement';
 import { ShopingCartService } from './shoping-cart.service';
 import { AdvertisementInCart } from 'src/app/model/advertisementInCart';
+import {SessionService} from '../../services/SessionService/session.service';
 
 import { ItemInCart } from 'src/app/model/itemInCart';
 
@@ -33,7 +34,9 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
   displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass','owner', "checkbox", "button"];
 //DODATI 'timeFrom' I 'timeTo'
 
-  constructor(private shopingCartService:ShopingCartService){}
+  constructor(private shopingCartService: ShopingCartService, private sessionService: SessionService){
+    console.log(this.sessionService.ulogovaniKorisnik);
+  }
 
 
   ngOnInit() {
@@ -53,6 +56,7 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
             }
             });
         });
+
         this.dataSource = new ShoppingCartDataSource(this.sameOwner);
       }
     );
@@ -77,9 +81,6 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
 
     );
   }
-
-  
-
 
   remove(itemInCart: ItemInCart){
     console.log("pogodi ga");
