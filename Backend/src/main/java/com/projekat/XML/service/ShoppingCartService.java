@@ -47,14 +47,15 @@ public void addAItemInCart(Long itemId){
 
 public void removeItemInCart(Long itemId){
 
-    ShoppingCart cart=shoppingCartRepository.findOneByid(getLogedUserId());
+    ShoppingCart cart=shoppingCartRepository.findOneByuserId(getLogedUserId());
     cart.removeOneItemInCart(itemId);
     shoppingCartRepository.save(cart);
 
 }
 
 public void removeAll(){
-    ShoppingCart cart=shoppingCartRepository.findOneByid(getLogedUserId());
+    System.out.println("OVO JE USER"+getLogedUserId());
+    ShoppingCart cart=shoppingCartRepository.findOneByuserId(getLogedUserId());
     cart.removeAllItems();
     shoppingCartRepository.save(cart);
 
