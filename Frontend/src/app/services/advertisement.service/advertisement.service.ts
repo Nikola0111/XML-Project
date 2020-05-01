@@ -23,17 +23,21 @@ const httpOptions = {
       return this.http.get<Array<Advertisement>>(this.requestUrl, httpOptions);
       }
 
-      public addAd(itemInCart:ItemInCart){
+      public addAd(itemInCart: ItemInCart) {
         const body = JSON.stringify(itemInCart);
         return this.http.post<ItemInCart>('/server/itemInCart/addItem', body, httpOptions);
-        
+
       }
 
-      public filter(filterAdsDTO: FilterAdsDTO)
-      {
+      public filter(filterAdsDTO: FilterAdsDTO) {
         console.log(filterAdsDTO);
         const body = JSON.stringify(filterAdsDTO);
         return this.http.post<Array<Advertisement>>('/server/advertisement/filterAdv', body, httpOptions);
+      }
+
+      public getAdvertisement(id: number) {
+        this.requestUrl = '/server/advertisement/' + id;
+        return this.http.get<Advertisement>(this.requestUrl, httpOptions);
       }
   }
 

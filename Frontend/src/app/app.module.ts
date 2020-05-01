@@ -37,6 +37,8 @@ import { AgentComponent } from './modules/agent/home/agent.component';
 import { CreateReportComponent } from './modules/agent/create-report/create-report.component';
 import { AgentsCarsComponent } from './modules/agent/agents-cars/agents-cars.component';
 import {CarDTO} from './dtos/car-dto';
+import {StatisticsComponent, StatisticsDialogComponent} from './modules/statistics/statistics.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -62,7 +64,9 @@ import {CarDTO} from './dtos/car-dto';
     ConversationComponent,
     AgentRegisterComponent,
     CreateReportComponent,
-    AgentsCarsComponent
+    AgentsCarsComponent,
+    StatisticsComponent,
+    StatisticsDialogComponent
 
 
 ],
@@ -89,7 +93,8 @@ import {CarDTO} from './dtos/car-dto';
       {path: 'inbox', component: PorukeComponent},
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegistracijaComponent},
-      {path: 'conversation/:id', component: ConversationComponent}
+      {path: 'conversation/:id', component: ConversationComponent},
+      {path: 'statistics', component: StatisticsComponent}
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -98,11 +103,13 @@ import {CarDTO} from './dtos/car-dto';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule
 
   ],
   exports: [RouterModule],
   providers: [AdvertisementService, ShopingCartService, RepresentRequestsService, PorukeService, ConversationService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [StatisticsDialogComponent]
 })
 export class AppModule { }
