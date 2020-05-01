@@ -43,6 +43,8 @@ import {CarDTO} from './dtos/car-dto';
 import {StatisticsComponent, StatisticsDialogComponent} from './modules/statistics/statistics.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { UserManagmentComponent } from './modules/administrator/user-managment/user-managment.component';
+import {EndUserService} from './services/EndUserService/end-user.service';
+import { AdvertisementDetailsComponent } from './modules/advertisement/advertisement-details/advertisement-details.component';
 
 
 
@@ -72,6 +74,7 @@ import { UserManagmentComponent } from './modules/administrator/user-managment/u
     StatisticsComponent,
     StatisticsDialogComponent,
     UserManagmentComponent,
+    AdvertisementDetailsComponent,
 ],
   imports: [
     BrowserModule,
@@ -98,7 +101,8 @@ import { UserManagmentComponent } from './modules/administrator/user-managment/u
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegistracijaComponent},
       {path: 'conversation/:id', component: ConversationComponent},
-      {path: 'statistics', component: StatisticsComponent}
+      {path: 'statistics', component: StatisticsComponent},
+      {path: 'advertisement-details/:id', component: AdvertisementDetailsComponent}
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -112,7 +116,14 @@ import { UserManagmentComponent } from './modules/administrator/user-managment/u
 
   ],
   exports: [RouterModule],
-  providers: [AdvertisementService, ShopingCartService, RepresentRequestsService, PorukeService, ConversationService, HistoryService],
+  providers: [AdvertisementService,
+              ShopingCartService,
+              RepresentRequestsService,
+              PorukeService,
+              ConversationService,
+              HistoryService,
+              EndUserService,
+  ],
   bootstrap: [AppComponent],
   entryComponents: [StatisticsDialogComponent]
 })
