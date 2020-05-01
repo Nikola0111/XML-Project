@@ -6,7 +6,6 @@ import {StatisticsDataSource, StatisticsItem} from './statistics-datasource';
 import {Advertisement} from '../../model/advertisement';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {AdvertisementService} from '../../services/advertisement.service/advertisement.service';
-import {StatisticsType} from "../../enums/statisticsType";
 
 export interface DialogData {
   advertisement: Advertisement;
@@ -21,7 +20,7 @@ export class StatisticsComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable, {static: false}) table: MatTable<StatisticsItem>;
-  dataSource: StatisticsDataSource;
+  dataSource: StatisticsDataSource = new StatisticsDataSource(new Array<Advertisement>());
   advertisements: Array<Advertisement> = new Array<Advertisement>();
   maxTravelled = 0;
   idMaxTravelled: any;

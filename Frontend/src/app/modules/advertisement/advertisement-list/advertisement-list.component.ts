@@ -11,6 +11,8 @@ import { from, forkJoin } from 'rxjs';
 import { NavbarComponent } from 'src/app/navbar/navbar.component';
 import { FilterAdsDTO } from 'src/app/model/filterAdsDTO';
 import { ItemInCart } from 'src/app/model/itemInCart';
+import {AdvertisementDetailsComponent} from '../advertisement-details/advertisement-details.component';
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -35,11 +37,14 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
 
   itemInCart: ItemInCart;
 
+  advertisementDetails: AdvertisementDetailsComponent;
+
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats', "button"];
+  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats', 'button', 'details'];
 
 
-  constructor(private formBuilder: FormBuilder, private advertisementService: AdvertisementService) {
+  constructor(private formBuilder: FormBuilder, private advertisementService: AdvertisementService,
+              private router: Router) {
     this.itemInCart = new ItemInCart();
   }
 
@@ -137,5 +142,9 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   }
   ngBeforeViewInit() {
 
+  }
+
+  showDetails(row: Advertisement) {
+    this.router.navigate(['/advertisement-details', row.id]);
   }
 }
