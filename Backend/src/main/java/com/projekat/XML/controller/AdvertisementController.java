@@ -42,9 +42,6 @@ public class AdvertisementController {
     @GetMapping(value = "/all")
     public ResponseEntity<List<Advertisement>> getAll() {
         List<Advertisement> advertisements = advertisementService.findAll();
-        for(Advertisement ad : advertisements) {
-			System.out.println(ad.getName());
-		}
         return new ResponseEntity<>(advertisements, HttpStatus.OK);
 	}
 	
@@ -54,6 +51,16 @@ public class AdvertisementController {
 	public ResponseEntity<List<Advertisement>> filterAds(@RequestBody FilterAdsDTO filterAdsDTO) {
 		System.out.println("POGODIO");
 		return new ResponseEntity<>(advertisementService.filterAds(filterAdsDTO), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<AdvertisementDTO> getAdvertisement(@PathVariable Long id) {
+		Advertisement advertisement = advertisementService.findOneByid(id);
+		if(advertisement == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(new AdvertisementDTO(advertisement), HttpStatus.OK);
 	}
 
 

@@ -15,7 +15,7 @@ export class Advertisement {
   price: number;
   carSeats: number;
   postedBy: User;
-  
+
 
   constructor() {
 
