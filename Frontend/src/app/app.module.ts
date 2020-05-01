@@ -33,12 +33,16 @@ import { ConversationComponent } from './modules/conversation/conversation.compo
 import { ConversationService } from './modules/conversation/conversation.service';
 import { AgentRegisterComponent } from './modules/administrator/agent-register/agent-register.component';
 import { IzmenaLozinkeComponent } from './modules/shared/izmena-lozinke/izmena-lozinke.component';
-import { AgentComponent } from './modules/agent/home/agent.component';
+
+
+import { HistoryComponent } from './modules/history/history.component';
+import { HistoryService } from './modules/history/history.component.service';
 import { CreateReportComponent } from './modules/agent/create-report/create-report.component';
 import { AgentsCarsComponent } from './modules/agent/agents-cars/agents-cars.component';
 import {CarDTO} from './dtos/car-dto';
 import {StatisticsComponent, StatisticsDialogComponent} from './modules/statistics/statistics.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { UserManagmentComponent } from './modules/administrator/user-managment/user-managment.component';
 
 
 
@@ -59,16 +63,15 @@ import {MatDialogModule} from '@angular/material/dialog';
     RegisterConfirmComponent,
     AgentRegisterComponent,
     IzmenaLozinkeComponent,
-    AgentComponent,
     PorukeComponent,
     ConversationComponent,
     AgentRegisterComponent,
+    HistoryComponent,
     CreateReportComponent,
     AgentsCarsComponent,
     StatisticsComponent,
-    StatisticsDialogComponent
-
-
+    StatisticsDialogComponent,
+    UserManagmentComponent,
 ],
   imports: [
     BrowserModule,
@@ -89,8 +92,9 @@ import {MatDialogModule} from '@angular/material/dialog';
       {path: 'administrator', component: AdministratorComponent},
       {path: 'shoppingCart' , component: ShoppingCartComponent},
       {path: 'requests', component: RepresentRequestsComponent},
-      {path: 'agent', component: AgentComponent},
       {path: 'inbox', component: PorukeComponent},
+      { path: 'conversation/:id', component: ConversationComponent},
+      {path: 'history', component: HistoryComponent },
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegistracijaComponent},
       {path: 'conversation/:id', component: ConversationComponent},
@@ -108,7 +112,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 
   ],
   exports: [RouterModule],
-  providers: [AdvertisementService, ShopingCartService, RepresentRequestsService, PorukeService, ConversationService],
+  providers: [AdvertisementService, ShopingCartService, RepresentRequestsService, PorukeService, ConversationService, HistoryService],
   bootstrap: [AppComponent],
   entryComponents: [StatisticsDialogComponent]
 })

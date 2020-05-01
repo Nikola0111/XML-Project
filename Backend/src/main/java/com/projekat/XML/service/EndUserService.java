@@ -66,6 +66,7 @@ public class EndUserService {
             EndUser endUser = (EndUser) opt.get();
 
             endUser.setAccount_activated(true);
+            endUser.setBlocked(false);
             endUserRepository.save(endUser);
 
             return endUser;
@@ -97,5 +98,43 @@ public class EndUserService {
         if (opt.isPresent()) {
             endUserRepository.delete((EndUser) opt.get());
         }
+    }
+
+    public List<EndUser> getRegisteredUsers(){
+        return endUserRepository.findAllByActivity(true);
+    }
+
+    @Transactional
+    public Integer deactivate(String jmbg){
+        return endUserRepository.deleteByJmbg(jmbg);
+    }
+
+    @Transactional
+    public Boolean block(String jmbg){
+        EndUser endUser = endUserRepository.findByJmbg(jmbg);
+
+        if(endUser == null){
+            return false;
+        }
+
+        endUser.setBlocked(true);
+
+        endUserRepository.save(endUser);
+
+        return true;
+    }
+
+    @Transactional
+    public Boolean unblock(String jmbg){
+        EndUser endUser = endUserRepository.findByJmbg(jmbg);
+
+        if(endUser == null){
+            return false;
+        }
+
+        endUser.setBlocked(false);
+        endUserRepository.save(endUser);
+
+        return true;
     }
 }

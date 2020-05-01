@@ -1,5 +1,6 @@
 package com.projekat.XML.controller;
 
+import com.projekat.XML.dtos.AgentDTO;
 import com.projekat.XML.dtos.CarDTO;
 import com.projekat.XML.dtos.CarReportDTO;
 import com.projekat.XML.dtos.UserDTO;
@@ -22,8 +23,8 @@ public class AgentController {
     private AgentService agentService;
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> register(@RequestBody UserDTO userDTO){
-        int value = agentService.save(userDTO);
+    public ResponseEntity<Long> register(@RequestBody AgentDTO agentDTO){
+        int value = agentService.save(agentDTO);
 
         if(value == 0){
             return new ResponseEntity(value, HttpStatus.OK);

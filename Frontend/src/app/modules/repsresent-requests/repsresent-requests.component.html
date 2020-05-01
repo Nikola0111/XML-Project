@@ -1,6 +1,14 @@
 <div>
   <app-navbar></app-navbar>
 
+  <select  (change)="onChange($event)"  style="width: 450px;" name="carClass"
+    class="field-style field-full align-none" placeholder="Car Class">
+    <option value="PENDING">PENDING</option>
+    <option value="RESERVED">RESERVED</option>
+    <option value="CANCELED">CANCELED</option>
+    <option value="PAID">PAID</option>
+  </select>
+
   <div class="form" *ngFor="let group of groups">
     <table>
       <div>
@@ -83,11 +91,17 @@
         </tr>
       </div>
     </table>
-    <button
+    <button *ngIf="checker==0"
       style="background-color: green; color: white; height: 40px; width: 100px;"
       (click)="acceptRequest(group)"
     >
       Accept Request
     </button>
+    <button *ngIf="checker==0"
+    style="background-color: red; color: white; height: 40px; width: 100px;"
+    (click)="cancelRequest(group)"
+  >
+    Cancel Request
+  </button>
   </div>
 </div>

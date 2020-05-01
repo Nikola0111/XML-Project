@@ -151,15 +151,96 @@ public class BookingRequestService {
         return bookingRequestRepository.findByUserForId(getLogedUserId());
     }
 
-    public List<Long> getGroupsForRequest (){
-        List<Long> group=new ArrayList<Long>();
+    public void cancelRequest(Long group){
 
+        for (BookingRequest request : bookingRequestRepository.findAllByGroupId(group)) {
+            
+            request.setStateOfRequest(RequestStates.CANCELED);
+            bookingRequestRepository.save(request);
+        }
+
+    }
+
+   
+
+   
+
+  
+
+    public List<BookingRequest> getAllSpecificForAgent(RequestStates state){
+        List<BookingRequest> needed=new ArrayList<BookingRequest>();
+ 
+ 
         for (BookingRequest bookingRequest : bookingRequestRepository.findByUserForId(getLogedUserId())) {
             
+             
+ 
+ 
+             if(bookingRequest.getStateOfRequest().equals(state)){
+                 needed.add(bookingRequest);
+             }
+ 
+        }
+         return needed;
+     }
+
+
+     public List<Long> getSpecificGroupsForAgent (RequestStates state){
+        List<Long> group=new ArrayList<Long>();
+        System.out.println(getLogedUserId());
+        
+        for (BookingRequest bookingRequest : bookingRequestRepository.findByUserForId(getLogedUserId())) {
+            
+           
+
             if(!group.contains(bookingRequest.getGroupId())){
-
+               
+                if(bookingRequest.getStateOfRequest().equals(state)){
+                   
                 group.add(bookingRequest.getGroupId());
+                }
+            }
+        }
 
+        return group;
+
+
+    }
+
+    public List<BookingRequest> getAllSpecificForBuyer(RequestStates state){
+        List<BookingRequest> needed=new ArrayList<BookingRequest>();
+ 
+ 
+        for (BookingRequest bookingRequest : bookingRequestRepository.findByUserToId(getLogedUserId())) {
+            
+             System.out.println("STATE="+state);
+             System.out.println("bookingState="+bookingRequest.getStateOfRequest());
+ 
+ 
+             if(bookingRequest.getStateOfRequest().equals(state)){
+                 needed.add(bookingRequest);
+             }
+ 
+        }
+         return needed;
+     }
+ 
+
+
+    public List<Long> getSpecificGroupsForBuyer (RequestStates state){
+        List<Long> group=new ArrayList<Long>();
+        System.out.println(getLogedUserId());
+        
+        for (BookingRequest bookingRequest : bookingRequestRepository.findByUserToId(getLogedUserId())) {
+            
+            System.out.println("prolazi kroz for");
+
+            if(!group.contains(bookingRequest.getGroupId())){
+                System.out.println("Usao u if");
+                if(bookingRequest.getStateOfRequest().equals(state)){
+                    System.out.println("Usao drugi if");
+                group.add(bookingRequest.getGroupId());
+                }
             }
         }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {EndUser} from '../../../model/endUser';
-import {EndUserServiceService} from '../../../services/EndUserService/end-user-service.service';
+import {EndUserService} from '../../../services/EndUserService/end-user.service';
 
 @Component({
   selector: 'app-zahtevi-registracija',
@@ -9,7 +9,7 @@ import {EndUserServiceService} from '../../../services/EndUserService/end-user-s
 })
 export class ZahteviRegistracijaComponent implements OnInit {
   endusers: EndUser[];
-  constructor(private endUserService: EndUserServiceService) {
+  constructor(private endUserService: EndUserService) {
     this.endUserService.getAdminUnregistered().subscribe(data => {
         this.endusers = data;
         console.log(this.endusers);

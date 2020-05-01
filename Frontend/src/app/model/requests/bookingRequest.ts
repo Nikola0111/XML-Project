@@ -12,6 +12,8 @@ export class BookingRequest {
 
     advertisement:Advertisement;
 
+    stateOfRequest: RequestStates;
+
     groupId: number;
 
     together: boolean;

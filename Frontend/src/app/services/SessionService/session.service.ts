@@ -19,6 +19,7 @@ export class SessionService {
   adminhome = true;
   requests = false;
   agentreg = false;
+  manageUsers = false;
   /////////////////////////////// Admin komponente
   /////////////////////////////// Random
   pwChanging = false;

@@ -31,18 +31,28 @@ export class NavbarComponent implements OnInit {
     this.sessionService.requests = true;
     this.sessionService.adminhome = false;
     this.sessionService.agentreg = false;
+    this.sessionService.manageUsers = false;
   }
 
   showHome() {
     this.sessionService.adminhome = true;
     this.sessionService.requests = false;
     this.sessionService.agentreg = false;
+    this.sessionService.manageUsers = false;
   }
 
   showAgentReg() {
     this.sessionService.adminhome = false;
     this.sessionService.requests = false;
     this.sessionService.agentreg = true;
+    this.sessionService.manageUsers = false;
+  }
+
+  manageUsers() {
+    this.sessionService.adminhome = false;
+    this.sessionService.requests = false;
+    this.sessionService.agentreg = false;
+    this.sessionService.manageUsers = true;
   }
   // Admin components
 
@@ -55,7 +65,6 @@ export class NavbarComponent implements OnInit {
     this.sessionService.report = false;
     this.sessionService.homeAgent = true;
   }
-
 
   logOut() {
     this.sessionService.ulogovaniKorisnik = undefined;
