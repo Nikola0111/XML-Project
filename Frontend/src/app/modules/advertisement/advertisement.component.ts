@@ -6,6 +6,8 @@ import {AdvertisementService} from '../../services/advertisement.service/adverti
 import {FuelType} from '../../enums/fuelType';
 import {TransmissionType} from '../../enums/transmissionType';
 import {CarClass} from '../../enums/carClass';
+import {CarDetails} from '../../model/car-details';
+import {CarDetailsService} from '../../services/CarDetailsService/car-details.service';
 
 
 @Component({
@@ -21,10 +23,43 @@ export class AdvertisementComponent implements OnInit {
   fuelType: string;
   transType: string;
   carClass: string;
+  brand: string;
+  model: string;
+  carDetails: CarDetails[];
+
+  carClasses: CarDetails[];
+  carFuels: CarDetails[];
+  carModels: CarDetails[];
+  carBrands: CarDetails[];
+  carGearshifts: CarDetails[];
 
   constructor(private formBuilder: FormBuilder,
-              private advertisementService: AdvertisementService) {
+              private advertisementService: AdvertisementService, private carDetailsService: CarDetailsService) {
                 this.advertisement = new Advertisement();
+                this.carDetailsService.getAllDetails().subscribe(data => {
+                  this.carDetails = data;
+
+                  this.carClasses = this.carDetails.filter(item => {
+                    console.log(item.type.toLowerCase());
+                    return item.type.toLowerCase() === 'carclass';
+                  });
+
+                  this.carFuels = this.carDetails.filter(item => {
+                    return item.type.toLowerCase() === 'fuel';
+                  });
+
+                  this.carModels = this.carDetails.filter(item => {
+                    return item.type.toLowerCase() === 'carmodel';
+                  });
+
+                  this.carBrands = this.carDetails.filter(item => {
+                    return item.type.toLowerCase() === 'brand';
+                  });
+
+                  this.carGearshifts = this.carDetails.filter(item => {
+                    return item.type.toLowerCase() === 'gearshift';
+                  });
+                });
                }
 
   ngOnInit(): void {
@@ -42,30 +77,13 @@ export class AdvertisementComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.fuelType === 'Gasoline') {
-      this.advertisement.fuelType = 0;
-    } else if (this.fuelType === 'Gas') {
-      this.advertisement.fuelType = 1;
-    } else if (this.fuelType === 'Diesel') {
-      this.advertisement.fuelType = 2;
-    }
+    this.advertisement.fuelType = this.fuelType;
+    this.advertisement.carClass = this.carClass;
+    this.advertisement.transType = this.transType;
+    this.advertisement.brand = this.brand;
+    this.advertisement.model = this.model;
 
-    if ( this.transType === 'Manual') {
-      this.advertisement.transType = 0;
-    } else if ( this.transType === 'Automatic') {
-      this.advertisement.transType = 1;
-    } else if ( this.transType === 'Semi-Automatic') {
-      this.advertisement.transType = 2;
-    }
-
-    if ( this.carClass === 'Old-Timer') {
-      this.advertisement.carClass = 0;
-    } else if ( this.carClass === 'City-Car') {
-      this.advertisement.carClass = 1;
-    } else if ( this.carClass === 'SUV') {
-      this.advertisement.carClass = 2;
-    }
-
+    console.log(this.advertisement);
     this.advertisementService.save(this.advertisement).subscribe();
   }
 

@@ -36,10 +36,10 @@ export class SifrarnikComponent implements OnInit {
 
     this.datasource = this.helper.filter(item => {
       let newValue;
-      if (value.toLowerCase() !== 'fuel'){
+      if (value.toLowerCase() !== 'fuel' && value.toLowerCase() !== 'gearshift' && value.toLowerCase() !== 'brand') {
         newValue = value.split(' ')[0] + value.split(' ')[1];
       } else {
-        newValue = 'fuel';
+        newValue = value.toLowerCase();
       }
       console.log(newValue.toLowerCase() + ' ' + item.type.toLowerCase());
       return newValue.toLowerCase() === item.type.toLowerCase();

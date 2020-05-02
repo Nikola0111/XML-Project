@@ -3,5 +3,7 @@ package com.projekat.XML.enums;
 public enum Data {
     CarClass,
     CarModel,
-    Fuel
+    Fuel,
+    Brand,
+    Gearshift
 }

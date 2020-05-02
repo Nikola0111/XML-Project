@@ -36,12 +36,18 @@ public class CarDetailsService {
             return 1;
         }
         Data type = Data.CarClass;
-        if(carDetailsDTO.getType().equals("Car Class")){
+        System.out.println(carDetailsDTO.getType());
+        if(carDetailsDTO.getType().equals("CarClass")){
             type = Data.CarClass;
-        } else if(carDetailsDTO.getType().equals("Car Model")){
+        } else if(carDetailsDTO.getType().equals("CarModel")){
+
             type = Data.CarModel;
         } else if(carDetailsDTO.getType().equals("Fuel")){
             type = Data.Fuel;
+        } else if(carDetailsDTO.getType().equals("Brand")){
+            type = Data.Brand;
+        } else if(carDetailsDTO.getType().equals("Gearshift")){
+            type = Data.Gearshift;
         }
 
         carDetailsRepository.save(new CarDetails(carDetailsDTO.getCode(), carDetailsDTO.getName(), type));

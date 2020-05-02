@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 
 public class FilterAdsDTO {
 
-    private FuelType fuelType;
+    private String fuelType;
 
-    private TransmissionType transmissionType;
+    private String transmissionType;
 
-    private CarClass carClass;
+    private String carClass;
 
     private int travelledFrom;
 
@@ -32,7 +32,7 @@ public class FilterAdsDTO {
 
     }
 
-    public FilterAdsDTO(FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelledFrom, int travelledTo, double priceFrom, double priceTo, int carSeats, LocalDateTime timeFrom, LocalDateTime timeTo) {
+    public FilterAdsDTO(String fuelType, String transmissionType, String carClass, int travelledFrom, int travelledTo, double priceFrom, double priceTo, int carSeats, LocalDateTime timeFrom, LocalDateTime timeTo) {
         this.fuelType = fuelType;
         this.transmissionType = transmissionType;
         this.carClass = carClass;
@@ -45,27 +45,27 @@ public class FilterAdsDTO {
         this.timeTo = timeTo;
     }
 
-    public FuelType getFuelType() {
+    public String getFuelType() {
         return fuelType;
     }
 
-    public void setFuelType(FuelType fuelType) {
+    public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
     }
 
-    public TransmissionType getTransmissionType() {
+    public String getTransmissionType() {
         return transmissionType;
     }
 
-    public void setTransmissionType(TransmissionType transmissionType) {
+    public void setTransmissionType(String transmissionType) {
         this.transmissionType = transmissionType;
     }
 
-    public CarClass getCarClass() {
+    public String getCarClass() {
         return carClass;
     }
 
-    public void setCarClass(CarClass carClass) {
+    public void setCarClass(String carClass) {
         this.carClass = carClass;
     }
 

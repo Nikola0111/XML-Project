@@ -13,7 +13,5 @@ insert into user_entity(name, surname, login_info, jmbg, phone_number, user_type
 
 insert into agent(first_login, number_ads, id) values (false, 0, 2);
 
-insert into advertisement(id, brand, car_class, car_seats, fuel_type, model, name, price, trans_type, travelled, posted_by_id) values (1, 'BMW', 0, 5, 0, '2', 'Kola', 200, 0, 0, 2);
-
 insert into endentity(activated, admin_approved, blocked, number_of_requests_canceled, id) values (true, true, false, 0, 3);
 insert into endentity(activated, admin_approved, blocked, number_of_requests_canceled, id) values (true, true, false, 0, 4);
