@@ -40,9 +40,14 @@ import { HistoryService } from './modules/history/history.component.service';
 import { CreateReportComponent } from './modules/agent/create-report/create-report.component';
 import { AgentsCarsComponent } from './modules/agent/agents-cars/agents-cars.component';
 import {CarDTO} from './dtos/car-dto';
+import {StatisticsComponent, StatisticsDialogComponent} from './modules/statistics/statistics.component';
+import {MatDialogModule} from '@angular/material/dialog';
 import { UserManagmentComponent } from './modules/administrator/user-managment/user-managment.component';
+
 import {AgentComponent} from './modules/agent/home/agent.component';
 import { SifrarnikComponent } from './modules/administrator/sifrarnik/sifrarnik.component';
+import {EndUserService} from './services/EndUserService/end-user.service';
+import { AdvertisementDetailsComponent } from './modules/advertisement/advertisement-details/advertisement-details.component';
 
 
 
@@ -71,10 +76,10 @@ import { SifrarnikComponent } from './modules/administrator/sifrarnik/sifrarnik.
     CreateReportComponent,
     AgentsCarsComponent,
     UserManagmentComponent,
-    SifrarnikComponent
-
-
-
+    SifrarnikComponent,
+    StatisticsComponent,
+    StatisticsDialogComponent,
+    AdvertisementDetailsComponent
 ],
   imports: [
     BrowserModule,
@@ -101,7 +106,9 @@ import { SifrarnikComponent } from './modules/administrator/sifrarnik/sifrarnik.
       {path: 'history', component: HistoryComponent },
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegistracijaComponent},
-
+      {path: 'conversation/:id', component: ConversationComponent},
+      {path: 'statistics', component: StatisticsComponent},
+      {path: 'advertisement-details/:id', component: AdvertisementDetailsComponent}
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -110,11 +117,20 @@ import { SifrarnikComponent } from './modules/administrator/sifrarnik/sifrarnik.
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule
 
   ],
   exports: [RouterModule],
-  providers: [AdvertisementService, ShopingCartService, RepresentRequestsService, PorukeService, ConversationService,HistoryService],
-  bootstrap: [AppComponent]
+  providers: [AdvertisementService,
+              ShopingCartService,
+              RepresentRequestsService,
+              PorukeService,
+              ConversationService,
+              HistoryService,
+              EndUserService,
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [StatisticsDialogComponent]
 })
 export class AppModule { }

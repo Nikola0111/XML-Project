@@ -47,7 +47,16 @@ public class AdvertisementDTO {
 
     public AdvertisementDTO(Advertisement ad)
     {
-
+        this.id = ad.getId();
+        this.name=ad.getName();
+        this.model = ad.getModel();
+        this.brand = ad.getBrand();
+        this.fuelType = ad.getFuelType();
+        this.transmissionType = ad.getTransType();
+        this.carClass = ad.getCarClass();
+        this.travelled = ad.getTravelled();
+        this.carSeats = ad.getCarSeats();
+        this.price=ad.getPrice();
     }
 
     public String getName() {

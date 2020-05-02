@@ -10,7 +10,7 @@
         <div >
         <div class="navbar-collapse collapse" id="mobile_menu">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Home</a></li>
 
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">About Us <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -42,9 +42,11 @@
 <!--            </a></li>-->
             <li *ngIf="sessionService.isAdmin" class = "button" (click)="showRequests()"><a>Requests</a></li>
             <li *ngIf="sessionService.isAdmin" class = "button" (click)="showAgentReg()"><a>Register Agents</a></li>
+
             <li *ngIf="sessionService.isAdmin" class = "button" (click)="manageUsers()"><a>Manage users</a></li>
             <li *ngIf="sessionService.isAdmin" class = "button" (click)="codebook()"><a>Edit codebook</a></li>
             <li *ngIf="sessionService.isAgent" class = "button" (click)="createReport()"><a>Create Report</a></li>
+
           </ul>
 <!--          <ul class="nav navbar-nav">-->
 <!--            <li>-->
