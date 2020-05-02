@@ -43,6 +43,9 @@ import {CarDTO} from './dtos/car-dto';
 import {StatisticsComponent, StatisticsDialogComponent} from './modules/statistics/statistics.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { UserManagmentComponent } from './modules/administrator/user-managment/user-managment.component';
+
+import {AgentComponent} from './modules/agent/home/agent.component';
+import { SifrarnikComponent } from './modules/administrator/sifrarnik/sifrarnik.component';
 import {EndUserService} from './services/EndUserService/end-user.service';
 import { AdvertisementDetailsComponent } from './modules/advertisement/advertisement-details/advertisement-details.component';
 
@@ -69,12 +72,14 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
     ConversationComponent,
     AgentRegisterComponent,
     HistoryComponent,
+    AgentComponent,
     CreateReportComponent,
     AgentsCarsComponent,
+    UserManagmentComponent,
+    SifrarnikComponent,
     StatisticsComponent,
     StatisticsDialogComponent,
-    UserManagmentComponent,
-    AdvertisementDetailsComponent,
+    AdvertisementDetailsComponent
 ],
   imports: [
     BrowserModule,
@@ -89,6 +94,7 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
       {path: 'izmenaLozinke', component: IzmenaLozinkeComponent},
       {path: 'report/:id', component: CreateReportComponent},
       {path: '', component: RegistracijaComponent},
+      {path: 'agent', component: AgentComponent},
       {path: 'homepage', component: HomepageComponent},
       {path: 'app-advertisement', component: AdvertisementComponent},
       {path: 'advertisement-list', component: AdvertisementListComponent},
