@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Advertisement  {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
 
@@ -21,11 +21,11 @@ public class Advertisement  {
 
     private String brand;
 
-    private FuelType fuelType;
+    private String fuelType;
 
-    private TransmissionType transType;
+    private String transType;
 
-    private CarClass carClass;
+    private String carClass;
 
     private int travelled;
   
@@ -42,8 +42,8 @@ public class Advertisement  {
 
    }
 
-    public Advertisement(String name,String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int travelled, int carSeats, double price,User postedBy) {
-        this.name=name;
+    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy) {
+        this.name = name;
         this.model = model;
         this.brand = brand;
         this.fuelType = fuelType;
@@ -51,8 +51,8 @@ public class Advertisement  {
         this.carClass = carClass;
         this.travelled = travelled;
         this.carSeats = carSeats;
-        this.price=price;
-        this.postedBy=postedBy;
+        this.price = price;
+        this.postedBy = postedBy;
     }
 
     public String getBrand() {
@@ -71,30 +71,29 @@ public class Advertisement  {
         this.model = model;
     }
 
-    public FuelType getFuelType() {
-        return this.fuelType;
+    public String getFuelType() {
+        return fuelType;
     }
 
-    public void setFuelType(FuelType fuelType) {
+    public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
     }
 
-    public TransmissionType getTransType() {
-        return this.transType;
+    public String getTransType() {
+        return transType;
     }
 
-    public void setTransType(TransmissionType transType) {
+    public void setTransType(String transType) {
         this.transType = transType;
     }
 
-    public CarClass getCarClass() {
-        return this.carClass;
+    public String getCarClass() {
+        return carClass;
     }
 
-    public void setCarClass(CarClass carClass) {
+    public void setCarClass(String carClass) {
         this.carClass = carClass;
     }
-
 
     public int getTravelled() {
         return this.travelled;

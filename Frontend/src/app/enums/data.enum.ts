@@ -1,5 +1,7 @@
 export enum Data {
   CARCLASS,
   CARMODEL,
-  FUEL
+  FUEL,
+  BRAND,
+  GEARSHIFT
 }

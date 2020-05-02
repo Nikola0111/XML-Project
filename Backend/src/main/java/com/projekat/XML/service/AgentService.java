@@ -98,8 +98,8 @@ public class AgentService {
             car.setCarSeats(ad.getCarSeats());
             car.setFuelType(ad.getFuelType());
             car.setModel(ad.getModel());
-            car.setName(ad.getModel());
-            car.setTransType(ad.getTransType());
+            car.setName(ad.getName());
+            car.setTransmissionType(ad.getTransType());
             car.setTravelled(ad.getTravelled());
 
             cars.add(car);

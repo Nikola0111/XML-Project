@@ -5,37 +5,39 @@
   <li>
       <input [(ngModel)] = "this.advertisement.name" formControlName="name" name="name" class="field-style field-full align-none" placeholder="Name" />
   </li>
+
   <li>
-    
-    <input [(ngModel)] = "this.advertisement.model" formControlName="model" name="model" class="field-style field-full align-none" placeholder="Model" />
+    <select [(ngModel)] = "this.model" formControlName="fuelType" name="fuelType" class="field-style field-full align-none" placeholder="Fuel Type" >
+      <option selected="selected">Choose a car model</option>
+      <option *ngFor="let model of carModels">{{model.name}}</option>
+    </select>
   </li>
 
   <li>
-    <input [(ngModel)] = "this.advertisement.brand" formControlName="brand" name="brand" class="field-style field-full align-none" placeholder="Brand" />
+    <select [(ngModel)] = "this.brand" formControlName="fuelType" name="fuelType" class="field-style field-full align-none" placeholder="Fuel Type" >
+      <option selected="selected">Choose a car brand</option>
+      <option *ngFor="let carBrand of carBrands">{{carBrand.name}}</option>
+    </select>
   </li>
-  
 
   <li>
     <select [(ngModel)] = "this.fuelType" formControlName="fuelType" name="fuelType" class="field-style field-full align-none" placeholder="Fuel Type" >
-      <option>Gasoline</option>
-      <option>Gas</option>
-      <option>Diesel</option>
+      <option selected="selected">Choose a fuel type</option>
+      <option *ngFor="let fuel of carFuels">{{fuel.name}}</option>
     </select>
   </li>
 
   <li>
     <select [(ngModel)] = "this.transType" formControlName="transType" name="transType" class="field-style field-full align-none" placeholder="Transmission Type" >
-      <option>Manual</option>
-      <option>Automatic</option>
-      <option>Semi-Automatic</option>
+      <option selected="selected">Choose a gearshift type</option>
+      <option *ngFor="let gearshift of carGearshifts">{{gearshift.name}}</option>
     </select>
   </li>
 
   <li>
     <select [(ngModel)] = "this.carClass" formControlName="carClass" name="carClass" class="field-style field-full align-none" placeholder="Car Class" >
-      <option>Old-Timer</option>
-      <option>City-Car</option>
-      <option>Suv</option>
+      <option selected="selected">Choose a car class</option>
+      <option *ngFor="let carClass of carClasses">{{carClass.name}}</option>
     </select>
   </li>
 

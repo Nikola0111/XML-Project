@@ -14,11 +14,11 @@ public class CarDTO {
 
     private String brand;
 
-    private FuelType fuelType;
+    private String fuelType;
 
-    private TransmissionType transmissionType;
+    private String transmissionType;
 
-    private CarClass carClass;
+    private String carClass;
 
     private int travelled;
 
@@ -52,27 +52,27 @@ public class CarDTO {
         this.brand = brand;
     }
 
-    public FuelType getFuelType() {
+    public String getFuelType() {
         return fuelType;
     }
 
-    public void setFuelType(FuelType fuelType) {
+    public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
     }
 
-    public TransmissionType getTransType() {
+    public String getTransmissionType() {
         return transmissionType;
     }
 
-    public void setTransType(TransmissionType transType) {
-        this.transmissionType = transType;
+    public void setTransmissionType(String transmissionType) {
+        this.transmissionType = transmissionType;
     }
 
-    public CarClass getCarClass() {
+    public String getCarClass() {
         return carClass;
     }
 
-    public void setCarClass(CarClass carClass) {
+    public void setCarClass(String carClass) {
         this.carClass = carClass;
     }
 

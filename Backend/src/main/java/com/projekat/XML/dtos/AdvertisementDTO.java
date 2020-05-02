@@ -19,11 +19,11 @@ public class AdvertisementDTO {
 
     private String brand;
 
-    private FuelType fuelType;
+    private String fuelType;
 
-    private TransmissionType transmissionType;
+    private String transmissionType;
 
-    private CarClass carClass;
+    private String carClass;
 
     private int travelled;
   
@@ -31,9 +31,9 @@ public class AdvertisementDTO {
 
     private double price;
 
-   
 
-    public AdvertisementDTO(String name,String model, String brand, FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelled, int carSeats, double price) {
+
+    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price) {
         this.name=name;
         this.model = model;
         this.brand = brand;
@@ -83,27 +83,27 @@ public class AdvertisementDTO {
         this.model = model;
     }
 
-    public FuelType getFuelType() {
+    public String getFuelType() {
         return this.fuelType;
     }
 
-    public void setFuelType(FuelType fuelType) {
+    public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
     }
 
-    public TransmissionType getTransType() {
+    public String getTransType() {
         return this.transmissionType;
     }
 
-    public void setTransType(TransmissionType transType) {
+    public void setTransType(String transType) {
         this.transmissionType = transType;
     }
 
-    public CarClass getCarClass() {
+    public String getCarClass() {
         return this.carClass;
     }
 
-    public void setCarClass(CarClass carClass) {
+    public void setCarClass(String carClass) {
         this.carClass = carClass;
     }
 
