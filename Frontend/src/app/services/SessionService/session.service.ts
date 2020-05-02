@@ -20,6 +20,7 @@ export class SessionService {
   requests = false;
   agentreg = false;
   manageUsers = false;
+  codebook = false;
   /////////////////////////////// Admin komponente
   /////////////////////////////// Random
   pwChanging = false;

@@ -14,7 +14,7 @@ export class CreateReportComponent implements OnInit {
   travelled: string;
   comment: string;
 
-  constructor(private router:Router, private activatedRoute: ActivatedRoute, private sessionService: SessionService, private agentService: AgentService) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private sessionService: SessionService, private agentService: AgentService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {

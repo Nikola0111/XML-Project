@@ -41,6 +41,8 @@ import { CreateReportComponent } from './modules/agent/create-report/create-repo
 import { AgentsCarsComponent } from './modules/agent/agents-cars/agents-cars.component';
 import {CarDTO} from './dtos/car-dto';
 import { UserManagmentComponent } from './modules/administrator/user-managment/user-managment.component';
+import {AgentComponent} from './modules/agent/home/agent.component';
+import { SifrarnikComponent } from './modules/administrator/sifrarnik/sifrarnik.component';
 
 
 
@@ -65,9 +67,11 @@ import { UserManagmentComponent } from './modules/administrator/user-managment/u
     ConversationComponent,
     AgentRegisterComponent,
     HistoryComponent,
+    AgentComponent,
     CreateReportComponent,
     AgentsCarsComponent,
-    UserManagmentComponent
+    UserManagmentComponent,
+    SifrarnikComponent
 
 
 
@@ -85,6 +89,7 @@ import { UserManagmentComponent } from './modules/administrator/user-managment/u
       {path: 'izmenaLozinke', component: IzmenaLozinkeComponent},
       {path: 'report/:id', component: CreateReportComponent},
       {path: '', component: RegistracijaComponent},
+      {path: 'agent', component: AgentComponent},
       {path: 'homepage', component: HomepageComponent},
       {path: 'app-advertisement', component: AdvertisementComponent},
       {path: 'advertisement-list', component: AdvertisementListComponent},
