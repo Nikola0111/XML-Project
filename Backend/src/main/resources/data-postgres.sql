@@ -15,3 +15,10 @@ insert into agent(first_login, number_ads, id) values (false, 0, 2);
 
 insert into endentity(activated, admin_approved, blocked, number_of_requests_canceled, id) values (true, true, false, 0, 3);
 insert into endentity(activated, admin_approved, blocked, number_of_requests_canceled, id) values (true, true, false, 0, 4);
+
+insert into cardetails(id, code, name, type) values (1, '123', 'BMW', 3);
+insert into cardetails(id, code, name, type) values (2, '543', 'Passat', 1);
+insert into cardetails(id, code, name, type) values (3, '312', '2', 0);
+insert into cardetails(id, code, name, type) values (4, '132', 'Dizel', 2);
+insert into cardetails(id, code, name, type) values (5, '321', 'Automatic', 4);
+
