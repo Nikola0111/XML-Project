@@ -1,9 +1,15 @@
 package com.projekat.XML.dtos;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
 import com.projekat.XML.model.Advertisement;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class AdvertisementDTO {
 
@@ -31,9 +37,13 @@ public class AdvertisementDTO {
 
     private double price;
 
+  
+    private ArrayList<File> pictures;
+
+ 
 
 
-    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price) {
+    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price, ArrayList<File> pictures) {
         this.name=name;
         this.model = model;
         this.brand = brand;
@@ -43,6 +53,7 @@ public class AdvertisementDTO {
         this.travelled = travelled;
         this.carSeats = carSeats;
         this.price=price;
+        this.pictures=pictures;
     }
 
     public AdvertisementDTO(Advertisement ad)
@@ -139,6 +150,14 @@ public class AdvertisementDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public ArrayList<File> getPictures() {
+        return this.pictures;
+    }
+
+    public void setPictures(ArrayList<File> pictures) {
+        this.pictures = pictures;
     }
 
 

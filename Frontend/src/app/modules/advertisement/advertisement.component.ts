@@ -32,6 +32,7 @@ export class AdvertisementComponent implements OnInit {
   carModels: CarDetails[];
   carBrands: CarDetails[];
   carGearshifts: CarDetails[];
+  selectedFiles: File[];
 
   constructor(private formBuilder: FormBuilder,
               private advertisementService: AdvertisementService, private carDetailsService: CarDetailsService) {
@@ -85,6 +86,20 @@ export class AdvertisementComponent implements OnInit {
 
     console.log(this.advertisement);
     this.advertisementService.save(this.advertisement).subscribe();
+  }
+
+  onFileSelected(event) {
+    console.log(event);
+    this.selectedFiles = event.target.files;
+    
+    console.log("Ovo su slike "+this.selectedFiles[0]);
+
+    for(let i=0; i<this.selectedFiles.length;i++){
+
+      this.advertisementService.upload(this.selectedFiles[i]).subscribe();
+
+    }
+    
   }
 
 }

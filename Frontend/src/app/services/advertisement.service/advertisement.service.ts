@@ -13,10 +13,23 @@ const httpOptions = {
     private requestUrl: string;
     constructor(private http: HttpClient) {}
 
+
+
+    public upload(file : File){
+      const fd = new FormData();
+      
+      
+
+        fd.append("file",file,file.name);
+
+    
+
+      return this.http.post('/server/advertisement/saveImage',fd);
+    }
+
       public save(advertisement: Advertisement) {
         console.log(advertisement);
-        const body = JSON.stringify(advertisement);
-        return this.http.post<Advertisement>('/server/advertisement/save', body, httpOptions);
+        return this.http.post<Advertisement>('/server/advertisement/save', advertisement, httpOptions);
       }
       public getAll() {
       this.requestUrl = '/server/advertisement/all';

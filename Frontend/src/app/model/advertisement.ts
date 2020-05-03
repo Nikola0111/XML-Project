@@ -16,6 +16,7 @@ export class Advertisement {
   price: number;
   carSeats: number;
   postedBy: User;
+  pictures: FileList[];
 
 
   constructor() {

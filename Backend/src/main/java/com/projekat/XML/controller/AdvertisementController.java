@@ -14,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,13 +28,22 @@ public class AdvertisementController {
 	private AdvertisementService advertisementService;
 
 	
+	@RequestMapping(value = "/saveImage", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
+    public ResponseEntity<Long> uploadImage(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
 
-	@PostMapping(value="/save", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	System.out.println("Pogodio");
+		System.out.println(file.getOriginalFilename());
+
+         return new ResponseEntity<>(HttpStatus.OK);
+}
+
+	@PostMapping(value="/save")
 	public ResponseEntity<Long> save(@RequestBody AdvertisementDTO advertisementDTO) {
 
 		System.out.println(advertisementDTO.getName()+advertisementDTO.getModel()+advertisementDTO.getBrand());
 		System.out.println("AMIN");
+		System.out.println("Nesto ima, broj slika je"+advertisementDTO.getPictures().size());
 		advertisementService.save(advertisementDTO);
 
 		return new ResponseEntity<>(HttpStatus.OK);
