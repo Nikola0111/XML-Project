@@ -72,7 +72,8 @@ export class AdvertisementComponent implements OnInit {
       carClass: [''],
       travelled: [''],
       price: [''],
-      carSeats: ['']
+      carSeats: [''],
+      discount: [''],
     });
   }
 

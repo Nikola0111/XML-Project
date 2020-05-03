@@ -8,6 +8,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog
 import {AdvertisementService} from '../../services/advertisement.service/advertisement.service';
 
 export interface DialogData {
+  discount: any;
   advertisement: Advertisement;
 }
 

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -12,8 +12,12 @@ import { NavbarComponent } from 'src/app/navbar/navbar.component';
 import { FilterAdsDTO } from 'src/app/model/filterAdsDTO';
 import { ItemInCart } from 'src/app/model/itemInCart';
 import {AdvertisementDetailsComponent} from '../advertisement-details/advertisement-details.component';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 
+export interface DialogData {
+  advertisement: Advertisement;
+}
 
 @Component({
   selector: 'app-advertisement-list',
@@ -40,11 +44,11 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   advertisementDetails: AdvertisementDetailsComponent;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats', 'button', 'details'];
+  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'travelled', 'price', 'discountPrice', 'carSeats', 'button', 'details', 'changeDiscount'];
 
 
   constructor(private formBuilder: FormBuilder, private advertisementService: AdvertisementService,
-              private router: Router) {
+              private router: Router, private dialog: MatDialog) {
     this.itemInCart = new ItemInCart();
   }
 
@@ -147,4 +151,40 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   showDetails(row: Advertisement) {
     this.router.navigate(['/advertisement-details', row.id]);
   }
+
+  changeDiscount(row: Advertisement): void {
+    const dialogRef = this.dialog.open(ChangeDiscountDialogComponent, {
+      data : {row}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        alert(result.discount);
+        alert('ovde');
+        row.discount = result.discount;
+        this.advertisementService.update(row).subscribe();
+        this.ngOnInit();
+      }
+    });
+  }
+}
+
+@Component({
+  selector: 'app-change-discount-dialog',
+  templateUrl: './change-discount-dialog.html',
+})
+export class ChangeDiscountDialogComponent {
+  advertisement: Advertisement;
+  constructor(public dialogRef: MatDialogRef<ChangeDiscountDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+
+  }
+  onOkClick(data: string): void {
+    alert(data);
+    this.dialogRef.close(this.advertisement);
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
 }

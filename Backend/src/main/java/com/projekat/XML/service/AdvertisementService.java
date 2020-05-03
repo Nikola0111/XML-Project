@@ -34,7 +34,7 @@ public class AdvertisementService {
 		//kada se kreira korisnik kreira mu se i korpa u koju ce moci da dodaje oglase!
 		
 
-		return advertisementRepository.save(new Advertisement(advertisementDTO.getName(), advertisementDTO.getModel(), advertisementDTO.getBrand(),advertisementDTO.getFuelType(),advertisementDTO.getTransType(),advertisementDTO.getCarClass(),advertisementDTO.getTravelled(), advertisementDTO.getCarSeats(),advertisementDTO.getPrice(),userRepository.findOneByid(id)));
+		return advertisementRepository.save(new Advertisement(advertisementDTO.getName(), advertisementDTO.getModel(), advertisementDTO.getBrand(),advertisementDTO.getFuelType(),advertisementDTO.getTransType(),advertisementDTO.getCarClass(),advertisementDTO.getTravelled(), advertisementDTO.getCarSeats(),advertisementDTO.getPrice(),userRepository.findOneByid(id), advertisementDTO.getDiscount()));
 	}
 	
 	public List<Advertisement> findAll() {
@@ -44,6 +44,10 @@ public class AdvertisementService {
 	
 	public Advertisement findOneByid(Long id) {
 		return advertisementRepository.findOneByid(id);
+	}
+
+	public Advertisement update(Advertisement advertisement) {
+		return advertisementRepository.save(advertisement);
 	}
 
 

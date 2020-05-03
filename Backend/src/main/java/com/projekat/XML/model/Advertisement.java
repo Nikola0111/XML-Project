@@ -33,6 +33,10 @@ public class Advertisement  {
 
     private double price;
 
+    private double discount;
+
+    private double priceWithDiscount;
+
     @ManyToOne
     @JoinColumn
     private User postedBy;
@@ -42,7 +46,7 @@ public class Advertisement  {
 
    }
 
-    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy) {
+    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy, double discount) {
         this.name = name;
         this.model = model;
         this.brand = brand;
@@ -53,6 +57,8 @@ public class Advertisement  {
         this.carSeats = carSeats;
         this.price = price;
         this.postedBy = postedBy;
+        this.discount = discount;
+        this.priceWithDiscount = price - (this.price * this.discount / 100);
     }
 
     public String getBrand() {
@@ -145,5 +151,19 @@ public class Advertisement  {
         this.postedBy = postedBy;
     }
 
+    public double getDiscount() {
+        return discount;
+    }
 
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public double getPriceWithDiscount() {
+        return priceWithDiscount;
+    }
+
+    public void setPriceWithDiscount(double priceWithDiscount) {
+        this.priceWithDiscount = priceWithDiscount;
+    }
 }

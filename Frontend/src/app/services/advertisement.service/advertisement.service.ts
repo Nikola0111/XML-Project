@@ -39,5 +39,11 @@ const httpOptions = {
         this.requestUrl = '/server/advertisement/' + id;
         return this.http.get<Advertisement>(this.requestUrl, httpOptions);
       }
+
+      public update(advertisement: Advertisement) {
+      this.requestUrl = '/server/advertisement/update';
+      const body = JSON.stringify(advertisement);
+      return this.http.post<Advertisement>(this.requestUrl, body, httpOptions);
+      }
   }
 

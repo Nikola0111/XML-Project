@@ -15,7 +15,10 @@ import { AgmCoreModule} from '@agm/core';
 import { AdvertisementComponent } from './modules/advertisement/advertisement.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdvertisementService } from './services/advertisement.service/advertisement.service';
-import { AdvertisementListComponent } from './modules/advertisement/advertisement-list/advertisement-list.component';
+import {
+  AdvertisementListComponent,
+  ChangeDiscountDialogComponent
+} from './modules/advertisement/advertisement-list/advertisement-list.component';
 import { HomepageComponent } from './modules/home/homepage/homepage.component';
 import { LoginComponent } from './modules/home/login/login.component';
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
@@ -48,6 +51,9 @@ import {AgentComponent} from './modules/agent/home/agent.component';
 import { SifrarnikComponent } from './modules/administrator/sifrarnik/sifrarnik.component';
 import {EndUserService} from './services/EndUserService/end-user.service';
 import { AdvertisementDetailsComponent } from './modules/advertisement/advertisement-details/advertisement-details.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatInput, MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from "@angular/material/button";
 
 
 
@@ -79,7 +85,8 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
     SifrarnikComponent,
     StatisticsComponent,
     StatisticsDialogComponent,
-    AdvertisementDetailsComponent
+    AdvertisementDetailsComponent,
+    ChangeDiscountDialogComponent,
 ],
   imports: [
     BrowserModule,
@@ -99,11 +106,11 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
       {path: 'app-advertisement', component: AdvertisementComponent},
       {path: 'advertisement-list', component: AdvertisementListComponent},
       {path: 'administrator', component: AdministratorComponent},
-      {path: 'shoppingCart' , component: ShoppingCartComponent},
+      {path: 'shoppingCart', component: ShoppingCartComponent},
       {path: 'requests', component: RepresentRequestsComponent},
       {path: 'inbox', component: PorukeComponent},
-      { path: 'conversation/:id', component: ConversationComponent},
-      {path: 'history', component: HistoryComponent },
+      {path: 'conversation/:id', component: ConversationComponent},
+      {path: 'history', component: HistoryComponent},
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegistracijaComponent},
       {path: 'conversation/:id', component: ConversationComponent},
@@ -118,7 +125,10 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
     MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule,
+    MatInputModule,
+    MatButtonModule
 
   ],
   exports: [RouterModule],
@@ -131,6 +141,6 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
               EndUserService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [StatisticsDialogComponent]
+  entryComponents: [StatisticsDialogComponent, ChangeDiscountDialogComponent]
 })
 export class AppModule { }

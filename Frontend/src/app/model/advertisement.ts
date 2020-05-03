@@ -16,6 +16,8 @@ export class Advertisement {
   price: number;
   carSeats: number;
   postedBy: User;
+  discount: number;
+  priceWithDiscount: number;
 
 
   constructor() {

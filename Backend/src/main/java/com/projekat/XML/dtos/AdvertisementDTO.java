@@ -31,9 +31,12 @@ public class AdvertisementDTO {
 
     private double price;
 
+    private double discount;
+
+    private double priceWithDiscount;
 
 
-    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price) {
+    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price, double discount) {
         this.name=name;
         this.model = model;
         this.brand = brand;
@@ -43,6 +46,8 @@ public class AdvertisementDTO {
         this.travelled = travelled;
         this.carSeats = carSeats;
         this.price=price;
+        this.discount = discount;
+        this.priceWithDiscount = price - (price * discount / 100);
     }
 
     public AdvertisementDTO(Advertisement ad)
@@ -57,6 +62,8 @@ public class AdvertisementDTO {
         this.travelled = ad.getTravelled();
         this.carSeats = ad.getCarSeats();
         this.price=ad.getPrice();
+        this.discount = ad.getDiscount();
+        this.priceWithDiscount = ad.getPriceWithDiscount();
     }
 
     public String getName() {
@@ -141,5 +148,19 @@ public class AdvertisementDTO {
         this.id = id;
     }
 
+    public double getDiscount() {
+        return discount;
+    }
 
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public double getPriceWithDiscount() {
+        return priceWithDiscount;
+    }
+
+    public void setPriceWithDiscount(double priceWithDiscount) {
+        this.priceWithDiscount = priceWithDiscount;
+    }
 }
