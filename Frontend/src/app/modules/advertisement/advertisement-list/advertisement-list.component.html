@@ -1,3 +1,4 @@
+
 <div class="mat-elevation-z8">
   <app-navbar></app-navbar>
 
@@ -73,6 +74,7 @@
   </form>
 
 
+
   <table mat-table class="full-width-table" matSort aria-label="Elements">
     <!-- Id Column -->
     <ng-container matColumnDef="name">
@@ -121,6 +123,13 @@
       <td mat-cell *matCellDef="let row">{{row.carSeats}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+      <td mat-cell *matCellDef="let row"><button mat-raised-button color = "primary" (click) = "openDialog(row.images)" >Show pictures</button></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+
     <ng-container matColumnDef="button">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Add to cart</th>
       <td mat-cell *matCellDef="let row"><button style="background-color:green;color:white;height:40px;width:100px"
@@ -136,16 +145,26 @@
 
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
   </table>
 
 
 
-  <mat-paginator #paginator [length]="dataSource?.data.length" [pageIndex]="0" [pageSize]="50"
-    [pageSizeOptions]="[25, 50, 100, 250]">
+
+  <mat-paginator #paginator
+      [length]="dataSource?.data.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[10, 25, 50, 100]">
+
+
   </mat-paginator>
+  <button [routerLink]="['/advertisement']" color = "primary" mat-raised-button >Add</button>
+</ul>
+
 
 </div>
 
 
 <!-- <button mat-raised-button [routerLink]="['/advertisement']">Add</button> -->
+

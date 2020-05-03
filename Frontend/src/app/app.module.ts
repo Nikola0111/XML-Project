@@ -15,9 +15,18 @@ import { AgmCoreModule} from '@agm/core';
 import { AdvertisementComponent } from './modules/advertisement/advertisement.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdvertisementService } from './services/advertisement.service/advertisement.service';
-import { AdvertisementListComponent } from './modules/advertisement/advertisement-list/advertisement-list.component';
+import {
+  AdvertisementListComponent, ImagesDialogComponent
+} from './modules/advertisement/advertisement-list/advertisement-list.component';
 import { HomepageComponent } from './modules/home/homepage/homepage.component';
 import { LoginComponent } from './modules/home/login/login.component';
+
+import { MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
+import {NgImageSliderModule} from 'ng-image-slider';
+import {ImageModelService} from './services/imageModel.service/imageModel.service';
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
 import { ShopingCartService } from './modules/shopping-cart/shoping-cart.service';
 import {MatFormFieldModule} from '@angular/material';
@@ -51,7 +60,6 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +69,7 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
     LoginComponent,
     HomepageComponent,
     AdvertisementListComponent,
+    ImagesDialogComponent
     AdministratorComponent,
     ZahteviRegistracijaComponent,
     ShoppingCartComponent,
@@ -80,6 +89,7 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
     StatisticsComponent,
     StatisticsDialogComponent,
     AdvertisementDetailsComponent
+
 ],
   imports: [
     BrowserModule,
@@ -88,6 +98,16 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatButtonModule,
+    RouterModule.forRoot([
+
+      {path: '', component: RegistracijaComponent},
+      {path: 'app-advertisement', component: AdvertisementComponent},
+      {path: 'advertisement-list', component: AdvertisementListComponent},
+
     CommonModule,
     RouterModule.forRoot([
       {path: 'registrationConfirm.html', component: RegisterConfirmComponent},
@@ -109,6 +129,7 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
       {path: 'conversation/:id', component: ConversationComponent},
       {path: 'statistics', component: StatisticsComponent},
       {path: 'advertisement-details/:id', component: AdvertisementDetailsComponent}
+
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -118,6 +139,15 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
     MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule,
+    MatSelectModule,
+    MatDialogModule,
+    NgImageSliderModule
+  ],
+  exports: [RouterModule],
+  providers: [AdvertisementService, ImageModelService],
+  bootstrap: [AppComponent],
+  entryComponents: [ImagesDialogComponent,
+
     MatDialogModule
 
   ],
@@ -132,5 +162,6 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
   ],
   bootstrap: [AppComponent],
   entryComponents: [StatisticsDialogComponent]
+
 })
 export class AppModule { }

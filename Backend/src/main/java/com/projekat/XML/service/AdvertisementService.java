@@ -3,13 +3,23 @@ package com.projekat.XML.service;
 import com.projekat.XML.dtos.AdvertisementDTO;
 import com.projekat.XML.dtos.FilterAdsDTO;
 import com.projekat.XML.model.Advertisement;
+
 import com.projekat.XML.repository.AdvertisementRepository;
 import com.projekat.XML.repository.UserRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +45,7 @@ public class AdvertisementService {
 		
 
 		return advertisementRepository.save(new Advertisement(advertisementDTO.getName(), advertisementDTO.getModel(), advertisementDTO.getBrand(),advertisementDTO.getFuelType(),advertisementDTO.getTransType(),advertisementDTO.getCarClass(),advertisementDTO.getTravelled(), advertisementDTO.getCarSeats(),advertisementDTO.getPrice(),userRepository.findOneByid(id)));
+
 	}
 	
 	public List<Advertisement> findAll() {
@@ -107,4 +118,5 @@ public class AdvertisementService {
 		//KAD SE OTKOMENTARISE, VRACACE FILTEREDAVAILABLEADS
 		return filteredAds;
 	}
+
 }

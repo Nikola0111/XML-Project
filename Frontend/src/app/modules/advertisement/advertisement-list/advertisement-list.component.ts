@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -6,7 +6,9 @@ import { AdvertisementListDataSource, AdvertisementListItem } from './advertisem
 import { Advertisement } from '../../../model/advertisement';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { AdvertisementService } from '../../../services/advertisement.service/advertisement.service';
+
+import {AdvertisementService} from '../../../services/advertisement.service/advertisement.service';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { from, forkJoin } from 'rxjs';
 import { NavbarComponent } from 'src/app/navbar/navbar.component';
 import { FilterAdsDTO } from 'src/app/model/filterAdsDTO';
@@ -15,10 +17,14 @@ import {AdvertisementDetailsComponent} from '../advertisement-details/advertisem
 import {Router} from "@angular/router";
 
 
+export interface DialogData {
+  images: Array<ImageModel>;
+}
+
 @Component({
   selector: 'app-advertisement-list',
   templateUrl: './advertisement-list.component.html',
-  styleUrls: ['./advertisement-list.component.css']
+  styleUrls: ['./advertisement-list.component.css', '/../advertisement.component.css']
 })
 export class AdvertisementListComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -26,6 +32,20 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   @ViewChild(MatTable, { static: false }) table: MatTable<AdvertisementListItem>;
   dataSource: AdvertisementListDataSource;
   advertisements: Advertisement[];
+
+
+  imagesUrl: string[];
+
+
+  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats', 'actions'];
+
+  constructor(private advertisementService: AdvertisementService,
+              private imageModelService: ImageModelService,
+              public dialog: MatDialog) {
+  }
+
+
   dialogData: Advertisement;
   selected: Advertisement;
 
@@ -47,6 +67,7 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
               private router: Router) {
     this.itemInCart = new ItemInCart();
   }
+
 
 
 
@@ -138,6 +159,37 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
 
+
+  openDialog(row: Array<String>): void {
+    alert(row[0].name)
+    /*this.images.forEach(element => {
+      element.name = '"' + element.name + '"';
+    });*/
+    const dialogRef = this.dialog.open(ImagesDialogComponent, {
+      width: '500px',
+      height: '325px',
+      data: row
+    });
+  }
+
+}
+
+
+
+@Component({
+  selector: 'app-images-dialog',
+  templateUrl: 'images-dialog.component.html'
+})
+export class ImagesDialogComponent {
+  constructor(public dialogRef: MatDialogRef<ImagesDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
+
     console.log(this.dataSource);
   }
   ngBeforeViewInit() {
@@ -147,4 +199,5 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   showDetails(row: Advertisement) {
     this.router.navigate(['/advertisement-details', row.id]);
   }
+
 }

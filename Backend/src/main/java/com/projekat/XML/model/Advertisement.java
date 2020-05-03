@@ -3,17 +3,20 @@ package com.projekat.XML.model;
 import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
+import com.sun.xml.messaging.saaj.soap.ImageDataContentHandler;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
+
 
 @Entity
 public class Advertisement  {
 
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-
-
 
     private String name;
 
@@ -33,14 +36,17 @@ public class Advertisement  {
 
     private double price;
 
+
     @ManyToOne
     @JoinColumn
     private User postedBy;
 
 
+
    public Advertisement(){
 
    }
+
 
     public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy) {
         this.name = name;
@@ -53,6 +59,7 @@ public class Advertisement  {
         this.carSeats = carSeats;
         this.price = price;
         this.postedBy = postedBy;
+
     }
 
     public String getBrand() {
@@ -111,7 +118,6 @@ public class Advertisement  {
         this.carSeats = carSeats;
     }
 
-
     public double getPrice() {
         return this.price;
     }
@@ -136,6 +142,7 @@ public class Advertisement  {
     {
         this.name = name;
     }
+
     
     public User getPostedBy() {
         return this.postedBy;
@@ -144,6 +151,5 @@ public class Advertisement  {
     public void setPostedBy(User postedBy) {
         this.postedBy = postedBy;
     }
-
 
 }
