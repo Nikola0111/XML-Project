@@ -10,7 +10,7 @@
         <div >
         <div class="navbar-collapse collapse" id="mobile_menu">
           <ul class="nav navbar-nav">
-            <li><a href="#">Home</a></li>
+            <li ><a href="#">Home</a></li>
 
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">About Us <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -22,14 +22,15 @@
                 <li><a href="#">About Six</a></li>
               </ul>
             </li>
-<!--            <li><a [routerLink]="['/registracija']">Welcome</a></li>-->
-<!--            <li><a [routerLink]="['/advertisement-list']">Advertisement List</a></li>-->
+            <li><a [routerLink]="['/registracija']">Welcome</a></li>
+            <li><a [routerLink]="['/advertisement-list']">Advertisement List</a></li>
             <li><a [routerLink]="['/advertisement']">DodajOglas</a></li>
-<!--            <li><a [routerLink]="['/inbox']">Inbox</a></li>-->
-<!--            <li><a [routerLink]="['/requests']">Requests</a></li>-->
-<!--            <li><a [routerLink]="['/history']">History</a></li>-->
+            <li><a [routerLink]="['/inbox']">Inbox</a></li>
+            <li><a [routerLink]="['/requests']">Requests</a></li>
+            <li><a [routerLink]="['/history']">History</a></li>
 
-<!--            <li> <a [routerLink]="['/shoppingCart']">-->
+            <li> <a [routerLink]="['/shoppingCart']"> <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart
+            </a></li>
 
      <!--      <li *ngIf="sessionService.ulogovaniKorisnik === undefined"><a [routerLink]="['/registracija']">Welcome</a></li>
             <li *ngIf="sessionService.ulogovaniKorisnik === undefined"><a [routerLink]="['/advertisement-list']">Advertisement List</a></li>
@@ -38,15 +39,11 @@
           <li *ngIf="sessionService.ulogovaniKorisnik === undefined"><a [routerLink]="['/requests']">Requests</a></li>
            <li *ngIf="sessionService.isEndUser"><a [routerLink]="['/shoppingCart']"> -->
 
-<!--              <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart-->
-<!--            </a></li>-->
+             
             <li *ngIf="sessionService.isAdmin" class = "button" (click)="showRequests()"><a>Requests</a></li>
             <li *ngIf="sessionService.isAdmin" class = "button" (click)="showAgentReg()"><a>Register Agents</a></li>
-
             <li *ngIf="sessionService.isAdmin" class = "button" (click)="manageUsers()"><a>Manage users</a></li>
-            <li *ngIf="sessionService.isAdmin" class = "button" (click)="codebook()"><a>Edit codebook</a></li>
             <li *ngIf="sessionService.isAgent" class = "button" (click)="createReport()"><a>Create Report</a></li>
-
           </ul>
 <!--          <ul class="nav navbar-nav">-->
 <!--            <li>-->
