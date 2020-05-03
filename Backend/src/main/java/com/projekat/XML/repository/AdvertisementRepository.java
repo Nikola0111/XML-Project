@@ -11,4 +11,5 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
 
     public Advertisement findOneByid(Long id);
     public List<Advertisement> findAll();
+    public List<Advertisement> findAllByPostedBy_Id(Long id);
 }

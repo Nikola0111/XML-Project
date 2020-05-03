@@ -1,20 +1,26 @@
 import {FuelType} from '../enums/fuelType';
 import {TransmissionType} from '../enums/transmissionType';
 import {CarClass} from '../enums/carClass';
-import {ImageModel} from './imageModel';
+
+import {User} from '../model/user';
+import {CarDetails} from './car-details';
+
 
 export class Advertisement {
   id: number;
   name: string;
   model: string;
   brand: string;
-  fuelType: FuelType;
-  transType: TransmissionType;
-  carClass: CarClass;
+  fuelType: string;
+  transType: string;
+  carClass: string;
   travelled: number;
   price: number;
   carSeats: number;
-  images: Array<ImageModel>;
+
+  images: Array<String>;
+  postedBy: User;
+
 
   constructor() {
 

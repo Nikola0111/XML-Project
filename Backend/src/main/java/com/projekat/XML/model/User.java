@@ -1,5 +1,7 @@
 package com.projekat.XML.model;
 
+import com.projekat.XML.enums.UserType;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,7 +20,7 @@ public class User {
     private String surname;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "login_info", referencedColumnName = "username")
+    @JoinColumn(name = "login_info", referencedColumnName = "id")
     private LoginInfo loginInfo;
 
     @Column(name = "jmbg", unique = true, nullable = false)
@@ -27,13 +29,16 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    public User(Long id, String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber) {
-        this.id = id;
+    @Column(name = "user_type")
+    private UserType userType;
+
+    public User(String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber, UserType ut) {
         this.name = name;
         this.surname = surname;
         this.loginInfo = loginInfo;
         this.jmbg = jmbg;
         this.phoneNumber = phoneNumber;
+        this.userType = ut;
     }
 
     public User() {
@@ -88,4 +93,47 @@ public class User {
         this.id = id;
     }
 
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
+    public String getPassword(){
+        return this.loginInfo.getPassword();
+    }
+
+    public void setPassword(String password){
+        this.loginInfo.setPassword(password);
+    }
+
+    public String getUsername(){
+        return this.loginInfo.getUsername();
+    }
+
+    public void setUsername(String username){
+        this.loginInfo.setUsername(username);
+    }
+
+    public void setEmail(String email){
+        this.loginInfo.setEmail(email);
+    }
+
+    public String getEmail(){
+        return this.loginInfo.getEmail();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", loginInfo=" + loginInfo +
+                ", jmbg='" + jmbg + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", userType=" + userType +
+                '}';
+    }
 }

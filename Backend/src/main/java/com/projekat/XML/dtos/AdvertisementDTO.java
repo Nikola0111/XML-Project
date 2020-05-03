@@ -17,17 +17,19 @@ public class AdvertisementDTO {
 
     private Long id;
 
+    
+
     private String name;
 
     private String model;
 
     private String brand;
 
-    private FuelType fuelType;
+    private String fuelType;
 
-    private TransmissionType transmissionType;
+    private String transmissionType;
 
-    private CarClass carClass;
+    private String carClass;
 
     private int travelled;
   
@@ -35,11 +37,15 @@ public class AdvertisementDTO {
 
     private double price;
 
+
     private ArrayList<ImageModel> images;
 
    
 
-    public AdvertisementDTO(String name,String model, String brand, FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelled, int carSeats, double price, ArrayList<ImageModel> images) {
+
+
+    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price) {
+
         this.name=name;
         this.model = model;
         this.brand = brand;
@@ -54,7 +60,16 @@ public class AdvertisementDTO {
 
     public AdvertisementDTO(Advertisement ad)
     {
-
+        this.id = ad.getId();
+        this.name=ad.getName();
+        this.model = ad.getModel();
+        this.brand = ad.getBrand();
+        this.fuelType = ad.getFuelType();
+        this.transmissionType = ad.getTransType();
+        this.carClass = ad.getCarClass();
+        this.travelled = ad.getTravelled();
+        this.carSeats = ad.getCarSeats();
+        this.price=ad.getPrice();
     }
 
     public String getName() {
@@ -81,27 +96,27 @@ public class AdvertisementDTO {
         this.model = model;
     }
 
-    public FuelType getFuelType() {
+    public String getFuelType() {
         return this.fuelType;
     }
 
-    public void setFuelType(FuelType fuelType) {
+    public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
     }
 
-    public TransmissionType getTransType() {
+    public String getTransType() {
         return this.transmissionType;
     }
 
-    public void setTransType(TransmissionType transType) {
+    public void setTransType(String transType) {
         this.transmissionType = transType;
     }
 
-    public CarClass getCarClass() {
+    public String getCarClass() {
         return this.carClass;
     }
 
-    public void setCarClass(CarClass carClass) {
+    public void setCarClass(String carClass) {
         this.carClass = carClass;
     }
 
@@ -129,11 +144,15 @@ public class AdvertisementDTO {
         this.price = price;
     }
 
-    public ArrayList<ImageModel> getImages() {
-        return images;
+
+    public Long getId() {
+        return this.id;
     }
 
-    public void setImages(ArrayList<ImageModel> images) {
-        this.images = images;
+    public void setId(Long id) {
+        this.id = id;
     }
+
+
+
 }

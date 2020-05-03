@@ -1,9 +1,11 @@
 package com.projekat.XML.controller;
 
 import com.projekat.XML.dtos.AdvertisementDTO;
+import com.projekat.XML.dtos.FilterAdsDTO;
 import com.projekat.XML.model.Advertisement;
 import com.projekat.XML.model.ImageModel;
 import com.projekat.XML.service.AdvertisementService;
+import com.projekat.XML.service.ShoppingCartService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,6 +25,8 @@ public class AdvertisementController {
 	@Autowired
 	private AdvertisementService advertisementService;
 
+	
+
 
 	@PostMapping(value="/save", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Long> save(@RequestBody AdvertisementDTO advertisementDTO) {
@@ -32,13 +36,31 @@ public class AdvertisementController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	
+
     @GetMapping(value = "/all")
     public ResponseEntity<List<Advertisement>> getAll() {
         List<Advertisement> advertisements = advertisementService.findAll();
-        for(Advertisement ad : advertisements) {
-			System.out.println(ad.getName());
-		}
         return new ResponseEntity<>(advertisements, HttpStatus.OK);
-    }
+	}
+	
+
+
+	@PostMapping(value="/filterAdv", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Advertisement>> filterAds(@RequestBody FilterAdsDTO filterAdsDTO) {
+		System.out.println("POGODIO");
+		return new ResponseEntity<>(advertisementService.filterAds(filterAdsDTO), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<AdvertisementDTO> getAdvertisement(@PathVariable Long id) {
+		Advertisement advertisement = advertisementService.findOneByid(id);
+		if(advertisement == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(new AdvertisementDTO(advertisement), HttpStatus.OK);
+	}
+
 
 }

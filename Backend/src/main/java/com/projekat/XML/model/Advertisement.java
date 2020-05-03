@@ -6,14 +6,16 @@ import com.projekat.XML.enums.TransmissionType;
 import com.sun.xml.messaging.saaj.soap.ImageDataContentHandler;
 
 import javax.persistence.*;
+
 import java.util.ArrayList;
 
+
 @Entity
-@Table(name = "advertisement")
-public class Advertisement {
+public class Advertisement  {
+
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -22,11 +24,11 @@ public class Advertisement {
 
     private String brand;
 
-    private FuelType fuelType;
+    private String fuelType;
 
-    private TransmissionType transType;
+    private String transType;
 
-    private CarClass carClass;
+    private String carClass;
 
     private int travelled;
   
@@ -34,14 +36,20 @@ public class Advertisement {
 
     private double price;
 
-    private ArrayList<ImageModel> images;
+
+    @ManyToOne
+    @JoinColumn
+    private User postedBy;
+
+
 
    public Advertisement(){
 
    }
 
-    public Advertisement(String name,String model, String brand, FuelType fuelType, TransmissionType transType, CarClass carClass, int travelled, int carSeats, double price, ArrayList<ImageModel> images) {
-        this.name=name;
+
+    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy) {
+        this.name = name;
         this.model = model;
         this.brand = brand;
         this.fuelType = fuelType;
@@ -49,8 +57,9 @@ public class Advertisement {
         this.carClass = carClass;
         this.travelled = travelled;
         this.carSeats = carSeats;
-        this.price=price;
-        this.images = images;
+        this.price = price;
+        this.postedBy = postedBy;
+
     }
 
     public String getBrand() {
@@ -69,27 +78,27 @@ public class Advertisement {
         this.model = model;
     }
 
-    public FuelType getFuelType() {
-        return this.fuelType;
+    public String getFuelType() {
+        return fuelType;
     }
 
-    public void setFuelType(FuelType fuelType) {
+    public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
     }
 
-    public TransmissionType getTransType() {
-        return this.transType;
+    public String getTransType() {
+        return transType;
     }
 
-    public void setTransType(TransmissionType transType) {
+    public void setTransType(String transType) {
         this.transType = transType;
     }
 
-    public CarClass getCarClass() {
-        return this.carClass;
+    public String getCarClass() {
+        return carClass;
     }
 
-    public void setCarClass(CarClass carClass) {
+    public void setCarClass(String carClass) {
         this.carClass = carClass;
     }
 
@@ -134,11 +143,13 @@ public class Advertisement {
         this.name = name;
     }
 
-    public ArrayList<ImageModel> getImages() {
-        return images;
+    
+    public User getPostedBy() {
+        return this.postedBy;
     }
 
-    public void setImages(ArrayList<ImageModel> images) {
-        this.images = images;
+    public void setPostedBy(User postedBy) {
+        this.postedBy = postedBy;
     }
+
 }

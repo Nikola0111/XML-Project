@@ -9,7 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { NavbarComponent } from './navbar/navbar.component';
-import { RegistracijaComponent } from './modules/home/registracija/registracija.component';
+import { RegistracijaComponent } from './modules/home/register_users/registracija.component';
 import {RouterModule} from '@angular/router';
 import { AgmCoreModule} from '@agm/core';
 import { AdvertisementComponent } from './modules/advertisement/advertisement.component';
@@ -20,12 +20,45 @@ import {
 } from './modules/advertisement/advertisement-list/advertisement-list.component';
 import { HomepageComponent } from './modules/home/homepage/homepage.component';
 import { LoginComponent } from './modules/home/login/login.component';
+
 import { MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {NgImageSliderModule} from 'ng-image-slider';
 import {ImageModelService} from './services/imageModel.service/imageModel.service';
+import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
+import { ShopingCartService } from './modules/shopping-cart/shoping-cart.service';
+import {MatFormFieldModule} from '@angular/material';
+import { AdministratorComponent } from './modules/administrator/home/administrator.component';
+import { ZahteviRegistracijaComponent } from './modules/administrator/zahtevi-registracija/zahtevi-registracija.component';
+import { CommonModule } from '@angular/common';
+import { RepresentRequestsComponent } from './modules/repsresent-requests/repsresent-requests.component';
+import { RepresentRequestsService } from './modules/repsresent-requests/represent-requests.service';
+import { RegisterConfirmComponent } from './modules/home/register-confirm/register-confirm.component';
+import { PorukeComponent } from './modules/poruke/poruke.component';
+import { PorukeService } from './modules/poruke/poruke.component.service';
+import { ConversationComponent } from './modules/conversation/conversation.component';
+import { ConversationService } from './modules/conversation/conversation.service';
+import { AgentRegisterComponent } from './modules/administrator/agent-register/agent-register.component';
+import { IzmenaLozinkeComponent } from './modules/shared/izmena-lozinke/izmena-lozinke.component';
+
+
+import { HistoryComponent } from './modules/history/history.component';
+import { HistoryService } from './modules/history/history.component.service';
+import { CreateReportComponent } from './modules/agent/create-report/create-report.component';
+import { AgentsCarsComponent } from './modules/agent/agents-cars/agents-cars.component';
+import {CarDTO} from './dtos/car-dto';
+import {StatisticsComponent, StatisticsDialogComponent} from './modules/statistics/statistics.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { UserManagmentComponent } from './modules/administrator/user-managment/user-managment.component';
+
+import {AgentComponent} from './modules/agent/home/agent.component';
+import { SifrarnikComponent } from './modules/administrator/sifrarnik/sifrarnik.component';
+import {EndUserService} from './services/EndUserService/end-user.service';
+import { AdvertisementDetailsComponent } from './modules/advertisement/advertisement-details/advertisement-details.component';
+
+
 
 @NgModule({
   declarations: [
@@ -37,6 +70,25 @@ import {ImageModelService} from './services/imageModel.service/imageModel.servic
     HomepageComponent,
     AdvertisementListComponent,
     ImagesDialogComponent
+    AdministratorComponent,
+    ZahteviRegistracijaComponent,
+    ShoppingCartComponent,
+    RepresentRequestsComponent,
+    RegisterConfirmComponent,
+    AgentRegisterComponent,
+    IzmenaLozinkeComponent,
+    PorukeComponent,
+    ConversationComponent,
+    AgentRegisterComponent,
+    HistoryComponent,
+    AgentComponent,
+    CreateReportComponent,
+    AgentsCarsComponent,
+    UserManagmentComponent,
+    SifrarnikComponent,
+    StatisticsComponent,
+    StatisticsDialogComponent,
+    AdvertisementDetailsComponent
 
 ],
   imports: [
@@ -56,6 +108,28 @@ import {ImageModelService} from './services/imageModel.service/imageModel.servic
       {path: 'app-advertisement', component: AdvertisementComponent},
       {path: 'advertisement-list', component: AdvertisementListComponent},
 
+    CommonModule,
+    RouterModule.forRoot([
+      {path: 'registrationConfirm.html', component: RegisterConfirmComponent},
+      {path: 'izmenaLozinke', component: IzmenaLozinkeComponent},
+      {path: 'report/:id', component: CreateReportComponent},
+      {path: '', component: RegistracijaComponent},
+      {path: 'agent', component: AgentComponent},
+      {path: 'homepage', component: HomepageComponent},
+      {path: 'app-advertisement', component: AdvertisementComponent},
+      {path: 'advertisement-list', component: AdvertisementListComponent},
+      {path: 'administrator', component: AdministratorComponent},
+      {path: 'shoppingCart' , component: ShoppingCartComponent},
+      {path: 'requests', component: RepresentRequestsComponent},
+      {path: 'inbox', component: PorukeComponent},
+      { path: 'conversation/:id', component: ConversationComponent},
+      {path: 'history', component: HistoryComponent },
+      {path: 'login', component: LoginComponent},
+      {path: 'register', component: RegistracijaComponent},
+      {path: 'conversation/:id', component: ConversationComponent},
+      {path: 'statistics', component: StatisticsComponent},
+      {path: 'advertisement-details/:id', component: AdvertisementDetailsComponent}
+
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -72,6 +146,22 @@ import {ImageModelService} from './services/imageModel.service/imageModel.servic
   exports: [RouterModule],
   providers: [AdvertisementService, ImageModelService],
   bootstrap: [AppComponent],
-  entryComponents: [ImagesDialogComponent]
+  entryComponents: [ImagesDialogComponent,
+
+    MatDialogModule
+
+  ],
+  exports: [RouterModule],
+  providers: [AdvertisementService,
+              ShopingCartService,
+              RepresentRequestsService,
+              PorukeService,
+              ConversationService,
+              HistoryService,
+              EndUserService,
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [StatisticsDialogComponent]
+
 })
 export class AppModule { }

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {SessionService} from '../modules/service/SessionService/session.service';
+import {Component, OnInit} from '@angular/core';
+import {SessionService} from '../services/SessionService/session.service';
+import { LoginService } from '../services/LoginService/login.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +10,9 @@ import {SessionService} from '../modules/service/SessionService/session.service'
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private sessionService: SessionService) { }
+  constructor(private sessionService: SessionService, private loginService: LoginService, private router: Router) {
+    console.log(this.sessionService.isAdmin);
+  }
 
   ngOnInit() {
     this.sessionService.login = false;
@@ -16,13 +20,69 @@ export class NavbarComponent implements OnInit {
   }
 
   showRegister() {
-    this.sessionService.register  = true;
-    this.sessionService.login  = false;
+    this.router.navigate(['/register']);
   }
 
   showLogin() {
-    this.sessionService.register  = false;
-    this.sessionService.login  = true;
+    this.router.navigate(['/login']);
+  }
+  // Admin components
+  showRequests() {
+    this.sessionService.requests = true;
+    this.sessionService.adminhome = false;
+    this.sessionService.agentreg = false;
+    this.sessionService.manageUsers = false;
+    this.sessionService.codebook = false;
   }
 
+  codebook() {
+    this.sessionService.requests = false;
+    this.sessionService.adminhome = false;
+    this.sessionService.agentreg = false;
+    this.sessionService.manageUsers = false;
+    this.sessionService.codebook = true;
+  }
+
+  showHome() {
+    this.sessionService.adminhome = true;
+    this.sessionService.requests = false;
+    this.sessionService.agentreg = false;
+    this.sessionService.manageUsers = false;
+    this.sessionService.codebook = false;
+  }
+
+  showAgentReg() {
+    this.sessionService.adminhome = false;
+    this.sessionService.requests = false;
+    this.sessionService.agentreg = true;
+    this.sessionService.manageUsers = false;
+    this.sessionService.codebook = false;
+  }
+
+  manageUsers() {
+    this.sessionService.adminhome = false;
+    this.sessionService.requests = false;
+    this.sessionService.agentreg = false;
+    this.sessionService.manageUsers = true;
+    this.sessionService.codebook = false;
+  }
+  // Admin components
+
+  createReport() {
+    this.sessionService.homeAgent = false;
+    this.sessionService.report = true;
+  }
+
+  showHomeAgent() {
+    this.sessionService.report = false;
+    this.sessionService.homeAgent = true;
+  }
+
+  logOut() {
+    this.sessionService.ulogovaniKorisnik = undefined;
+    console.log(this.sessionService.ulogovaniKorisnik);
+    this.sessionService.isAdmin = false;
+    this.router.navigate(['']);
+    this.loginService.logOut().subscribe();
+  }
 }

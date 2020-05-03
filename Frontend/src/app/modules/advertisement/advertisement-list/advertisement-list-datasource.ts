@@ -7,15 +7,16 @@ import {Advertisement} from '../../../model/advertisement';
 import {FuelType} from '../../../enums/fuelType';
 import {TransmissionType} from '../../../enums/transmissionType';
 import {CarClass} from '../../../enums/carClass';
+import {CarDetails} from '../../../model/car-details';
 
 // TODO: Replace this with your own data model type
 export interface AdvertisementListItem {
   name: string;
   model: string;
   brand: string;
-  fuelType: FuelType;
-  transType: TransmissionType;
-  carClass: CarClass;
+  fuelType: string;
+  transType: string;
+  carClass: string;
   travelled: number;
   price: number;
   carSeats: number;
