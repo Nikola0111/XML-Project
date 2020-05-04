@@ -145,9 +145,9 @@ public class AdvertisementService {
 
 	public AdvertisementDTO findAdAndComments(Long id) {
 		Advertisement ad = advertisementRepository.findOneByid(id);
-		System.out.println(ad);
+
 		List<Comment> db = commentRepository.findByAd_Id(id);
-		System.out.println(db);
+
 		List<CommentPreviewDTO> comments = new ArrayList<CommentPreviewDTO>();
 		for(int i = 0;i < db.size();i++) {
 			CommentPreviewDTO temp = new CommentPreviewDTO(db.get(i).getValue(), db.get(i).getEndUser().getEmail(),
@@ -157,6 +157,9 @@ public class AdvertisementService {
 		}
 
 		AdvertisementDTO adDTO = new AdvertisementDTO(ad);
+
+		adDTO.setGrade(gradeService.calculateGradeForAd(id));
+
 		adDTO.setComments(comments);
 		return adDTO;
 	}
