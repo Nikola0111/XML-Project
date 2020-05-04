@@ -16,7 +16,7 @@ import {Router} from '@angular/router';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 export interface DialogData {
-  advertisement: Advertisement;
+  images: Array<String>;
 }
 
 @Component({
@@ -25,9 +25,9 @@ export interface DialogData {
   styleUrls: ['./advertisement-list.component.css']
 })
 export class AdvertisementListComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatTable, { static: false }) table: MatTable<AdvertisementListItem>;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatTable, {static: false}) table: MatTable<AdvertisementListItem>;
   dataSource: AdvertisementListDataSource;
   advertisements: Advertisement[];
   dialogData: Advertisement;
@@ -38,20 +38,21 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   fuelType: string;
   transmissionType: string;
   carClass: string;
+  slikice: String[];
 
   itemInCart: ItemInCart;
 
   advertisementDetails: AdvertisementDetailsComponent;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'travelled', 'price', 'discountPrice', 'carSeats', 'button', 'details', 'changeDiscount'];
+
+  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'travelled', 'price', 'discountPrice', 'carSeats', 'button', 'details', 'changeDiscount', 'actions'];
 
 
   constructor(private formBuilder: FormBuilder, private advertisementService: AdvertisementService,
               private router: Router, private dialog: MatDialog) {
     this.itemInCart = new ItemInCart();
   }
-
 
 
   ngOnInit() {
@@ -77,7 +78,6 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
         this.dataSource = new AdvertisementListDataSource(this.advertisements);
         console.log(this.dataSource);
       }
-
     );
 
 
@@ -133,7 +133,6 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
         console.log(this.dataSource.data);
         console.log(data);
       }
-
     );
   }
 
@@ -144,6 +143,7 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
 
     console.log(this.dataSource);
   }
+
   ngBeforeViewInit() {
 
   }
@@ -154,19 +154,27 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
 
   changeDiscount(row: Advertisement): void {
     const dialogRef = this.dialog.open(ChangeDiscountDialogComponent, {
-      data : row,
+      data: row,
     });
     dialogRef.afterClosed().subscribe(data => {
       if (data != null) {
         row.discount = data.discount;
-        row.priceWithDiscount = row.price - (row.price  * row.discount / 100);
-        alert('izmenjena cena' + row.priceWithDiscount)
+        row.priceWithDiscount = row.price - (row.price * row.discount / 100);
         this.advertisementService.update(row).subscribe();
         this.ngOnInit();
       }
     });
   }
+
+  openDialog(s: string[]): void {
+    const dialogRef = this.dialog.open(ImagesDialogComponent, {
+      width: '500px',
+      height: '325px',
+      data: s,
+    });
+  }
 }
+
 
 @Component({
   selector: 'app-change-discount-dialog',
@@ -176,13 +184,30 @@ export class ChangeDiscountDialogComponent {
   constructor(public dialogRef: MatDialogRef<ChangeDiscountDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data) {
   }
+
   onOkClick(): void {
     alert(this.data.discount);
     this.dialogRef.close(this.data);
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
+}
 
+
+@Component({
+selector: 'app-images-dialog',
+templateUrl: 'images-dialog.component.html'
+})
+export class ImagesDialogComponent {
+  constructor(public dialogRef: MatDialogRef<ImagesDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+  }
+  onNoClick(): void {
+    this.data.images =new Array<String>();
+    this.dialogRef.close();
+
+  }
 
 }

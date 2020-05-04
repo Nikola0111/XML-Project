@@ -18,6 +18,8 @@ export class Advertisement {
   postedBy: User;
   discount: number;
   priceWithDiscount: number;
+  pictures: String[];
+  grade: number;
 
 
   constructor() {

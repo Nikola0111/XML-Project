@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
             }
           });
 
-        } else if(data.userType.toString() === 'ENDUSER'){
+        } else if (data.userType.toString() === 'ENDUSER') {
           this.sessionService.isEndUser = true;
           this.sessionService.isAgent = false;
           this.sessionService.isAdmin = false;

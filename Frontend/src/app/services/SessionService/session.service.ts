@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {User} from '../../model/user';
+import {Advertisement} from '../../model/advertisement';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,7 @@ export class SessionService {
   homeAgent = true;
   report = false;
   enterReport = false;
+  //////////////////////////////// Nesto
+  rentedCars: Advertisement[];
   constructor() { }
 }

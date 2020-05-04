@@ -23,7 +23,9 @@
                   <li><a href="#">About Six</a></li>
                 </ul>
               </li>
+
               <li><a [routerLink]="['/registracija']">Welcome</a></li>
+
               <li><a [routerLink]="['/advertisement-list']">Advertisement List</a></li>
               <li><a [routerLink]="['/advertisement']">DodajOglas</a></li>
 
@@ -31,9 +33,7 @@
               <li><a [routerLink]="['/requests']">Requests</a></li>
               <li><a [routerLink]="['/history']">History</a></li>
 
-              <li> <a [routerLink]="['/shoppingCart']"> <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart
-
-              </a></li>
+              <li> <a [routerLink]="['/shoppingCart']"> <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</a></li>
 
               <!--      <li *ngIf="sessionService.ulogovaniKorisnik === undefined"><a [routerLink]="['/registracija']">Welcome</a></li>
                      <li *ngIf="sessionService.ulogovaniKorisnik === undefined"><a [routerLink]="['/advertisement-list']">Advertisement List</a></li>

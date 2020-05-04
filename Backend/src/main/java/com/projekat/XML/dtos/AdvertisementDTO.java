@@ -1,9 +1,15 @@
 package com.projekat.XML.dtos;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
 import com.projekat.XML.model.Advertisement;
+import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
 
 public class AdvertisementDTO {
 
@@ -35,8 +41,15 @@ public class AdvertisementDTO {
 
     private double priceWithDiscount;
 
+    private ArrayList<String> pictures;
 
-    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price, double discount) {
+    private double grade;
+
+    private List<CommentPreviewDTO> comments;
+
+
+
+    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price,double discount, ArrayList<String> pictures) {
         this.name=name;
         this.model = model;
         this.brand = brand;
@@ -48,12 +61,13 @@ public class AdvertisementDTO {
         this.price=price;
         this.discount = discount;
         this.priceWithDiscount = price - (price * discount / 100);
+        this.pictures=pictures;
     }
 
     public AdvertisementDTO(Advertisement ad)
     {
         this.id = ad.getId();
-        this.name=ad.getName();
+        this.name = ad.getName();
         this.model = ad.getModel();
         this.brand = ad.getBrand();
         this.fuelType = ad.getFuelType();
@@ -64,6 +78,7 @@ public class AdvertisementDTO {
         this.price=ad.getPrice();
         this.discount = ad.getDiscount();
         this.priceWithDiscount = ad.getPriceWithDiscount();
+        this.grade = ad.getGrade();
     }
 
     public String getName() {
@@ -162,5 +177,29 @@ public class AdvertisementDTO {
 
     public void setPriceWithDiscount(double priceWithDiscount) {
         this.priceWithDiscount = priceWithDiscount;
+    }
+    public ArrayList<String> getPictures() {
+        return this.pictures;
+    }
+
+    public void setPictures(ArrayList<String> pictures) {
+        this.pictures = pictures;
+    }
+
+    public double getGrade() {
+        return grade;
+    }
+
+    public void setGrade(double grade) {
+        this.grade = grade;
+    }
+
+
+    public List<CommentPreviewDTO> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentPreviewDTO> comments) {
+        this.comments = comments;
     }
 }

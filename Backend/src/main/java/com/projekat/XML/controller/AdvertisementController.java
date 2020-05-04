@@ -1,6 +1,7 @@
 package com.projekat.XML.controller;
 
 import com.projekat.XML.dtos.AdvertisementDTO;
+import com.projekat.XML.dtos.CommentDTO;
 import com.projekat.XML.dtos.FilterAdsDTO;
 import com.projekat.XML.model.Advertisement;
 import com.projekat.XML.service.AdvertisementService;
@@ -14,7 +15,10 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,13 +29,24 @@ public class AdvertisementController {
 	private AdvertisementService advertisementService;
 
 	
+	@RequestMapping(value = "/saveImage", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
+    public ResponseEntity<Long> uploadImage(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
 
-	@PostMapping(value="/save", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	System.out.println("Pogodio");
+		System.out.println(file.getOriginalFilename());
+
+		advertisementService.saveImage(file);
+
+         return new ResponseEntity<>(HttpStatus.OK);
+}
+
+	@PostMapping(value="/save")
 	public ResponseEntity<Long> save(@RequestBody AdvertisementDTO advertisementDTO) {
 
 		System.out.println(advertisementDTO.getName()+advertisementDTO.getModel()+advertisementDTO.getBrand());
 		System.out.println("AMIN");
+	
 		advertisementService.save(advertisementDTO);
 
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -59,7 +74,6 @@ public class AdvertisementController {
 		if(advertisement == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-
 		return new ResponseEntity<>(new AdvertisementDTO(advertisement), HttpStatus.OK);
 	}
 
@@ -75,4 +89,27 @@ public class AdvertisementController {
         }
     }
 
+	@PostMapping(value = "/saveCommentAndGrade", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<Long> saveCommentAndGrade(@RequestBody CommentDTO commentDTO){
+		advertisementService.saveCommentAndGrade(commentDTO);
+
+		return new ResponseEntity<>((long) 1, HttpStatus.OK);
+
+	}
+
+	@GetMapping(value = "/preview/{id}", produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<AdvertisementDTO> getAdvertisementPreview(@PathVariable Long id) {
+		AdvertisementDTO advertisementDTO = advertisementService.findAdAndComments(id);
+		if(advertisementDTO == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(advertisementDTO, HttpStatus.OK);
+	}
+
+
+	@GetMapping(value = "/getRentedCars/{id}", produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Long>> getRentedCars(@PathVariable Long id) {
+		List<Long> rentedCars = advertisementService.getRentedCars(id);
+		return new ResponseEntity<>(rentedCars, HttpStatus.OK);
+	}
 }

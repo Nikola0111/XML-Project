@@ -7,6 +7,7 @@ export class EndUser extends User {
   adminApproved: boolean;
   blocked: boolean;
   numberOfRequestsCanceled: number;
+  rentedCars: Advertisement[];
 
   constructor() {
     super();

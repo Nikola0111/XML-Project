@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +16,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdvertisementService } from './services/advertisement.service/advertisement.service';
 import {
   AdvertisementListComponent,
-  ChangeDiscountDialogComponent
+  ChangeDiscountDialogComponent,
+  ImagesDialogComponent
 } from './modules/advertisement/advertisement-list/advertisement-list.component';
 import { HomepageComponent } from './modules/home/homepage/homepage.component';
 import { LoginComponent } from './modules/home/login/login.component';
@@ -36,8 +36,6 @@ import { ConversationComponent } from './modules/conversation/conversation.compo
 import { ConversationService } from './modules/conversation/conversation.service';
 import { AgentRegisterComponent } from './modules/administrator/agent-register/agent-register.component';
 import { IzmenaLozinkeComponent } from './modules/shared/izmena-lozinke/izmena-lozinke.component';
-
-
 import { HistoryComponent } from './modules/history/history.component';
 import { HistoryService } from './modules/history/history.component.service';
 import { CreateReportComponent } from './modules/agent/create-report/create-report.component';
@@ -46,14 +44,13 @@ import {CarDTO} from './dtos/car-dto';
 import {StatisticsComponent, StatisticsDialogComponent} from './modules/statistics/statistics.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { UserManagmentComponent } from './modules/administrator/user-managment/user-managment.component';
-
 import {AgentComponent} from './modules/agent/home/agent.component';
 import { SifrarnikComponent } from './modules/administrator/sifrarnik/sifrarnik.component';
 import {EndUserService} from './services/EndUserService/end-user.service';
 import { AdvertisementDetailsComponent } from './modules/advertisement/advertisement-details/advertisement-details.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatInput, MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from "@angular/material/button";
+import {MatButtonModule} from '@angular/material/button';
 
 
 
@@ -87,6 +84,7 @@ import {MatButtonModule} from "@angular/material/button";
     StatisticsDialogComponent,
     AdvertisementDetailsComponent,
     ChangeDiscountDialogComponent,
+    ImagesDialogComponent,
 ],
   imports: [
     BrowserModule,
@@ -141,6 +139,7 @@ import {MatButtonModule} from "@angular/material/button";
               EndUserService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [StatisticsDialogComponent, ChangeDiscountDialogComponent]
+  entryComponents: [StatisticsDialogComponent, ChangeDiscountDialogComponent, ImagesDialogComponent]
+
 })
 export class AppModule { }

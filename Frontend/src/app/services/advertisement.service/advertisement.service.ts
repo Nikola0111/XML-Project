@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Advertisement } from 'src/app/model/advertisement';
 import { FilterAdsDTO } from 'src/app/model/filterAdsDTO';
 import { ItemInCart } from 'src/app/model/itemInCart';
+import {AdvertisementDTO} from '../../dtos/advertisement-dto';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type' : 'application/json'})
@@ -13,10 +14,17 @@ const httpOptions = {
     private requestUrl: string;
     constructor(private http: HttpClient) {}
 
+
+
+    public upload(file: File) {
+      const fd = new FormData();
+      fd.append('file', file, file.name);
+      return this.http.post('/server/advertisement/saveImage', fd);
+    }
+
       public save(advertisement: Advertisement) {
         console.log(advertisement);
-        const body = JSON.stringify(advertisement);
-        return this.http.post<Advertisement>('/server/advertisement/save', body, httpOptions);
+        return this.http.post<Advertisement>('/server/advertisement/save', advertisement, httpOptions);
       }
       public getAll() {
       this.requestUrl = '/server/advertisement/all';
@@ -45,5 +53,14 @@ const httpOptions = {
       const body = JSON.stringify(advertisement);
       return this.http.post<Advertisement>(this.requestUrl, body, httpOptions);
       }
+
+    public getAdvertisementPreview(id: number) {
+      this.requestUrl = '/server/advertisement/preview/' + id;
+      return this.http.get<AdvertisementDTO>(this.requestUrl, httpOptions);
+    }
+
+  public getRentedCars(id: number) {
+    return this.http.get<number[]>('/server/advertisement/getRentedCars/' + id, httpOptions);
   }
+}
 

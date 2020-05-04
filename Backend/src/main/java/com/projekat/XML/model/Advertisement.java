@@ -4,7 +4,10 @@ import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
 
+import java.util.ArrayList;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Advertisement  {
@@ -12,8 +15,6 @@ public class Advertisement  {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-
-
 
     private String name;
 
@@ -37,16 +38,20 @@ public class Advertisement  {
 
     private double priceWithDiscount;
 
+    private ArrayList<String> pictures;
+
     @ManyToOne
     @JoinColumn
     private User postedBy;
 
+    private Double grade;
 
    public Advertisement(){
 
    }
 
-    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy, double discount) {
+
+    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy, double discount, ArrayList<String> pictures) {
         this.name = name;
         this.model = model;
         this.brand = brand;
@@ -59,7 +64,10 @@ public class Advertisement  {
         this.postedBy = postedBy;
         this.discount = discount;
         this.priceWithDiscount = price - (this.price * this.discount / 100);
+        this.pictures=pictures;
     }
+
+
 
     public String getBrand() {
 		return this.brand;
@@ -165,5 +173,41 @@ public class Advertisement  {
 
     public void setPriceWithDiscount(double priceWithDiscount) {
         this.priceWithDiscount = priceWithDiscount;
+    }
+
+    public ArrayList<String> getPictures() {
+        return this.pictures;
+    }
+
+    public void setPictures(ArrayList<String> pictures) {
+        this.pictures = pictures;
+    }
+
+
+    public Double getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Double grade) {
+        this.grade = grade;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Advertisement{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", model='" + model + '\'' +
+                ", brand='" + brand + '\'' +
+                ", fuelType='" + fuelType + '\'' +
+                ", transType='" + transType + '\'' +
+                ", carClass='" + carClass + '\'' +
+                ", travelled=" + travelled +
+                ", carSeats=" + carSeats +
+                ", price=" + price +
+                ", postedBy=" + postedBy +
+                ", grade=" + grade +
+                '}';
     }
 }
