@@ -15,7 +15,7 @@ import { AgmCoreModule} from '@agm/core';
 import { AdvertisementComponent } from './modules/advertisement/advertisement.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdvertisementService } from './services/advertisement.service/advertisement.service';
-import { AdvertisementListComponent } from './modules/advertisement/advertisement-list/advertisement-list.component';
+import { AdvertisementListComponent, ImagesDialogComponent } from './modules/advertisement/advertisement-list/advertisement-list.component';
 import { HomepageComponent } from './modules/home/homepage/homepage.component';
 import { LoginComponent } from './modules/home/login/login.component';
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
@@ -79,7 +79,8 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
     SifrarnikComponent,
     StatisticsComponent,
     StatisticsDialogComponent,
-    AdvertisementDetailsComponent
+    AdvertisementDetailsComponent,
+    ImagesDialogComponent
 ],
   imports: [
     BrowserModule,
@@ -131,6 +132,6 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
               EndUserService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [StatisticsDialogComponent]
+  entryComponents: [StatisticsDialogComponent,ImagesDialogComponent]
 })
 export class AppModule { }

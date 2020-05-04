@@ -54,6 +54,12 @@
   </li>
 
   <li>
+    <input color = "primary" mat-raised-button type="file" #Image accept="image/*" multiple="multiple" (change)="onFileSelected($event)" value="Select picture" />
+  </li>
+
+
+
+  <li>
     <input type="submit" value="Add" />
   </li>
   </ul>

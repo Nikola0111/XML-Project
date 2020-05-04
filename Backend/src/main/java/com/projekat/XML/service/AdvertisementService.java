@@ -14,8 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.*;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -28,6 +35,7 @@ public class AdvertisementService {
 	@Autowired
 	UserRepository userRepository;
 
+
 	@Autowired
 	GradeService gradeService;
 
@@ -37,16 +45,41 @@ public class AdvertisementService {
 	@Autowired
 	EndUserRepository endUserRepository;
 	
+
 	public Advertisement save(AdvertisementDTO advertisementDTO) {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 		HttpSession session = attr.getRequest().getSession(true);
 
 		Long id = (Long) session.getAttribute("user");
 
-		//kada se kreira korisnik kreira mu se i korpa u koju ce moci da dodaje oglase!
+		// kada se kreira korisnik kreira mu se i korpa u koju ce moci da dodaje oglase!
+
+		return advertisementRepository.save(new Advertisement(advertisementDTO.getName(), advertisementDTO.getModel(),
+				advertisementDTO.getBrand(), advertisementDTO.getFuelType(), advertisementDTO.getTransType(),
+				advertisementDTO.getCarClass(), advertisementDTO.getTravelled(), advertisementDTO.getCarSeats(),
+				advertisementDTO.getPrice(), userRepository.findOneByid(id),advertisementDTO.getPictures()));
+	}
+
+	public void saveImage(MultipartFile image) {
+
+		String path = System.getProperty("user.dir");
+		System.out.println("Putanja do direktorijuma je :" + path);
+		String newPath = path.replace("Backend", "Frontend\\src\\assets\\images");
+		System.out.println("PRVI POKUSAJ=" + newPath);
+		byte[] bytes;
+		try {
+			 bytes = image.getBytes();
+			 Path put= Paths.get(newPath, image.getOriginalFilename());
+			Files.write(put,bytes);
+		System.out.println("UPISAO");
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+			System.out.println("UPAO U EXCEPTION");
+		}
 		
 
-		return advertisementRepository.save(new Advertisement(advertisementDTO.getName(), advertisementDTO.getModel(), advertisementDTO.getBrand(),advertisementDTO.getFuelType(),advertisementDTO.getTransType(),advertisementDTO.getCarClass(),advertisementDTO.getTravelled(), advertisementDTO.getCarSeats(),advertisementDTO.getPrice(),userRepository.findOneByid(id)));
+
 	}
 	
 	public List<Advertisement> findAll() {

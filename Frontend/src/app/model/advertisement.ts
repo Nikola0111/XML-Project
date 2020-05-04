@@ -16,7 +16,9 @@ export class Advertisement {
   price: number;
   carSeats: number;
   postedBy: User;
+  pictures: String[];
   grade: number;
+
 
   constructor() {
 

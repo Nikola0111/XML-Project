@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -12,8 +12,14 @@ import { NavbarComponent } from 'src/app/navbar/navbar.component';
 import { FilterAdsDTO } from 'src/app/model/filterAdsDTO';
 import { ItemInCart } from 'src/app/model/itemInCart';
 import {AdvertisementDetailsComponent} from '../advertisement-details/advertisement-details.component';
-import {Router} from '@angular/router';
 
+import {Router} from "@angular/router";
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+
+
+export interface DialogData {
+  images: Array<String>;
+}
 
 @Component({
   selector: 'app-advertisement-list',
@@ -34,24 +40,26 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   fuelType: string;
   transmissionType: string;
   carClass: string;
+slikice:String[];
 
   itemInCart: ItemInCart;
 
   advertisementDetails: AdvertisementDetailsComponent;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats', 'button', 'details'];
+  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats', 'button', 'details','actions'];
 
 
-  constructor(private formBuilder: FormBuilder, private advertisementService: AdvertisementService,
+  constructor(private formBuilder: FormBuilder, private advertisementService: AdvertisementService,public dialog: MatDialog,
               private router: Router) {
     this.itemInCart = new ItemInCart();
+    
   }
 
 
 
   ngOnInit() {
-
+   
     this.filterForm = this.formBuilder.group({
       fuelType: [''],
       transmissionType: [''],
@@ -147,4 +155,39 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   showDetails(row: Advertisement) {
     this.router.navigate(['/advertisement-details', row.id]);
   }
+
+
+  openDialog(s: string[]): void {
+   
+
+
+    
+
+    const dialogRef = this.dialog.open(ImagesDialogComponent, {
+      width: '500px',
+      height: '325px',
+      data: s,
+    });
+
+
+  
+  }
+}
+
+@Component({
+  selector: 'app-images-dialog',
+  templateUrl: 'images-dialog.component.html'
+})
+
+export class ImagesDialogComponent {
+  constructor(public dialogRef: MatDialogRef<ImagesDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+             
+  }
+  onNoClick(): void {
+this.data.images=new Array<String>();
+    this.dialogRef.close();
+    
+  }
+
 }

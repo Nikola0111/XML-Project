@@ -4,6 +4,8 @@ import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
 
+import java.util.ArrayList;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -32,6 +34,10 @@ public class Advertisement  {
 
     private double price;
 
+    private ArrayList<String> pictures;
+
+  
+
     @ManyToOne
     @JoinColumn
     private User postedBy;
@@ -42,7 +48,7 @@ public class Advertisement  {
 
    }
 
-    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy) {
+    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy, ArrayList<String> pictures) {
         this.name = name;
         this.model = model;
         this.brand = brand;
@@ -53,6 +59,7 @@ public class Advertisement  {
         this.carSeats = carSeats;
         this.price = price;
         this.postedBy = postedBy;
+        this.pictures=pictures;
     }
 
 
@@ -147,6 +154,16 @@ public class Advertisement  {
         this.postedBy = postedBy;
     }
 
+
+    public ArrayList<String> getPictures() {
+        return this.pictures;
+    }
+
+    public void setPictures(ArrayList<String> pictures) {
+        this.pictures = pictures;
+    }
+
+
     public Double getGrade() {
         return grade;
     }
@@ -154,6 +171,7 @@ public class Advertisement  {
     public void setGrade(Double grade) {
         this.grade = grade;
     }
+
 
     @Override
     public String toString() {

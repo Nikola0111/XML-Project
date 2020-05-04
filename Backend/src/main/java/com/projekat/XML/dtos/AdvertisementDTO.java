@@ -1,10 +1,14 @@
 package com.projekat.XML.dtos;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
 import com.projekat.XML.model.Advertisement;
-
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public class AdvertisementDTO {
@@ -33,11 +37,16 @@ public class AdvertisementDTO {
 
     private double price;
 
+
+    private ArrayList<String> pictures;
+
     private double grade;
 
     private List<CommentPreviewDTO> comments;
 
-    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price) {
+
+
+    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price, ArrayList<String> pictures) {
         this.name=name;
         this.model = model;
         this.brand = brand;
@@ -47,6 +56,7 @@ public class AdvertisementDTO {
         this.travelled = travelled;
         this.carSeats = carSeats;
         this.price=price;
+        this.pictures=pictures;
     }
 
     public AdvertisementDTO(Advertisement ad)
@@ -146,6 +156,15 @@ public class AdvertisementDTO {
         this.id = id;
     }
 
+
+    public ArrayList<String> getPictures() {
+        return this.pictures;
+    }
+
+    public void setPictures(ArrayList<String> pictures) {
+        this.pictures = pictures;
+    }
+
     public double getGrade() {
         return grade;
     }
@@ -153,6 +172,7 @@ public class AdvertisementDTO {
     public void setGrade(double grade) {
         this.grade = grade;
     }
+
 
     public List<CommentPreviewDTO> getComments() {
         return comments;
