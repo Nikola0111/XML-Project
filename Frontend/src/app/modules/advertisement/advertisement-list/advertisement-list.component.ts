@@ -39,6 +39,7 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   fuelType: string;
   transmissionType: string;
   carClass: string;
+slikice:String[];
 
   itemInCart: ItemInCart;
 
@@ -57,7 +58,7 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
 
 
   ngOnInit() {
-
+   
     this.filterForm = this.formBuilder.group({
       fuelType: [''],
       transmissionType: [''],
@@ -155,14 +156,20 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   }
 
 
-  openDialog(row: Array<String>): void {
+  openDialog(s: string[]): void {
+   
+
+
     
-    
+
     const dialogRef = this.dialog.open(ImagesDialogComponent, {
       width: '500px',
       height: '325px',
-      data: row
+      data: s,
     });
+
+
+  
   }
 }
 
@@ -174,9 +181,12 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
 export class ImagesDialogComponent {
   constructor(public dialogRef: MatDialogRef<ImagesDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+             
   }
   onNoClick(): void {
+this.data.images=new Array<String>();
     this.dialogRef.close();
+    
   }
 
 }

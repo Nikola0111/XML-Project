@@ -37,13 +37,12 @@ public class AdvertisementDTO {
 
     private double price;
 
-  
-    private ArrayList<File> pictures;
+    private ArrayList<String> pictures;
 
  
 
 
-    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price, ArrayList<File> pictures) {
+    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price, ArrayList<String> pictures) {
         this.name=name;
         this.model = model;
         this.brand = brand;
@@ -152,11 +151,11 @@ public class AdvertisementDTO {
         this.id = id;
     }
 
-    public ArrayList<File> getPictures() {
+    public ArrayList<String> getPictures() {
         return this.pictures;
     }
 
-    public void setPictures(ArrayList<File> pictures) {
+    public void setPictures(ArrayList<String> pictures) {
         this.pictures = pictures;
     }
 

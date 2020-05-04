@@ -35,6 +35,8 @@ public class AdvertisementController {
 	System.out.println("Pogodio");
 		System.out.println(file.getOriginalFilename());
 
+		advertisementService.saveImage(file);
+
          return new ResponseEntity<>(HttpStatus.OK);
 }
 
@@ -43,7 +45,7 @@ public class AdvertisementController {
 
 		System.out.println(advertisementDTO.getName()+advertisementDTO.getModel()+advertisementDTO.getBrand());
 		System.out.println("AMIN");
-		System.out.println("Nesto ima, broj slika je"+advertisementDTO.getPictures().size());
+	
 		advertisementService.save(advertisementDTO);
 
 		return new ResponseEntity<>(HttpStatus.OK);
