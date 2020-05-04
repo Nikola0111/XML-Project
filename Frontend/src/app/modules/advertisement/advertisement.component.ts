@@ -24,6 +24,7 @@ export class AdvertisementComponent implements OnInit {
   transType: string;
   carClass: string;
   brand: string;
+
   model: string;
   carDetails: CarDetails[];
   slike: String[];
