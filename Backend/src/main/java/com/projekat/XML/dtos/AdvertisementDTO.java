@@ -8,8 +8,8 @@ import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
 import com.projekat.XML.model.Advertisement;
-
 import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
 
 public class AdvertisementDTO {
 
@@ -37,9 +37,13 @@ public class AdvertisementDTO {
 
     private double price;
 
+
     private ArrayList<String> pictures;
 
- 
+    private double grade;
+
+    private List<CommentPreviewDTO> comments;
+
 
 
     public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price, ArrayList<String> pictures) {
@@ -58,7 +62,7 @@ public class AdvertisementDTO {
     public AdvertisementDTO(Advertisement ad)
     {
         this.id = ad.getId();
-        this.name=ad.getName();
+        this.name = ad.getName();
         this.model = ad.getModel();
         this.brand = ad.getBrand();
         this.fuelType = ad.getFuelType();
@@ -66,7 +70,8 @@ public class AdvertisementDTO {
         this.carClass = ad.getCarClass();
         this.travelled = ad.getTravelled();
         this.carSeats = ad.getCarSeats();
-        this.price=ad.getPrice();
+        this.price = ad.getPrice();
+        this.grade = ad.getGrade();
     }
 
     public String getName() {
@@ -151,6 +156,7 @@ public class AdvertisementDTO {
         this.id = id;
     }
 
+
     public ArrayList<String> getPictures() {
         return this.pictures;
     }
@@ -159,5 +165,20 @@ public class AdvertisementDTO {
         this.pictures = pictures;
     }
 
+    public double getGrade() {
+        return grade;
+    }
 
+    public void setGrade(double grade) {
+        this.grade = grade;
+    }
+
+
+    public List<CommentPreviewDTO> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentPreviewDTO> comments) {
+        this.comments = comments;
+    }
 }

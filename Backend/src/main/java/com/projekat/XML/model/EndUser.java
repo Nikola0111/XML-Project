@@ -2,9 +2,8 @@ package com.projekat.XML.model;
 
 import com.projekat.XML.enums.UserType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "endentity")
@@ -21,6 +20,11 @@ public class EndUser extends User {
     @Column(name = "blocked")
     private boolean blocked;
 
+    @ManyToMany
+    @JoinTable(name = "enduser_rented", joinColumns = @JoinColumn(name = "endentity_id"),
+            inverseJoinColumns = @JoinColumn(name = "ad_id"))
+    private List<Advertisement> rentedCars;
+
     public  EndUser() {
 
     }
@@ -32,6 +36,15 @@ public class EndUser extends User {
         this.activity = activity;
         this.adminApproved = adminApproved;
         this.blocked = blocked;
+    }
+
+    public EndUser(String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber, UserType ut, int numberOfRequestsCanceled, boolean activity, boolean adminApproved, boolean blocked, List<Advertisement> rentedCars) {
+        super(name, surname, loginInfo, jmbg, phoneNumber, ut);
+        this.numberOfRequestsCanceled = numberOfRequestsCanceled;
+        this.activity = activity;
+        this.adminApproved = adminApproved;
+        this.blocked = blocked;
+        this.rentedCars = rentedCars;
     }
 
     @Override
@@ -69,5 +82,13 @@ public class EndUser extends User {
 
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
+    }
+
+    public List<Advertisement> getRentedCars() {
+        return rentedCars;
+    }
+
+    public void setRentedCars(List<Advertisement> rentedCars) {
+        this.rentedCars = rentedCars;
     }
 }
