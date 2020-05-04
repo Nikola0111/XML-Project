@@ -167,6 +167,11 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   }
 
   openDialog(s: string[]): void {
+
+    for(let i=0;i<s.length;i++){
+      console.log(s[i]);
+    }
+
     const dialogRef = this.dialog.open(ImagesDialogComponent, {
       width: '500px',
       height: '325px',

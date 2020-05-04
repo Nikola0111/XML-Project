@@ -26,12 +26,14 @@ export class AdvertisementComponent implements OnInit {
   brand: string;
   model: string;
   carDetails: CarDetails[];
+  slike: String[];
 
   carClasses: CarDetails[];
   carFuels: CarDetails[];
   carModels: CarDetails[];
   carBrands: CarDetails[];
   carGearshifts: CarDetails[];
+  selectedFiles: File[];
 
   constructor(private formBuilder: FormBuilder,
               private advertisementService: AdvertisementService, private carDetailsService: CarDetailsService) {
@@ -72,20 +74,43 @@ export class AdvertisementComponent implements OnInit {
       carClass: [''],
       travelled: [''],
       price: [''],
-      carSeats: [''],
-      discount: [''],
+      carSeats: ['']
     });
   }
 
   onSubmit() {
+
+    
+
     this.advertisement.fuelType = this.fuelType;
     this.advertisement.carClass = this.carClass;
     this.advertisement.transType = this.transType;
     this.advertisement.brand = this.brand;
     this.advertisement.model = this.model;
 
+    this.advertisement.pictures=this.slike;
+
+    for(let i=0; i<this.selectedFiles.length;i++){
+      this.advertisementService.upload(this.selectedFiles[i]).subscribe();
+    }
+
     console.log(this.advertisement);
     this.advertisementService.save(this.advertisement).subscribe();
+  }
+
+  onFileSelected(event) {
+    console.log(event);
+    this.selectedFiles = event.target.files;
+    
+    this.slike= new Array<String>();
+
+    for(let i=0; i<this.selectedFiles.length;i++){
+      console.log("Ovo su slike "+this.selectedFiles[i].name);
+     this.slike.push("assets/images/"+this.selectedFiles[i].name);
+
+    }
+
+    
   }
 
 }

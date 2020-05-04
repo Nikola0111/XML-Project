@@ -1,8 +1,10 @@
+/*
 insert into login_info(username, email, password) values ('Admin', 'admin@gmail.com','admin12345');
 insert into login_info(username, email, password) values ('Jovan', 'jovan@gmail.com','jovan123');
 
 insert into login_info(username, email, password) values ('Kovac', 'kovac@gmail.com','kovan123');
 insert into login_info(username, email, password) values ('Marko', 'marko@gmail.com','marko123');
+
 
 insert into user_entity(id, name, surname, login_info, jmbg, phone_number, user_type) values (1, 'Ivan', 'Ivanović', 1, '0111997710262', '0691408034', 0);
 insert into user_entity(id, name, surname, login_info, jmbg, phone_number, user_type) values (2, 'Jovan', 'Jovanovic', 2, '0111997710210', '0691408000', 1);
@@ -28,3 +30,4 @@ insert into advertisement(brand, car_class, car_seats, fuel_type, model, name, p
 insert into enduser_rented(endentity_id, ad_id) values (4, 1);
 
 insert into grade(value, ad_id) values (2.3, 1);
+*/
