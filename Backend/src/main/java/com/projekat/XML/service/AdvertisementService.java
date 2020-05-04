@@ -57,7 +57,7 @@ public class AdvertisementService {
 		return advertisementRepository.save(new Advertisement(advertisementDTO.getName(), advertisementDTO.getModel(),
 				advertisementDTO.getBrand(), advertisementDTO.getFuelType(), advertisementDTO.getTransType(),
 				advertisementDTO.getCarClass(), advertisementDTO.getTravelled(), advertisementDTO.getCarSeats(),
-				advertisementDTO.getPrice(), userRepository.findOneByid(id),advertisementDTO.getPictures()));
+				advertisementDTO.getPrice(), userRepository.findOneByid(id), advertisementDTO.getDiscount(), advertisementDTO.getPictures()));
 	}
 
 	public void saveImage(MultipartFile image) {
@@ -77,9 +77,6 @@ public class AdvertisementService {
 			e.printStackTrace();
 			System.out.println("UPAO U EXCEPTION");
 		}
-		
-
-
 	}
 	
 	public List<Advertisement> findAll() {
@@ -93,6 +90,10 @@ public class AdvertisementService {
 		ad.setGrade(gradeService.calculateGradeForAd(id));
 		System.out.println(ad.getGrade());
 		return advertisementRepository.findOneByid(id);
+	}
+
+	public Advertisement update(Advertisement advertisement) {
+		return advertisementRepository.save(advertisement);
 	}
 
 

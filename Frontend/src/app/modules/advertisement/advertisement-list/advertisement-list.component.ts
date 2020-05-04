@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild, Inject } from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -12,10 +12,8 @@ import { NavbarComponent } from 'src/app/navbar/navbar.component';
 import { FilterAdsDTO } from 'src/app/model/filterAdsDTO';
 import { ItemInCart } from 'src/app/model/itemInCart';
 import {AdvertisementDetailsComponent} from '../advertisement-details/advertisement-details.component';
-
-import {Router} from "@angular/router";
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
-
+import {Router} from '@angular/router';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 export interface DialogData {
   images: Array<String>;
@@ -27,9 +25,9 @@ export interface DialogData {
   styleUrls: ['./advertisement-list.component.css']
 })
 export class AdvertisementListComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatTable, { static: false }) table: MatTable<AdvertisementListItem>;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatTable, {static: false}) table: MatTable<AdvertisementListItem>;
   dataSource: AdvertisementListDataSource;
   advertisements: Advertisement[];
   dialogData: Advertisement;
@@ -40,26 +38,25 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   fuelType: string;
   transmissionType: string;
   carClass: string;
-slikice:String[];
+  slikice: String[];
 
   itemInCart: ItemInCart;
 
   advertisementDetails: AdvertisementDetailsComponent;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass', 'travelled', 'price', 'carSeats', 'button', 'details','actions'];
+
+  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'travelled', 'price', 'discountPrice', 'carSeats', 'button', 'details', 'changeDiscount', 'actions'];
 
 
-  constructor(private formBuilder: FormBuilder, private advertisementService: AdvertisementService,public dialog: MatDialog,
-              private router: Router) {
+  constructor(private formBuilder: FormBuilder, private advertisementService: AdvertisementService,
+              private router: Router, private dialog: MatDialog) {
     this.itemInCart = new ItemInCart();
-    
   }
 
 
-
   ngOnInit() {
-   
+
     this.filterForm = this.formBuilder.group({
       fuelType: [''],
       transmissionType: [''],
@@ -81,7 +78,6 @@ slikice:String[];
         this.dataSource = new AdvertisementListDataSource(this.advertisements);
         console.log(this.dataSource);
       }
-
     );
 
 
@@ -137,7 +133,6 @@ slikice:String[];
         console.log(this.dataSource.data);
         console.log(data);
       }
-
     );
   }
 
@@ -148,6 +143,7 @@ slikice:String[];
 
     console.log(this.dataSource);
   }
+
   ngBeforeViewInit() {
 
   }
@@ -156,38 +152,62 @@ slikice:String[];
     this.router.navigate(['/advertisement-details', row.id]);
   }
 
+  changeDiscount(row: Advertisement): void {
+    const dialogRef = this.dialog.open(ChangeDiscountDialogComponent, {
+      data: row,
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      if (data != null) {
+        row.discount = data.discount;
+        row.priceWithDiscount = row.price - (row.price * row.discount / 100);
+        this.advertisementService.update(row).subscribe();
+        this.ngOnInit();
+      }
+    });
+  }
 
   openDialog(s: string[]): void {
-   
-
-
-    
-
     const dialogRef = this.dialog.open(ImagesDialogComponent, {
       width: '500px',
       height: '325px',
       data: s,
     });
-
-
-  
   }
 }
 
-@Component({
-  selector: 'app-images-dialog',
-  templateUrl: 'images-dialog.component.html'
-})
 
+@Component({
+  selector: 'app-change-discount-dialog',
+  templateUrl: './change-discount-dialog.html',
+})
+export class ChangeDiscountDialogComponent {
+  constructor(public dialogRef: MatDialogRef<ChangeDiscountDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data) {
+  }
+
+  onOkClick(): void {
+    alert(this.data.discount);
+    this.dialogRef.close(this.data);
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+
+@Component({
+selector: 'app-images-dialog',
+templateUrl: 'images-dialog.component.html'
+})
 export class ImagesDialogComponent {
   constructor(public dialogRef: MatDialogRef<ImagesDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-             
   }
   onNoClick(): void {
-this.data.images=new Array<String>();
+    this.data.images =new Array<String>();
     this.dialogRef.close();
-    
+
   }
 
 }

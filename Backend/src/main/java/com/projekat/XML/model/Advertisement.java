@@ -34,9 +34,11 @@ public class Advertisement  {
 
     private double price;
 
-    private ArrayList<String> pictures;
+    private double discount;
 
-  
+    private double priceWithDiscount;
+
+    private ArrayList<String> pictures;
 
     @ManyToOne
     @JoinColumn
@@ -48,7 +50,8 @@ public class Advertisement  {
 
    }
 
-    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy, ArrayList<String> pictures) {
+
+    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy, double discount, ArrayList<String> pictures) {
         this.name = name;
         this.model = model;
         this.brand = brand;
@@ -59,6 +62,8 @@ public class Advertisement  {
         this.carSeats = carSeats;
         this.price = price;
         this.postedBy = postedBy;
+        this.discount = discount;
+        this.priceWithDiscount = price - (this.price * this.discount / 100);
         this.pictures=pictures;
     }
 
@@ -154,6 +159,21 @@ public class Advertisement  {
         this.postedBy = postedBy;
     }
 
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public double getPriceWithDiscount() {
+        return priceWithDiscount;
+    }
+
+    public void setPriceWithDiscount(double priceWithDiscount) {
+        this.priceWithDiscount = priceWithDiscount;
+    }
 
     public ArrayList<String> getPictures() {
         return this.pictures;

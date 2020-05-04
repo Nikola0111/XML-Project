@@ -34,10 +34,6 @@ export class AdvertisementComponent implements OnInit {
   carBrands: CarDetails[];
   carGearshifts: CarDetails[];
 
-
-
-  
-
   constructor(private formBuilder: FormBuilder,
               private advertisementService: AdvertisementService, private carDetailsService: CarDetailsService) {
                 this.advertisement = new Advertisement();
