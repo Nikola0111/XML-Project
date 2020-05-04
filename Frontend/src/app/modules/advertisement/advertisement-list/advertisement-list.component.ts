@@ -154,13 +154,13 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
 
   changeDiscount(row: Advertisement): void {
     const dialogRef = this.dialog.open(ChangeDiscountDialogComponent, {
-      data : {row}
+      data : row,
     });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result != null) {
-        alert(result.discount);
-        alert('ovde');
-        row.discount = result.discount;
+    dialogRef.afterClosed().subscribe(data => {
+      if (data != null) {
+        row.discount = data.discount;
+        row.priceWithDiscount = row.price - (row.price  * row.discount / 100);
+        alert('izmenjena cena' + row.priceWithDiscount)
         this.advertisementService.update(row).subscribe();
         this.ngOnInit();
       }
@@ -173,14 +173,12 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   templateUrl: './change-discount-dialog.html',
 })
 export class ChangeDiscountDialogComponent {
-  advertisement: Advertisement;
   constructor(public dialogRef: MatDialogRef<ChangeDiscountDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-
+              @Inject(MAT_DIALOG_DATA) public data) {
   }
-  onOkClick(data: string): void {
-    alert(data);
-    this.dialogRef.close(this.advertisement);
+  onOkClick(): void {
+    alert(this.data.discount);
+    this.dialogRef.close(this.data);
   }
   onNoClick(): void {
     this.dialogRef.close();
