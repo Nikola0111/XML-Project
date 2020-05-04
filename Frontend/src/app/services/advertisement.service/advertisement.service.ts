@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Advertisement } from 'src/app/model/advertisement';
 import { FilterAdsDTO } from 'src/app/model/filterAdsDTO';
 import { ItemInCart } from 'src/app/model/itemInCart';
+import {AdvertisementDTO} from '../../dtos/advertisement-dto';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type' : 'application/json'})
@@ -39,5 +40,14 @@ const httpOptions = {
         this.requestUrl = '/server/advertisement/' + id;
         return this.http.get<Advertisement>(this.requestUrl, httpOptions);
       }
+
+  public getAdvertisementPreview(id: number) {
+    this.requestUrl = '/server/advertisement/preview/' + id;
+    return this.http.get<AdvertisementDTO>(this.requestUrl, httpOptions);
   }
+
+  public getRentedCars(id: number) {
+    return this.http.get<number[]>('/server/advertisement/getRentedCars/' + id, httpOptions);
+  }
+}
 

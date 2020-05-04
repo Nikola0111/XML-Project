@@ -12,7 +12,7 @@ import { NavbarComponent } from 'src/app/navbar/navbar.component';
 import { FilterAdsDTO } from 'src/app/model/filterAdsDTO';
 import { ItemInCart } from 'src/app/model/itemInCart';
 import {AdvertisementDetailsComponent} from '../advertisement-details/advertisement-details.component';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 
 @Component({

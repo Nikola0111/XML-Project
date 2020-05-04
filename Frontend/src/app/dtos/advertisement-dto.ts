@@ -1,10 +1,8 @@
-import {FuelType} from '../enums/fuelType';
-import {TransmissionType} from '../enums/transmissionType';
-import {CarClass} from '../enums/carClass';
 import {User} from '../model/user';
-import {CarDetails} from './car-details';
+import {CommentDto} from './comment-dto';
+import {CommentPreviewDTO} from './comment-preview-dto';
 
-export class Advertisement {
+export class AdvertisementDTO {
   id: number;
   name: string;
   model: string;
@@ -17,10 +15,5 @@ export class Advertisement {
   carSeats: number;
   postedBy: User;
   grade: number;
-
-  constructor() {
-
-  }
-
-
+  comments: CommentPreviewDTO[];
 }

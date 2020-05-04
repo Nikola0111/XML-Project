@@ -1,6 +1,7 @@
 package com.projekat.XML.controller;
 
 import com.projekat.XML.dtos.AdvertisementDTO;
+import com.projekat.XML.dtos.CommentDTO;
 import com.projekat.XML.dtos.FilterAdsDTO;
 import com.projekat.XML.model.Advertisement;
 import com.projekat.XML.service.AdvertisementService;
@@ -59,9 +60,29 @@ public class AdvertisementController {
 		if(advertisement == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-
 		return new ResponseEntity<>(new AdvertisementDTO(advertisement), HttpStatus.OK);
 	}
 
+	@PostMapping(value = "/saveCommentAndGrade", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<Long> saveCommentAndGrade(@RequestBody CommentDTO commentDTO){
+		advertisementService.saveCommentAndGrade(commentDTO);
 
+		return new ResponseEntity<>((long) 1, HttpStatus.OK);
+
+	}
+
+	@GetMapping(value = "/preview/{id}", produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<AdvertisementDTO> getAdvertisementPreview(@PathVariable Long id) {
+		AdvertisementDTO advertisementDTO = advertisementService.findAdAndComments(id);
+		if(advertisementDTO == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(advertisementDTO, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getRentedCars/{id}", produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Long>> getRentedCars(@PathVariable Long id) {
+		List<Long> rentedCars = advertisementService.getRentedCars(id);
+		return new ResponseEntity<>(rentedCars, HttpStatus.OK);
+	}
 }
