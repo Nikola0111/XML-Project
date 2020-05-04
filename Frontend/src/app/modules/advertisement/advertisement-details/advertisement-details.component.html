@@ -1,5 +1,6 @@
 <div>
   <app-navbar></app-navbar>
+  <div style="float: left; width: 50%">
   <form class="form-style-9">
     <ul>
       <li>
@@ -32,8 +33,30 @@
       <li>
         Car Seats: {{dataSource.carSeats}}
       </li>
+      <li>
+        Average grade: {{dataSource.grade}}
+      </li>
 
     </ul>
   </form>
+  </div>
 
+  <div style ="float: right; width: 50%">
+    <form *ngIf="rented" (ngSubmit)="onSubmit()" class="form-style-9">
+      <label>Rate this advertisement: </label>
+      <ul class="list-inline rating-list" *ngFor="let star of stars" style="margin-left: 10px;display: inline-block" >
+        <li (click)="countStar(star)"><i [ngClass]="star <= selectedValue ? 'glyphicon glyphicon-star ' : 'glyphicon glyphicon-star-empty' "></i></li>
+      </ul>
+
+      <textarea rows="5" cols="49" [(ngModel)]="comment" name="comment" type="text" placeholder="Enter a comment..."></textarea>
+      <input style="display: block; margin-top: 5px" class="btn btn-success" type="submit" value="Send"/>
+    </form>
+    <form *ngFor="let comment of this.dataSource.comments" class="form-style-9">
+      <div>
+        <label style = "display: block">Posted by: {{comment.userMail}}</label>
+        <label style = "display: block">{{comment.comment}}</label>
+        <label style = "display: block">It was rated with a: {{comment.grade}}</label>
+      </div>
+    </form>
+  </div>
 </div>

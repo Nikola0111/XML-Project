@@ -1,18 +1,21 @@
 package com.projekat.XML.service;
 
 import com.projekat.XML.dtos.AdvertisementDTO;
+import com.projekat.XML.dtos.CommentDTO;
+import com.projekat.XML.dtos.CommentPreviewDTO;
 import com.projekat.XML.dtos.FilterAdsDTO;
 import com.projekat.XML.model.Advertisement;
-import com.projekat.XML.repository.AdvertisementRepository;
-import com.projekat.XML.repository.UserRepository;
+import com.projekat.XML.model.Comment;
+import com.projekat.XML.model.EndUser;
+import com.projekat.XML.model.Grade;
+import com.projekat.XML.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +27,15 @@ public class AdvertisementService {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	GradeService gradeService;
+
+	@Autowired
+	CommentRepository commentRepository;
+
+	@Autowired
+	EndUserRepository endUserRepository;
 	
 	public Advertisement save(AdvertisementDTO advertisementDTO) {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -43,6 +55,10 @@ public class AdvertisementService {
 	
 	
 	public Advertisement findOneByid(Long id) {
+		Advertisement ad = advertisementRepository.findOneByid(id);
+
+		ad.setGrade(gradeService.calculateGradeForAd(id));
+		System.out.println(ad.getGrade());
 		return advertisementRepository.findOneByid(id);
 	}
 
@@ -106,5 +122,56 @@ public class AdvertisementService {
 
 		//KAD SE OTKOMENTARISE, VRACACE FILTEREDAVAILABLEADS
 		return filteredAds;
+	}
+
+	public void saveCommentAndGrade(CommentDTO commentDTO){
+		Advertisement ad = advertisementRepository.findOneByid(commentDTO.getAd());
+		Grade grade = new Grade(commentDTO.getGrade(), ad);
+
+		gradeService.save(grade);
+
+		Optional obj = endUserRepository.findById(commentDTO.getUserId());
+
+		if(obj.isPresent()) {
+			Date date = new Date();
+			System.out.println(date);
+
+			Comment comment = new Comment(commentDTO.getMessage(), date, ad, (EndUser) obj.get(), commentDTO.getGrade());
+
+			commentRepository.save(comment);
+		}
+		//sacuvaj komentar
+	}
+
+	public AdvertisementDTO findAdAndComments(Long id) {
+		Advertisement ad = advertisementRepository.findOneByid(id);
+		System.out.println(ad);
+		List<Comment> db = commentRepository.findByAd_Id(id);
+		System.out.println(db);
+		List<CommentPreviewDTO> comments = new ArrayList<CommentPreviewDTO>();
+		for(int i = 0;i < db.size();i++) {
+			CommentPreviewDTO temp = new CommentPreviewDTO(db.get(i).getValue(), db.get(i).getEndUser().getEmail(),
+					db.get(i).getGrade(), db.get(i).getDate());
+
+			comments.add(temp);
+		}
+
+		AdvertisementDTO adDTO = new AdvertisementDTO(ad);
+		adDTO.setComments(comments);
+		return adDTO;
+	}
+
+	public List<Long> getRentedCars(Long userId){
+		Optional obj = endUserRepository.findById(userId);
+		List<Long> list = new ArrayList<>();
+		if(obj.isPresent()){
+			EndUser endUser = (EndUser) obj.get();
+
+			for(int i = 0;i < endUser.getRentedCars().size(); i++){
+				list.add(endUser.getRentedCars().get(i).getId());
+			}
+		}
+
+		return list;
 	}
 }

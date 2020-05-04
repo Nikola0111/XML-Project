@@ -5,6 +5,7 @@ import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Advertisement  {
@@ -12,8 +13,6 @@ public class Advertisement  {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-
-
 
     private String name;
 
@@ -37,6 +36,7 @@ public class Advertisement  {
     @JoinColumn
     private User postedBy;
 
+    private Double grade;
 
    public Advertisement(){
 
@@ -54,6 +54,8 @@ public class Advertisement  {
         this.price = price;
         this.postedBy = postedBy;
     }
+
+
 
     public String getBrand() {
 		return this.brand;
@@ -145,5 +147,29 @@ public class Advertisement  {
         this.postedBy = postedBy;
     }
 
+    public Double getGrade() {
+        return grade;
+    }
 
+    public void setGrade(Double grade) {
+        this.grade = grade;
+    }
+
+    @Override
+    public String toString() {
+        return "Advertisement{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", model='" + model + '\'' +
+                ", brand='" + brand + '\'' +
+                ", fuelType='" + fuelType + '\'' +
+                ", transType='" + transType + '\'' +
+                ", carClass='" + carClass + '\'' +
+                ", travelled=" + travelled +
+                ", carSeats=" + carSeats +
+                ", price=" + price +
+                ", postedBy=" + postedBy +
+                ", grade=" + grade +
+                '}';
+    }
 }

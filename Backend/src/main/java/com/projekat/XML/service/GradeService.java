@@ -1,0 +1,29 @@
+package com.projekat.XML.service;
+
+import com.projekat.XML.model.Grade;
+import com.projekat.XML.repository.GradeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class GradeService {
+
+    @Autowired
+    private GradeRepository gradeRepository;
+
+    public Double calculateGradeForAd(Long id){
+        List<Grade> grades = gradeRepository.findAllByAd_Id(id);
+
+        Double sum = 0.0;
+
+        for(int i = 0;i < grades.size(); i++){
+            sum += grades.get(i).getValue();
+        }
+
+        return sum/grades.size();
+    }
+
+    public void save(Grade grade) { gradeRepository.save(grade); }
+}

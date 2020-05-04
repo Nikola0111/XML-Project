@@ -5,6 +5,8 @@ import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
 import com.projekat.XML.model.Advertisement;
 
+import java.util.List;
+
 public class AdvertisementDTO {
 
     private Long id;
@@ -31,7 +33,9 @@ public class AdvertisementDTO {
 
     private double price;
 
+    private double grade;
 
+    private List<CommentPreviewDTO> comments;
 
     public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price) {
         this.name=name;
@@ -48,7 +52,7 @@ public class AdvertisementDTO {
     public AdvertisementDTO(Advertisement ad)
     {
         this.id = ad.getId();
-        this.name=ad.getName();
+        this.name = ad.getName();
         this.model = ad.getModel();
         this.brand = ad.getBrand();
         this.fuelType = ad.getFuelType();
@@ -56,7 +60,8 @@ public class AdvertisementDTO {
         this.carClass = ad.getCarClass();
         this.travelled = ad.getTravelled();
         this.carSeats = ad.getCarSeats();
-        this.price=ad.getPrice();
+        this.price = ad.getPrice();
+        this.grade = ad.getGrade();
     }
 
     public String getName() {
@@ -141,5 +146,19 @@ public class AdvertisementDTO {
         this.id = id;
     }
 
+    public double getGrade() {
+        return grade;
+    }
 
+    public void setGrade(double grade) {
+        this.grade = grade;
+    }
+
+    public List<CommentPreviewDTO> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentPreviewDTO> comments) {
+        this.comments = comments;
+    }
 }
