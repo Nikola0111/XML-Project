@@ -77,6 +77,18 @@ public class AdvertisementController {
 		return new ResponseEntity<>(new AdvertisementDTO(advertisement), HttpStatus.OK);
 	}
 
+	@PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Advertisement> updateAdvertisement(@RequestBody Advertisement advertisement) throws Exception{
+	    Advertisement ad = advertisementService.update(advertisement);
+	    System.out.println(ad.getDiscount());
+	    if(ad != null) {
+	        return new ResponseEntity<>(advertisementService.findOneByid(ad.getId()), HttpStatus.OK);
+        }
+	    else {
+	        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
 	@PostMapping(value = "/saveCommentAndGrade", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<Long> saveCommentAndGrade(@RequestBody CommentDTO commentDTO){
 		advertisementService.saveCommentAndGrade(commentDTO);
@@ -93,6 +105,7 @@ public class AdvertisementController {
 		}
 		return new ResponseEntity<>(advertisementDTO, HttpStatus.OK);
 	}
+
 
 	@GetMapping(value = "/getRentedCars/{id}", produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Long>> getRentedCars(@PathVariable Long id) {

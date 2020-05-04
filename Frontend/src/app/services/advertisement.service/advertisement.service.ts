@@ -16,16 +16,10 @@ const httpOptions = {
 
 
 
-    public upload(file : File){
+    public upload(file: File) {
       const fd = new FormData();
-      
-      
-
-        fd.append("file",file,file.name);
-
-    
-
-      return this.http.post('/server/advertisement/saveImage',fd);
+      fd.append('file', file, file.name);
+      return this.http.post('/server/advertisement/saveImage', fd);
     }
 
       public save(advertisement: Advertisement) {
@@ -54,10 +48,16 @@ const httpOptions = {
         return this.http.get<Advertisement>(this.requestUrl, httpOptions);
       }
 
-  public getAdvertisementPreview(id: number) {
-    this.requestUrl = '/server/advertisement/preview/' + id;
-    return this.http.get<AdvertisementDTO>(this.requestUrl, httpOptions);
-  }
+      public update(advertisement: Advertisement) {
+      this.requestUrl = '/server/advertisement/update';
+      const body = JSON.stringify(advertisement);
+      return this.http.post<Advertisement>(this.requestUrl, body, httpOptions);
+      }
+
+    public getAdvertisementPreview(id: number) {
+      this.requestUrl = '/server/advertisement/preview/' + id;
+      return this.http.get<AdvertisementDTO>(this.requestUrl, httpOptions);
+    }
 
   public getRentedCars(id: number) {
     return this.http.get<number[]>('/server/advertisement/getRentedCars/' + id, httpOptions);

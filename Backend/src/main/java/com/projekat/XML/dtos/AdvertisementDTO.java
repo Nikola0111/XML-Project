@@ -37,6 +37,9 @@ public class AdvertisementDTO {
 
     private double price;
 
+    private double discount;
+
+    private double priceWithDiscount;
 
     private ArrayList<String> pictures;
 
@@ -46,7 +49,7 @@ public class AdvertisementDTO {
 
 
 
-    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price, ArrayList<String> pictures) {
+    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price,double discount, ArrayList<String> pictures) {
         this.name=name;
         this.model = model;
         this.brand = brand;
@@ -56,6 +59,8 @@ public class AdvertisementDTO {
         this.travelled = travelled;
         this.carSeats = carSeats;
         this.price=price;
+        this.discount = discount;
+        this.priceWithDiscount = price - (price * discount / 100);
         this.pictures=pictures;
     }
 
@@ -70,7 +75,9 @@ public class AdvertisementDTO {
         this.carClass = ad.getCarClass();
         this.travelled = ad.getTravelled();
         this.carSeats = ad.getCarSeats();
-        this.price = ad.getPrice();
+        this.price=ad.getPrice();
+        this.discount = ad.getDiscount();
+        this.priceWithDiscount = ad.getPriceWithDiscount();
         this.grade = ad.getGrade();
     }
 
@@ -156,7 +163,21 @@ public class AdvertisementDTO {
         this.id = id;
     }
 
+    public double getDiscount() {
+        return discount;
+    }
 
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public double getPriceWithDiscount() {
+        return priceWithDiscount;
+    }
+
+    public void setPriceWithDiscount(double priceWithDiscount) {
+        this.priceWithDiscount = priceWithDiscount;
+    }
     public ArrayList<String> getPictures() {
         return this.pictures;
     }
