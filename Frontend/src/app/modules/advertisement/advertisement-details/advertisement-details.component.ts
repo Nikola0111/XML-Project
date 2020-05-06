@@ -8,6 +8,7 @@ import {CommentService} from '../../../services/CommentService/comment.service';
 import {SessionService} from '../../../services/SessionService/session.service';
 import {AdvertisementDTO} from '../../../dtos/advertisement-dto';
 import {CommentPreviewDTO} from '../../../dtos/comment-preview-dto';
+import {ReplyDTO} from '../../../dtos/reply-dto';
 
 @Component({
   selector: 'app-advertisement-details',
@@ -22,6 +23,8 @@ export class AdvertisementDetailsComponent implements OnInit {
   comment: string;
   rented: boolean;
   rentedCars: number[];
+  replyDTO: ReplyDTO;
+  replyText: string;
 
   constructor(private messageService: CommentService, private advertisementService: AdvertisementService, private router: Router,
               private activatedRoute: ActivatedRoute, private sessionService: SessionService) {
@@ -39,6 +42,13 @@ export class AdvertisementDetailsComponent implements OnInit {
     this.advertisementService.getAdvertisementPreview(this.id).subscribe(
       data => {
         this.dataSource = data;
+
+        this.dataSource.comments.forEach(item => {
+          if (item.replyDTO === undefined) {
+            item.replyDTO = new ReplyDTO();
+          }
+        });
+
         console.log(this.dataSource);
         const smth = this.rentedCars.filter(item => {
           return item === this.dataSource.id;
@@ -60,10 +70,26 @@ export class AdvertisementDetailsComponent implements OnInit {
     const newComment = new CommentDto(this.comment, this.selectedValue, this.dataSource.id, this.sessionService.ulogovaniKorisnik.id);
 
     this.messageService.saveCommentAndGrade(newComment).subscribe(data => {
-      this.dataSource.comments.push(new CommentPreviewDTO(this.comment,
-        this.sessionService.ulogovaniKorisnik.loginInfo.email, this.selectedValue))
+      const reply = new ReplyDTO();
+      const listComment = new CommentPreviewDTO(this.comment,
+        this.sessionService.ulogovaniKorisnik.loginInfo.email, this.selectedValue);
+      listComment.replyDTO = reply;
+      this.dataSource.comments.push(listComment);
+
       this.comment = '';
       this.selectedValue = -1;
     });
+  }
+
+  sendReply(comment: CommentPreviewDTO){
+    this.replyDTO = new ReplyDTO();
+
+    this.replyDTO.agentMail = this.sessionService.ulogovaniKorisnik.loginInfo.email;
+    this.replyDTO.comment = comment.replyText;
+    this.replyDTO.id = comment.id;
+
+    comment.replyDTO = this.replyDTO;
+
+    this.advertisementService.sendReply(this.replyDTO).subscribe();
   }
 }
