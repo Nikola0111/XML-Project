@@ -14,6 +14,7 @@ import { ItemInCart } from 'src/app/model/itemInCart';
 import {AdvertisementDetailsComponent} from '../advertisement-details/advertisement-details.component';
 import {Router} from '@angular/router';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {SessionService} from '../../../services/SessionService/session.service';
 
 export interface DialogData {
   images: Array<String>;
@@ -49,7 +50,7 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
   displayedColumns = ['name', 'model', 'brand', 'fuelType', 'travelled', 'price', 'discountPrice', 'carSeats', 'button', 'details', 'changeDiscount', 'actions'];
 
 
-  constructor(private formBuilder: FormBuilder, private advertisementService: AdvertisementService,
+  constructor(private sessionService: SessionService, private formBuilder: FormBuilder, private advertisementService: AdvertisementService,
               private router: Router, private dialog: MatDialog) {
     this.itemInCart = new ItemInCart();
   }
@@ -72,14 +73,22 @@ export class AdvertisementListComponent implements AfterViewInit, OnInit {
     });
 
     this.dataSource = new AdvertisementListDataSource(null);
-    this.advertisementService.getAll().subscribe(
-      data => {
+
+    if (this.sessionService.isAgent) {
+      this.advertisementService.getAllByPostedBy(this.sessionService.ulogovaniKorisnik.id).subscribe(data => {
         this.advertisements = data;
         this.dataSource = new AdvertisementListDataSource(this.advertisements);
         console.log(this.dataSource);
-      }
-    );
-
+      });
+    } else {
+      this.advertisementService.getAll().subscribe(
+        data => {
+          this.advertisements = data;
+          this.dataSource = new AdvertisementListDataSource(this.advertisements);
+          console.log(this.dataSource);
+        }
+      );
+    }
 
   }
 

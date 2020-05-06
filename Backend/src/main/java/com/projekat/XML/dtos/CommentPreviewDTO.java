@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class CommentPreviewDTO {
 
+    private Long id;
+
     private String comment;
 
     private String userMail;
@@ -11,6 +13,8 @@ public class CommentPreviewDTO {
     private Double grade;
 
     private Date date;
+
+    private ReplyDTO replyDTO;
 
     public CommentPreviewDTO(String comment, String userMail, Double grade, Date date) {
         this.comment = comment;
@@ -49,5 +53,33 @@ public class CommentPreviewDTO {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public ReplyDTO getReplyDTO() {
+        return replyDTO;
+    }
+
+    public void setReplyDTO(ReplyDTO replyDTO) {
+        this.replyDTO = replyDTO;
+    }
+
+    @Override
+    public String toString() {
+        return "CommentPreviewDTO{" +
+                "id=" + id +
+                ", comment='" + comment + '\'' +
+                ", userMail='" + userMail + '\'' +
+                ", grade=" + grade +
+                ", date=" + date +
+                ", replyDTO=" + replyDTO +
+                '}';
     }
 }

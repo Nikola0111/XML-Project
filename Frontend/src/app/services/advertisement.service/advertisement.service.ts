@@ -4,6 +4,7 @@ import { Advertisement } from 'src/app/model/advertisement';
 import { FilterAdsDTO } from 'src/app/model/filterAdsDTO';
 import { ItemInCart } from 'src/app/model/itemInCart';
 import {AdvertisementDTO} from '../../dtos/advertisement-dto';
+import {ReplyDTO} from '../../dtos/reply-dto';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type' : 'application/json'})
@@ -61,6 +62,15 @@ const httpOptions = {
 
   public getRentedCars(id: number) {
     return this.http.get<number[]>('/server/advertisement/getRentedCars/' + id, httpOptions);
+  }
+
+  public getAllByPostedBy(id: number) {
+      return this.http.get<Advertisement[]>('server/advertisement/getAllByPostedBy/' + id, httpOptions);
+  }
+
+  public sendReply(replyDTO: ReplyDTO) {
+      const body = JSON.stringify(replyDTO);
+      return this.http.post<number>('/server/advertisement/saveReply', body, httpOptions);
   }
 }
 

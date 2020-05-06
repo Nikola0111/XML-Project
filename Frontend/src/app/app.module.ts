@@ -51,6 +51,7 @@ import { AdvertisementDetailsComponent } from './modules/advertisement/advertise
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatInput, MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import { AgentsAdvertisementsComponent } from './modules/agent/agents-advertisements/agents-advertisements.component';
 
 
 
@@ -85,6 +86,7 @@ import {MatButtonModule} from '@angular/material/button';
     AdvertisementDetailsComponent,
     ChangeDiscountDialogComponent,
     ImagesDialogComponent,
+    AgentsAdvertisementsComponent,
 ],
   imports: [
     BrowserModule,

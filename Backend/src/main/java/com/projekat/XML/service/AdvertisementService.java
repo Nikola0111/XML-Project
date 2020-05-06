@@ -1,13 +1,7 @@
 package com.projekat.XML.service;
 
-import com.projekat.XML.dtos.AdvertisementDTO;
-import com.projekat.XML.dtos.CommentDTO;
-import com.projekat.XML.dtos.CommentPreviewDTO;
-import com.projekat.XML.dtos.FilterAdsDTO;
-import com.projekat.XML.model.Advertisement;
-import com.projekat.XML.model.Comment;
-import com.projekat.XML.model.EndUser;
-import com.projekat.XML.model.Grade;
+import com.projekat.XML.dtos.*;
+import com.projekat.XML.model.*;
 import com.projekat.XML.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +29,8 @@ public class AdvertisementService {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired
+	ReplyRepository replyRepository;
 
 	@Autowired
 	GradeService gradeService;
@@ -44,6 +40,9 @@ public class AdvertisementService {
 
 	@Autowired
 	EndUserRepository endUserRepository;
+
+	@Autowired
+	AgentRepository agentRepository;
 	
 
 	public Advertisement save(AdvertisementDTO advertisementDTO) {
@@ -182,10 +181,22 @@ public class AdvertisementService {
 
 		List<Comment> db = commentRepository.findByAd_Id(id);
 
+		//sredjivanje komentara
 		List<CommentPreviewDTO> comments = new ArrayList<CommentPreviewDTO>();
 		for(int i = 0;i < db.size();i++) {
 			CommentPreviewDTO temp = new CommentPreviewDTO(db.get(i).getValue(), db.get(i).getEndUser().getEmail(),
 					db.get(i).getGrade(), db.get(i).getDate());
+			temp.setId(db.get(i).getId());
+
+
+			if(db.get(i).getReply() != null) {
+				ReplyDTO replyDTO = new ReplyDTO();
+				replyDTO.setComment(db.get(i).getReply().getComment());
+				replyDTO.setAgentMail(db.get(i).getReply().getAgent().getEmail());
+
+				temp.setReplyDTO(replyDTO);
+			}
+			System.out.println(temp);
 
 			comments.add(temp);
 		}
@@ -210,5 +221,22 @@ public class AdvertisementService {
 		}
 
 		return list;
+	}
+
+	public List<Advertisement> getAllByPostedBy(Long id) {
+		return advertisementRepository.findAllByPostedBy_Id(id);
+	}
+
+	public void saveReply(ReplyDTO replyDTO){
+		Agent agent = agentRepository.findByLoginInfo_Email(replyDTO.getAgentMail());
+		Optional opt = commentRepository.findById(replyDTO.getId());
+
+		Reply reply = new Reply(replyDTO.getComment(), (Comment) opt.get(), agent);
+
+		((Comment) opt.get()).setReply(reply);
+
+		replyRepository.save(reply);
+
+		commentRepository.save((Comment) opt.get());
 	}
 }

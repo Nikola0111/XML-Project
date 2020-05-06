@@ -1,13 +1,8 @@
 package com.projekat.XML.model;
 
-import com.projekat.XML.enums.CarClass;
-import com.projekat.XML.enums.FuelType;
-import com.projekat.XML.enums.TransmissionType;
-
 import java.util.ArrayList;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Advertisement  {

@@ -25,6 +25,9 @@ public class Comment {
     @Column
     private Double grade;
 
+    @OneToOne
+    private Reply reply;
+
     public Comment(){
 
     }
@@ -96,6 +99,14 @@ public class Comment {
 
     public void setGrade(Double grade) {
         this.grade = grade;
+    }
+
+    public Reply getReply() {
+        return reply;
+    }
+
+    public void setReply(Reply reply) {
+        this.reply = reply;
     }
 
     @Override

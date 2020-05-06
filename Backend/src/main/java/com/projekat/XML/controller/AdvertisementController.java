@@ -3,6 +3,7 @@ package com.projekat.XML.controller;
 import com.projekat.XML.dtos.AdvertisementDTO;
 import com.projekat.XML.dtos.CommentDTO;
 import com.projekat.XML.dtos.FilterAdsDTO;
+import com.projekat.XML.dtos.ReplyDTO;
 import com.projekat.XML.model.Advertisement;
 import com.projekat.XML.service.AdvertisementService;
 import com.projekat.XML.service.ShoppingCartService;
@@ -111,5 +112,18 @@ public class AdvertisementController {
 	public ResponseEntity<List<Long>> getRentedCars(@PathVariable Long id) {
 		List<Long> rentedCars = advertisementService.getRentedCars(id);
 		return new ResponseEntity<>(rentedCars, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getAllByPostedBy/{id}", produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Advertisement>> getAllByPostedBy(@PathVariable Long id) {
+		List<Advertisement> advertisements = advertisementService.getAllByPostedBy(id);
+		return new ResponseEntity<>(advertisements, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/saveReply",  produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Long> saveReply(@RequestBody ReplyDTO replyDTO){
+		advertisementService.saveReply(replyDTO);
+
+		return new ResponseEntity<>((long) 1, HttpStatus.OK);
 	}
 }
