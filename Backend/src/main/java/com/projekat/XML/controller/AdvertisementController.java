@@ -1,10 +1,8 @@
 package com.projekat.XML.controller;
 
-import com.projekat.XML.dtos.AdvertisementDTO;
-import com.projekat.XML.dtos.CommentDTO;
-import com.projekat.XML.dtos.FilterAdsDTO;
-import com.projekat.XML.dtos.ReplyDTO;
+import com.projekat.XML.dtos.*;
 import com.projekat.XML.model.Advertisement;
+import com.projekat.XML.model.Comment;
 import com.projekat.XML.service.AdvertisementService;
 import com.projekat.XML.service.ShoppingCartService;
 
@@ -104,7 +102,20 @@ public class AdvertisementController {
 		if(advertisementDTO == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		System.out.println(advertisementDTO.getGrade());
 		return new ResponseEntity<>(advertisementDTO, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getAllComments/{id}", produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<CommentPreviewDTO>> getAllComments(@PathVariable Long id) {
+		System.out.println(id);
+		AdvertisementDTO advertisementDTO = advertisementService.findAdAndComments(id);
+		if(advertisementDTO == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		System.out.println(advertisementDTO.getName());
+		System.out.println(advertisementDTO.getComments());
+		return new ResponseEntity<>(advertisementDTO.getComments(), HttpStatus.OK);
 	}
 
 

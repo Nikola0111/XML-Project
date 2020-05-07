@@ -81,7 +81,7 @@ export class AdvertisementComponent implements OnInit {
 
   onSubmit() {
 
-    
+
 
     this.advertisement.fuelType = this.fuelType;
     this.advertisement.carClass = this.carClass;
@@ -89,9 +89,10 @@ export class AdvertisementComponent implements OnInit {
     this.advertisement.brand = this.brand;
     this.advertisement.model = this.model;
 
-    this.advertisement.pictures=this.slike;
+    this.advertisement.pictures =this.slike;
 
-    for(let i=0; i<this.selectedFiles.length;i++){
+    // tslint:disable-next-line:prefer-for-of
+    for (let i=0; i<this.selectedFiles.length;i++){
       this.advertisementService.upload(this.selectedFiles[i]).subscribe();
     }
 
@@ -102,7 +103,7 @@ export class AdvertisementComponent implements OnInit {
   onFileSelected(event) {
     console.log(event);
     this.selectedFiles = event.target.files;
-    
+
     this.slike= new Array<String>();
 
     for(let i=0; i<this.selectedFiles.length;i++){
@@ -111,7 +112,7 @@ export class AdvertisementComponent implements OnInit {
 
     }
 
-    
+
   }
 
 }

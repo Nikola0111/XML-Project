@@ -46,7 +46,7 @@ public class Advertisement  {
    }
 
 
-    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy, double discount, ArrayList<String> pictures) {
+    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy, double discount, ArrayList<String> pictures, Double grade) {
         this.name = name;
         this.model = model;
         this.brand = brand;
@@ -60,6 +60,7 @@ public class Advertisement  {
         this.discount = discount;
         this.priceWithDiscount = price - (this.price * this.discount / 100);
         this.pictures=pictures;
+        this.grade = grade;
     }
 
 

@@ -51,12 +51,15 @@ public class AdvertisementService {
 
 		Long id = (Long) session.getAttribute("user");
 
-		// kada se kreira korisnik kreira mu se i korpa u koju ce moci da dodaje oglase!
-
-		return advertisementRepository.save(new Advertisement(advertisementDTO.getName(), advertisementDTO.getModel(),
+		Advertisement ad = new Advertisement(advertisementDTO.getName(), advertisementDTO.getModel(),
 				advertisementDTO.getBrand(), advertisementDTO.getFuelType(), advertisementDTO.getTransType(),
 				advertisementDTO.getCarClass(), advertisementDTO.getTravelled(), advertisementDTO.getCarSeats(),
-				advertisementDTO.getPrice(), userRepository.findOneByid(id), advertisementDTO.getDiscount(), advertisementDTO.getPictures()));
+				advertisementDTO.getPrice(), userRepository.findOneByid(id), advertisementDTO.getDiscount(), advertisementDTO.getPictures(),
+				0.0);
+
+		// kada se kreira korisnik kreira mu se i korpa u koju ce moci da dodaje oglase!
+
+		return advertisementRepository.save(ad);
 	}
 
 	public void saveImage(MultipartFile image) {
@@ -79,7 +82,11 @@ public class AdvertisementService {
 	}
 	
 	public List<Advertisement> findAll() {
-		return advertisementRepository.findAll();
+		List<Advertisement> advertisements = advertisementRepository.findAll();
+		for(int i = 0; i < advertisements.size(); i++) {
+			advertisements.get(i).setGrade(gradeService.calculateGradeForAd(advertisements.get(i).getId()));
+		}
+		return advertisements;
 	}
 	
 	

@@ -41,7 +41,7 @@ import { HistoryService } from './modules/history/history.component.service';
 import { CreateReportComponent } from './modules/agent/create-report/create-report.component';
 import { AgentsCarsComponent } from './modules/agent/agents-cars/agents-cars.component';
 import {CarDTO} from './dtos/car-dto';
-import {StatisticsComponent, StatisticsDialogComponent} from './modules/statistics/statistics.component';
+import {StatisticsComponent} from './modules/statistics/statistics.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { UserManagmentComponent } from './modules/administrator/user-managment/user-managment.component';
 import {AgentComponent} from './modules/agent/home/agent.component';
@@ -52,6 +52,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatInput, MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import { AgentsAdvertisementsComponent } from './modules/agent/agents-advertisements/agents-advertisements.component';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from "@angular/material/select";
 
 
 
@@ -82,7 +84,6 @@ import { AgentsAdvertisementsComponent } from './modules/agent/agents-advertisem
     UserManagmentComponent,
     SifrarnikComponent,
     StatisticsComponent,
-    StatisticsDialogComponent,
     AdvertisementDetailsComponent,
     ChangeDiscountDialogComponent,
     ImagesDialogComponent,
@@ -128,7 +129,9 @@ import { AgentsAdvertisementsComponent } from './modules/agent/agents-advertisem
     MatDialogModule,
     MatTooltipModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatRadioModule,
+    MatSelectModule
 
   ],
   exports: [RouterModule],
@@ -141,7 +144,7 @@ import { AgentsAdvertisementsComponent } from './modules/agent/agents-advertisem
               EndUserService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [StatisticsDialogComponent, ChangeDiscountDialogComponent, ImagesDialogComponent]
+  entryComponents: [ChangeDiscountDialogComponent, ImagesDialogComponent]
 
 })
 export class AppModule { }
