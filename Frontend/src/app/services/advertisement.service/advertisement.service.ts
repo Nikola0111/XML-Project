@@ -5,6 +5,7 @@ import { FilterAdsDTO } from 'src/app/model/filterAdsDTO';
 import { ItemInCart } from 'src/app/model/itemInCart';
 import {AdvertisementDTO} from '../../dtos/advertisement-dto';
 import {ReplyDTO} from '../../dtos/reply-dto';
+import {CommentPreviewDTO} from "../../dtos/comment-preview-dto";
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type' : 'application/json'})
@@ -14,8 +15,6 @@ const httpOptions = {
   export class AdvertisementService {
     private requestUrl: string;
     constructor(private http: HttpClient) {}
-
-
 
     public upload(file: File) {
       const fd = new FormData();
@@ -71,6 +70,11 @@ const httpOptions = {
   public sendReply(replyDTO: ReplyDTO) {
       const body = JSON.stringify(replyDTO);
       return this.http.post<number>('/server/advertisement/saveReply', body, httpOptions);
+  }
+
+  public getAllComments(id: number) {
+      this.requestUrl = '/server/advertisement/getAllComments/' + id;
+      return this.http.get<Array<CommentPreviewDTO>>(this.requestUrl, httpOptions);
   }
 }
 

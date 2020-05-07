@@ -16,6 +16,10 @@ public class GradeService {
     public Double calculateGradeForAd(Long id){
         List<Grade> grades = gradeRepository.findAllByAd_Id(id);
 
+        if(grades.isEmpty()) {
+            return 0.0;
+        }
+
         Double sum = 0.0;
 
         for(int i = 0;i < grades.size(); i++){
