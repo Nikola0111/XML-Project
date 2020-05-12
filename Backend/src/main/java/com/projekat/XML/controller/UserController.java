@@ -1,7 +1,7 @@
 package com.projekat.XML.controller;
 
 import com.projekat.XML.dtos.UserDTO;
-import com.projekat.XML.model.User;
+import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,12 +23,12 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(value = "/login", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> Login(@RequestBody User user){
+    public ResponseEntity<EntityUser> Login(@RequestBody EntityUser user){
 
         System.out.println(user.getLoginInfo().getEmail() + " " + user.getLoginInfo().getPassword());
 
         //provera email-a i username-a:
-        User userDB = userService.findUserByEmailAndPassword(user);
+        EntityUser userDB = userService.findUserByEmailAndPassword(user);
         if(userDB == null){
             System.out.println("Wrong username or password");
             return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
@@ -47,11 +47,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/passwordChange", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> changePassword(@RequestBody UserDTO userDTO){
-        userService.changePassword(userDTO.getJmbg(), userDTO.getPassword());
+    // @PostMapping(value = "/passwordChange", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    // public ResponseEntity<Long> changePassword(@RequestBody UserDTO userDTO){
+    //     userService.changePassword(userDTO.getJmbg(), userDTO.getPassword());
 
-        return new ResponseEntity<Long>((long) 1, HttpStatus.OK);
-    }
+    //     return new ResponseEntity<Long>((long) 1, HttpStatus.OK);
+    // }
 
 }

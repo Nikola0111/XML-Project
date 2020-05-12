@@ -35,36 +35,36 @@ public class AgentService {
     @Autowired
     private CarReportRepository carReportRepository;
 
-    public int save(AgentDTO agentDTO) {
-        User user;
+    // public int save(AgentDTO agentDTO) {
+    //     EntityUser user;
 
-        user = userRepository.findByLoginInfo_Username(agentDTO.getUsername());
+    //     user = userRepository.findByLoginInfo_Username(agentDTO.getUsername());
 
-        if(user != null){
-            return 1;
-        }
+    //     if(user != null){
+    //         return 1;
+    //     }
 
-        user = userRepository.findByLoginInfo_Email(agentDTO.getEmail());
+    //     user = userRepository.findByLoginInfo_Email(agentDTO.getEmail());
 
-        if(user != null){
-            return 2;
-        }
+    //     if(user != null){
+    //         return 2;
+    //     }
 
-        user = userRepository.findByJmbg(agentDTO.getJmbg());
+    //     user = userRepository.findByJmbg(agentDTO.getJmbg());
 
-        if(user != null){
-            return 3;
-        }
+    //     if(user != null){
+    //         return 3;
+    //     }
 
-        LoginInfo loginInfo = new LoginInfo(agentDTO.getEmail(), agentDTO.getUsername(), agentDTO.getPassword());
+    //     LoginInfo loginInfo = new LoginInfo(agentDTO.getEmail(), agentDTO.getUsername(), agentDTO.getPassword());
 
-        Agent agent = new Agent(agentDTO.getName(), agentDTO.getSurname(), loginInfo, agentDTO.getJmbg(),
-                agentDTO.getPhone(), UserType.AGENT, 0, true, agentDTO.getAdress(), agentDTO.getBsregnum());
+    //     Agent agent = new Agent(agentDTO.getName(), agentDTO.getSurname(), loginInfo, agentDTO.getJmbg(),
+    //             agentDTO.getPhone(), UserType.AGENT, 0, true, agentDTO.getAdress(), agentDTO.getBsregnum());
 
-        agentRepository.save(agent);
+    //     agentRepository.save(agent);
 
-        return 0;
-    }
+    //     return 0;
+    // }
 
     public boolean checkPasswordChanged(){
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder

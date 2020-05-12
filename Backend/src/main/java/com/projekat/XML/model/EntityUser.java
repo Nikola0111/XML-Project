@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_entity")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User {
+public class EntityUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class User {
     @Column(name = "user_type")
     private UserType userType;
 
-    public User(String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber, UserType ut) {
+    public EntityUser(String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber, UserType ut) {
         this.name = name;
         this.surname = surname;
         this.loginInfo = loginInfo;
@@ -41,7 +41,7 @@ public class User {
         this.userType = ut;
     }
 
-    public User() {
+    public EntityUser() {
 
     }
 
@@ -105,25 +105,16 @@ public class User {
         return this.loginInfo.getPassword();
     }
 
-    public void setPassword(String password){
-        this.loginInfo.setPassword(password);
-    }
+   
 
     public String getUsername(){
         return this.loginInfo.getUsername();
     }
 
-    public void setUsername(String username){
-        this.loginInfo.setUsername(username);
-    }
+  
 
-    public void setEmail(String email){
-        this.loginInfo.setEmail(email);
-    }
-
-    public String getEmail(){
-        return this.loginInfo.getEmail();
-    }
+    
+   
 
     @Override
     public String toString() {

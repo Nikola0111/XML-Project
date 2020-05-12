@@ -7,7 +7,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "endentity")
-public class EndUser extends User {
+public class EndUser {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private int numberOfRequestsCanceled;
 
@@ -25,13 +29,19 @@ public class EndUser extends User {
             inverseJoinColumns = @JoinColumn(name = "ad_id"))
     private List<Advertisement> rentedCars;
 
+    @ManyToOne
+    @JoinColumn
+    private EntityUser user;
+
+   
+
+
     public  EndUser() {
 
     }
 
     public EndUser(String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber, UserType ut,
                    int number_of_requests, boolean activity, boolean adminApproved, boolean blocked) {
-        super(name, surname, loginInfo, jmbg, phoneNumber, ut);
         this.numberOfRequestsCanceled = number_of_requests;
         this.activity = activity;
         this.adminApproved = adminApproved;
@@ -39,7 +49,6 @@ public class EndUser extends User {
     }
 
     public EndUser(String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber, UserType ut, int numberOfRequestsCanceled, boolean activity, boolean adminApproved, boolean blocked, List<Advertisement> rentedCars) {
-        super(name, surname, loginInfo, jmbg, phoneNumber, ut);
         this.numberOfRequestsCanceled = numberOfRequestsCanceled;
         this.activity = activity;
         this.adminApproved = adminApproved;
@@ -91,4 +100,22 @@ public class EndUser extends User {
     public void setRentedCars(List<Advertisement> rentedCars) {
         this.rentedCars = rentedCars;
     }
+
+    public EntityUser getUser() {
+        return this.user;
+    }
+
+    public void setUser(EntityUser user) {
+        this.user = user;
+    }
+
+    
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }

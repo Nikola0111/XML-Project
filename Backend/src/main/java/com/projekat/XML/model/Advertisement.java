@@ -37,7 +37,7 @@ public class Advertisement  {
 
     @ManyToOne
     @JoinColumn
-    private User postedBy;
+    private EntityUser postedBy;
 
     private Double grade;
 
@@ -46,7 +46,7 @@ public class Advertisement  {
    }
 
 
-    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy, double discount, ArrayList<String> pictures, Double grade) {
+    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, EntityUser postedBy, double discount, ArrayList<String> pictures, Double grade) {
         this.name = name;
         this.model = model;
         this.brand = brand;
@@ -147,11 +147,11 @@ public class Advertisement  {
         this.name = name;
     }
     
-    public User getPostedBy() {
+    public EntityUser getPostedBy() {
         return this.postedBy;
     }
 
-    public void setPostedBy(User postedBy) {
+    public void setPostedBy(EntityUser postedBy) {
         this.postedBy = postedBy;
     }
 

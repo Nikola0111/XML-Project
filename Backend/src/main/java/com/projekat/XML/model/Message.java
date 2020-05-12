@@ -15,22 +15,22 @@ public class Message {
 
     @ManyToOne
     @JoinColumn
-    private User sender;
+    private EntityUser sender;
 
     @ManyToOne
     @JoinColumn
-    private User receiver;
+    private EntityUser receiver;
 
     private String text;
 
     private LocalDateTime timeSent;
 
 
-    public User getSender() {
+    public EntityUser getSender() {
         return this.sender;
     }
 
-    public void setSender(User sender) {
+    public void setSender(EntityUser sender) {
         this.sender = sender;
     }
 
@@ -42,11 +42,11 @@ public class Message {
         this.id = id;
     }
 
-    public User getReceiver() {
+    public EntityUser getReceiver() {
         return this.receiver;
     }
 
-    public void setReceiver(User receiver) {
+    public void setReceiver(EntityUser receiver) {
         this.receiver = receiver;
     }
 
@@ -70,7 +70,7 @@ public class Message {
 
     }
 
-    public Message(User sender, User receiver, String text, LocalDateTime timeSent) {
+    public Message(EntityUser sender, EntityUser receiver, String text, LocalDateTime timeSent) {
         this.sender = sender;
         this.receiver = receiver;
         this.text = text;

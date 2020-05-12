@@ -2,7 +2,7 @@ package com.projekat.XML.controller;
 
 import com.projekat.XML.model.EndUser;
 import com.projekat.XML.model.LoginInfo;
-import com.projekat.XML.model.User;
+import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.model.VerificationToken;
 import com.projekat.XML.service.EndUserService;
 import com.projekat.XML.service.MailSenderService;
@@ -36,21 +36,21 @@ public class EndUserController {
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> register(@RequestBody EndUser endUser){
-        System.out.println(endUser.getLoginInfo());
+        System.out.println(endUser.getUser().getLoginInfo());
 
         LoginInfo loginInfo;
 
-        loginInfo = endUserService.findByEmail(endUser.getLoginInfo().getEmail());
+        loginInfo = endUserService.findByEmail(endUser.getUser().getLoginInfo().getEmail());
         if(loginInfo != null){
             return new ResponseEntity<>("email", HttpStatus.BAD_REQUEST);
         }
 
-        loginInfo = endUserService.findByUsername(endUser.getLoginInfo().getUsername());
+        loginInfo = endUserService.findByUsername(endUser.getUser().getLoginInfo().getUsername());
         if(loginInfo != null){
             return new ResponseEntity<>("username", HttpStatus.BAD_REQUEST);
         }
 
-        User user = endUserService.findByJmbg(endUser.getJmbg());
+        EntityUser user = endUserService.findByJmbg(endUser.getUser().getJmbg());
         if(user != null){
             return new ResponseEntity<>("jmbg", HttpStatus.BAD_REQUEST);
         }
@@ -86,7 +86,7 @@ public class EndUserController {
         VerificationToken verificationToken = verificationTokenService.findByUser(endUser);
 
         try {
-            mailSenderService.sendSimpleMessage(endUser.getLoginInfo().getEmail(), "Aktivacioni link",
+            mailSenderService.sendSimpleMessage(endUser.getUser().getLoginInfo().getEmail(), "Aktivacioni link",
                     "Vaša registracija je prihvaćena! Kliknite na link da bi aktivirali vaš nalog i koristili usluge našeg servisa!\n\n"
                             + "http://localhost:4200/registrationConfirm.html?token=" + verificationToken.getToken());
         }catch (Exception e){
@@ -127,7 +127,7 @@ public class EndUserController {
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/deactivate/{jmbg}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  /*  @PostMapping(value = "/deactivate/{jmbg}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> deactivateAccount(@PathVariable("jmbg") String jmbg){
         Integer ret = endUserService.deactivate(jmbg);
 
@@ -146,5 +146,5 @@ public class EndUserController {
         Boolean ret = endUserService.unblock(jmbg);
 
         return new ResponseEntity<>(ret, HttpStatus.OK);
-    }
+    } */
 }

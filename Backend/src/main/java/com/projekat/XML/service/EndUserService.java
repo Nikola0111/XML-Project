@@ -2,7 +2,7 @@ package com.projekat.XML.service;
 
 import com.projekat.XML.model.EndUser;
 import com.projekat.XML.model.LoginInfo;
-import com.projekat.XML.model.User;
+import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.repository.EndUserRepository;
 import com.projekat.XML.repository.LoginInfoRepository;
 import com.projekat.XML.repository.UserRepository;
@@ -42,7 +42,7 @@ public class EndUserService {
         return loginInfoRepository.findByUsername(username);
     }
 
-    public User findByJmbg(String jmbg) {
+    public EntityUser findByJmbg(String jmbg) {
         return userRepository.findByJmbg(jmbg);
     }
 
@@ -104,7 +104,7 @@ public class EndUserService {
         return endUserRepository.findAllByActivity(true);
     }
 
-    @Transactional
+  /*  @Transactional
     public Integer deactivate(String jmbg){
         return endUserRepository.deleteByJmbg(jmbg);
     }
@@ -136,5 +136,5 @@ public class EndUserService {
         endUserRepository.save(endUser);
 
         return true;
-    }
+    } */
 }
