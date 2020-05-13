@@ -14,6 +14,7 @@ import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.model.LoginInfo;
 import com.projekat.XML.repository.AgentRepository;
 import com.projekat.XML.repository.UserRepository;
+import com.projekat.XML.security.ApplicationUserRole;
 import com.projekat.XML.security.PasswordConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +88,7 @@ System.out.println("HESOVAN PASSWORD == "+hashIt(entityUser.getPassword(),salt))
     hashIt(entityUser.getPassword(),salt ), 
     entityUser.getLoginInfo().getEmail(),
     salt,
-    new HashSet(),
+    ApplicationUserRole.STUDENT.getGrantedAuthorities(),
     true,
     true,
     true,

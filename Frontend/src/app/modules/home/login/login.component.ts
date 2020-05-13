@@ -14,6 +14,8 @@ import {AgentService} from '../../../services/AgentService/agent.service';
 })
 export class LoginComponent implements OnInit {
   user: User;
+  username: string;
+  password: string;
   forma: FormGroup;
   constructor(private agentService: AgentService, private formBuilder: FormBuilder, private loginService: LoginService, private sessionService: SessionService,
               private router: Router) {
@@ -21,16 +23,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.forma = this.formBuilder.group({
-      email: [''],
-      password: ['']
-    });
+
   }
 
   onSubmit() {
-    this.loginService.login(this.user).subscribe(
+
+    
+    this.loginService.login(this.username,this.password).subscribe(
       data => {
-        console.log(data);
+     /*   console.log(data);
         this.sessionService.ulogovaniKorisnik = data;
         console.log('proverava')
         if (data.userType.toString() === 'ADMINISTRATOR') {
@@ -57,7 +58,8 @@ export class LoginComponent implements OnInit {
           this.sessionService.isEndUser = true;
           this.sessionService.isAgent = false;
           this.sessionService.isAdmin = false;
-        }
+          
+        }*/
       },
       error => alert('Neuspesno logovanje')
     );

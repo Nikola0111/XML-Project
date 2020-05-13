@@ -16,12 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = "user")
+@RequestMapping(value = "")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
+    @PostMapping(value = "/login")
+    public String Login(){
+
+
+        System.out.println("PROSO PROSO");
+
+      return "proslo";
+    }
+/*
     @PostMapping(value = "/login", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EntityUser> Login(@RequestBody EntityUser user){
 
@@ -38,7 +47,7 @@ public class UserController {
         userService.saveUser(userDB);
 
         return new ResponseEntity<>(userDB, HttpStatus.OK);
-    }
+    } */
 
     @GetMapping(value = "/logout")
     public ResponseEntity getAllForCart() {

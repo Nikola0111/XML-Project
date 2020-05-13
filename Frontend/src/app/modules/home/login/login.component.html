@@ -1,12 +1,12 @@
 <app-navbar></app-navbar>
 <div>
-  <form style = "text-align: center" (ngSubmit)="onSubmit()" [formGroup]="forma" class="form-style-9">
+  <form style = "text-align: center" (ngSubmit)="onSubmit()"  class="form-style-9">
     <ul>
       <li>
-        <input [(ngModel)] = "user.loginInfo.email" formControlName="email" name="email" class="field-style field-full align-none" placeholder="E-mail" />
+        <input [(ngModel)] = "this.username"  name="username" class="field-style field-full align-none" placeholder="E-mail" />
       </li>
       <li>
-        <input [(ngModel)] = "user.loginInfo.password" formControlName="password" type="password" name="password" class="field-style field-full align-none" placeholder="Password" />
+        <input [(ngModel)] = "this.password"  type="password" name="password" class="field-style field-full align-none" placeholder="Password" />
       </li>
       <li>
         <input class = "login" type = "submit" value="Log-in" />

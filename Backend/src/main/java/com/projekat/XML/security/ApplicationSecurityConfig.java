@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.crypto.SecretKey;
@@ -46,11 +47,16 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                //.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
-                //.addFilterAfter(new JwtTokenVerifier(),JwtUsernameAndPasswordAuthenticationFilter.class)
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
+                .addFilterAfter(new JwtTokenVerifier(),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
+                .antMatchers("/**").permitAll()
                 //.antMatchers("http://localhost:4200/enduser/register").permitAll()
-                .antMatchers("/**").permitAll();
+                .anyRequest()
+                .authenticated();
+                
+                
+
                // .authenticated();
     }
 
@@ -60,9 +66,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(passwordEncoder);
+    public DaoAuthenticationProviderOurs daoAuthenticationProvider() {
+        DaoAuthenticationProviderOurs provider = new DaoAuthenticationProviderOurs();
+        provider.setPasswordEncoder(new BCryptPasswordEncoder(10));
         provider.setUserDetailsService(loginInfoService);
         return provider;
     }

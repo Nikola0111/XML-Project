@@ -20,22 +20,24 @@ public class LoginInfo implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private final String username;
-    private final String password;
+    private String username;
+    private  String password;
     
-    @Column
-@ElementCollection(targetClass=GrantedAuthority.class)
-    private final Set<? extends GrantedAuthority> grantedAuthorities;
-    private final boolean isAccountNonExpired;
-    private final boolean isAccountNonLocked;
-    private final boolean isCredentialsNonExpired;
-    private final boolean isEnabled;
-    private final String email;
-    private final String salt;
+
+@ElementCollection(targetClass=GrantedAuthority.class,fetch = FetchType.EAGER)
+    private Set<? extends GrantedAuthority> grantedAuthorities;
+    private  boolean isAccountNonExpired;
+    private  boolean isAccountNonLocked;
+    private  boolean isCredentialsNonExpired;
+    private  boolean isEnabled;
+    private  String email;
+    private  String salt;
 
  
    
+public LoginInfo(){
 
+}
 
     public LoginInfo(String username,
                            String password,

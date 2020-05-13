@@ -27,6 +27,12 @@ public class LoginInfoService implements UserDetailsService {
 
     }
 
+    public String findSaltByUsername(String username){
+
+return loginInfoRepository.findByUsername(username).getSalt();
+
+    }
+
     public LoginInfo findOneById(Long id){
 
         return loginInfoRepository.findOneById(id);
