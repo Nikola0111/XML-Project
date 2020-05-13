@@ -46,11 +46,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
-                .addFilterAfter(new JwtTokenVerifier(),JwtUsernameAndPasswordAuthenticationFilter.class)
+                //.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
+                //.addFilterAfter(new JwtTokenVerifier(),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/**")
-                .authenticated();
+                //.antMatchers("http://localhost:4200/enduser/register").permitAll()
+                .antMatchers("/**").permitAll();
+               // .authenticated();
     }
 
     @Override

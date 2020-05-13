@@ -1,4 +1,5 @@
 package com.projekat.XML.service;
+import com.projekat.XML.model.LoginInfo;
 import com.projekat.XML.repository.LoginInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,18 @@ public class LoginInfoService implements UserDetailsService {
         
         
         return loginInfoRepository.findByUsername(username);
+
+    }
+
+    public void save(LoginInfo loginInfo){
+
+        loginInfoRepository.save(loginInfo);
+
+    }
+
+    public LoginInfo findOneById(Long id){
+
+        return loginInfoRepository.findOneById(id);
 
     }
 

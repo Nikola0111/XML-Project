@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EndUser } from '../../../model/endUser';
 import { RegisterService } from '../../../services/RegisterService/register.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { User } from 'src/app/model/user';
 
 @Component({
   selector: 'app-registracija',
@@ -10,13 +11,13 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class RegistracijaComponent implements OnInit {
   forma: FormGroup;
-  endUser: EndUser;
+  endUser: User;
 
   loading = false;
   submitted = false;
 
   constructor(private formBuilder: FormBuilder, private registerService: RegisterService ) {
-    this.endUser = new EndUser();
+    this.endUser = new User();
   }
 
   // ngOnInit() {

@@ -5,6 +5,7 @@ import {UserType} from '../../enums/UserType';
 import {Observable} from 'rxjs';
 import {UserDTO} from '../../dtos/user-dto';
 import {AgentDTO} from '../../dtos/agent-dto';
+import { User } from 'src/app/model/user';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -16,7 +17,7 @@ export class RegisterService {
 
   constructor(private http: HttpClient) { }
 
-  public register(endUser: EndUser) {
+  public register(endUser: User) {
     endUser.userType = UserType.ENDUSER;
     const body = JSON.stringify(endUser);
     return this.http.post<string>('/server/enduser/register', body, httpOptions);

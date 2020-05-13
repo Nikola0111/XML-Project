@@ -9,5 +9,5 @@ public interface LoginInfoRepository extends JpaRepository<LoginInfo, Long> {
 
     public LoginInfo findByEmail(String password);
     public LoginInfo findByUsername(String username);
-
+    public LoginInfo findOneById(Long id);
 }

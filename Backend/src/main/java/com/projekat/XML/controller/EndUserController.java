@@ -6,6 +6,7 @@ import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.model.VerificationToken;
 import com.projekat.XML.service.EndUserService;
 import com.projekat.XML.service.MailSenderService;
+import com.projekat.XML.service.UserService;
 import com.projekat.XML.service.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.print.attribute.standard.Media;
+
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.List;
 
 import java.util.UUID;
+import java.util.Base64.Encoder;
 
 
 @RestController
@@ -34,37 +39,39 @@ public class EndUserController {
     @Autowired
     private VerificationTokenService verificationTokenService;
 
+    @Autowired
+    private UserService userService;
+
+ 
+
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> register(@RequestBody EndUser endUser){
-        System.out.println(endUser.getUser().getLoginInfo());
+    public ResponseEntity<String> register(@RequestBody EntityUser entityUser){
+        System.out.println("OVO SU PODATCI:"+entityUser.getLoginInfo());
 
         LoginInfo loginInfo;
 
-        loginInfo = endUserService.findByEmail(endUser.getUser().getLoginInfo().getEmail());
+        loginInfo = endUserService.findByEmail(entityUser.getLoginInfo().getEmail());
         if(loginInfo != null){
             return new ResponseEntity<>("email", HttpStatus.BAD_REQUEST);
         }
 
-        loginInfo = endUserService.findByUsername(endUser.getUser().getLoginInfo().getUsername());
+        loginInfo = endUserService.findByUsername(entityUser.getLoginInfo().getUsername());
         if(loginInfo != null){
             return new ResponseEntity<>("username", HttpStatus.BAD_REQUEST);
         }
 
-        EntityUser user = endUserService.findByJmbg(endUser.getUser().getJmbg());
+        EntityUser user = endUserService.findByJmbg(entityUser.getJmbg());
         if(user != null){
             return new ResponseEntity<>("jmbg", HttpStatus.BAD_REQUEST);
         }
 
-        endUser.setNumber_of_requests(0);
-        endUser.setAccount_activated(false);
-        endUser.setAdminApproved(false);
-        endUserService.save(endUser);
 
-        String verificationToken = UUID.randomUUID().toString();
-        verificationTokenService.save(endUser, verificationToken);
+        userService.saveNewUser(entityUser);
 
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
+
+   
 
     @GetMapping(value = "/getUnregistered", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EndUser>> getUnregistered(){

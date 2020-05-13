@@ -31,12 +31,16 @@ public class LoginInfo implements UserDetails {
     private final boolean isCredentialsNonExpired;
     private final boolean isEnabled;
     private final String email;
+    private final String salt;
 
+ 
+   
 
 
     public LoginInfo(String username,
                            String password,
                            String email,
+                           String salt,
                            Set<? extends GrantedAuthority> grantedAuthorities,
                            boolean isAccountNonExpired,
                            boolean isAccountNonLocked,
@@ -45,6 +49,7 @@ public class LoginInfo implements UserDetails {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.salt=salt;
         this.grantedAuthorities = grantedAuthorities;
         this.isAccountNonExpired = isAccountNonExpired;
         this.isAccountNonLocked = isAccountNonLocked;
@@ -71,6 +76,10 @@ public class LoginInfo implements UserDetails {
         return email;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return isAccountNonExpired;
@@ -90,4 +99,9 @@ public class LoginInfo implements UserDetails {
     public boolean isEnabled() {
         return isEnabled;
     }
+
+    public Long getId(){
+        return id;
+    }
+
 }

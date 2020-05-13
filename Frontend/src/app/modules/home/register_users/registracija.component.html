@@ -45,7 +45,7 @@
         </mat-error>
       </li>
       <li>
-        <input minlength="9" maxlength="11" [(ngModel)] = "endUser.phoneNumber" formControlName="phoneNumber" name="phoneNumber" class="field-style field-full align-none" placeholder="Phone Number" />
+        <input [(ngModel)] = "endUser.phoneNumber" formControlName="phoneNumber" name="phoneNumber" class="field-style field-full align-none" placeholder="Phone Number" />
         <mat-error *ngIf="submitted && f.surname.errors">
           <div *ngIf="f.phoneNumber.errors?.required">Phone number is obligatory </div>
           <div *ngIf="f.phoneNumber.errors?.minLength">Phone number must be atleast 9 characters long</div>
