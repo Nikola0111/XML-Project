@@ -30,6 +30,16 @@ public class UserController {
 
       return "proslo";
     }
+
+
+    @GetMapping(value = "/loginToken")
+    public ResponseEntity getToken() {
+    
+        System.out.println("POGODIO JE LOGIN TOKEN");
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 /*
     @PostMapping(value = "/login", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EntityUser> Login(@RequestBody EntityUser user){
@@ -51,7 +61,9 @@ public class UserController {
 
     @GetMapping(value = "/logout")
     public ResponseEntity getAllForCart() {
-	    userService.logOut();
+      
+        
+        System.out.println("izbrisao sve proslo izlogovan");
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

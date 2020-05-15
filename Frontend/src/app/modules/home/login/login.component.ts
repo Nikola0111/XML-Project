@@ -24,6 +24,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
 
+this.loginService.loginToken().subscribe();
+
   }
 
   onSubmit() {
@@ -31,6 +33,8 @@ export class LoginComponent implements OnInit {
     
     this.loginService.login(this.username,this.password).subscribe(
       data => {
+
+        console.log( data);
      /*   console.log(data);
         this.sessionService.ulogovaniKorisnik = data;
         console.log('proverava')

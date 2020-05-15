@@ -13,21 +13,62 @@ export class AuthInterceptor implements HttpInterceptor {
 
                 console.log("USAAAOOO JE NEMANJA");
 
-        const idToken = localStorage.getItem("id_token");
+        const jwt = localStorage.getItem("jwt");
 
-        console.log("Tokencic je ovaj=="+idToken);
+        const xsrfToken=localStorage.getItem("xsrfToken");
 
-        if (idToken) {
+        console.log("Tokencic je ovaj=="+jwt);
+
+
+
+      
+
+        if (jwt) {
             const cloned = req.clone({
                 headers: req.headers.set("Authorization",
-                      idToken)
+                      jwt)
+                      .set('X-XSRF-TOKEN', xsrfToken)
             });
+            console.log("Pogodi prvi if!")
 
+            return next.handle(cloned);
+        }
+        else if(xsrfToken){
+            const cloned = req.clone({
+                headers: req.headers
+                      .set('X-XSRF-TOKEN', xsrfToken)
+            });
+            console.log("Pogodi DRUGI IF");
             return next.handle(cloned);
         }
         else {
             return next.handle(req);
         }
+        
+/*
+        if(xsrfToken && idToken){
+            const headers = new HttpHeaders({
+                'Authorization': idToken,
+                'X-XSRF-TOKEN':  xsrfToken
+              });
+          const cloneReq = req.clone({headers});
+          
+              return next.handle(cloneReq);
+        }
+        else if(xsrfToken){
+            const headers = new HttpHeaders({
+                'X-XSRF-TOKEN':  xsrfToken
+              });
+          const cloneReq = req.clone({headers});
+          
+              return next.handle(cloneReq);
+
+        }
+        else {
+            return next.handle(req);
+        }
+
+        */
     }
 }
       

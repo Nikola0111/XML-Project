@@ -30,18 +30,41 @@ export class LoginService {
 
   }
 
+  public loginToken(){
+    console.log("Pogodio");
+    return this.http.get<HttpResponse<any>>('/server/loginToken', { observe: 'response' })
+    .do(response=> localStorage.setItem("xsrfToken",(this.getCookie("XSRF-TOKEN"))))
+    .shareReplay();
+  }
+
 
   public setSession(authResult) {
     console.log("USAO OVDE ");
     console.log(authResult.headers.get('authorization'));
    
 
-    localStorage.setItem('id_token', authResult.headers.get('authorization'));
-}          
 
-logout() {
-    localStorage.removeItem("id_token");
+    localStorage.setItem('jwt', authResult.headers.get('authorization'));
+}    
+
+public getCookie(cname) {
+console.log("POGODIO TRAZENJE COOKIeA")
+
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
+
 
 
 
@@ -52,8 +75,9 @@ logout() {
 
   public logOut() {
     console.log('Izlogovan');
-    localStorage.removeItem("id_token");
-    this.requestUrl = '/server/user/logout';
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("xsrfToken")
+    this.requestUrl = '/server/logout';
     return this.http.get<string>(this.requestUrl, httpOptions);
     }
 }
