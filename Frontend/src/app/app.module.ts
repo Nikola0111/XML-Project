@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -54,6 +54,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { AgentsAdvertisementsComponent } from './modules/agent/agents-advertisements/agents-advertisements.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from "@angular/material/select";
+import { AuthInterceptor } from './services/httpInterceptor.service';
 
 
 
@@ -142,6 +143,11 @@ import {MatSelectModule} from "@angular/material/select";
               ConversationService,
               HistoryService,
               EndUserService,
+              {
+                provide:HTTP_INTERCEPTORS,
+                useClass: AuthInterceptor,
+                multi:true
+              }
   ],
   bootstrap: [AppComponent],
   entryComponents: [ChangeDiscountDialogComponent, ImagesDialogComponent]

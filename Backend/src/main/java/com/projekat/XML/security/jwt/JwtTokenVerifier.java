@@ -17,6 +17,8 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +35,8 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
         String authorizationHeader = request.getHeader("Authorization");
 
+        System.out.println("EVO GA="+authorizationHeader);
+
         if (Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -42,10 +46,10 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
         try {
 
-            String secretKey = "securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecure";
-
+            String secretKey = "securesecuresecuresecuresecuresecuresecuresecuresecure";
+                                
             Jws<Claims> claimsJws = Jwts.parser()
-                    .setSigningKey(secretKey)
+                    .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
                     .parseClaimsJws(token);
 
             Claims body = claimsJws.getBody();
