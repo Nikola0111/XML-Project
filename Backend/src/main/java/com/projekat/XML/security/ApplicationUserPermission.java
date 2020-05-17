@@ -1,10 +1,8 @@
 package com.projekat.XML.security;
 
 public enum ApplicationUserPermission {
-    STUDENT_READ("student:read"),
-    STUDENT_WRITE("student:write"),
-    COURSE_READ("course:read"),
-    COURSE_WRITE("course:write");
+    ADVERTISEMENT_READ("advertisement:read"),
+    ADVERTISEMENT_WRITE("advertisement:write");
 
     private final String permission;
 

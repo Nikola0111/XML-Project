@@ -1,6 +1,7 @@
 package com.projekat.XML.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Grade {
@@ -10,6 +11,7 @@ public class Grade {
     private Long id;
 
     @Column
+    @Size(min=1, max=5)
     private double value;
 
     @ManyToOne

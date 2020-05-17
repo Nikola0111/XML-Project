@@ -3,6 +3,9 @@ package com.projekat.XML.model;
 import com.projekat.XML.enums.UserType;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user_entity")
@@ -14,9 +17,15 @@ public class EntityUser {
     private Long id;
 
     @Column(name = "name", nullable = false)
+    @Size(min=2, max=40)
+    @NotBlank(message="Name must not be empty")
+    @Pattern(regexp="^$|[a-zA-Z ]+$", message="Name must not include special characters.")
     private String name;
 
     @Column(name = "surname", nullable = false)
+    @Size(min=2, max=40)
+    @NotBlank(message="Surame must not be empty")
+    @Pattern(regexp="^$|[a-zA-Z ]+$", message="Name must not include special characters.")
     private String surname;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -24,9 +33,15 @@ public class EntityUser {
     private LoginInfo loginInfo;
 
     @Column(name = "jmbg", unique = true, nullable = false)
+    @Size(min=13, max=13)
+    @NotBlank(message="JMBG must not be empty")
+    @Pattern(regexp = "[0-9]{13}", message = "JMBG must only contain 13 digits.")
     private String jmbg;
 
     @Column(name = "phone_number")
+    @Size(min=9, max=10)
+    @NotBlank(message="Phone number must not be empty")
+    @Pattern(regexp = "[0-9]{9,10}", message = "Phone number must only contain 9-10 digits.")
     private String phoneNumber;
 
     @Column(name = "user_type")

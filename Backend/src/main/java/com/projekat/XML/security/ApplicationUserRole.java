@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import com.projekat.XML.security.ApplicationUserPermission.*;
 
 public enum ApplicationUserRole {
-    STUDENT(Sets.newHashSet()),
-    ADMIN(Sets.newHashSet(ApplicationUserPermission.COURSE_READ, ApplicationUserPermission.COURSE_WRITE, ApplicationUserPermission.STUDENT_READ, ApplicationUserPermission.STUDENT_WRITE)),
-    ADMINTRAINEE(Sets.newHashSet(ApplicationUserPermission.COURSE_READ, ApplicationUserPermission.STUDENT_READ));
+    ENDUSER(Sets.newHashSet(ApplicationUserPermission.ADVERTISEMENT_READ, ApplicationUserPermission.ADVERTISEMENT_WRITE)),
+    AGENT(Sets.newHashSet(ApplicationUserPermission.ADVERTISEMENT_READ, ApplicationUserPermission.ADVERTISEMENT_WRITE)),
+    ADMIN(Sets.newHashSet(ApplicationUserPermission.ADVERTISEMENT_READ));
 
     private final Set<ApplicationUserPermission> permissions;
 

@@ -1,11 +1,13 @@
 package com.projekat.XML.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
@@ -13,24 +15,31 @@ import java.util.Set;
 @Entity
 public class LoginInfo implements UserDetails {
 
-    /**
-     *
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message="Username must not be empty")
+    @Size(min = 2, max = 12)
     private String username;
+
+    @NotBlank(message="Password must not be empty")
+    //@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,}$", message = "Password must contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.")
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", message = "8 karaktera, brojevi i jedno malo jedno veliko i ovi ?=.*?[#?!@$%^&*-]")
     private  String password;
     
 
-@ElementCollection(targetClass=GrantedAuthority.class,fetch = FetchType.EAGER)
+    @ElementCollection(targetClass=GrantedAuthority.class,fetch = FetchType.EAGER)
     private Set<? extends GrantedAuthority> grantedAuthorities;
     private  boolean isAccountNonExpired;
     private  boolean isAccountNonLocked;
     private  boolean isCredentialsNonExpired;
     private  boolean isEnabled;
+
+    @NotBlank(message="Email must not be empty")
+    @Pattern(regexp = "[a-zA-Z0-9]+@[a-zA-Z0-9]+.com")
     private  String email;
+
     private  String salt;
 
  

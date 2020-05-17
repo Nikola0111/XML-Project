@@ -32,7 +32,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-
     @Autowired
     private AgentRepository agentRepository;
 
@@ -76,33 +75,29 @@ public class UserService {
     
     public void saveNewUser(EntityUser entityUser){
 
+        String salt=makeSalt();      
 
-String salt=makeSalt();      
+        System.out.println("Naso ga je lepo"+ findOneByid(entityUser.getId()));
 
-System.out.println("Naso ga je lepo"+ findOneByid(entityUser.getId()));
+        System.out.println("HESOVAN PASSWORD == "+hashIt(entityUser.getPassword(),salt));
 
-System.out.println("HESOVAN PASSWORD == "+hashIt(entityUser.getPassword(),salt));
+        LoginInfo loginInfo=new LoginInfo(
+        entityUser.getUsername(),
+        hashIt(entityUser.getPassword(),salt ), 
+        entityUser.getLoginInfo().getEmail(),
+        salt,
+        ApplicationUserRole.ENDUSER.getGrantedAuthorities(),
+        true,
+        true,
+        true,
+        true);
 
-    LoginInfo loginInfo=new LoginInfo(
-    entityUser.getUsername(),
-    hashIt(entityUser.getPassword(),salt ), 
-    entityUser.getLoginInfo().getEmail(),
-    salt,
-    ApplicationUserRole.STUDENT.getGrantedAuthorities(),
-    true,
-    true,
-    true,
-    true);
+        loginInfoService.save(loginInfo);
 
-    loginInfoService.save(loginInfo);
+        entityUser.setLoginInfo(loginInfoService.findOneById(loginInfo.getId()));
 
-    entityUser.setLoginInfo(loginInfoService.findOneById(loginInfo.getId()));
-
-        //cuvanje u bazi
-    saveInDatabase(entityUser);
-
-    
-
+            //cuvanje u bazi
+        saveInDatabase(entityUser);
 
         EndUser endUser=new EndUser();
         
@@ -114,22 +109,18 @@ System.out.println("HESOVAN PASSWORD == "+hashIt(entityUser.getPassword(),salt))
         
         endUserService.save(endUser);
 
-        
-
       //  String verificationToken = UUID.randomUUID().toString();
       //  verificationTokenService.save(endUser, verificationToken);
     }
 
     private String hashIt(String password, String salt){
         
-        
         String passwordPlusSalt=password+salt;
 
-       String hashedPassword=passwordEncoder.encode(passwordPlusSalt);
+        String hashedPassword=passwordEncoder.encode(passwordPlusSalt);
 
         return hashedPassword;
         
-
     }
 
     private String makeSalt(){
