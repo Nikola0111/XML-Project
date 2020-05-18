@@ -36,8 +36,9 @@ public class LoginInfo implements UserDetails {
     private  boolean isCredentialsNonExpired;
     private  boolean isEnabled;
 
+    @Column(name = "email", nullable = false)
     @NotBlank(message="Email must not be empty")
-    @Pattern(regexp = "[a-zA-Z0-9]+@[a-zA-Z0-9]+.com")
+    @Pattern(regexp = "[a-zA-Z0-9]+@[a-zA-Z0-9]+.com", message="PUCA KOD EMAILA")
     private  String email;
 
     private  String salt;
