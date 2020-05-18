@@ -11,7 +11,7 @@
 	<groupId>com.projekat</groupId>
 	<artifactId>XML</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+
 	<name>XML</name>
 	<description>Group project for a rent-a-car service</description>
 
@@ -44,6 +44,7 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
@@ -85,10 +86,8 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 			<version>2.0.1.RELEASE</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+	
+	
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -134,6 +133,8 @@
     <artifactId>spring-boot-configuration-processor</artifactId>
     <optional>true</optional>
 </dependency>
+
+
 	</dependencies>
 
 	<build>
@@ -143,6 +144,9 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+
+		<finalName>spring-boot-docker</finalName>
 	</build>
+	
 
 </project>
