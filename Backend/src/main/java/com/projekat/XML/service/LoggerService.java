@@ -14,7 +14,7 @@ public class LoggerService {
         FileHandler fh;  
     
         try {  
-            fh = new FileHandler("C:/Users/Korisnik/Desktop/RentACarLogFile.log", 1000000, 5, true);  
+            fh = new FileHandler("C:/Temp/RentACarLogFile.log", 1000000, 5, true);  
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();  
             fh.setFormatter(formatter);  

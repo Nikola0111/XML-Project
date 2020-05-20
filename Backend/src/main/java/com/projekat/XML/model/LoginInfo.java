@@ -24,7 +24,6 @@ public class LoginInfo implements UserDetails {
     private String username;
 
     @NotBlank(message="Password must not be empty")
-    //@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,}$", message = "Password must contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.")
     @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", message = "8 karaktera, brojevi i jedno malo jedno veliko i ovi ?=.*?[#?!@$%^&*-]")
     private  String password;
     
