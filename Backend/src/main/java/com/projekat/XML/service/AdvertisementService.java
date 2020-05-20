@@ -43,6 +43,12 @@ public class AdvertisementService {
 
 	@Autowired
 	AgentRepository agentRepository;
+
+	@Autowired
+	LoggerService loggerService;
+
+	@Autowired 
+	SessionService sessionService;
 	
 
 	public Advertisement save(AdvertisementDTO advertisementDTO) {
@@ -86,6 +92,11 @@ public class AdvertisementService {
 		for(int i = 0; i < advertisements.size(); i++) {
 			advertisements.get(i).setGrade(gradeService.calculateGradeForAd(advertisements.get(i).getId()));
 		}
+
+		
+        // String loggedUsername = sessionService.getLoggedEndUser().getUser().getName();
+        // loggerService.doLog(loggedUsername, "neka funkcija", "neki rezultat", "WARNING");
+
 		return advertisements;
 	}
 	

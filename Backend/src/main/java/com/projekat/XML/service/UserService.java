@@ -47,6 +47,12 @@ public class UserService {
     @Autowired
     private LoginInfoService loginInfoService;
 
+    @Autowired
+    private LoggerService loggerService;
+
+    @Autowired
+    private SessionService sessionService;
+
     private final PasswordEncoder passwordEncoder=new BCryptPasswordEncoder(10);
     
     public EntityUser findUserByEmailAndPassword(EntityUser user) {
@@ -108,6 +114,7 @@ public class UserService {
 
         
         endUserService.save(endUser);
+
 
       //  String verificationToken = UUID.randomUUID().toString();
       //  verificationTokenService.save(endUser, verificationToken);
