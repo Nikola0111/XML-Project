@@ -94,8 +94,8 @@ public class AdvertisementService {
 		}
 
 		
-        // String loggedUsername = sessionService.getLoggedEndUser().getUser().getName();
-        // loggerService.doLog(loggedUsername, "neka funkcija", "neki rezultat", "WARNING");
+        String loggedUsername = sessionService.getLoggedEndUser().getUser().getName();
+        loggerService.doLog(loggedUsername, "neka funkcija", "neki rezultat", "WARNING");
 
 		return advertisements;
 	}
