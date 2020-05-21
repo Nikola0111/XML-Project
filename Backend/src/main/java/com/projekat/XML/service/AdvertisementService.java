@@ -93,11 +93,9 @@ public class AdvertisementService {
 			advertisements.get(i).setGrade(gradeService.calculateGradeForAd(advertisements.get(i).getId()));
 		}
 
-		
-        String loggedUsername = sessionService.getLoggedEndUser().getUser().getName();
-		loggerService.doLog(loggedUsername, "neka funkcija", "neki rezultat", "WARNING");
-		loggerService.doLog(loggedUsername, "neka funkcija", "neki rezultat", "SEVERE");
-		loggerService.doLog(loggedUsername, "neka funkcija", "neki rezultat", "INFO");
+		loggerService.doLog("neka funkcija", "neki rezultat", "WARNING");		//TIPOVI LOGOVA : WARNING, ERROR, INFO
+		loggerService.doLog("neka funkcija", "neki rezultat", "ERROR");		    //FUNKCIJE : NAPRAVIO OGLAS, POSLAO ZAHTEV ZA OGLAS, ODOBRIO ZAHTEV, OTKAZAO ZAHTEV, ODBIO ZAHTEV, OBRISAO OGLAS
+		loggerService.doLog("neka funkcija", "neki rezultat", "INFO");			//REZULTATI: ID OGLASA/NEUSPESNO, ID ZAHTEVA/NEUSPESNO, ID ZAHTEVA/NEUSPESNO, ID ZAHTEVA/NEUSPESNO, ID OGLASA/NEUSPESNO
 
 		return advertisements;
 	}
