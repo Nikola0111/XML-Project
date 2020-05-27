@@ -63,13 +63,13 @@ public class LoggerService {
 
                 fh.close();
 
-                AclEntry entryAfter = AclEntry.newBuilder().setType(AclEntryType.DENY).setPrincipal(authenticatedUsers)
-                        .setPermissions(AclEntryPermission.DELETE,
-                        AclEntryPermission.DELETE_CHILD, AclEntryPermission.WRITE_DATA, AclEntryPermission.WRITE_ATTRIBUTES)
+                AclEntry entryAfter = AclEntry.newBuilder()
+                        .setType(AclEntryType.DENY).setPrincipal(authenticatedUsers)
+                        .setPermissions(AclEntryPermission.DELETE, AclEntryPermission.DELETE_CHILD, AclEntryPermission.WRITE_DATA, AclEntryPermission.WRITE_ATTRIBUTES)
                         .build();
 
                 List<AclEntry> aclAfter = view.getAcl();
-                aclAfter.add(0, entryAfter); // insert before any DENY entries
+                aclAfter.add(0, entryAfter);
                 view.setAcl(aclAfter);
             }
             else {
@@ -93,12 +93,11 @@ public class LoggerService {
 
                 // Create ACL to give "Authenticated Users" "modify" access
                 AclEntry entry = AclEntry.newBuilder().setType(AclEntryType.DENY).setPrincipal(authenticatedUsers)
-                        .setPermissions(AclEntryPermission.DELETE,
-                        AclEntryPermission.DELETE_CHILD, AclEntryPermission.WRITE_DATA, AclEntryPermission.WRITE_ATTRIBUTES)
+                        .setPermissions(AclEntryPermission.DELETE, AclEntryPermission.DELETE_CHILD, AclEntryPermission.WRITE_DATA, AclEntryPermission.WRITE_ATTRIBUTES)
                         .build();
 
                 List<AclEntry> acl = view.getAcl();
-                acl.add(0, entry); // insert before any DENY entries
+                acl.add(0, entry);
                 view.setAcl(acl);
 
 

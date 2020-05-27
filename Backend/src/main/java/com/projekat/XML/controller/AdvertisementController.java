@@ -51,7 +51,7 @@ public class AdvertisementController {
 
 	
 
-	@PreAuthorize("hasAnyRole('ROLE_ENDUSER', 'ROLE_AGENT')")	
+	@PreAuthorize("hasAnyRole('ROLE_ENDUSER', 'ROLE_AGENT')")	//privilegije, ne role
     @GetMapping(value = "/all")
     public ResponseEntity<List<Advertisement>> getAll() {
         List<Advertisement> advertisements = advertisementService.findAll();
