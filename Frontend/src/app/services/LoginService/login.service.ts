@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {EndUser} from '../../model/endUser';
-import {User} from '../../model/user';
-import {Observable} from 'rxjs';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { EndUser } from '../../model/endUser';
+import { User } from '../../model/user';
+import { Observable } from 'rxjs';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/shareReplay';
 
-import {UserDTO} from '../../dtos/user-dto';
+import { UserDTO } from '../../dtos/user-dto';
 
 
-const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
+const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
 @Injectable({
   providedIn: 'root'
@@ -21,49 +21,51 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  public login(username: string,password:string){
-    const body = {"username":username,
-  "password":password};
+  public login(username: string, password: string) {
+    const body = {
+      "username": username,
+      "password": password
+    };
     return this.http.post<HttpResponse<any>>('/server/login', body, { observe: 'response' })
-    .do(response => this.setSession(response)) 
-    .shareReplay();
+      .do(response => this.setSession(response))
+      .shareReplay();
 
   }
 
-  public loginToken(){
+  public loginToken() {
     console.log("Pogodio");
     return this.http.get<HttpResponse<any>>('/server/loginToken', { observe: 'response' })
-    .do(response=> localStorage.setItem("xsrfToken",(this.getCookie("XSRF-TOKEN"))))
-    .shareReplay();
+      .do(response => localStorage.setItem("xsrfToken", (this.getCookie("XSRF-TOKEN"))))
+      .shareReplay();
   }
 
 
   public setSession(authResult) {
     console.log("USAO OVDE ");
     console.log(authResult.headers.get('authorization'));
-   
+
 
 
     localStorage.setItem('jwt', authResult.headers.get('authorization'));
-}    
-
-public getCookie(cname) {
-console.log("POGODIO TRAZENJE COOKIeA")
-
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
   }
-  return "";
-}
+
+  public getCookie(cname) {
+    console.log("POGODIO TRAZENJE COOKIeA")
+
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 
 
 
@@ -79,5 +81,5 @@ console.log("POGODIO TRAZENJE COOKIeA")
     localStorage.removeItem("xsrfToken")
     this.requestUrl = '/server/logout';
     return this.http.get<string>(this.requestUrl, httpOptions);
-    }
+  }
 }

@@ -1,11 +1,11 @@
 {
   "/server/*": {
     "target": "https://localhost:8443",
-    "secure": false,
+    "secure": true,
     "changeOrigin": true,
     "logLevel": "debug",
     "pathRewrite": {
-      "^/server" : ""
+      "^/server": ""
     }
   }
 }
