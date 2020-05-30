@@ -21,6 +21,7 @@ import javax.crypto.SecretKey;
 
 import com.projekat.XML.security.jwt.JwtTokenVerifier;
 import com.projekat.XML.security.jwt.JwtUsernameAndPasswordAuthenticationFilter;
+import com.projekat.XML.service.KeyPairClassService;
 import com.projekat.XML.service.LoginInfoService;
 
 import static com.projekat.XML.security.ApplicationUserRole.*;
@@ -35,10 +36,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     private final LoginInfoService loginInfoService;
 
     
+    private final KeyPairClassService keyPairClassService;
+
+    
 @Autowired
-    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,LoginInfoService loginInfoService) {
+    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,LoginInfoService loginInfoService, KeyPairClassService keyPairClassService){
         this.passwordEncoder = passwordEncoder;
         this.loginInfoService = loginInfoService;
+        this.keyPairClassService=keyPairClassService;
+        this.keyPairClassService.setKeyPair();
      
     }
 
@@ -50,10 +56,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
-                .addFilterAfter(new JwtTokenVerifier(),JwtUsernameAndPasswordAuthenticationFilter.class)
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(),keyPairClassService.getPrivateKey()))
+                .addFilterAfter(new JwtTokenVerifier(keyPairClassService.getPublicKey()),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/login", "/enduser/register","/loginToken","/logout").permitAll()
+                .antMatchers("/login", "/enduser/register","/loginToken","/logout","/h2-console/**").permitAll()
                 .anyRequest()
                 .authenticated();
     }

@@ -1,6 +1,8 @@
 package com.projekat.XML.security.jwt;
 
 import com.google.common.base.Strings;
+import com.projekat.XML.service.KeyPairClassService;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 
 import java.io.IOException;
+import java.security.Key;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,52 +31,64 @@ import java.util.stream.Collectors;
 public class JwtTokenVerifier extends OncePerRequestFilter {
     
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    private final Key publicKey;
 
-        String authorizationHeader = request.getHeader("Authorization");
 
-        System.out.println("EVO GA="+authorizationHeader);
-
-        if (Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-        String token = authorizationHeader.replace("Bearer ", "");
-
-        try {
-
-            String secretKey = "securesecuresecuresecuresecuresecuresecuresecuresecure";
-                                
-            Jws<Claims> claimsJws = Jwts.parser()
-                    .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
-                    .parseClaimsJws(token);
-
-            Claims body = claimsJws.getBody();
-
-            String username = body.getSubject();
-
-            List<Map<String, String>> authorities = (List<Map<String, String>>) body.get("authorities");
-
-            Set<SimpleGrantedAuthority> simpleGrantedAuthorities = authorities.stream()
-                    .map(m -> new SimpleGrantedAuthority(m.get("authority")))
-                    .collect(Collectors.toSet());
-
-            Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    username,
-                    null,
-                    simpleGrantedAuthorities
-            );
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        } catch (JwtException e) {
-            throw new IllegalStateException(String.format("Token %s cannot be trusted", token));
-        }
-
-        filterChain.doFilter(request, response);
+    public JwtTokenVerifier(Key publicKey){
+        this.publicKey=publicKey;
     }
-}
+
+    
+        @Override
+        protected void doFilterInternal(HttpServletRequest request,
+                                        HttpServletResponse response,
+                                        FilterChain filterChain) throws ServletException, IOException {
+    
+            String authorizationHeader = request.getHeader("Authorization");
+    
+            System.out.println("EVO GA="+authorizationHeader);
+    
+            if (Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith("Bearer ")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+    
+            String token = authorizationHeader.replace("Bearer ", "");
+    
+            try {
+    
+              
+    
+                
+                                    
+                Jws<Claims> claimsJws = Jwts.parser()
+                
+                
+                        .setSigningKey(publicKey)
+                        .parseClaimsJws(token);
+    
+                Claims body = claimsJws.getBody();
+    
+                String username = body.getSubject();
+    
+                List<Map<String, String>> authorities = (List<Map<String, String>>) body.get("authorities");
+    
+                Set<SimpleGrantedAuthority> simpleGrantedAuthorities = authorities.stream()
+                        .map(m -> new SimpleGrantedAuthority(m.get("authority")))
+                        .collect(Collectors.toSet());
+    
+                Authentication authentication = new UsernamePasswordAuthenticationToken(
+                        username,
+                        null,
+                        simpleGrantedAuthorities
+                );
+    
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+    
+            } catch (JwtException e) {
+                throw new IllegalStateException(String.format("Token %s cannot be trusted", token));
+            }
+    
+            filterChain.doFilter(request, response);
+        }
+    }

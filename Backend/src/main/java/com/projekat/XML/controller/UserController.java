@@ -2,6 +2,8 @@ package com.projekat.XML.controller;
 
 import com.projekat.XML.dtos.UserDTO;
 import com.projekat.XML.model.EntityUser;
+import com.projekat.XML.model.KeyPairClass;
+import com.projekat.XML.service.KeyPairClassService;
 import com.projekat.XML.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+  
+
     @PostMapping(value = "/login")
     public String Login(){
 
@@ -36,6 +40,10 @@ public class UserController {
     public ResponseEntity getToken() {
     
         System.out.println("POGODIO JE LOGIN TOKEN");
+
+    
+
+        
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
