@@ -41,7 +41,7 @@ public class AdvertisementController {
 }
 
 	@PostMapping(value="/save")
-	public ResponseEntity<Long> save(@RequestBody AdvertisementDTO advertisementDTO) {
+	public ResponseEntity<Long> save(@RequestBody AdvertisementCreationDTO advertisementDTO) {
 
 		System.out.println(advertisementDTO.getName()+advertisementDTO.getModel()+advertisementDTO.getBrand());
 		System.out.println("AMIN");
@@ -133,7 +133,7 @@ public class AdvertisementController {
 
 	@PostMapping(value = "/saveReply",  produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Long> saveReply(@RequestBody ReplyDTO replyDTO){
-		advertisementService.saveReply(replyDTO);
+	//	advertisementService.saveReply(replyDTO);
 
 		return new ResponseEntity<>((long) 1, HttpStatus.OK);
 	}

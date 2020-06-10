@@ -15,8 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.projekat.XML.dtos.MessageDTO;
 import com.projekat.XML.enums.RequestStates;
-import com.projekat.XML.model.Message;
-import com.projekat.XML.model.User;
+import com.projekat.XML.model.*;
 import com.projekat.XML.model.requests.BookingRequest;
 import com.projekat.XML.repository.MessageRepository;
 
@@ -67,10 +66,10 @@ public class MessageService {
         message.setSender(getLoggedUser());
         
 
-        List<User> allUsers = userService.findAll();
+        List<EntityUser> allUsers = userService.findAll();
         
         if(messageDTO.getEmail() != null && !messageDTO.getEmail().equals("")){
-            for (User user : allUsers) {
+            for (EntityUser user : allUsers) {
                 if (user.getLoginInfo().getEmail().equals(messageDTO.getEmail())) {
                     
                     message.setReceiver(user);
@@ -91,16 +90,16 @@ public class MessageService {
     }
 
     
-    public List<User> getAllUsers()
+    public List<EntityUser> getAllUsers()
     {
         return userService.findAll();
     }
 
-    public List<User> getInboxUsers()
+    public List<EntityUser> getInboxUsers()
     {
         List<Message> allMessages = messageRepository.findAll();
         List<Message> filteredMessages = new ArrayList<Message>();
-        List<User> users = new ArrayList<User>();
+        List<EntityUser> users = new ArrayList<EntityUser>();
         Long loggedID = getLogedUserId();
 
         for (Message message : allMessages) {
@@ -130,10 +129,10 @@ public class MessageService {
         return userService.findAll();
     }
 
-    public List<User> getAllMessagableUsers()
+    public List<EntityUser> getAllMessagableUsers()
     {
-        List<User> allUsers = userService.findAll();
-        List<User> messagableUsers = new ArrayList<User>();
+        List<EntityUser> allUsers = userService.findAll();
+        List<EntityUser> messagableUsers = new ArrayList<EntityUser>();
         List<BookingRequest> bookingRequests = bookingRequestService.findAll();
         Long loggedID = getLogedUserId();
 
@@ -167,12 +166,12 @@ public class MessageService {
         return id;
     }
 
-    private User getLoggedUser() {
+    private EntityUser getLoggedUser() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession(true);
 
         Long id = (Long) session.getAttribute("user");
-        User user = userService.findOneByid(id);
+        EntityUser user = userService.findOneByid(id);
 
         return user;
     }

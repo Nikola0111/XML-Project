@@ -4,7 +4,8 @@ import com.projekat.XML.enums.CarClass;
 import com.projekat.XML.enums.FuelType;
 import com.projekat.XML.enums.TransmissionType;
 import com.projekat.XML.model.Advertisement;
-import com.projekat.XML.model.User;
+import com.projekat.XML.model.EntityUser;
+
 
 public class AdvertisementInCartDTO {
 
@@ -28,7 +29,7 @@ public class AdvertisementInCartDTO {
 
     private double price;
 
-    private User postedBy;
+    private EntityUser postedBy;
 
     private boolean owner;
 
@@ -37,7 +38,7 @@ public class AdvertisementInCartDTO {
     
    
 
-    public AdvertisementInCartDTO(String name,String model, String brand, FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelled, int carSeats, double price,User user, boolean owner, boolean together) {
+    public AdvertisementInCartDTO(String name,String model, String brand, FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelled, int carSeats, double price,EntityUser user, boolean owner, boolean together) {
         this.name=name;
         this.model = model;
         this.brand = brand;
@@ -140,11 +141,11 @@ public class AdvertisementInCartDTO {
         this.id = id;
     }
 
-    public User getPostedBy() {
+    public EntityUser getPostedBy() {
         return this.postedBy;
     }
 
-    public void setPostedBy(User postedBy) {
+    public void setPostedBy(EntityUser postedBy) {
         this.postedBy = postedBy;
     }
 

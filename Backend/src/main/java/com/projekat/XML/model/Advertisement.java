@@ -13,15 +13,20 @@ public class Advertisement  {
 
     private String name;
 
-    private String model;
+	@ManyToOne
+    private Model model;
 
-    private String brand;
+    @ManyToOne
+    private Brand brand;
 
-    private String fuelType;
+    @ManyToOne
+    private FuelType fuelType;
 
-    private String transType;
+    @ManyToOne
+    private TransmissionType transmissionType;
 
-    private String carClass;
+    @ManyToOne
+    private CarClass carClass;
 
     private int travelled;
   
@@ -37,7 +42,7 @@ public class Advertisement  {
 
     @ManyToOne
     @JoinColumn
-    private User postedBy;
+    private EntityUser postedBy;
 
     private Double grade;
 
@@ -46,12 +51,12 @@ public class Advertisement  {
    }
 
 
-    public Advertisement(String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price, User postedBy, double discount, ArrayList<String> pictures, Double grade) {
+    public Advertisement(String name, Model model, Brand brand, FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelled, int carSeats, double price, EntityUser postedBy, double discount, ArrayList<String> pictures, Double grade) {
         this.name = name;
         this.model = model;
         this.brand = brand;
         this.fuelType = fuelType;
-        this.transType = transType;
+        this.transmissionType = transmissionType;
         this.carClass = carClass;
         this.travelled = travelled;
         this.carSeats = carSeats;
@@ -65,45 +70,46 @@ public class Advertisement  {
 
 
 
-    public String getBrand() {
-		return this.brand;
-	}
+     public Brand getBrand() {
+        return this.brand;
+    }
 
-    public void setBrand(String brand) {
+    public void setBrand(Brand brand) {
         this.brand = brand;
     }
 
-    public String getModel() {
+    public Model getModel() {
         return this.model;
     }
 
-    public void setModel(String model) {
+    public void setModel(Model model) {
         this.model = model;
     }
 
-    public String getFuelType() {
-        return fuelType;
+    public FuelType getFuelType() {
+        return this.fuelType;
     }
 
-    public void setFuelType(String fuelType) {
+    public void setFuelType(FuelType fuelType) {
         this.fuelType = fuelType;
     }
 
-    public String getTransType() {
-        return transType;
+    public TransmissionType getTransmissionType() {
+        return this.transmissionType;
     }
 
-    public void setTransType(String transType) {
-        this.transType = transType;
+    public void setTransmissionType(TransmissionType transmissionType) {
+        this.transmissionType = transmissionType;
     }
 
-    public String getCarClass() {
-        return carClass;
+    public CarClass getCarClass() {
+        return this.carClass;
     }
 
-    public void setCarClass(String carClass) {
+    public void setCarClass(CarClass carClass) {
         this.carClass = carClass;
     }
+
 
     public int getTravelled() {
         return this.travelled;
@@ -147,11 +153,11 @@ public class Advertisement  {
         this.name = name;
     }
     
-    public User getPostedBy() {
+    public EntityUser getPostedBy() {
         return this.postedBy;
     }
 
-    public void setPostedBy(User postedBy) {
+    public void setPostedBy(EntityUser postedBy) {
         this.postedBy = postedBy;
     }
 
@@ -188,22 +194,4 @@ public class Advertisement  {
         this.grade = grade;
     }
 
-
-    @Override
-    public String toString() {
-        return "Advertisement{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", model='" + model + '\'' +
-                ", brand='" + brand + '\'' +
-                ", fuelType='" + fuelType + '\'' +
-                ", transType='" + transType + '\'' +
-                ", carClass='" + carClass + '\'' +
-                ", travelled=" + travelled +
-                ", carSeats=" + carSeats +
-                ", price=" + price +
-                ", postedBy=" + postedBy +
-                ", grade=" + grade +
-                '}';
-    }
 }

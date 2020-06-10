@@ -1,25 +1,15 @@
 package com.projekat.XML.dtos;
 
-import java.io.File;
 import java.util.ArrayList;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.projekat.XML.enums.CarClass;
-import com.projekat.XML.enums.FuelType;
-import com.projekat.XML.enums.TransmissionType;
-import com.projekat.XML.model.Advertisement;
-import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
-public class AdvertisementDTO {
+import com.projekat.XML.model.Advertisement;
+import com.projekat.XML.model.EntityUser;
 
+public class AdvertisementCreationDTO {
     private Long id;
 
-    
-
     private String name;
-
-    
 
     private String model;
 
@@ -27,15 +17,17 @@ public class AdvertisementDTO {
 
     private String fuelType;
 
-    private String transmissionType;
+    private String transType;
 
     private String carClass;
 
     private int travelled;
-  
+
     private int carSeats;
 
     private double price;
+
+    private EntityUser postedBy;
 
     private double discount;
 
@@ -43,43 +35,59 @@ public class AdvertisementDTO {
 
     private ArrayList<String> pictures;
 
-    private double grade;
-
-    private List<CommentPreviewDTO> comments;
-
-
-
-    public AdvertisementDTO(String name,String model, String brand, String fuelType, String transmissionType, String carClass, int travelled, int carSeats, double price,double discount, ArrayList<String> pictures) {
-        this.name=name;
+    public AdvertisementCreationDTO(Long id, String name, String model, String brand, String fuelType, String transType, String carClass, int travelled, int carSeats, double price,EntityUser postedBy, double discount, double priceWithDiscount, ArrayList<String> pictures, double grade) {
+        this.id = id;
+        this.name = name;
         this.model = model;
         this.brand = brand;
         this.fuelType = fuelType;
-        this.transmissionType = transmissionType;
+        this.transType = transType;
         this.carClass = carClass;
         this.travelled = travelled;
         this.carSeats = carSeats;
-        this.price=price;
+        this.price = price;
+        this.postedBy=postedBy;
         this.discount = discount;
-        this.priceWithDiscount = price - (price * discount / 100);
-        this.pictures=pictures;
+        this.priceWithDiscount = priceWithDiscount;
+        this.pictures = pictures;
+        this.grade = grade;
     }
 
-    public AdvertisementDTO(Advertisement ad)
-    {
+    public AdvertisementCreationDTO(Advertisement ad){
         this.id = ad.getId();
         this.name = ad.getName();
         this.model = ad.getModel().getName();
         this.brand = ad.getBrand().getName();
         this.fuelType = ad.getFuelType().getName();
-        this.transmissionType = ad.getTransmissionType().getName();
+        this.transType = ad.getTransmissionType().getName();
         this.carClass = ad.getCarClass().getName();
-        this.travelled = ad.getTravelled();
+        this.pictures = ad.getPictures();
+        this.price = ad.getPrice();
         this.carSeats = ad.getCarSeats();
-        this.price=ad.getPrice();
         this.discount = ad.getDiscount();
-        this.priceWithDiscount = ad.getPriceWithDiscount();
+        this.postedBy=ad.getPostedBy();
         this.grade = ad.getGrade();
+        this.travelled = ad.getTravelled();
+        this.priceWithDiscount = ad.getPriceWithDiscount();
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public ArrayList<String> getPictures() {
+        return this.pictures;
+    }
+
+    public void setPictures(ArrayList<String> pictures) {
+        this.pictures = pictures;
+    }
+
+    private double grade;
 
     public String getName() {
         return this.name;
@@ -87,14 +95,6 @@ public class AdvertisementDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getBrand() {
-		return this.brand;
-	}
-
-    public void setBrand(String brand) {
-        this.brand = brand;
     }
 
     public String getModel() {
@@ -105,20 +105,28 @@ public class AdvertisementDTO {
         this.model = model;
     }
 
+    public String getBrand() {
+        return this.brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getTransType() {
+        return this.transType;
+    }
+
+    public void setTransType(String transType) {
+        this.transType = transType;
+    }
+
     public String getFuelType() {
         return this.fuelType;
     }
 
     public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
-    }
-
-    public String getTransType() {
-        return this.transmissionType;
-    }
-
-    public void setTransType(String transType) {
-        this.transmissionType = transType;
     }
 
     public String getCarClass() {
@@ -128,7 +136,6 @@ public class AdvertisementDTO {
     public void setCarClass(String carClass) {
         this.carClass = carClass;
     }
-
 
     public int getTravelled() {
         return this.travelled;
@@ -146,7 +153,6 @@ public class AdvertisementDTO {
         this.carSeats = carSeats;
     }
 
-
     public double getPrice() {
         return this.price;
     }
@@ -155,16 +161,8 @@ public class AdvertisementDTO {
         this.price = price;
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public double getDiscount() {
-        return discount;
+        return this.discount;
     }
 
     public void setDiscount(double discount) {
@@ -172,34 +170,27 @@ public class AdvertisementDTO {
     }
 
     public double getPriceWithDiscount() {
-        return priceWithDiscount;
+        return this.priceWithDiscount;
     }
 
     public void setPriceWithDiscount(double priceWithDiscount) {
         this.priceWithDiscount = priceWithDiscount;
     }
-    public ArrayList<String> getPictures() {
-        return this.pictures;
-    }
-
-    public void setPictures(ArrayList<String> pictures) {
-        this.pictures = pictures;
-    }
 
     public double getGrade() {
-        return grade;
+        return this.grade;
     }
 
     public void setGrade(double grade) {
         this.grade = grade;
     }
 
-
-    public List<CommentPreviewDTO> getComments() {
-        return comments;
+    public EntityUser getPostedBy() {
+        return postedBy;
     }
 
-    public void setComments(List<CommentPreviewDTO> comments) {
-        this.comments = comments;
+    public void setPostedByID(EntityUser postedBy) {
+        this.postedBy = postedBy;
     }
+
 }

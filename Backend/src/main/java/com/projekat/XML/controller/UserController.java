@@ -1,8 +1,10 @@
 package com.projekat.XML.controller;
 
 import com.projekat.XML.dtos.UserDTO;
-import com.projekat.XML.model.User;
-import com.projekat.XML.service.UserService;
+import com.projekat.XML.model.EntityUser;
+import com.projekat.XML.model.LoginInfo;
+import com.projekat.XML.service.LoginInfoService;
+import com.projekat.XML.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,35 +23,33 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private LoginInfoService loginInfoService;
 
-    @PostMapping(value = "/login", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> Login(@RequestBody User user){
+    @PostMapping(value = "/login", produces  = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LoginInfo> Login(@RequestBody LoginInfo login)  {
 
-        System.out.println(user.getLoginInfo().getEmail() + " " + user.getLoginInfo().getPassword());
+        LoginInfo loginInfo = loginInfoService.findOneByUsername(login.getUsername());
+        if (loginInfo == null) {
+            return new ResponseEntity<>(loginInfo, HttpStatus.BAD_REQUEST);
+        }  
 
-        //provera email-a i username-a:
-        User userDB = userService.findUserByEmailAndPassword(user);
-        if(userDB == null){
-            System.out.println("Wrong username or password");
-            return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
-        }
+        userService.login(loginInfo);
 
-
-        userService.saveUser(userDB);
-
-        return new ResponseEntity<>(userDB, HttpStatus.OK);
+        return new ResponseEntity<>(loginInfo, HttpStatus.OK);
     }
 
     @GetMapping(value = "/logout")
     public ResponseEntity getAllForCart() {
-	    userService.logOut();
+        userService.logOut();
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(value = "/passwordChange", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> changePassword(@RequestBody UserDTO userDTO){
-        userService.changePassword(userDTO.getJmbg(), userDTO.getPassword());
+    public ResponseEntity<Long> changePassword(@RequestBody UserDTO userDTO) {
+    //s    userService.changePassword(userDTO.getJmbg(), userDTO.getPassword());
 
         return new ResponseEntity<Long>((long) 1, HttpStatus.OK);
     }
