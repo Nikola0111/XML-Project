@@ -125,13 +125,12 @@ public class MessageService {
             }
         }
 
-        //return users;         OVAKO KASNIJE
-        return userService.findAll();
+        return users;  
+
     }
 
     public List<EntityUser> getAllMessagableUsers()
     {
-        List<EntityUser> allUsers = userService.findAll();
         List<EntityUser> messagableUsers = new ArrayList<EntityUser>();
         List<BookingRequest> bookingRequests = bookingRequestService.findAll();
         Long loggedID = getLogedUserId();

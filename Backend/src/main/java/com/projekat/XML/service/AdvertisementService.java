@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
 
-
 import javax.servlet.http.HttpSession;
 
 @Service
@@ -31,21 +30,17 @@ public class AdvertisementService {
 	@Autowired
 	FuelTypeRepository fuelTypeRepository;
 
-
 	@Autowired
 	CarClassRepository carClassRepository;
 
-
 	@Autowired
 	BrandRepository brandRepository;
-
 
 	@Autowired
 	ModelRepository modelRepository;
 
 	@Autowired
 	BookingRequestRepository bookingRequestRepository;
-
 
 	@Autowired
 	TransmissionTypeRepository transmissionTypeRepository;
@@ -70,7 +65,6 @@ public class AdvertisementService {
 
 	@Autowired
 	UserService userService;
-	
 
 	public Advertisement save(AdvertisementCreationDTO advertisementCreationDTO) {
 
@@ -79,7 +73,8 @@ public class AdvertisementService {
 
 		CarClass carClass = carClassRepository.findByName(advertisementCreationDTO.getCarClass());
 		FuelType fuelType = fuelTypeRepository.findByName(advertisementCreationDTO.getFuelType());
-		TransmissionType transmissionType = transmissionTypeRepository.findByName(advertisementCreationDTO.getTransType());
+		TransmissionType transmissionType = transmissionTypeRepository
+				.findByName(advertisementCreationDTO.getTransType());
 
 		Advertisement ad = new Advertisement(advertisementCreationDTO.getName(), model, brand, fuelType,
 				transmissionType, carClass, advertisementCreationDTO.getTravelled(),
@@ -90,7 +85,6 @@ public class AdvertisementService {
 		return advertisementRepository.save(ad);
 	}
 
-
 	public void saveImage(MultipartFile image) {
 
 		String path = System.getProperty("user.dir");
@@ -99,26 +93,25 @@ public class AdvertisementService {
 		System.out.println("PRVI POKUSAJ=" + newPath);
 		byte[] bytes;
 		try {
-			 bytes = image.getBytes();
-			 Path put= Paths.get(newPath, image.getOriginalFilename());
-			Files.write(put,bytes);
-		System.out.println("UPISAO");
+			bytes = image.getBytes();
+			Path put = Paths.get(newPath, image.getOriginalFilename());
+			Files.write(put, bytes);
+			System.out.println("UPISAO");
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 			System.out.println("UPAO U EXCEPTION");
 		}
 	}
-	
+
 	public List<Advertisement> findAll() {
 		List<Advertisement> advertisements = advertisementRepository.findAll();
-		for(int i = 0; i < advertisements.size(); i++) {
+		for (int i = 0; i < advertisements.size(); i++) {
 			advertisements.get(i).setGrade(gradeService.calculateGradeForAd(advertisements.get(i).getId()));
 		}
 		return advertisements;
 	}
-	
-	
+
 	public Advertisement findOneByid(Long id) {
 		Advertisement ad = advertisementRepository.findOneByid(id);
 
@@ -130,7 +123,6 @@ public class AdvertisementService {
 	public Advertisement update(Advertisement advertisement) {
 		return advertisementRepository.save(advertisement);
 	}
-
 
 	public List<Advertisement> filterAds(FilterAdsDTO filterAdsDTO) {
 		List<Advertisement> allAds = advertisementRepository.findAll();
@@ -153,6 +145,7 @@ public class AdvertisementService {
 							|| filterAdsDTO.getBrand().equals("Choose a car brand"))
 					&& (ad.getModel().getName().equals(filterAdsDTO.getModel()) || filterAdsDTO.getModel() == null
 							|| filterAdsDTO.getModel().equals("Choose a car model"))
+					&& (ad.getCarSeats() == filterAdsDTO.getCarSeats() || filterAdsDTO.getCarSeats() == 0)
 					&& (ad.getTravelled() >= filterAdsDTO.getTravelledFrom() || filterAdsDTO.getTravelledFrom() == 0)
 					&& (ad.getTravelled() <= filterAdsDTO.getTravelledTo() || filterAdsDTO.getTravelledTo() == 0)
 					&& (ad.getPrice() >= filterAdsDTO.getPriceFrom() || filterAdsDTO.getPriceFrom() == 0)
@@ -208,7 +201,7 @@ public class AdvertisementService {
 		return filteredAvailableAds;
 	}
 
-	public void saveCommentAndGrade(CommentDTO commentDTO){
+	public void saveCommentAndGrade(CommentDTO commentDTO) {
 		Advertisement ad = advertisementRepository.findOneByid(commentDTO.getAd());
 		Grade grade = new Grade(commentDTO.getGrade(), ad);
 
@@ -216,15 +209,16 @@ public class AdvertisementService {
 
 		Optional obj = endUserRepository.findById(commentDTO.getUserId());
 
-		if(obj.isPresent()) {
+		if (obj.isPresent()) {
 			Date date = new Date();
 			System.out.println(date);
 
-			Comment comment = new Comment(commentDTO.getMessage(), date, ad, (EndUser) obj.get(), commentDTO.getGrade());
+			Comment comment = new Comment(commentDTO.getMessage(), date, ad, (EndUser) obj.get(),
+					commentDTO.getGrade());
 
 			commentRepository.save(comment);
 		}
-		//sacuvaj komentar
+		// sacuvaj komentar
 	}
 
 	public AdvertisementDTO findAdAndComments(Long id) {
@@ -232,15 +226,15 @@ public class AdvertisementService {
 
 		List<Comment> db = commentRepository.findByAd_Id(id);
 
-		//sredjivanje komentara
+		// sredjivanje komentara
 		List<CommentPreviewDTO> comments = new ArrayList<CommentPreviewDTO>();
-		for(int i = 0;i < db.size();i++) {
-			CommentPreviewDTO temp = new CommentPreviewDTO(db.get(i).getValue(), db.get(i).getEndUser().getUser().getLoginInfo().getEmail(),
-					db.get(i).getGrade(), db.get(i).getDate());
+		for (int i = 0; i < db.size(); i++) {
+			CommentPreviewDTO temp = new CommentPreviewDTO(db.get(i).getValue(),
+					db.get(i).getEndUser().getUser().getLoginInfo().getEmail(), db.get(i).getGrade(),
+					db.get(i).getDate());
 			temp.setId(db.get(i).getId());
 
-
-			if(db.get(i).getReply() != null) {
+			if (db.get(i).getReply() != null) {
 				ReplyDTO replyDTO = new ReplyDTO();
 				replyDTO.setComment(db.get(i).getReply().getComment());
 				replyDTO.setAgentMail(db.get(i).getReply().getAgent().getUser().getLoginInfo().getEmail());
@@ -260,14 +254,13 @@ public class AdvertisementService {
 		return adDTO;
 	}
 
-	
-	public List<Long> getRentedCars(Long userId){
+	public List<Long> getRentedCars(Long userId) {
 		Optional obj = endUserRepository.findById(userId);
 		List<Long> list = new ArrayList<>();
-		if(obj.isPresent()){
+		if (obj.isPresent()) {
 			EndUser endUser = (EndUser) obj.get();
 
-			for(int i = 0;i < endUser.getRentedCars().size(); i++){
+			for (int i = 0; i < endUser.getRentedCars().size(); i++) {
 				list.add(endUser.getRentedCars().get(i).getId());
 			}
 		}
@@ -275,27 +268,23 @@ public class AdvertisementService {
 		return list;
 	}
 
-
-	
 	public List<Advertisement> getAllByPostedBy(Long id) {
 		return advertisementRepository.findAllByPostedBy_Id(id);
 	}
 
 	/*
-	public void saveReply(ReplyDTO replyDTO){
-		Agent agent = agentRepository.findByLoginInfo_Email(replyDTO.getAgentMail());
-		Optional opt = commentRepository.findById(replyDTO.getId());
-
-		Reply reply = new Reply(replyDTO.getComment(), (Comment) opt.get(), agent);
-
-		((Comment) opt.get()).setReply(reply);
-
-		replyRepository.save(reply);
-
-		commentRepository.save((Comment) opt.get());
-	}
-	*/
-
+	 * public void saveReply(ReplyDTO replyDTO){ Agent agent =
+	 * agentRepository.findByLoginInfo_Email(replyDTO.getAgentMail()); Optional opt
+	 * = commentRepository.findById(replyDTO.getId());
+	 * 
+	 * Reply reply = new Reply(replyDTO.getComment(), (Comment) opt.get(), agent);
+	 * 
+	 * ((Comment) opt.get()).setReply(reply);
+	 * 
+	 * replyRepository.save(reply);
+	 * 
+	 * commentRepository.save((Comment) opt.get()); }
+	 */
 
 	public Boolean saveCarDetail(CarDetailsDTO carDetailsDTO) {
 		if (carDetailsDTO.getType().toLowerCase().equals("brand")) {
@@ -359,31 +348,31 @@ public class AdvertisementService {
 		CarDetailsDTO temp;
 
 		for (Brand brand : brands) {
-			temp = new CarDetailsDTO(brand.getName(), brand.getCode(), "BRAND");
+			temp = new CarDetailsDTO(brand.getCode(), brand.getName(), "BRAND");
 
 			details.add(temp);
 		}
 
 		for (Model model : models) {
-			temp = new CarDetailsDTO(model.getName(), model.getCode(), "CARMODEL");
+			temp = new CarDetailsDTO(model.getCode(), model.getName(), "CARMODEL");
 
 			details.add(temp);
 		}
 
 		for (CarClass carclass : classes) {
-			temp = new CarDetailsDTO(carclass.getName(), carclass.getCode(), "CARCLASS");
+			temp = new CarDetailsDTO(carclass.getCode(), carclass.getName(), "CARCLASS");
 
 			details.add(temp);
 		}
 
 		for (FuelType fuelType : fuels) {
-			temp = new CarDetailsDTO(fuelType.getName(), fuelType.getCode(), "FUELTYPE");
+			temp = new CarDetailsDTO(fuelType.getCode(), fuelType.getName(), "FUELTYPE");
 
 			details.add(temp);
 		}
 
 		for (TransmissionType transmission : transmisions) {
-			temp = new CarDetailsDTO(transmission.getName(), transmission.getCode(), "GEARSHIFT");
+			temp = new CarDetailsDTO(transmission.getCode(), transmission.getName(), "GEARSHIFT");
 
 			details.add(temp);
 		}
@@ -392,6 +381,17 @@ public class AdvertisementService {
 	}
 
 
+	public List<Advertisement> getAllByUser() {
+		List<Advertisement> all = advertisementRepository.findAll();
+		List<Advertisement> usersAds = new ArrayList<Advertisement>();
+		Long userId = userService.getLoggedUserId();
+		for (Advertisement advertisement : all) {
+			if (advertisement.getPostedBy().getId().equals(userId)) {
+				usersAds.add(advertisement);
+			}
+		}
+		return usersAds;
+	}
 
 
 }

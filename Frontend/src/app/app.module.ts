@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -54,6 +54,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { AgentsAdvertisementsComponent } from './modules/agent/agents-advertisements/agents-advertisements.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from "@angular/material/select";
+import { AuthInterceptor } from './services/httpInterceptor.service';
+import { ReserveComponent } from './modules/reserve/reserve.component';
 
 
 
@@ -88,6 +90,7 @@ import {MatSelectModule} from "@angular/material/select";
     ChangeDiscountDialogComponent,
     ImagesDialogComponent,
     AgentsAdvertisementsComponent,
+    ReserveComponent
 ],
   imports: [
     BrowserModule,
@@ -100,6 +103,7 @@ import {MatSelectModule} from "@angular/material/select";
     RouterModule.forRoot([
       {path: 'registrationConfirm.html', component: RegisterConfirmComponent},
       {path: 'izmenaLozinke', component: IzmenaLozinkeComponent},
+      {path: 'sifrarnik', component: SifrarnikComponent},
       {path: 'report/:id', component: CreateReportComponent},
       {path: '', component: RegistracijaComponent},
       {path: 'agent', component: AgentComponent},
@@ -116,7 +120,8 @@ import {MatSelectModule} from "@angular/material/select";
       {path: 'register', component: RegistracijaComponent},
       {path: 'conversation/:id', component: ConversationComponent},
       {path: 'statistics', component: StatisticsComponent},
-      {path: 'advertisement-details/:id', component: AdvertisementDetailsComponent}
+      {path: 'advertisement-details/:id', component: AdvertisementDetailsComponent},
+      {path: 'reserve', component: ReserveComponent}
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -142,6 +147,11 @@ import {MatSelectModule} from "@angular/material/select";
               ConversationService,
               HistoryService,
               EndUserService,
+            //  {
+             //   provide:HTTP_INTERCEPTORS,
+            //    useClass: AuthInterceptor,
+            //    multi:true
+            //  }
   ],
   bootstrap: [AppComponent],
   entryComponents: [ChangeDiscountDialogComponent, ImagesDialogComponent]

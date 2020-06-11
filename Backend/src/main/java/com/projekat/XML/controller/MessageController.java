@@ -27,12 +27,13 @@ MessageService messageService;
 
 
 //TRENUTNO DOBAVLJA SVE, TREBA messageService.GetInboxUsers()
-    @GetMapping(value = "/allUsers")
+    @GetMapping(value = "/allInboxUsers")
     public ResponseEntity<List<EntityUser>> getInboxUsers() {
-		List<EntityUser> users = messageService.getAllUsers();
+		List<EntityUser> users = messageService.getInboxUsers();
 		
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
 
     @GetMapping(value = "/allMessagableUsers")
     public ResponseEntity<List<EntityUser>> getAllMessagableUsers() {
