@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AdvertisementService} from '../../services/advertisement.service/advertisement.service';
+import { SessionService } from 'src/app/services/SessionService/session.service';
 
 @Component({
   selector: 'app-statistics',
@@ -15,9 +16,11 @@ export class StatisticsComponent implements OnInit {
   private maxTravelled: number;
   private bestGrade: number ;
   private maxComments: number;
+  private userId: number;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
-              private advertisementService: AdvertisementService) { }
+              private advertisementService: AdvertisementService,
+              private sessinService: SessionService) { }
 
   ngOnInit() {
     this.idMaxTravelled = 1;
@@ -26,7 +29,8 @@ export class StatisticsComponent implements OnInit {
     this.maxTravelled = 0;
     this.maxComments = 0;
     this.bestGrade = 0;
-    this.advertisementService.getAll().subscribe(
+    this.userId = this.sessinService.ulogovaniKorisnik.id;
+    this.advertisementService.getAllByPostedBy(this.userId).subscribe(
       data1 => {
         console.log(data1)
         // tslint:disable-next-line:prefer-for-of
@@ -61,14 +65,32 @@ export class StatisticsComponent implements OnInit {
   }
 
   openMostTravelled() {
-    this.router.navigate(['/advertisement-details', this.idMaxTravelled]);
+    this.advertisementService.getAllByPostedBy(this.userId).subscribe(
+      data => {
+        if(data.length != 0 ) { 
+          this.router.navigate(['/advertisement-details', this.idMaxTravelled]);
+        }
+      }
+    );
   }
 
   openMostComments() {
-    this.router.navigate(['/advertisement-details', this.idMaxComments]);
+    this.advertisementService.getAllByPostedBy(this.userId).subscribe(
+      data => {
+        if(data.length != 0 ) { 
+          this.router.navigate(['/advertisement-details', this.idMaxComments]);
+        }
+      }
+    );
   }
 
   openBestReview() {
-    this.router.navigate(['/advertisement-details', this.idBestGrade]);
+    this.advertisementService.getAllByPostedBy(this.userId).subscribe(
+      data => {
+        if(data.length != 0 ) { 
+          this.router.navigate(['/advertisement-details', this.idBestGrade]);
+        }
+      }
+    );
   }
 }
