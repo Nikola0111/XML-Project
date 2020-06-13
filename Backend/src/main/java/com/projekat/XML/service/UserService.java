@@ -15,6 +15,7 @@ import com.projekat.XML.model.EndUser;
 import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.model.LoginInfo;
 import com.projekat.XML.repository.AgentRepository;
+import com.projekat.XML.repository.EndUserRepository;
 import com.projekat.XML.repository.UserRepository;
 import com.projekat.XML.security.ApplicationUserRole;
 import com.projekat.XML.security.PasswordConfig;
@@ -121,9 +122,7 @@ public class UserService {
         return endUser.getNumberOfAds();
     }
   
-   public EntityUser findUserByEmailAndPassword(EntityUser user) {
-        return userRepository.findByLoginInfo_EmailAndLoginInfo_Password(user.getLoginInfo().getEmail(),
-                user.getLoginInfo().getPassword());
+  
 
     public List<EntityUser> getAll(){
 
@@ -230,18 +229,6 @@ public class UserService {
     }
 
 
-    public List<EntityUser> findAll() {
-        return userRepository.findAll();
-    }
-
-    public EntityUser findOneByid(Long id) {
-        return userRepository.findOneByid(id);
-    }
-
-    
-   
-
-    
 
     // public void changePassword(String jmbg, String password){
     //     EntityUser user = userRepository.findByJmbg(jmbg);

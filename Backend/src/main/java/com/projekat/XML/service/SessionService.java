@@ -5,7 +5,6 @@ import com.projekat.XML.repository.AgentRepository;
 import com.projekat.XML.repository.EndUserRepository;
 import com.projekat.XML.repository.LoginInfoRepository;
 import com.projekat.XML.repository.UserRepository;
-import com.projekat.XML.model.Administrator;
 import com.projekat.XML.model.Agent;
 import com.projekat.XML.model.EndUser;
 import com.projekat.XML.model.EntityUser;

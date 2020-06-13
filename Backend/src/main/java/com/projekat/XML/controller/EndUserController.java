@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.context.request.WebRequest;
@@ -74,7 +75,7 @@ public class EndUserController {
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasAuthority('user:read')")
     @GetMapping(value = "/getUnregistered", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EndUser>> getUnregistered(){
         List<EndUser> users = endUserService.getUnregistered();
@@ -82,6 +83,8 @@ public class EndUserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+
+    @PreAuthorize("hasAuthority('userRead')")
     @GetMapping(value = "/getAdminUnregistered", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EndUser>> getAdminUnregistered(){
         List<EndUser> users = endUserService.getAdminUnregistered();
@@ -89,6 +92,7 @@ public class EndUserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('user:write')")
     @PostMapping(value = "/accept", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> acceptRegistration(@RequestBody Long id){
         EndUser endUser = endUserService.changeAdminActivated(id);
@@ -105,6 +109,7 @@ public class EndUserController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('user:write')")
     @PostMapping(value = "/reject", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> rejectRegistration(@RequestBody Long id){
         verificationTokenService.delete(id);
@@ -112,6 +117,7 @@ public class EndUserController {
 
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
+
 
     @PostMapping(value = "/registrationConfirm")
     public ResponseEntity<Void> confirmRegistration(@RequestBody String token){
@@ -130,12 +136,14 @@ public class EndUserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('user:read')")
     @GetMapping(value = "/getRegisteredUsers", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EndUser>> getRegisteredUsers(){
         List<EndUser> data = endUserService.getRegisteredUsers();
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('user:write')")
     @PostMapping(value = "/deactivate/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> deactivateAccount(@PathVariable("id") Long id){
         endUserService.deactivate(id);

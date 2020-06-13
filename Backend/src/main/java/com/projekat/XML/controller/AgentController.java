@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.print.attribute.standard.Media;
@@ -44,6 +45,7 @@ public class AgentController {
         return new ResponseEntity<List<CarDTO>>(cars, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('comment:write')")	
     @PostMapping(value = "/saveReport", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity saveReport(@RequestBody CarReportDTO carReport){
         agentService.saveReport(carReport);

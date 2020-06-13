@@ -29,6 +29,8 @@ public class BookingRequestService {
     AdvertisementRepository advertisementRepository;
 
 
+    @Autowired
+    LoggerService loggerService;
 
 
     public void makeRequests(List<ItemInCartDTO> listaZahteva){
@@ -112,7 +114,8 @@ public class BookingRequestService {
                 bookingRequestRepository.save(new BookingRequest( ItemInCartDTO2.getAdvertisement().getPostedBy().getId(),getLogedUserId(),
                  lastGroupId, RequestStates.PENDING,ItemInCartDTO2.getAdvertisement() , ItemInCartDTO2.isTogether(),ItemInCartDTO2.getTimeFrom(),ItemInCartDTO2.getTimeTo()));
 
-
+                 loggerService.doLog("6", "id oglasa: "+ItemInCartDTO2.getAdvertisement().getId(), "INFO");
+                
 
                  
                 }
@@ -132,7 +135,9 @@ public class BookingRequestService {
                 bookingRequestRepository.save(new BookingRequest( ItemInCartDTO.getAdvertisement().getPostedBy().getId(),getLogedUserId(),
                 lastGroupId, RequestStates.PENDING,ItemInCartDTO.getAdvertisement(),
                  ItemInCartDTO.isTogether(),ItemInCartDTO.getTimeFrom(),ItemInCartDTO.getTimeTo()));
-
+                 
+                 loggerService.doLog("6", "id oglasa: "+ItemInCartDTO.getAdvertisement().getId(), "INFO");
+                
 
                 }
 
@@ -160,6 +165,8 @@ public class BookingRequestService {
             
             request.setStateOfRequest(RequestStates.CANCELED);
             bookingRequestRepository.save(request);
+            
+            loggerService.doLog("8", "id bookinga: "+request.getId(), "INFO");
         }
 
     }
@@ -283,6 +290,8 @@ public class BookingRequestService {
 
          bookingRequestRepository.save(toBook);
 
+         loggerService.doLog("7", "id oglasa: "+toBook.getAdvertisement().getId(), "INFO");
+
      }
      
     public List<BookingRequest> getAllSpecificForBuyer(RequestStates state){
@@ -343,6 +352,7 @@ public class BookingRequestService {
 
             bookingRequestRepository.save(request);
 
+            loggerService.doLog("7", "id oglasa: "+request.getAdvertisement().getId(), "INFO");
         }
     }
 
@@ -362,6 +372,7 @@ public class BookingRequestService {
                 booked.setStateOfRequest(RequestStates.CANCELED);
                 bookingRequestRepository.save(booked);
 
+                loggerService.doLog("8", "id bookinga: "+ booked.getId(), "INFO");
             }
         }
 

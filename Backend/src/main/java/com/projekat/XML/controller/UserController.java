@@ -92,6 +92,7 @@ public class UserController {
     }
 
 
+
     @GetMapping(value = "/getUserByUsername/{username}")
     public ResponseEntity<EntityUser> getUserByUsername(@PathVariable("username") String username) {
 
@@ -100,6 +101,7 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    
     @PostMapping(value = "/passwordChange", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> changePassword(@RequestBody UserDTO userDTO) {
     //s    userService.changePassword(userDTO.getJmbg(), userDTO.getPassword());
@@ -109,7 +111,7 @@ public class UserController {
     //     userService.changePassword(userDTO.getJmbg(), userDTO.getPassword());
 
 
-    //     return new ResponseEntity<Long>((long) 1, HttpStatus.OK);
+         return new ResponseEntity<Long>((long) 1, HttpStatus.OK);
      }
 
 }

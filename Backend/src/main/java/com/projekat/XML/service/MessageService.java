@@ -31,6 +31,9 @@ public class MessageService {
     @Autowired
     BookingRequestService bookingRequestService;
 
+    @Autowired
+    LoggerService loggerService;
+
     public List<Message> getConversation(Long id) {
         List<Message> allMessages = messageRepository.findAll();
         List<Message> filteredMessages = new ArrayList<Message>();
@@ -85,6 +88,7 @@ public class MessageService {
         message.setTimeSent(LocalDateTime.now());
 
         messageRepository.save(message);
+        loggerService.doLog("12", "Tekst: " + message.getText() + " Primalac: " + message.getReceiver().getLoginInfo().getEmail(), "INFO");
 
         return 1;
     }

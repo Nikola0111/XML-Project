@@ -44,11 +44,23 @@ export class LoginService {
 
   }
 
+<<<<<<< HEAD
   public loginToken() {
     console.log("Pogodio");
     return this.http.get<HttpResponse<any>>('/server/loginToken', { observe: 'response' })
       .do(response => localStorage.setItem("xsrfToken", (this.getCookie("XSRF-TOKEN"))))
       .shareReplay();
+=======
+  public getUserByUsername(username: string) {
+    return this.http.get<User>('/server/authentication/getUserByUsername/${username}', httpOptions);
+  }
+
+  public loginToken(){
+    console.log("Pogodio");
+    return this.http.get<HttpResponse<any>>('/server/authentication/loginToken', { observe: 'response' })
+    .do(response=> console.log('pokupio xsrf'))
+    .shareReplay();
+>>>>>>> 6ab06f0684a51d322937f406ce1458c8ed56bf62
   }
 
 

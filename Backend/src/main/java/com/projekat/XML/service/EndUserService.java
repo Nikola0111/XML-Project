@@ -28,6 +28,9 @@ public class EndUserService {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
+    @Autowired
+    LoggerService loggerService;
+
     public void save(EndUser endUser) {
 
         endUserRepository.save(endUser);
@@ -69,6 +72,9 @@ public class EndUserService {
             endUser.setBlocked(false);
             endUserRepository.save(endUser);
 
+            loggerService.doLog("10",
+                    "Username: " + userRepository.findOneByid(endUser.getUser().getId()).getLoginInfo().getUsername(),
+                    "INFO");
             return endUser;
         }
 
@@ -109,7 +115,7 @@ public class EndUserService {
     public void deactivate(Long id){
         endUserRepository.deleteById(id);
    }
-  /*  
+    
 
     @Transactional
     public Boolean block(Long id){
@@ -122,7 +128,9 @@ public class EndUserService {
         endUser.setBlocked(true);
 
         endUserRepository.save(endUser);
-
+        loggerService.doLog("11",
+                "Username: " + userRepository.findOneByid(endUser.getUser().getId()).getLoginInfo().getUsername(),
+                "INFO");
         return true;
     }
 
@@ -138,5 +146,5 @@ public class EndUserService {
         endUserRepository.save(endUser);
 
         return true;
-    } */
+    } 
 }

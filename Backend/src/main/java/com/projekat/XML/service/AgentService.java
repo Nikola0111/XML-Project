@@ -1,8 +1,10 @@
 package com.projekat.XML.service;
 
 
+import com.projekat.XML.dtos.AgentDTO;
 import com.projekat.XML.dtos.CarDTO;
 import com.projekat.XML.dtos.CarReportDTO;
+import com.projekat.XML.enums.UserType;
 import com.projekat.XML.model.*;
 import com.projekat.XML.repository.AdvertisementRepository;
 import com.projekat.XML.repository.AgentRepository;
@@ -33,6 +35,7 @@ public class AgentService {
     @Autowired
     private CarReportRepository carReportRepository;
 
+    /*
  public int save(AgentDTO agentDTO) {
         EntityUser user;
 
@@ -54,7 +57,7 @@ public class AgentService {
             return 3;
         }
 
-        LoginInfo loginInfo = new LoginInfo(agentDTO.getEmail(), agentDTO.getUsername(), agentDTO.getPassword(), false, false, false, true);
+        LoginInfo loginInfo = new LoginInfo(agentDTO.getEmail(), agentDTO.getUsername(), agentDTO.getPassword(), ,false, false, false, true);
 
         Agent agent = new Agent(agentDTO.getName(), agentDTO.getSurname(), loginInfo, agentDTO.getJmbg(),
                 agentDTO.getPhone(), UserType.AGENT, 0, true, agentDTO.getAdress(), agentDTO.getBsregnum());
@@ -63,6 +66,8 @@ public class AgentService {
 
         return 0;
     }
+
+    */
 
     public boolean checkPasswordChanged(){
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder
