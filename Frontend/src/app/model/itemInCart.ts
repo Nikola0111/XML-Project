@@ -3,7 +3,7 @@ import {Advertisement} from '../model/advertisement';
 export class ItemInCart {
     
     id: number;
-    advertisement: Advertisement;
+    advertisement:Advertisement
     timeFrom: Date;
     timeTo: Date;
     owner: boolean;

@@ -1,6 +1,7 @@
 package com.projekat.XML.service;
 
 import com.projekat.XML.dtos.ItemInCartDTO;
+import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.model.ItemInCart;
 import com.projekat.XML.repository.ItemInCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,13 @@ public class ItemInCartService {
     @Autowired
     ItemInCartRepository itemInCartRepository;
 
+    @Autowired
+    UserService userService;
+
     public void save(ItemInCartDTO itemInCartDTO) {
 
-        ItemInCart item = new ItemInCart(itemInCartDTO.getAdvertisement(), itemInCartDTO.getTimeFrom(),
+        EntityUser user = userService.getLoggedUser();
+        ItemInCart item = new ItemInCart(user,itemInCartDTO.getAdvertisement(), itemInCartDTO.getTimeFrom(),
                 itemInCartDTO.getTimeTo());
         itemInCartRepository.save(item);
 

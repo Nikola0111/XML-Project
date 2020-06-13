@@ -20,7 +20,7 @@ export class RegisterService {
   public register(endUser: User) {
     endUser.userType = UserType.ENDUSER;
     const body = JSON.stringify(endUser);
-    return this.http.post<string>('/server/enduser/register', body, httpOptions);
+    return this.http.post<string>('/server/authentication/register', body, httpOptions);
   }
 
   public registerAgent(agentDTO: AgentDTO){
@@ -29,6 +29,6 @@ export class RegisterService {
   }
 
   public verify(token: string) {
-    return this.http.post<number>('/server/enduser/registrationConfirm', token, httpOptions);
+    return this.http.post<number>('/server/authentication/registrationConfirm', token, httpOptions);
   }
 }

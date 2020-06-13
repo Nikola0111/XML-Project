@@ -2,6 +2,9 @@ package com.projekat.XML.model;
 
 import com.projekat.XML.enums.UserType;
 
+import com.projekat.XML.model.*;
+
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -15,6 +18,7 @@ public class EntityUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     @Column(name = "name", nullable = false)
     @Size(min=2, max=40)
@@ -31,6 +35,7 @@ public class EntityUser {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "login_info", referencedColumnName = "id")
     private LoginInfo loginInfo;
+
 
     @Column(name = "jmbg", unique = true, nullable = false)
     @Size(min=13, max=13)
@@ -120,16 +125,11 @@ public class EntityUser {
         return this.loginInfo.getPassword();
     }
 
-   
 
     public String getUsername(){
         return this.loginInfo.getUsername();
     }
 
-  
-
-    
-   
 
     @Override
     public String toString() {

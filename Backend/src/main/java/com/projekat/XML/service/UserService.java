@@ -6,7 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Base64.Encoder;
 
+
 import javax.servlet.http.HttpSession;
+
 import com.projekat.XML.enums.UserType;
 import com.projekat.XML.model.Agent;
 import com.projekat.XML.model.EndUser;
@@ -28,7 +30,7 @@ import java.util.Set;
 
 @Service
 public class UserService {
-    
+
     @Autowired
     private UserRepository userRepository;
 
@@ -48,6 +50,9 @@ public class UserService {
     private LoginInfoService loginInfoService;
 
     @Autowired
+    private EndUserRepository endUserRepository;
+
+  @Autowired
     private LoggerService loggerService;
 
     @Autowired
@@ -58,27 +63,96 @@ public class UserService {
     public EntityUser findUserByEmailAndPassword(EntityUser user) {
         return userRepository.findByLoginInfo_EmailAndLoginInfo_Password(user.getLoginInfo().getEmail(), user.getLoginInfo().getPassword());
     }
-    
 
-    public void saveUser(EntityUser userDB){
 
-        //Sacuvati korisnika u sesiji
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder
-                .currentRequestAttributes();
+    public void login(LoginInfo log) {
+
+
+        // Sacuvati korisnika u sesiji
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes(); 
+		HttpSession session = attr.getRequest().getSession(true); 
+
+        for (EntityUser user : userRepository.findAll()) {
+
+            if (user.getLoginInfo().getId().equals(log.getId())) {
+                session.setAttribute("user", user.getId());
+            }
+
+        }
+    }
+
+    public Long getLoggedUserId() {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attr.getRequest().getSession(true);
-
-        session.setAttribute("user", userDB.getId());
-        
+        Long userId = (Long) session.getAttribute("user");
+        return userId;
 
     }
 
-    public void saveInDatabase(EntityUser entity){
+    public EntityUser getLoggedUser() {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+        Long userId = (Long) session.getAttribute("user");
+
+        EntityUser user = userRepository.findOneByid(userId);
+        
+        return user;
+    }
+
+    public EndUser getLoggedEndUser() {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+        List<EndUser> all = endUserRepository.findAll();
+        Long userId = (Long) session.getAttribute("user");
+
+        for (EndUser endUser : all) {
+            if (endUser.getUser().getId().equals(userId)) {
+                return endUser;
+            }
+        }
+        return null;
+    }
+
+    public int getEndusersNumberOfAds(Long endUserId) {
+        EndUser endUser = endUserRepository.findOneById(endUserId);
+        if (endUser == null) {
+            return 0;
+        }
+        return endUser.getNumberOfAds();
+    }
+  
+   public EntityUser findUserByEmailAndPassword(EntityUser user) {
+        return userRepository.findByLoginInfo_EmailAndLoginInfo_Password(user.getLoginInfo().getEmail(),
+                user.getLoginInfo().getPassword());
+
+    public List<EntityUser> getAll(){
+
+
+
+        return userRepository.findAll();
+    }
+
+
+    public Long increaseEndUsersNumberOfAds() {
+        EndUser endUser = getLoggedEndUser();
+        endUser.setNumberOfAds(endUser.getNumberOfAds() + 1);
+        endUserRepository.save(endUser);
+        return endUser.getId();
+    }
+
+    public void saveInDatabase(EntityUser entity) {
+
 
         userRepository.save(entity);
 
     }
 
-    
+
+    public EntityUser findByUsername(String username) {
+        return userRepository.findByLoginInfo_Username(username);
+    }
+
+
     public void saveNewUser(EntityUser entityUser){
 
         String salt=makeSalt();      
@@ -98,27 +172,34 @@ public class UserService {
         true,
         true);
 
+
         loginInfoService.save(loginInfo);
 
         entityUser.setLoginInfo(loginInfoService.findOneById(loginInfo.getId()));
 
-            //cuvanje u bazi
+
+        // cuvanje u bazi
         saveInDatabase(entityUser);
 
-        EndUser endUser=new EndUser();
-        
+        EndUser endUser = new EndUser();
+
+
         endUser.setNumber_of_requests(0);
         endUser.setAccount_activated(false);
         endUser.setAdminApproved(false);
         endUser.setUser(findOneByid(entityUser.getId()));
+        endUser.setNumberOfAds(0);
 
-        
         endUserService.save(endUser);
 
-
-      //  String verificationToken = UUID.randomUUID().toString();
-      //  verificationTokenService.save(endUser, verificationToken);
+        // String verificationToken = UUID.randomUUID().toString();
+        // verificationTokenService.save(endUser, verificationToken);
     }
+
+
+   
+
+ 
 
     private String hashIt(String password, String salt){
         
@@ -141,11 +222,26 @@ public class UserService {
 
     public void logOut(){
 
+
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-		HttpSession session = attr.getRequest().getSession(true);
+        HttpSession session = attr.getRequest().getSession(true);
         session.invalidate();
         System.out.println("Izlogovao se");
     }
+
+
+    public List<EntityUser> findAll() {
+        return userRepository.findAll();
+    }
+
+    public EntityUser findOneByid(Long id) {
+        return userRepository.findOneByid(id);
+    }
+
+    
+   
+
+    
 
     // public void changePassword(String jmbg, String password){
     //     EntityUser user = userRepository.findByJmbg(jmbg);
@@ -172,4 +268,5 @@ public class UserService {
     {
         return userRepository.findOneByid(id);
     }
+
 }

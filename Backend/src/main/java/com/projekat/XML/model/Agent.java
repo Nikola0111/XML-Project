@@ -1,7 +1,7 @@
 package com.projekat.XML.model;
 
-import com.projekat.XML.enums.UserType;
-
+import com.projekat.XML.enums.*;
+import com.projekat.XML.model.*;
 import javax.persistence.*;
 
 @Entity

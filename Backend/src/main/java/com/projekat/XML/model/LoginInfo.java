@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,12 +13,23 @@ import java.util.Collection;
 import java.util.Set;
 
 
+
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.Set;
+
+//implements UserDetails 
 @Entity
+
 public class LoginInfo implements UserDetails {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     @NotBlank(message="Username must not be empty")
     @Size(min = 2, max = 12)
@@ -41,6 +53,7 @@ public class LoginInfo implements UserDetails {
 
     private  String salt;
 
+
  
    
 public LoginInfo(){
@@ -50,8 +63,10 @@ public LoginInfo(){
     public LoginInfo(String username,
                            String password,
                            String email,
+
                            String salt,
                            Set<? extends GrantedAuthority> grantedAuthorities,
+
                            boolean isAccountNonExpired,
                            boolean isAccountNonLocked,
                            boolean isCredentialsNonExpired,
@@ -67,6 +82,13 @@ public LoginInfo(){
         this.isEnabled = isEnabled;
     }
 
+
+    public LoginInfo(String username, String email, String password){
+
+
+        
+    }
+  
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return grantedAuthorities;
@@ -76,6 +98,7 @@ public LoginInfo(){
     public String getPassword() {
         return password;
     }
+
 
     @Override
     public String getUsername() {
@@ -90,10 +113,19 @@ public LoginInfo(){
         return salt;
     }
 
+
+    
+    public Long getId(){
+        return id;
+
     @Override
     public boolean isAccountNonExpired() {
         return isAccountNonExpired;
+
     }
+    /*
+
+
 
     @Override
     public boolean isAccountNonLocked() {
@@ -110,8 +142,9 @@ public LoginInfo(){
         return isEnabled;
     }
 
-    public Long getId(){
-        return id;
-    }
 
-}
+    */
+
+
+}        
+

@@ -6,6 +6,7 @@ import com.projekat.XML.enums.TransmissionType;
 import com.projekat.XML.model.Advertisement;
 import com.projekat.XML.model.EntityUser;
 
+
 public class AdvertisementInCartDTO {
 
     private Long id;

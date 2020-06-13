@@ -9,6 +9,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/shareReplay';
 
 import {UserDTO} from '../../dtos/user-dto';
+import { LoginInfo } from 'src/app/model/login-info';
 
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
@@ -20,6 +21,7 @@ export class LoginService {
   private requestUrl: string;
 
   constructor(private http: HttpClient) { }
+
 
   public login(username: string,password:string){
     const body = {"username":username,
@@ -41,11 +43,10 @@ export class LoginService {
   public setSession(authResult) {
     console.log("USAO OVDE ");
     console.log(authResult.headers.get('authorization'));
-   
-
-
+  
     localStorage.setItem('jwt', authResult.headers.get('authorization'));
 }    
+
 
 public getCookie(cname) {
 console.log("POGODIO TRAZENJE COOKIeA")
@@ -77,7 +78,9 @@ console.log("POGODIO TRAZENJE COOKIeA")
     console.log('Izlogovan');
     localStorage.removeItem("jwt");
     localStorage.removeItem("xsrfToken")
-    this.requestUrl = '/server/logout';
+
+    this.requestUrl = '/server/authentication/logout';
+
     return this.http.get<string>(this.requestUrl, httpOptions);
     }
 }

@@ -15,8 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.projekat.XML.dtos.MessageDTO;
 import com.projekat.XML.enums.RequestStates;
-import com.projekat.XML.model.Message;
-import com.projekat.XML.model.EntityUser;
+import com.projekat.XML.model.*;
 import com.projekat.XML.model.requests.BookingRequest;
 import com.projekat.XML.repository.MessageRepository;
 
@@ -126,13 +125,13 @@ public class MessageService {
             }
         }
 
-        //return users;         OVAKO KASNIJE
-        return userService.findAll();
+        return users;  
+
     }
 
     public List<EntityUser> getAllMessagableUsers()
     {
-        List<EntityUser> allUsers = userService.findAll();
+
         List<EntityUser> messagableUsers = new ArrayList<EntityUser>();
         List<BookingRequest> bookingRequests = bookingRequestService.findAll();
         Long loggedID = getLogedUserId();

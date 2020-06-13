@@ -1,7 +1,7 @@
 package com.projekat.XML.model;
 
 import java.time.LocalDateTime;
-
+import com.projekat.XML.model.EntityUser;
 import javax.persistence.*;
 
 import com.projekat.XML.dtos.MessageDTO;
