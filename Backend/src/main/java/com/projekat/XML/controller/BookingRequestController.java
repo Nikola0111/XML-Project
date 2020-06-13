@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.projekat.XML.dtos.AdvertisementInCartDTO;
 import com.projekat.XML.dtos.ItemInCartDTO;
+import com.projekat.XML.dtos.ReservationDTO;
 import com.projekat.XML.enums.RequestStates;
 import com.projekat.XML.model.ItemInCart;
 import com.projekat.XML.model.requests.BookingRequest;
@@ -117,5 +118,13 @@ ShoppingCartService shoppingCartService;
         return new ResponseEntity<>( HttpStatus.OK);
     }
 
+
+    @PostMapping(value = "/reserve")
+    public ResponseEntity<Long> reserve(@RequestBody ReservationDTO reservation) {
+
+        bookingRequestService.saveReserve(reservation);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
     
 }

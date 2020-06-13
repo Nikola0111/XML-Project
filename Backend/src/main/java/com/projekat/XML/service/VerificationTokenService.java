@@ -1,7 +1,7 @@
 package com.projekat.XML.service;
 
 import com.projekat.XML.model.EndUser;
-import com.projekat.XML.model.User;
+import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.model.VerificationToken;
 import com.projekat.XML.repository.EndUserRepository;
 import com.projekat.XML.repository.VerificationTokenRepository;

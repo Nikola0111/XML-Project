@@ -14,6 +14,8 @@ public interface BookingRequestRepository extends JpaRepository <BookingRequest,
 
 public BookingRequest findOneByid(Long id);
 
+public List<BookingRequest> findAll();
+
 public List<BookingRequest> findByUserForId(Long userForId);
 
 public List<BookingRequest> findByUserToId(Long userForId);

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -20,8 +21,9 @@ public class ItemInCart {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-   
-    private Long userId;
+    @ManyToOne
+    @JoinColumn
+    private EntityUser user;
     
     @ManyToOne
     @JoinColumn
@@ -37,8 +39,8 @@ public class ItemInCart {
         
     }
 
-    public ItemInCart( Long userId, Advertisement adv, LocalDateTime from, LocalDateTime to) {
-        this.userId =userId;
+    public ItemInCart( EntityUser user, Advertisement adv, LocalDateTime from, LocalDateTime to) {
+        this.user =user;
         this.advertisement= adv;
         this.timeFrom=from;
         this.timeTo=to;
@@ -58,12 +60,12 @@ public class ItemInCart {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return this.userId;
+    public EntityUser getUserId() {
+        return this.user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserId(EntityUser userId) {
+        this.user = user;
     }
 
     public Advertisement getAdvertisement() {

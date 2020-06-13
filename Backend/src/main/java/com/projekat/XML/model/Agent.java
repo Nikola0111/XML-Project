@@ -1,11 +1,15 @@
 package com.projekat.XML.model;
 
-import com.projekat.XML.enums.UserType;
-
+import com.projekat.XML.enums.*;
+import com.projekat.XML.model.*;
 import javax.persistence.*;
 
 @Entity
-public class Agent extends User {
+public class Agent {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private int number_ads;
@@ -19,8 +23,13 @@ public class Agent extends User {
     @Column(name ="business_registration_number")
     private String bsregnum;
 
+    @ManyToOne
+    @JoinColumn
+    private EntityUser user;
+
+ 
+
     public Agent(String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber, UserType ut, int number_ads, boolean first_login, String adress, String bsregnum) {
-        super(name, surname, loginInfo, jmbg, phoneNumber, ut);
         this.number_ads = number_ads;
         this.first_login = first_login;
         this.adress = adress;
@@ -61,5 +70,13 @@ public class Agent extends User {
 
     public void setBsregnum(String bsregnum) {
         this.bsregnum = bsregnum;
+    }
+
+    public EntityUser getUser() {
+        return this.user;
+    }
+
+    public void setUser(EntityUser user) {
+        this.user = user;
     }
 }

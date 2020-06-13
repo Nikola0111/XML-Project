@@ -10,8 +10,6 @@ public class ItemInCartDTO  {
 
     private Long id;
 
-   
-    
     private Advertisement advertisement;
 
     private LocalDateTime timeFrom;

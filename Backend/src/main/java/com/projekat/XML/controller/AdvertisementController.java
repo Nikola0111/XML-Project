@@ -41,7 +41,7 @@ public class AdvertisementController {
 }
 
 	@PostMapping(value="/save")
-	public ResponseEntity<Long> save(@RequestBody AdvertisementDTO advertisementDTO) {
+	public ResponseEntity<Long> save(@RequestBody AdvertisementCreationDTO advertisementDTO) {
 
 		System.out.println(advertisementDTO.getName()+advertisementDTO.getModel()+advertisementDTO.getBrand());
 		System.out.println("AMIN");
@@ -133,8 +133,39 @@ public class AdvertisementController {
 
 	@PostMapping(value = "/saveReply",  produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Long> saveReply(@RequestBody ReplyDTO replyDTO){
-		advertisementService.saveReply(replyDTO);
+	//	advertisementService.saveReply(replyDTO);
 
 		return new ResponseEntity<>((long) 1, HttpStatus.OK);
 	}
+
+	@GetMapping(value = "/getAllDetails", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<CarDetailsDTO>> getAllDetails() {
+		List<CarDetailsDTO> cardetails = advertisementService.getCarDetails();
+
+		return new ResponseEntity<>(cardetails, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/saveCarDetail", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> saveCarDetail(@RequestBody CarDetailsDTO carDetailsDTO) {
+		Boolean ret = advertisementService.saveCarDetail(carDetailsDTO);
+
+		return new ResponseEntity<>(ret, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/deleteCarDetail", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> deleteCarDetail(@RequestBody CarDetailsDTO carDetailsDTO) {
+		Boolean ret = advertisementService.deleteCarDetail(carDetailsDTO);
+
+		return new ResponseEntity<>(ret, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getAllByUser", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Advertisement>> getAllByUser() {
+
+		List<Advertisement> ads = advertisementService.getAllByUser();
+
+		return new ResponseEntity<>(ads, HttpStatus.OK);
+	}
+
+
 }
