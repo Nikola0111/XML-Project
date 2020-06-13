@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +37,8 @@ ItemInCartService itemInCartService;
 @Autowired
 ShoppingCartService shoppingCartService;
 
+
+    @PreAuthorize("hasAuthority('booking:write')")	
     @PostMapping(value = "/save", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ItemInCart>> Login(@RequestBody List<ItemInCartDTO> lista){
 
@@ -51,6 +54,7 @@ ShoppingCartService shoppingCartService;
         return new ResponseEntity<>(shoppingCartService.fotCart(),HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('booking:read')")	
     @PostMapping(value = "/getAllForAgent")
     public ResponseEntity<List<BookingRequest>> getAllSpecificForAgent(@RequestBody RequestStates state){
 
@@ -64,7 +68,7 @@ ShoppingCartService shoppingCartService;
     }
 
   
-    
+    @PreAuthorize("hasAuthority('booking:read')")	
     @PostMapping(value = "/getGroupsForAgent")
     public ResponseEntity<List<Long>> getAllSpecificGroupsForAgent(@RequestBody RequestStates state){
                 
@@ -76,6 +80,7 @@ ShoppingCartService shoppingCartService;
     }
 
 
+    @PreAuthorize("hasAuthority('booking:accept')")	
     @PostMapping(value = "/acceptRequest")
     public ResponseEntity<Long> acceptRequest(@RequestBody Long grupa){
 
@@ -88,6 +93,7 @@ ShoppingCartService shoppingCartService;
     
    
 
+    @PreAuthorize("hasAuthority('booking:read')")	
     @PostMapping(value = "/getAllSpecificForBuyer")
     public ResponseEntity<List<BookingRequest>> getAllSpecificForBuyer(@RequestBody RequestStates state){
 
@@ -98,6 +104,7 @@ ShoppingCartService shoppingCartService;
         return new ResponseEntity<>(requests, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('booking:read')")	
     @PostMapping(value = "/grups")
     public ResponseEntity<List<Long>> getAllSpecificGroupsForBuyer(@RequestBody RequestStates state){
 
@@ -108,6 +115,7 @@ ShoppingCartService shoppingCartService;
         return new ResponseEntity<>(groups, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('booking:decline')")
     @PostMapping(value = "/cancelRequest")
     public ResponseEntity<Long> cancelRequest(@RequestBody Long group ){
 
@@ -119,6 +127,7 @@ ShoppingCartService shoppingCartService;
     }
 
 
+    @PreAuthorize("hasAuthority('booking:write')")
     @PostMapping(value = "/reserve")
     public ResponseEntity<Long> reserve(@RequestBody ReservationDTO reservation) {
 

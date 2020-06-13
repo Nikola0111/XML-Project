@@ -105,22 +105,7 @@ public class EndUser {
         this.blocked = blocked;
     }
 
-    public EntityUser getUser() {
-        return this.user;
-    }
-
-    public void setUser(EntityUser user) {
-        this.user = user;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    
     public int getNumberOfAds() {
         return this.numberOfAds;
     }

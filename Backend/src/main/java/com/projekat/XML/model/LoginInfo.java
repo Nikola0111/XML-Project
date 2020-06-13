@@ -115,17 +115,16 @@ public LoginInfo(){
 
 
     
-    public Long getId(){
+    public Long getId() {
         return id;
+    }
 
     @Override
     public boolean isAccountNonExpired() {
         return isAccountNonExpired;
 
     }
-    /*
-
-
+    
 
     @Override
     public boolean isAccountNonLocked() {
@@ -141,9 +140,6 @@ public LoginInfo(){
     public boolean isEnabled() {
         return isEnabled;
     }
-
-
-    */
 
 
 }        

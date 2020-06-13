@@ -74,6 +74,8 @@ public class AdvertisementService {
 	@Autowired
 	UserService userService;
 
+
+	
 	public Advertisement save(AdvertisementCreationDTO advertisementCreationDTO) {
 
 		Model model = modelRepository.findByName(advertisementCreationDTO.getModel());
@@ -90,7 +92,10 @@ public class AdvertisementService {
 				userService.getLoggedUser(), advertisementCreationDTO.getDiscount(),
 				advertisementCreationDTO.getPictures(), 0.0);
 
+				loggerService.doLog("1","ime:"+ad.getName(), "INFO");
+
 		return advertisementRepository.save(ad);
+
 	}
 
 	public void saveImage(MultipartFile image) {
@@ -134,6 +139,8 @@ public class AdvertisementService {
 	}
 
 	public Advertisement update(Advertisement advertisement) {
+		
+		loggerService.doLog("14", "ime:"+advertisement.getName(),"INFO");
 		return advertisementRepository.save(advertisement);
 	}
 
@@ -230,6 +237,7 @@ public class AdvertisementService {
 					commentDTO.getGrade());
 
 			commentRepository.save(comment);
+			loggerService.doLog("13", "Tekst:" + comment.getValue() , "INFO");
 		}
 		// sacuvaj komentar
 	}
@@ -360,6 +368,7 @@ public class AdvertisementService {
 		Agent agent = agentRepository.findByLoginInfo_Email(replyDTO.getAgentMail());
 		Optional opt = commentRepository.findById(replyDTO.getId());
 
+*/
 
 	public List<CarDetailsDTO> getCarDetails() {
 		List<Brand> brands = brandRepository.findAll();
@@ -419,7 +428,6 @@ public class AdvertisementService {
 
 
 
-		commentRepository.save((Comment) opt.get());
-	} */
+	
 
 }

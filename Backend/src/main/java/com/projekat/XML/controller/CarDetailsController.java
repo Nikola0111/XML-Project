@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.print.attribute.standard.Media;
@@ -19,6 +20,7 @@ public class CarDetailsController {
     @Autowired
     private CarDetailsService carDetailsService;
 
+    @PreAuthorize("hasAuthority('cardetails:read')")
     @GetMapping(value = "getAllDetails", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CarDetails>> getAllDetails(){
         List<CarDetails> carDetails = carDetailsService.getAll();
@@ -26,6 +28,8 @@ public class CarDetailsController {
         return new ResponseEntity<>(carDetails, HttpStatus.OK);
     }
 
+
+    @PreAuthorize("hasAuthority('cardetails:write')")
     @PostMapping(value = "save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> save(@RequestBody CarDetailsDTO carDetailsDTO){
         System.out.println(carDetailsDTO);
@@ -38,6 +42,7 @@ public class CarDetailsController {
         return new ResponseEntity<>(i, HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasAuthority('carDetails:write')")
     @PostMapping(value = "delete/{code}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> delete(@PathVariable("code") String code){
         System.out.println(code);

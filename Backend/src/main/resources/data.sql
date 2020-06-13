@@ -55,3 +55,27 @@ INSERT INTO TRANSMISSION_TYPE(ID, NAME, CODE) VALUES (2, 'Manual', 'asd2');
 INSERT INTO TRANSMISSION_TYPE(ID, NAME, CODE) VALUES (3, 'Sequential', 'asd3');
 INSERT INTO TRANSMISSION_TYPE(ID, NAME, CODE) VALUES (4, 'Semi-automatic', 'asd4');
 
+
+
+INSERT INTO LOGGER_CODE_BOOK values(1,'Kreiranje oglasa');
+INSERT INTO LOGGER_CODE_BOOK values(2,'Dodavanje oglasa u korpu');
+INSERT INTO LOGGER_CODE_BOOK values(3,'Uklanjanje oglasa iz korpe');
+INSERT INTO LOGGER_CODE_BOOK values(4,'Registrovanje korisnika');
+INSERT INTO LOGGER_CODE_BOOK values(5,'Logovanje korisnika');
+INSERT INTO LOGGER_CODE_BOOK values(6,'Kreiranje booking requesta');
+INSERT INTO LOGGER_CODE_BOOK values(7,'Prihvatanje booking requesta');
+INSERT INTO LOGGER_CODE_BOOK values(8,'Odbijanje booking requesta');
+INSERT INTO LOGGER_CODE_BOOK values(9,'Rucna rezervacija');
+INSERT INTO LOGGER_CODE_BOOK values(10,'Prihvatanje zahteva za registraciju');
+INSERT INTO LOGGER_CODE_BOOK values(11,'Blokiranje korisnika');
+INSERT INTO LOGGER_CODE_BOOK values(12,'Poslata poruka');
+INSERT INTO LOGGER_CODE_BOOK values(13,'Postavljen komentar');
+INSERT INTO LOGGER_CODE_BOOK values(14,'Azuriran oglas');
+INSERT INTO LOGGER_CODE_BOOK values(15,'Promenjena sifra');
+
+
+
+
+
+
+

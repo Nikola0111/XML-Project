@@ -32,10 +32,14 @@ export class LoginService {
 
   }
 
+  public getUserByUsername(username: string) {
+    return this.http.get<User>('/server/authentication/getUserByUsername/${username}', httpOptions);
+  }
+
   public loginToken(){
     console.log("Pogodio");
-    return this.http.get<HttpResponse<any>>('/server/loginToken', { observe: 'response' })
-    .do(response=> localStorage.setItem("xsrfToken",(this.getCookie("XSRF-TOKEN"))))
+    return this.http.get<HttpResponse<any>>('/server/authentication/loginToken', { observe: 'response' })
+    .do(response=> console.log('pokupio xsrf'))
     .shareReplay();
   }
 

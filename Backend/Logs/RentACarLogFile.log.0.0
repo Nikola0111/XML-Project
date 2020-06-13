@@ -1,0 +1,4 @@
+Jun 13, 2020 2:43:11 PM com.projekat.XML.service.LoggerService doLog
+INFO:  | nemza | 1 | ime:sss;
+Jun 13, 2020 2:48:46 PM com.projekat.XML.service.LoggerService doLog
+INFO:  | nemza | 1 | ime:asd;

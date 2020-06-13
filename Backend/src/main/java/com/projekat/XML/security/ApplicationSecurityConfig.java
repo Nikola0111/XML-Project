@@ -53,7 +53,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
                 .addFilterAfter(new JwtTokenVerifier(),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/login", "/enduser/register","/loginToken","/logout").permitAll()
+                .antMatchers("/authentication/login", "/authentication/register","/authentication/loginToken","/authentication/logout").permitAll()
                 .anyRequest()
                 .authenticated();
     }
