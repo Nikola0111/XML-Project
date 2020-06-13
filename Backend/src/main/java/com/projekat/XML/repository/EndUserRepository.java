@@ -12,8 +12,8 @@ public interface EndUserRepository extends JpaRepository<EndUser, Long> {
     public List<EndUser> findByAdminApproved(boolean admin);
 
 
+    public EndUser findOneById(Long id);
 
     public List<EndUser> findAllByActivity(boolean act);
 
-   
 }

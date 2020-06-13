@@ -1,8 +1,10 @@
 package com.projekat.XML.controller;
 
-import com.projekat.XML.model.EndUser;
+import com.projekat.XML.model.*;
 import com.projekat.XML.model.LoginInfo;
+
 import com.projekat.XML.model.EntityUser;
+
 import com.projekat.XML.model.VerificationToken;
 import com.projekat.XML.service.EndUserService;
 import com.projekat.XML.service.MailSenderService;
@@ -20,6 +22,7 @@ import javax.print.attribute.standard.Media;
 
 import java.security.SecureRandom;
 import java.util.Base64;
+
 import java.util.List;
 
 import java.util.UUID;
@@ -27,7 +30,7 @@ import java.util.Base64.Encoder;
 
 
 @RestController
-@RequestMapping(value = "enduser")
+@RequestMapping(value = "authentication")
 public class EndUserController {
 
     @Autowired
@@ -42,7 +45,6 @@ public class EndUserController {
     @Autowired
     private UserService userService;
 
- 
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> register(@RequestBody EntityUser entityUser){
@@ -68,10 +70,10 @@ public class EndUserController {
 
         userService.saveNewUser(entityUser);
 
+
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
-   
 
     @GetMapping(value = "/getUnregistered", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EndUser>> getUnregistered(){
@@ -112,12 +114,12 @@ public class EndUserController {
     }
 
     @PostMapping(value = "/registrationConfirm")
-    public ResponseEntity<Long> confirmRegistration(@RequestBody String token){
+    public ResponseEntity<Void> confirmRegistration(@RequestBody String token){
         System.out.println("usao je ovde");
         VerificationToken verificationToken = verificationTokenService.findByToken(token);
 
         if(verificationToken == null){
-            return new ResponseEntity(1, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
         //iz nekog razloga ne vraca nista na front, servis se nikad ne izvrsi na frontu i ne ode na homepage, vecno se zaglavi u ucitavanju
@@ -125,7 +127,7 @@ public class EndUserController {
         EndUser endUser = verificationToken.getUser();
         endUserService.acceptRegistration(endUser.getId());
         verificationTokenService.delete(endUser.getId());
-        return new ResponseEntity(0, HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping(value = "/getRegisteredUsers", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -134,23 +136,25 @@ public class EndUserController {
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
-  /*  @PostMapping(value = "/deactivate/{jmbg}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> deactivateAccount(@PathVariable("jmbg") String jmbg){
-        Integer ret = endUserService.deactivate(jmbg);
+    @PostMapping(value = "/deactivate/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> deactivateAccount(@PathVariable("id") Long id){
+        endUserService.deactivate(id);
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+  /*
+
+    @PostMapping(value = "/block/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> blockAccount(@PathVariable("id") Long id){
+        Boolean ret = endUserService.block(id);
 
         return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/block/{jmbg}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> blockAccount(@PathVariable("jmbg") String jmbg){
-        Boolean ret = endUserService.block(jmbg);
-
-        return new ResponseEntity<>(ret, HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/unblock/{jmbg}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> unblockAccount(@PathVariable("jmbg") String jmbg){
-        Boolean ret = endUserService.unblock(jmbg);
+    @PostMapping(value = "/unblock/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> unblockAccount(@PathVariable("id") Long id){
+        Boolean ret = endUserService.unblock(id);
 
         return new ResponseEntity<>(ret, HttpStatus.OK);
     } */

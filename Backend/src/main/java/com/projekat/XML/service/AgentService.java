@@ -33,36 +33,36 @@ public class AgentService {
     @Autowired
     private CarReportRepository carReportRepository;
 
-    // public int save(AgentDTO agentDTO) {
-    //     EntityUser user;
+ public int save(AgentDTO agentDTO) {
+        EntityUser user;
 
-    //     user = userRepository.findByLoginInfo_Username(agentDTO.getUsername());
+        user = userRepository.findByLoginInfo_Username(agentDTO.getUsername());
 
-    //     if(user != null){
-    //         return 1;
-    //     }
+        if(user != null){
+            return 1;
+        }
 
-    //     user = userRepository.findByLoginInfo_Email(agentDTO.getEmail());
+        user = userRepository.findByLoginInfo_Email(agentDTO.getEmail());
 
-    //     if(user != null){
-    //         return 2;
-    //     }
+        if(user != null){
+            return 2;
+        }
 
-    //     user = userRepository.findByJmbg(agentDTO.getJmbg());
+        user = userRepository.findByJmbg(agentDTO.getJmbg());
 
-    //     if(user != null){
-    //         return 3;
-    //     }
+        if(user != null){
+            return 3;
+        }
 
-    //     LoginInfo loginInfo = new LoginInfo(agentDTO.getEmail(), agentDTO.getUsername(), agentDTO.getPassword());
+        LoginInfo loginInfo = new LoginInfo(agentDTO.getEmail(), agentDTO.getUsername(), agentDTO.getPassword(), false, false, false, true);
 
-    //     Agent agent = new Agent(agentDTO.getName(), agentDTO.getSurname(), loginInfo, agentDTO.getJmbg(),
-    //             agentDTO.getPhone(), UserType.AGENT, 0, true, agentDTO.getAdress(), agentDTO.getBsregnum());
+        Agent agent = new Agent(agentDTO.getName(), agentDTO.getSurname(), loginInfo, agentDTO.getJmbg(),
+                agentDTO.getPhone(), UserType.AGENT, 0, true, agentDTO.getAdress(), agentDTO.getBsregnum());
 
-    //     agentRepository.save(agent);
+        agentRepository.save(agent);
 
-    //     return 0;
-    // }
+        return 0;
+    }
 
     public boolean checkPasswordChanged(){
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder
@@ -70,10 +70,10 @@ public class AgentService {
         HttpSession session = attr.getRequest().getSession(true);
         Long id = (Long) session.getAttribute("user");
 
-        Optional opt = agentRepository.findById(id);
-        if(opt.isPresent()){
-            Agent agent = (Agent) opt.get();
-            return agent.isFirst_login() ? false : true;
+        Agent opt = agentRepository.findOneById(id);
+        if(opt!=null){
+            
+            return opt.isFirst_login() ? false : true;
         }
 
         return false;
@@ -91,13 +91,13 @@ public class AgentService {
             Advertisement ad = advertisements.get(i);
 
             car.setId(ad.getId());
-            car.setBrand(ad.getBrand());
-            car.setCarClass(ad.getCarClass());
+            car.setBrand(ad.getBrand().getName());
+            car.setCarClass(ad.getCarClass().getName());
             car.setCarSeats(ad.getCarSeats());
-            car.setFuelType(ad.getFuelType());
-            car.setModel(ad.getModel());
+            car.setFuelType(ad.getFuelType().getName());
+            car.setModel(ad.getModel().getName());
             car.setName(ad.getName());
-            car.setTransmissionType(ad.getTransType());
+            car.setTransmissionType(ad.getTransmissionType().getName());
             car.setTravelled(ad.getTravelled());
 
             cars.add(car);

@@ -1,8 +1,8 @@
 package com.projekat.XML.service;
 
 import com.projekat.XML.model.EndUser;
-import com.projekat.XML.model.LoginInfo;
 import com.projekat.XML.model.EntityUser;
+import com.projekat.XML.model.LoginInfo;
 import com.projekat.XML.repository.EndUserRepository;
 import com.projekat.XML.repository.LoginInfoRepository;
 import com.projekat.XML.repository.UserRepository;
@@ -104,14 +104,16 @@ public class EndUserService {
         return endUserRepository.findAllByActivity(true);
     }
 
-  /*  @Transactional
-    public Integer deactivate(String jmbg){
-        return endUserRepository.deleteByJmbg(jmbg);
-    }
 
     @Transactional
-    public Boolean block(String jmbg){
-        EndUser endUser = endUserRepository.findByJmbg(jmbg);
+    public void deactivate(Long id){
+        endUserRepository.deleteById(id);
+   }
+  /*  
+
+    @Transactional
+    public Boolean block(Long id){
+        EndUser endUser = endUserRepository.findOneById(id);
 
         if(endUser == null){
             return false;
@@ -125,8 +127,8 @@ public class EndUserService {
     }
 
     @Transactional
-    public Boolean unblock(String jmbg){
-        EndUser endUser = endUserRepository.findByJmbg(jmbg);
+    public Boolean unblock(Long id){
+        EndUser endUser = endUserRepository.findOneById(id);
 
         if(endUser == null){
             return false;

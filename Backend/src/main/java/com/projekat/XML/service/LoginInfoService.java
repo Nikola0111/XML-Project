@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginInfoService implements UserDetailsService {
 
+
    @Autowired
    private LoginInfoRepository loginInfoRepository;
 
@@ -20,6 +21,7 @@ public class LoginInfoService implements UserDetailsService {
         return loginInfoRepository.findByUsername(username);
 
     }
+
 
     public void save(LoginInfo loginInfo){
 
@@ -33,10 +35,24 @@ return loginInfoRepository.findByUsername(username).getSalt();
 
     }
 
+
+    public LoginInfo findByEmail(String email){
+
+
+        return loginInfoRepository.findByEmail(email);
+    }
+
+
     public LoginInfo findOneById(Long id){
 
         return loginInfoRepository.findOneById(id);
 
+    }
+
+
+    public LoginInfo findOneByUsername(String username){
+
+        return loginInfoRepository.findByUsername(username);
     }
 
 }

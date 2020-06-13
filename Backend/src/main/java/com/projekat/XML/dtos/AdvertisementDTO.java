@@ -68,11 +68,11 @@ public class AdvertisementDTO {
     {
         this.id = ad.getId();
         this.name = ad.getName();
-        this.model = ad.getModel();
-        this.brand = ad.getBrand();
-        this.fuelType = ad.getFuelType();
-        this.transmissionType = ad.getTransType();
-        this.carClass = ad.getCarClass();
+        this.model = ad.getModel().getName();
+        this.brand = ad.getBrand().getName();
+        this.fuelType = ad.getFuelType().getName();
+        this.transmissionType = ad.getTransmissionType().getName();
+        this.carClass = ad.getCarClass().getName();
         this.travelled = ad.getTravelled();
         this.carSeats = ad.getCarSeats();
         this.price=ad.getPrice();

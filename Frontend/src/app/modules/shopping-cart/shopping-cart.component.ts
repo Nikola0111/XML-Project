@@ -1,3 +1,4 @@
+  
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -31,7 +32,7 @@ export class ShoppingCartComponent implements AfterViewInit, OnInit {
   itemsInCart: ItemInCart[];
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transType', 'carClass','owner', "checkbox", "button"];
+  displayedColumns = ['name', 'model', 'brand', 'fuelType', 'transmissionType', 'carClass','owner', "checkbox", "button"];
 //DODATI 'timeFrom' I 'timeTo'
 
   constructor(private shopingCartService: ShopingCartService, private sessionService: SessionService){

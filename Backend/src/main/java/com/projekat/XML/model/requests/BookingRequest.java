@@ -54,6 +54,22 @@ public class BookingRequest{
         this.timeTo=timeTo;
     }
 
+
+	public BookingRequest(Long userForId,Advertisement advertisement, LocalDateTime timeFrom, LocalDateTime timeTo,RequestStates stateOfRequest) {
+        this.userForId = userForId;
+        this.advertisement=advertisement;
+        this.timeFrom = timeFrom;
+        this.timeTo = timeTo;
+        this.stateOfRequest=stateOfRequest;
+    }
+
+   
+	
+	
+
+	
+	
+	
     public BookingRequest() {
     }
 

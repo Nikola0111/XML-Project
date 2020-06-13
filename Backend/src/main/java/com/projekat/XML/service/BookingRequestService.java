@@ -1,12 +1,15 @@
 package com.projekat.XML.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import com.projekat.XML.dtos.ItemInCartDTO;
+import com.projekat.XML.dtos.ReservationDTO;
 import com.projekat.XML.enums.RequestStates;
+import com.projekat.XML.model.Advertisement;
 import com.projekat.XML.model.requests.BookingRequest;
 import com.projekat.XML.repository.AdvertisementRepository;
 import com.projekat.XML.repository.BookingRequestRepository;
@@ -184,29 +187,104 @@ public class BookingRequestService {
          return needed;
      }
 
+     public List<Long> getSpecificGroupsForAgent(RequestStates state) {
+         List<Long> group = new ArrayList<Long>();
+         List<Long> groupsToRemove = new ArrayList<Long>();
 
-     public List<Long> getSpecificGroupsForAgent (RequestStates state){
-        List<Long> group=new ArrayList<Long>();
-        System.out.println(getLogedUserId());
-        
-        for (BookingRequest bookingRequest : bookingRequestRepository.findByUserForId(getLogedUserId())) {
-            
-           
+         for (BookingRequest bookingRequest : bookingRequestRepository.findByUserForId(getLogedUserId())) {
+             if (bookingRequest.getStateOfRequest().equals(state)
+                     && !checkIfBookingRequestHasReservedTwin(bookingRequest)) {
+                 if (!group.contains(bookingRequest.getGroupId())) {
+                     group.add(bookingRequest.getGroupId());
+                 }
+             } else if (bookingRequest.getStateOfRequest().equals(state)
+                     && checkIfBookingRequestHasReservedTwin(bookingRequest)) {
+                 groupsToRemove.add(bookingRequest.getGroupId());
+             }
+         }
 
-            if(!group.contains(bookingRequest.getGroupId())){
-               
-                if(bookingRequest.getStateOfRequest().equals(state)){
-                   
-                group.add(bookingRequest.getGroupId());
-                }
-            }
-        }
+         for (Long groupToRemove : groupsToRemove) {
+             if (group.contains(groupToRemove)) {
+                 group.remove(groupToRemove);
+             }
+         }
 
-        return group;
+         return group;
 
+     }
 
-    }
+     public boolean checkIfBookingRequestHasReservedTwin(BookingRequest bookingRequest) {
+         List<BookingRequest> all = bookingRequestRepository.findByUserForId(getLogedUserId());
 
+         for (BookingRequest booking : all) {
+             if ((booking.getStateOfRequest() == RequestStates.RESERVED)
+                     && (bookingRequest.getStateOfRequest() == RequestStates.PENDING)
+                     && booking.getAdvertisement().getId().equals(bookingRequest.getAdvertisement().getId())
+                     && ((booking.getTimeFrom().isAfter(bookingRequest.getTimeFrom())
+                             && booking.getTimeFrom().isBefore(bookingRequest.getTimeTo()))
+                             || (booking.getTimeTo().isAfter(bookingRequest.getTimeFrom())
+                                     && booking.getTimeTo().isBefore(bookingRequest.getTimeTo()))
+                             || (bookingRequest.getTimeFrom().isAfter(booking.getTimeFrom())
+                                     && bookingRequest.getTimeFrom().isBefore(booking.getTimeTo()))
+                             || (bookingRequest.getTimeTo().isAfter(booking.getTimeFrom())
+                                     && bookingRequest.getTimeTo().isBefore(booking.getTimeTo()))
+                             || (booking.getTimeFrom().equals(bookingRequest.getTimeFrom())
+                                     || booking.getTimeFrom().equals(bookingRequest.getTimeTo())
+                                     || booking.getTimeTo().equals(bookingRequest.getTimeFrom())
+                                     || booking.getTimeTo().equals(bookingRequest.getTimeTo()))
+                                     && booking.getTimeTo().equals(bookingRequest.getTimeTo()))) {
+                 return true;
+             }
+         }
+
+         return false;
+     }
+
+     public void saveReserve(ReservationDTO reservationDTO) {
+
+         Advertisement ad = advertisementRepository.findOneByid(reservationDTO.getAdvertisementId());
+         BookingRequest toBook = new BookingRequest(getLogedUserId(), ad,
+                 reservationDTO.getTimeFrom(), reservationDTO.getTimeTo(), RequestStates.PAID);
+
+         List<BookingRequest> bookedTimes = bookingRequestRepository.findAll();
+
+         LocalDateTime timeFrom = toBook.getTimeFrom();
+         LocalDateTime timeTo = toBook.getTimeTo();
+
+         for (BookingRequest booking : bookedTimes) {
+             if (booking.getAdvertisement().getId() == ad.getId() && !booking.getGroupId().equals(null)) {
+
+                 if (timeFrom.isAfter(booking.getTimeFrom()) && timeFrom.isBefore(booking.getTimeTo())) {
+                     cancelInSameGroup(bookedTimes, booking.getGroupId());
+                 }
+
+                 if (timeTo.isAfter(booking.getTimeFrom()) && timeTo.isBefore(booking.getTimeTo())) {
+                     cancelInSameGroup(bookedTimes, booking.getGroupId());
+                 }
+
+                 if (booking.getTimeFrom().isAfter(timeFrom) && booking.getTimeFrom().isBefore(timeTo)) {
+                     cancelInSameGroup(bookedTimes, booking.getGroupId());
+                 }
+
+                 if (booking.getTimeTo().isAfter(timeFrom) && booking.getTimeTo().isBefore(timeTo)) {
+                     cancelInSameGroup(bookedTimes, booking.getGroupId());
+                 }
+
+                 if (timeFrom.equals(booking.getTimeFrom()) || timeFrom.equals(booking.getTimeTo())) {
+                     cancelInSameGroup(bookedTimes, booking.getGroupId());
+                 }
+
+                 if (timeTo.equals(booking.getTimeFrom()) && timeTo.equals(booking.getTimeTo())) {
+                     cancelInSameGroup(bookedTimes, booking.getGroupId());
+                 }
+
+             }
+         }
+
+         bookingRequestRepository.save(toBook);
+
+     }
+     
     public List<BookingRequest> getAllSpecificForBuyer(RequestStates state){
         List<BookingRequest> needed=new ArrayList<BookingRequest>();
  
@@ -274,6 +352,19 @@ public class BookingRequestService {
     
         Long id = (Long) session.getAttribute("user");
         return id;
+    }
+
+    private void cancelInSameGroup(List<BookingRequest> svi, Long groupId) {
+
+        for (BookingRequest booked : svi) {
+
+            if (booked.getGroupId().equals(groupId)) {
+                booked.setStateOfRequest(RequestStates.CANCELED);
+                bookingRequestRepository.save(booked);
+
+            }
+        }
+
     }
     
 
