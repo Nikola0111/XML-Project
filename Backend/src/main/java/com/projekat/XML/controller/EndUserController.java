@@ -2,6 +2,9 @@ package com.projekat.XML.controller;
 
 import com.projekat.XML.model.*;
 import com.projekat.XML.model.LoginInfo;
+
+import com.projekat.XML.model.EntityUser;
+
 import com.projekat.XML.model.VerificationToken;
 import com.projekat.XML.service.EndUserService;
 import com.projekat.XML.service.MailSenderService;
@@ -13,9 +16,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.context.request.WebRequest;
+
+import javax.print.attribute.standard.Media;
+
+import java.security.SecureRandom;
+import java.util.Base64;
+
 import java.util.List;
 
 import java.util.UUID;
+import java.util.Base64.Encoder;
 
 
 @RestController
@@ -33,6 +44,7 @@ public class EndUserController {
 
     @Autowired
     private UserService userService;
+
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> register(@RequestBody EntityUser entityUser){
@@ -57,8 +69,7 @@ public class EndUserController {
 
 
         userService.saveNewUser(entityUser);
-        
-     
+
 
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
@@ -129,8 +140,10 @@ public class EndUserController {
     public ResponseEntity<Void> deactivateAccount(@PathVariable("id") Long id){
         endUserService.deactivate(id);
 
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
+  /*
 
     @PostMapping(value = "/block/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> blockAccount(@PathVariable("id") Long id){
@@ -144,5 +157,5 @@ public class EndUserController {
         Boolean ret = endUserService.unblock(id);
 
         return new ResponseEntity<>(ret, HttpStatus.OK);
-    }
+    } */
 }

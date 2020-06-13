@@ -1,10 +1,8 @@
 package com.projekat.XML.service;
 
-import com.projekat.XML.dtos.AgentDTO;
+
 import com.projekat.XML.dtos.CarDTO;
 import com.projekat.XML.dtos.CarReportDTO;
-import com.projekat.XML.dtos.UserDTO;
-import com.projekat.XML.enums.UserType;
 import com.projekat.XML.model.*;
 import com.projekat.XML.repository.AdvertisementRepository;
 import com.projekat.XML.repository.AgentRepository;
@@ -35,7 +33,7 @@ public class AgentService {
     @Autowired
     private CarReportRepository carReportRepository;
 
-    public int save(AgentDTO agentDTO) {
+ public int save(AgentDTO agentDTO) {
         EntityUser user;
 
         user = userRepository.findByLoginInfo_Username(agentDTO.getUsername());

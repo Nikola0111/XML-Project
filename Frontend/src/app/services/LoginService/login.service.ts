@@ -23,24 +23,18 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
 
-  public login(username: string, password: string){
-    const loginInfo = new LoginInfo();
-    loginInfo.email = '';
-    loginInfo.username = username;
-    loginInfo.password = password;
-    const body = JSON.stringify(loginInfo);
-    return this.http.post<HttpResponse<any>>('/server/authentication/login', body, httpOptions);
-    // .do(response => this.setSession(response))
-    // .shareReplay();
-  }
+  public login(username: string,password:string){
+    const body = {"username":username,
+  "password":password};
+    return this.http.post<HttpResponse<any>>('/server/login', body, { observe: 'response' })
+    .do(response => this.setSession(response)) 
+    .shareReplay();
 
-  public getUserByUsername(username: string) {
-    return this.http.get<User>(`/server/authentication/getUserByUsername/${username}`, httpOptions);
   }
 
   public loginToken(){
     console.log("Pogodio");
-    return this.http.get<HttpResponse<any>>('/server/authentication/loginToken', { observe: 'response' })
+    return this.http.get<HttpResponse<any>>('/server/loginToken', { observe: 'response' })
     .do(response=> localStorage.setItem("xsrfToken",(this.getCookie("XSRF-TOKEN"))))
     .shareReplay();
   }
@@ -49,11 +43,10 @@ export class LoginService {
   public setSession(authResult) {
     console.log("USAO OVDE ");
     console.log(authResult.headers.get('authorization'));
-
-
-
+  
     localStorage.setItem('jwt', authResult.headers.get('authorization'));
-}
+}    
+
 
 public getCookie(cname) {
 console.log("POGODIO TRAZENJE COOKIeA")
@@ -85,7 +78,9 @@ console.log("POGODIO TRAZENJE COOKIeA")
     console.log('Izlogovan');
     localStorage.removeItem("jwt");
     localStorage.removeItem("xsrfToken")
+
     this.requestUrl = '/server/authentication/logout';
+
     return this.http.get<string>(this.requestUrl, httpOptions);
     }
 }

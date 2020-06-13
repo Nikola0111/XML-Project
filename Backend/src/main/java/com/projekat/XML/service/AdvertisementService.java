@@ -64,6 +64,14 @@ public class AdvertisementService {
 	AgentRepository agentRepository;
 
 	@Autowired
+	LoggerService loggerService;
+
+	@Autowired 
+	SessionService sessionService;
+	
+
+
+	@Autowired
 	UserService userService;
 
 	public Advertisement save(AdvertisementCreationDTO advertisementCreationDTO) {
@@ -109,6 +117,11 @@ public class AdvertisementService {
 		for (int i = 0; i < advertisements.size(); i++) {
 			advertisements.get(i).setGrade(gradeService.calculateGradeForAd(advertisements.get(i).getId()));
 		}
+
+		loggerService.doLog("neka funkcija", "neki rezultat", "WARNING");		//TIPOVI LOGOVA : WARNING, ERROR, INFO
+		loggerService.doLog("neka funkcija", "neki rezultat", "ERROR");		    //FUNKCIJE : NAPRAVIO OGLAS, POSLAO ZAHTEV ZA OGLAS, ODOBRIO ZAHTEV, OTKAZAO ZAHTEV, ODBIO ZAHTEV, OBRISAO OGLAS
+		loggerService.doLog("neka funkcija", "neki rezultat", "INFO");			//REZULTATI: ID OGLASA/NEUSPESNO, ID ZAHTEVA/NEUSPESNO, ID ZAHTEVA/NEUSPESNO, ID ZAHTEVA/NEUSPESNO, ID OGLASA/NEUSPESNO
+
 		return advertisements;
 	}
 
@@ -228,16 +241,20 @@ public class AdvertisementService {
 
 		// sredjivanje komentara
 		List<CommentPreviewDTO> comments = new ArrayList<CommentPreviewDTO>();
+
 		for (int i = 0; i < db.size(); i++) {
 			CommentPreviewDTO temp = new CommentPreviewDTO(db.get(i).getValue(),
 					db.get(i).getEndUser().getUser().getLoginInfo().getEmail(), db.get(i).getGrade(),
 					db.get(i).getDate());
+
 			temp.setId(db.get(i).getId());
 
 			if (db.get(i).getReply() != null) {
 				ReplyDTO replyDTO = new ReplyDTO();
 				replyDTO.setComment(db.get(i).getReply().getComment());
+
 				replyDTO.setAgentMail(db.get(i).getReply().getAgent().getUser().getLoginInfo().getEmail());
+
 
 				temp.setReplyDTO(replyDTO);
 			}
@@ -271,6 +288,7 @@ public class AdvertisementService {
 	public List<Advertisement> getAllByPostedBy(Long id) {
 		return advertisementRepository.findAllByPostedBy_Id(id);
 	}
+
 
 	/*
 	 * public void saveReply(ReplyDTO replyDTO){ Agent agent =
@@ -337,6 +355,12 @@ public class AdvertisementService {
 		return true;
 	}
 
+// Agent sadrzi polje User koje sadrzi polje login info koje sadrzi email. Tako pronadji
+/* public void saveReply(ReplyDTO replyDTO){
+		Agent agent = agentRepository.findByLoginInfo_Email(replyDTO.getAgentMail());
+		Optional opt = commentRepository.findById(replyDTO.getId());
+
+
 	public List<CarDetailsDTO> getCarDetails() {
 		List<Brand> brands = brandRepository.findAll();
 		List<CarClass> classes = carClassRepository.findAll();
@@ -393,5 +417,9 @@ public class AdvertisementService {
 		return usersAds;
 	}
 
+
+
+		commentRepository.save((Comment) opt.get());
+	} */
 
 }

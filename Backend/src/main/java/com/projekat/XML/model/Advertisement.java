@@ -51,7 +51,9 @@ public class Advertisement  {
    }
 
 
+
     public Advertisement(String name, Model model, Brand brand, FuelType fuelType, TransmissionType transmissionType, CarClass carClass, int travelled, int carSeats, double price, EntityUser postedBy, double discount, ArrayList<String> pictures, Double grade) {
+
         this.name = name;
         this.model = model;
         this.brand = brand;

@@ -131,6 +131,7 @@ public class MessageService {
 
     public List<EntityUser> getAllMessagableUsers()
     {
+
         List<EntityUser> messagableUsers = new ArrayList<EntityUser>();
         List<BookingRequest> bookingRequests = bookingRequestService.findAll();
         Long loggedID = getLogedUserId();

@@ -37,16 +37,12 @@ public void save(Long id){
 
 
 public void addAItemInCart(Long itemId){
-
-    
-
     ShoppingCart cart=shoppingCartRepository.findOneByuserId(getLogedUserId());
     cart.addOneItemInCart(itemId);
     shoppingCartRepository.save(cart);
 }
 
 public void removeItemInCart(Long itemId){
-
     ShoppingCart cart=shoppingCartRepository.findOneByuserId(getLogedUserId());
     cart.removeOneItemInCart(itemId);
     shoppingCartRepository.save(cart);
@@ -62,14 +58,8 @@ public void removeAll(){
 }
 
 public ShoppingCart getShoppingCart(Long id){
-
-    
-
-return shoppingCartRepository.findOneByuserId(id);
+    return shoppingCartRepository.findOneByuserId(id);
 }
-
-
-
 
 
 public List<ItemInCart> fotCart(){

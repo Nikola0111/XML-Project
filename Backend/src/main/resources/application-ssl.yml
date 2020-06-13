@@ -1,0 +1,27 @@
+
+# server.port=8443
+
+
+# server.ssl.key-store-type=PKCS12
+# # The path to the keystore containing the certificate
+# server.ssl.key-store=C:\Users\Korisnik\Documents\Faks\BUSEP\Bezbednost\BSEP\keystore.jks
+# # The password used to generate the certificate
+# server.ssl.key-store-password=password
+# # The alias mapped to the certificate
+# server.ssl.key-alias=root
+
+# security.require-ssl=true
+
+
+# #trust store location
+# trust.store=C:\Users\Korisnik\Documents\Faks\BUSEP\Bezbednost\BSEP\keystore.jks
+# #trust store password
+# trust.store.password=password
+server:
+  ssl:
+    key-store: classpath:keystore.jks
+    key-store-password: password
+    key-store-type: jks
+    key-alias: tomcat
+    key-password: password
+  port: 8443

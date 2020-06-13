@@ -24,11 +24,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
 
-//this.loginService.loginToken().subscribe();
+
+this.loginService.loginToken().subscribe();
+
 
   }
 
   onSubmit() {
+
 
 
     this.loginService.login(this.username, this.password).subscribe(
@@ -67,6 +70,7 @@ export class LoginComponent implements OnInit {
 
           }
         });
+
 
       },
       error => alert('Neuspesno logovanje')

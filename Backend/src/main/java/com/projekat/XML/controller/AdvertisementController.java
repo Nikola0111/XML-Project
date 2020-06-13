@@ -9,9 +9,7 @@ import com.projekat.XML.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
-
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,6 +51,7 @@ public class AdvertisementController {
 
 	
 
+	@PreAuthorize("hasAnyRole('ROLE_ENDUSER', 'ROLE_AGENT')")	
     @GetMapping(value = "/all")
     public ResponseEntity<List<Advertisement>> getAll() {
         List<Advertisement> advertisements = advertisementService.findAll();
@@ -133,7 +132,10 @@ public class AdvertisementController {
 
 	@PostMapping(value = "/saveReply",  produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Long> saveReply(@RequestBody ReplyDTO replyDTO){
-	//	advertisementService.saveReply(replyDTO);
+
+		//KAD RESIS U SERVISU SAMO ODKOMENTARISI
+		//advertisementService.saveReply(replyDTO);
+
 
 		return new ResponseEntity<>((long) 1, HttpStatus.OK);
 	}

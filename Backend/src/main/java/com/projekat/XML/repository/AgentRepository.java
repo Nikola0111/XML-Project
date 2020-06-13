@@ -9,4 +9,5 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
     
 
     public Agent findOneById(Long id);
+
 }
