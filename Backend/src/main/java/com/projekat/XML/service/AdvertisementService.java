@@ -66,10 +66,8 @@ public class AdvertisementService {
 	@Autowired
 	LoggerService loggerService;
 
-	@Autowired 
+	@Autowired
 	SessionService sessionService;
-	
-
 
 	@Autowired
 	UserService userService;
@@ -118,9 +116,13 @@ public class AdvertisementService {
 			advertisements.get(i).setGrade(gradeService.calculateGradeForAd(advertisements.get(i).getId()));
 		}
 
-		loggerService.doLog("neka funkcija", "neki rezultat", "WARNING");		//TIPOVI LOGOVA : WARNING, ERROR, INFO
-		loggerService.doLog("neka funkcija", "neki rezultat", "ERROR");		    //FUNKCIJE : NAPRAVIO OGLAS, POSLAO ZAHTEV ZA OGLAS, ODOBRIO ZAHTEV, OTKAZAO ZAHTEV, ODBIO ZAHTEV, OBRISAO OGLAS
-		loggerService.doLog("neka funkcija", "neki rezultat", "INFO");			//REZULTATI: ID OGLASA/NEUSPESNO, ID ZAHTEVA/NEUSPESNO, ID ZAHTEVA/NEUSPESNO, ID ZAHTEVA/NEUSPESNO, ID OGLASA/NEUSPESNO
+		loggerService.doLog("neka funkcija", "neki rezultat", "WARNING"); // TIPOVI LOGOVA : WARNING, ERROR, INFO
+		loggerService.doLog("neka funkcija", "neki rezultat", "ERROR"); // FUNKCIJE : NAPRAVIO OGLAS, POSLAO ZAHTEV ZA
+																		// OGLAS, ODOBRIO ZAHTEV, OTKAZAO ZAHTEV, ODBIO
+																		// ZAHTEV, OBRISAO OGLAS
+		loggerService.doLog("neka funkcija", "neki rezultat", "INFO"); // REZULTATI: ID OGLASA/NEUSPESNO, ID
+																		// ZAHTEVA/NEUSPESNO, ID ZAHTEVA/NEUSPESNO, ID
+																		// ZAHTEVA/NEUSPESNO, ID OGLASA/NEUSPESNO
 
 		return advertisements;
 	}
@@ -255,7 +257,6 @@ public class AdvertisementService {
 
 				replyDTO.setAgentMail(db.get(i).getReply().getAgent().getUser().getLoginInfo().getEmail());
 
-
 				temp.setReplyDTO(replyDTO);
 			}
 			System.out.println(temp);
@@ -288,7 +289,6 @@ public class AdvertisementService {
 	public List<Advertisement> getAllByPostedBy(Long id) {
 		return advertisementRepository.findAllByPostedBy_Id(id);
 	}
-
 
 	/*
 	 * public void saveReply(ReplyDTO replyDTO){ Agent agent =
@@ -355,11 +355,11 @@ public class AdvertisementService {
 		return true;
 	}
 
-// Agent sadrzi polje User koje sadrzi polje login info koje sadrzi email. Tako pronadji
-/* public void saveReply(ReplyDTO replyDTO){
+	// Agent sadrzi polje User koje sadrzi polje login info koje sadrzi email. Tako
+	// pronadji
+	public void saveReply(ReplyDTO replyDTO){
 		Agent agent = agentRepository.findByLoginInfo_Email(replyDTO.getAgentMail());
 		Optional opt = commentRepository.findById(replyDTO.getId());
-
 
 	public List<CarDetailsDTO> getCarDetails() {
 		List<Brand> brands = brandRepository.findAll();
@@ -403,23 +403,17 @@ public class AdvertisementService {
 
 		return details;
 	}
-
-
-	public List<Advertisement> getAllByUser() {
-		List<Advertisement> all = advertisementRepository.findAll();
-		List<Advertisement> usersAds = new ArrayList<Advertisement>();
-		Long userId = userService.getLoggedUserId();
-		for (Advertisement advertisement : all) {
-			if (advertisement.getPostedBy().getId().equals(userId)) {
-				usersAds.add(advertisement);
-			}
-		}
-		return usersAds;
-	}
-
-
-
-		commentRepository.save((Comment) opt.get());
-	} */
-
+	/*
+	 * 
+	 * public List<Advertisement> getAllByUser() { List<Advertisement> all =
+	 * advertisementRepository.findAll(); List<Advertisement> usersAds = new
+	 * ArrayList<Advertisement>(); Long userId = userService.getLoggedUserId(); for
+	 * (Advertisement advertisement : all) { if
+	 * (advertisement.getPostedBy().getId().equals(userId)) {
+	 * usersAds.add(advertisement); } } return usersAds; }
+	 * 
+	 * 
+	 * 
+	 * commentRepository.save((Comment) opt.get()); }
+	 */
 }
