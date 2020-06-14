@@ -3,47 +3,69 @@ package com.projekat.XML.model;
 import java.util.ArrayList;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "advertisement",
+        namespace="com.projekat.XML.model",
+        propOrder = {"id", "name", "model", "brand", "fuelType", "transmissionType","carClass", "travelled",
+        "carSeats", "price", "discount", "priceWithDiscount", "pictures", "postedBy", "grade"})
 @Entity
 public class Advertisement  {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @XmlElement(name="id", required = true)
     private Long id;
 
+    @XmlElement(name="name", required = true)
     private String name;
 
 	@ManyToOne
+    @XmlElement(name="model", required = false)
     private Model model;
 
     @ManyToOne
+    @XmlElement(name="brand", required = false)
     private Brand brand;
 
     @ManyToOne
+    @XmlElement(name="fuelType", required = false)
     private FuelType fuelType;
 
     @ManyToOne
+    @XmlElement(name="transmissionType", required = false)
     private TransmissionType transmissionType;
 
     @ManyToOne
+    @XmlElement(name="carClass", required = false)
     private CarClass carClass;
 
+    @XmlElement(name="travelled", required = false)
     private int travelled;
-  
+
+    @XmlElement(name="carSeats", required = false)
     private int carSeats;
 
+    @XmlElement(name="price", required = false)
     private double price;
 
+    @XmlElement(name="discount", required = false)
     private double discount;
 
+    @XmlElement(name="priceWithDiscount", required = false)
     private double priceWithDiscount;
 
+    @XmlElementWrapper(name="pictures", required=false)
+    @XmlElement(name="picture", required = false)
     private ArrayList<String> pictures;
 
     @ManyToOne
     @JoinColumn
+    @XmlElement(name="postedBy", required = false)
     private EntityUser postedBy;
 
+    @XmlElement(name="grade", required = false)
     private Double grade;
 
    public Advertisement(){

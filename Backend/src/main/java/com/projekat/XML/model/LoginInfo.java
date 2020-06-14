@@ -4,6 +4,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
@@ -11,29 +15,45 @@ import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
 
-//implements UserDetails 
+//implements UserDetails
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "loginInfo",
+        namespace="com.projekat.XML.model",
+        propOrder = {"id", "username", "password", "isAccountNonExpired", "isAccountNonLocked", "isCredentialsNonExpired", "isEnabled",
+        "email", "salt"})
 @Entity
 public class LoginInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @XmlElement(name="id", required = true)
     private Long id;
 
-   private String username;
+    @XmlElement(name="username", required = true)
+     private String username;
 
-   private  String password;
-    
+    @XmlElement(name="password", required = true)
+    private  String password;
 
- 
+    @XmlElement(name="isAccountNonExpired", required = true)
     private  boolean isAccountNonExpired;
+
+    @XmlElement(name="isAccountNonLocked", required = true)
     private  boolean isAccountNonLocked;
+
+    @XmlElement(name="isCredentialsNonExpired", required = true)
     private  boolean isCredentialsNonExpired;
+
+    @XmlElement(name="isEnabled", required = true)
     private  boolean isEnabled;
 
    // @NotBlank(message="Email must not be empty")
    // @Pattern(regexp = "[a-zA-Z0-9]+@[a-zA-Z0-9]+.com")
+    @XmlElement(name="email", required = true)
     private  String email;
 
+    @XmlElement(name="salt", required = true)
     private  String salt;
 
  
