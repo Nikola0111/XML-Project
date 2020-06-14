@@ -72,8 +72,6 @@ public class AdvertisementService {
 	@Autowired
 	UserService userService;
 
-
-	
 	public Advertisement save(AdvertisementCreationDTO advertisementCreationDTO) {
 
 		Model model = modelRepository.findByName(advertisementCreationDTO.getModel());
@@ -90,7 +88,7 @@ public class AdvertisementService {
 				userService.getLoggedUser(), advertisementCreationDTO.getDiscount(),
 				advertisementCreationDTO.getPictures(), 0.0);
 
-				loggerService.doLog("1","ime:"+ad.getName(), "INFO");
+		loggerService.doLog("1", "ime:" + ad.getName(), "INFO");
 
 		return advertisementRepository.save(ad);
 
@@ -141,8 +139,8 @@ public class AdvertisementService {
 	}
 
 	public Advertisement update(Advertisement advertisement) {
-		
-		loggerService.doLog("14", "ime:"+advertisement.getName(),"INFO");
+
+		loggerService.doLog("14", "ime:" + advertisement.getName(), "INFO");
 		return advertisementRepository.save(advertisement);
 	}
 
@@ -239,7 +237,7 @@ public class AdvertisementService {
 					commentDTO.getGrade());
 
 			commentRepository.save(comment);
-			loggerService.doLog("13", "Tekst:" + comment.getValue() , "INFO");
+			loggerService.doLog("13", "Tekst:" + comment.getValue(), "INFO");
 		}
 		// sacuvaj komentar
 	}
@@ -365,15 +363,12 @@ public class AdvertisementService {
 
 	// Agent sadrzi polje User koje sadrzi polje login info koje sadrzi email. Tako
 	// pronadji
-	public void saveReply(ReplyDTO replyDTO){
-		Agent agent = agentRepository.findByLoginInfo_Email(replyDTO.getAgentMail());
-		Optional opt = commentRepository.findById(replyDTO.getId());
+	/*
+	 * public void saveReply(ReplyDTO replyDTO){ Agent agent =
+	 * agentRepository.findByLoginInfo_Email(replyDTO.getAgentMail()); Optional opt
+	 * = commentRepository.findById(replyDTO.getId());
+	 */
 
-<<<<<<< HEAD
-=======
-*/
-
->>>>>>> 6ab06f0684a51d322937f406ce1458c8ed56bf62
 	public List<CarDetailsDTO> getCarDetails() {
 		List<Brand> brands = brandRepository.findAll();
 		List<CarClass> classes = carClassRepository.findAll();
@@ -416,22 +411,6 @@ public class AdvertisementService {
 
 		return details;
 	}
-<<<<<<< HEAD
-	/*
-	 * 
-	 * public List<Advertisement> getAllByUser() { List<Advertisement> all =
-	 * advertisementRepository.findAll(); List<Advertisement> usersAds = new
-	 * ArrayList<Advertisement>(); Long userId = userService.getLoggedUserId(); for
-	 * (Advertisement advertisement : all) { if
-	 * (advertisement.getPostedBy().getId().equals(userId)) {
-	 * usersAds.add(advertisement); } } return usersAds; }
-	 * 
-	 * 
-	 * 
-	 * commentRepository.save((Comment) opt.get()); }
-	 */
-=======
-
 
 	public List<Advertisement> getAllByUser() {
 		List<Advertisement> all = advertisementRepository.findAll();
@@ -445,9 +424,4 @@ public class AdvertisementService {
 		return usersAds;
 	}
 
-
-
-	
-
->>>>>>> 6ab06f0684a51d322937f406ce1458c8ed56bf62
 }

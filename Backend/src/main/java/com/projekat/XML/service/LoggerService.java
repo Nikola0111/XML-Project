@@ -28,11 +28,9 @@ public class LoggerService {
         String user = sessionService.getLoggedUsername();
 
         try {
-            String putanja = System.getProperty("user.dir");
-            System.out.println("PUTANJA JE "+putanja);
-            File f = new File(putanja+"\\Logs\\RentACarLogFile.log.0");
+            File f = new File("C:/Users/Korisnik/XML/XML-Project/Backend/Logs/RentACarLogFile.log.0");
             if (f.exists() && !f.isDirectory()) {
-                Path path = Paths.get(putanja+"\\Logs\\RentACarLogFile.log.0");
+                Path path = Paths.get("C:/Users/Korisnik/XML/XML-Project/Backend/Logs/RentACarLogFile.log.0");
                 UserPrincipal authenticatedUsers = path.getFileSystem().getUserPrincipalLookupService()
                         .lookupPrincipalByName("Authenticated Users");
                 AclFileAttributeView view = Files.getFileAttributeView(path, AclFileAttributeView.class);
@@ -50,7 +48,7 @@ public class LoggerService {
                 view.setAcl(acl);
 
                 
-                fh = new FileHandler(putanja+"\\Logs\\RentACarLogFile.log.0", 1000000, 1, true);
+                fh = new FileHandler("C:/Users/Korisnik/XML/XML-Project/Backend/Logs/RentACarLogFile.log", 1000000, 1, true);
                 logger.addHandler(fh);
                 SimpleFormatter formatter = new SimpleFormatter();
                 fh.setFormatter(formatter);
@@ -75,7 +73,7 @@ public class LoggerService {
                 view.setAcl(aclAfter);
             }
             else {
-                fh = new FileHandler(putanja+"\\Logs\\RentACarLogFile.log.0", 1000000, 5, true);
+                fh = new FileHandler("C:/Users/Korisnik/XML/XML-Project/Backend/Logs/RentACarLogFile.log", 1000000, 5, true);
                 logger.addHandler(fh);
                 SimpleFormatter formatter = new SimpleFormatter();
                 fh.setFormatter(formatter);
@@ -88,7 +86,7 @@ public class LoggerService {
                     logger.severe(" | " + user + " | " + function + " | " + result + ";");
                 }
 
-                Path path = Paths.get(putanja+"\\Logs\\RentACarLogFile.log.0");
+                Path path = Paths.get("C:/Users/Korisnik/XML/XML-Project/Backend/Logs/RentACarLogFile.log.0");
                 UserPrincipal authenticatedUsers = path.getFileSystem().getUserPrincipalLookupService()
                         .lookupPrincipalByName("Authenticated Users");
                 AclFileAttributeView view = Files.getFileAttributeView(path, AclFileAttributeView.class);
