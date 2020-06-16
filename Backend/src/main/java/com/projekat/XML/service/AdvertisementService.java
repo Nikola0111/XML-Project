@@ -5,6 +5,7 @@ import com.projekat.XML.model.*;
 import com.projekat.XML.model.requests.BookingRequest;
 import com.projekat.XML.repository.*;
 
+import com.projekat.xml.javageneratedfiles.GetAdvertisementResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -393,5 +394,20 @@ public class AdvertisementService {
 		return usersAds;
 	}
 
+	public void saveSoapAdvertisement(GetAdvertisementResponse response){
+		EntityUser entityUser = userRepository.findOneByid(response.getAdvertisement().getUserID());
+
+		Model model = modelRepository.findOneByid(response.getAdvertisement().getModel().getId());
+		Brand brand = brandRepository.findOneByid(response.getAdvertisement().getModel().getId());
+		FuelType fueltype = fuelTypeRepository.findOneByid(response.getAdvertisement().getModel().getId());
+		TransmissionType transmissionType = transmissionTypeRepository.findOneByid(response.getAdvertisement().getModel().getId());
+		CarClass carClass = carClassRepository.findOneByid(response.getAdvertisement().getModel().getId());
+
+		Advertisement advertisement = new Advertisement(response.getAdvertisement().getName(),
+				model, brand, fueltype, transmissionType, carClass, response.getAdvertisement().getTravelled(), response.getAdvertisement().getCarSeats(),
+				response.getAdvertisement().getPrice(), entityUser, 10.0,new ArrayList<String>(), 0.0);
+
+		advertisementRepository.save(advertisement);
+	}
 
 }

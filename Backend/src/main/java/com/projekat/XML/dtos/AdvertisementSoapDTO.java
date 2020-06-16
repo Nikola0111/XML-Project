@@ -3,15 +3,16 @@ package com.projekat.XML.dtos;
 import com.projekat.XML.model.*;
 
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "advertisementSoapDTO",
         namespace="com.projekat.XML.dtos",
         propOrder = {"id", "name", "model", "brand", "fuelType", "transmissionType","carClass", "travelled",
                 "carSeats", "price", "discount", "priceWithDiscount", "pictures", "grade", "postedByID"})
-public class AdvertisementSoapDTO {
+public class AdvertisementSoapDTO implements Serializable {
 
     @XmlElement(name="id", required = true)
     private Long id;

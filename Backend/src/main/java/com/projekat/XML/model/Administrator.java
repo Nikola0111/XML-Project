@@ -35,7 +35,6 @@ public class Administrator extends EntityUser {
     }
 
     public Administrator() {
-
     }
 
 }
