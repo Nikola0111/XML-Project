@@ -3,10 +3,10 @@ import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {EndUser} from '../../model/endUser';
 import {User} from '../../model/user';
 import {Observable} from 'rxjs';
-import 'rxjs/add/operator/do';
+/*import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/shareReplay';
+import 'rxjs/add/operator/shareReplay';*/
 
 import {UserDTO} from '../../dtos/user-dto';
 import { LoginInfo } from 'src/app/model/login-info';
@@ -32,16 +32,18 @@ export class LoginService {
 
   }
 
+
   public loginToken(){
     console.log("Pogodio");
     return this.http.get<HttpResponse<any>>('/server/loginToken', { observe: 'response' })
     .do(response=> localStorage.setItem("xsrfToken",(this.getCookie("XSRF-TOKEN"))))
+
     .shareReplay();
   }
 
 
   public setSession(authResult) {
-    console.log("USAO OVDE ");
+    console.log('USAO OVDE ');
     console.log(authResult.headers.get('authorization'));
   
     localStorage.setItem('jwt', authResult.headers.get('authorization'));
@@ -49,21 +51,21 @@ export class LoginService {
 
 
 public getCookie(cname) {
-console.log("POGODIO TRAZENJE COOKIeA")
+console.log('POGODIO TRAZENJE COOKIeA')
 
-  var name = cname + "=";
+  var name = cname + '=';
   var decodedCookie = decodeURIComponent(document.cookie);
   var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
+  for(var i = 0; i < ca.length; i++) {
     var c = ca[i];
-    while (c.charAt(0) == ' ') {
+    while (c.charAt(0) === ' ') {
       c = c.substring(1);
     }
-    if (c.indexOf(name) == 0) {
+    if (c.indexOf(name) === 0) {
       return c.substring(name.length, c.length);
     }
   }
-  return "";
+  return '';
 }
 
 

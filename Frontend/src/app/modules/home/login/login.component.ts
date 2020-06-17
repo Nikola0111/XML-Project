@@ -38,7 +38,7 @@ this.loginService.loginToken().subscribe();
       data => {
         console.log(data);
 
-        
+
         this.loginService.getUserByUsername(this.username).subscribe(user => {
           console.log(user);
           this.sessionService.ulogovaniKorisnik = user;
@@ -51,18 +51,17 @@ this.loginService.loginToken().subscribe();
             console.log(this.sessionService.isAdmin + ' Admin registrovan');
             this.router.navigate(['/administrator']);
           } else if (user.userType.toString() === 'AGENT') {
-            this.agentService.checkPasswordChanged().subscribe(isChanged =>{
-              if (isChanged === false) {
-                this.sessionService.pwChanging = true;
-                this.router.navigate(['/izmenaLozinke']);
-              } else {
-                this.sessionService.isAgent = true;
-                this.sessionService.isAdmin = false;
-                this.sessionService.isEndUser = false;
-                this.router.navigate(['/agent']);
-              }
-            });
-
+              // this.agentService.checkPasswordChanged().subscribe(isChanged =>{
+              //   if (isChanged === false) {
+              //     this.sessionService.pwChanging = true;
+              //     this.router.navigate(['/izmenaLozinke']);
+              //   } else {
+              this.sessionService.isAgent = true;
+              this.sessionService.isAdmin = false;
+              this.sessionService.isEndUser = false;
+              this.router.navigate(['/agent']);
+              // }
+              // });
           } else if (user.userType.toString() === 'ENDUSER') {
             this.sessionService.isEndUser = true;
             this.sessionService.isAgent = false;
