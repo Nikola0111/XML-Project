@@ -20,7 +20,7 @@ export class AgentService {
     return this.http.get<CarDTO[]>('/server/agent/getOwnersCars', httpOptions);
   }
 
-  public saveReport(report: CarReport){
+  public saveReport(report: CarReport) {
     const body = JSON.stringify(report);
     return this.http.post('/server/agent/saveReport', body, httpOptions);
   }
