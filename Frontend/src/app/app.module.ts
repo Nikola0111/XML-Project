@@ -60,6 +60,7 @@ import { ReserveComponent } from './modules/reserve/reserve.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -147,11 +148,13 @@ import { ReserveComponent } from './modules/reserve/reserve.component';
               ConversationService,
               HistoryService,
               EndUserService,
-            //  {
-             //   provide:HTTP_INTERCEPTORS,
-            //    useClass: AuthInterceptor,
-            //    multi:true
-            //  }
+
+              {
+                provide:HTTP_INTERCEPTORS,
+                useClass: AuthInterceptor,
+                multi:true
+              }
+
   ],
   bootstrap: [AppComponent],
   entryComponents: [ChangeDiscountDialogComponent, ImagesDialogComponent]

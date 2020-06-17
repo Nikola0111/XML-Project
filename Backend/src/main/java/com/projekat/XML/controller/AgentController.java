@@ -22,16 +22,16 @@ public class AgentController {
     @Autowired
     private AgentService agentService;
 
-    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> register(@RequestBody AgentDTO agentDTO){
-        int value = agentService.save(agentDTO);
+    // @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    // public ResponseEntity<Long> register(@RequestBody AgentDTO agentDTO){
+    //     int value = agentService.save(agentDTO);
 
-        if(value == 0){
-            return new ResponseEntity(value, HttpStatus.OK);
-        }
+    //     if(value == 0){
+    //         return new ResponseEntity(value, HttpStatus.OK);
+    //     }
 
-        return new ResponseEntity(value, HttpStatus.BAD_REQUEST);
-    }
+    //     return new ResponseEntity(value, HttpStatus.BAD_REQUEST);
+    // }
 
     @GetMapping(value = "/checkPasswordChanged", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> checkPasswordChanged(){

@@ -104,10 +104,12 @@ public class EndUserService {
         return endUserRepository.findAllByActivity(true);
     }
 
+
     @Transactional
     public void deactivate(Long id){
         endUserRepository.deleteById(id);
-    }
+   }
+  /*  
 
     @Transactional
     public Boolean block(Long id){
@@ -136,5 +138,5 @@ public class EndUserService {
         endUserRepository.save(endUser);
 
         return true;
-    }
+    } */
 }
