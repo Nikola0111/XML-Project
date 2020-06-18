@@ -1,10 +1,10 @@
 <xs:schema attributeFormDefault="unqualified"
            elementFormDefault="qualified"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:tns="http://XML.projekat.com/JavaGeneratedFiles"
-           targetNamespace="http://XML.projekat.com/JavaGeneratedFiles">
+           xmlns:tns="http://com.projekat.XML/JavaGeneratedFiles"
+           targetNamespace="http://com.projekat.XML/JavaGeneratedFiles">
 
-    <xs:element name="getAdvertisementResponse">
+    <xs:element name="getAdvertisementRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="advertisement" type="tns:advertisement"/>
@@ -12,7 +12,7 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getAdvertisementRequest">
+    <xs:element name="getAdvertisementResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="name" type="xs:string"/>

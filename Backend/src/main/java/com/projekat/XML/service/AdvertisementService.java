@@ -5,12 +5,13 @@ import com.projekat.XML.model.*;
 import com.projekat.XML.model.requests.BookingRequest;
 import com.projekat.XML.repository.*;
 
-import com.projekat.xml.javageneratedfiles.GetAdvertisementResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import xml.projekat.com.javageneratedfiles.GetAdvertisementRequest;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -394,20 +395,22 @@ public class AdvertisementService {
 		return usersAds;
 	}
 
-	public void saveSoapAdvertisement(GetAdvertisementResponse response){
-		EntityUser entityUser = userRepository.findOneByid(response.getAdvertisement().getUserID());
+	public String saveSoapAdvertisement(GetAdvertisementRequest request){
+		EntityUser entityUser = userRepository.findOneByid(request.getAdvertisement().getUserID());
 
-		Model model = modelRepository.findOneByid(response.getAdvertisement().getModel().getId());
-		Brand brand = brandRepository.findOneByid(response.getAdvertisement().getModel().getId());
-		FuelType fueltype = fuelTypeRepository.findOneByid(response.getAdvertisement().getModel().getId());
-		TransmissionType transmissionType = transmissionTypeRepository.findOneByid(response.getAdvertisement().getModel().getId());
-		CarClass carClass = carClassRepository.findOneByid(response.getAdvertisement().getModel().getId());
+		Model model = modelRepository.findOneByid(request.getAdvertisement().getModel().getId());
+		Brand brand = brandRepository.findOneByid(request.getAdvertisement().getModel().getId());
+		FuelType fueltype = fuelTypeRepository.findOneByid(request.getAdvertisement().getModel().getId());
+		TransmissionType transmissionType = transmissionTypeRepository.findOneByid(request.getAdvertisement().getModel().getId());
+		CarClass carClass = carClassRepository.findOneByid(request.getAdvertisement().getModel().getId());
 
-		Advertisement advertisement = new Advertisement(response.getAdvertisement().getName(),
-				model, brand, fueltype, transmissionType, carClass, response.getAdvertisement().getTravelled(), response.getAdvertisement().getCarSeats(),
-				response.getAdvertisement().getPrice(), entityUser, 10.0,new ArrayList<String>(), 0.0);
+		Advertisement advertisement = new Advertisement(request.getAdvertisement().getName(),
+				model, brand, fueltype, transmissionType, carClass, request.getAdvertisement().getTravelled(), request.getAdvertisement().getCarSeats(),
+				request.getAdvertisement().getPrice(), entityUser, 10.0,new ArrayList<String>(), 0.0);
 
 		advertisementRepository.save(advertisement);
+
+		return "saved";
 	}
 
 }

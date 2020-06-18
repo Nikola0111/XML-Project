@@ -28,7 +28,7 @@ public class SoapWsConfig {
         DefaultWsdl11Definition defaultWsdl11Definition = new DefaultWsdl11Definition();
         defaultWsdl11Definition.setPortTypeName("Advertisement");
         defaultWsdl11Definition.setLocationUri("/ws");
-        defaultWsdl11Definition.setTargetNamespace("http://XML.projekat.com/JavaGeneratedFiles");
+        defaultWsdl11Definition.setTargetNamespace("http://com.projekat.XML/JavaGeneratedFiles");
         defaultWsdl11Definition.setSchema(schema);
         return defaultWsdl11Definition;
     }
