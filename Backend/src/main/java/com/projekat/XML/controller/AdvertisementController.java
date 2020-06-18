@@ -133,7 +133,7 @@ public class AdvertisementController {
 
 	@PostMapping(value = "/saveReply",  produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Long> saveReply(@RequestBody ReplyDTO replyDTO){
-	//	advertisementService.saveReply(replyDTO);
+		advertisementService.saveReply(replyDTO);
 
 		return new ResponseEntity<>((long) 1, HttpStatus.OK);
 	}

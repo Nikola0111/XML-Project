@@ -84,7 +84,7 @@ public class EndUserController {
         VerificationToken verificationToken = verificationTokenService.findByUser(endUser);
 
         try {
-            mailSenderService.sendSimpleMessage(endUser.getUser().getLoginInfo().getEmail(), "Aktivacioni link",
+            mailSenderService.sendSimpleMessage(endUser.getEntityUser().getLoginInfo().getEmail(), "Aktivacioni link",
                     "Vaša registracija je prihvaćena! Kliknite na link da bi aktivirali vaš nalog i koristili usluge našeg servisa!\n\n"
                             + "http://localhost:4200/registrationConfirm.html?token=" + verificationToken.getToken());
         }catch (Exception e){
