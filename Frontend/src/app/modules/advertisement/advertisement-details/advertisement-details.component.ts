@@ -28,10 +28,12 @@ export class AdvertisementDetailsComponent implements OnInit {
 
   constructor(private messageService: CommentService, private advertisementService: AdvertisementService, private router: Router,
               private activatedRoute: ActivatedRoute, private sessionService: SessionService) {
-    // this.advertisementService.getRentedCars(this.sessionService.ulogovaniKorisnik.id).subscribe(data => {
-    //   this.rentedCars = data;
-    //   console.log(this.rentedCars);
-    // });
+    if (this.sessionService.ulogovaniKorisnik.userType.toString() === 'ENDUSER') {
+      this.advertisementService.getRentedCars(this.sessionService.ulogovaniKorisnik.id).subscribe(data => {
+        this.rentedCars = data;
+        console.log(this.rentedCars);
+      });
+    }
   }
 
   ngOnInit() {
@@ -49,15 +51,19 @@ export class AdvertisementDetailsComponent implements OnInit {
           }
         });
 
-        // console.log(this.dataSource);
-        // const smth = this.rentedCars.filter(item => {
-        //   return item === this.dataSource.id;
-        // });
-        // if (smth.length !== 0) {
-        //   this.rented = true;
-        // } else {
-        //   this.rented = false;
-        // }
+        console.log(this.dataSource);
+        console.log(this.rentedCars);
+
+        if(this.sessionService.ulogovaniKorisnik.userType.toString() === 'ENDUSER') {
+          const smth = this.rentedCars.filter(item => {
+            return item === this.dataSource.id;
+          });
+          if (smth.length !== 0) {
+            this.rented = true;
+          } else {
+            this.rented = false;
+          }
+        }
     });
   }
 

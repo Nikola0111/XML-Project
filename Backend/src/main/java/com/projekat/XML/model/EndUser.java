@@ -34,7 +34,7 @@ public class EndUser {
 
     @ManyToOne
     @JoinColumn
-    private EntityUser user;
+    private EntityUser entityUser;
 
     public EndUser() {
 
@@ -65,12 +65,12 @@ public class EndUser {
         return "EndUser{}";
     }
 
-    public int getNumber_of_requests() {
+    public int getNumberOfRequestsCanceled() {
         return numberOfRequestsCanceled;
     }
 
-    public void setNumber_of_requests(int number_of_requests) {
-        this.numberOfRequestsCanceled = number_of_requests;
+    public void setNumberOfRequestsCanceled(int numberOfRequestsCanceled) {
+        this.numberOfRequestsCanceled = numberOfRequestsCanceled;
     }
 
     public boolean isAccount_activated() {
@@ -97,12 +97,12 @@ public class EndUser {
         this.blocked = blocked;
     }
 
-    public EntityUser getUser() {
-        return this.user;
+    public EntityUser getEntityUser() {
+        return this.entityUser;
     }
 
-    public void setUser(EntityUser user) {
-        this.user = user;
+    public void setEntityUser(EntityUser user) {
+        this.entityUser = user;
     }
 
     public Long getId() {

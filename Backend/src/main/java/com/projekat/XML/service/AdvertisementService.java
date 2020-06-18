@@ -230,7 +230,7 @@ public class AdvertisementService {
 		List<CommentPreviewDTO> comments = new ArrayList<CommentPreviewDTO>();
 		for (int i = 0; i < db.size(); i++) {
 			CommentPreviewDTO temp = new CommentPreviewDTO(db.get(i).getValue(),
-					db.get(i).getEndUser().getUser().getLoginInfo().getEmail(), db.get(i).getGrade(),
+					db.get(i).getEndUser().getEntityUser().getLoginInfo().getEmail(), db.get(i).getGrade(),
 					db.get(i).getDate());
 			temp.setId(db.get(i).getId());
 
@@ -255,16 +255,16 @@ public class AdvertisementService {
 	}
 
 	public List<Long> getRentedCars(Long userId) {
-		Optional obj = endUserRepository.findById(userId);
+		EntityUser entityUser = userRepository.findOneByid(userId);
 		List<Long> list = new ArrayList<>();
-		if (obj.isPresent()) {
-			EndUser endUser = (EndUser) obj.get();
+
+		if(entityUser != null) {
+			EndUser endUser = endUserRepository.findByEntityUser(entityUser);
 
 			for (int i = 0; i < endUser.getRentedCars().size(); i++) {
 				list.add(endUser.getRentedCars().get(i).getId());
 			}
 		}
-
 		return list;
 	}
 
@@ -272,19 +272,20 @@ public class AdvertisementService {
 		return advertisementRepository.findAllByPostedBy_Id(id);
 	}
 
-	/*
-	 * public void saveReply(ReplyDTO replyDTO){ Agent agent =
-	 * agentRepository.findByLoginInfo_Email(replyDTO.getAgentMail()); Optional opt
-	 * = commentRepository.findById(replyDTO.getId());
-	 * 
-	 * Reply reply = new Reply(replyDTO.getComment(), (Comment) opt.get(), agent);
-	 * 
-	 * ((Comment) opt.get()).setReply(reply);
-	 * 
-	 * replyRepository.save(reply);
-	 * 
-	 * commentRepository.save((Comment) opt.get()); }
-	 */
+
+	public void saveReply(ReplyDTO replyDTO){
+		Agent agent = agentRepository.findByUser_LoginInfo_Email(replyDTO.getAgentMail());
+		Optional opt = commentRepository.findById(replyDTO.getId());
+
+	  	Reply reply = new Reply(replyDTO.getComment(), (Comment) opt.get(), agent);
+
+	  	((Comment) opt.get()).setReply(reply);
+
+	  	replyRepository.save(reply);
+
+	  	commentRepository.save((Comment) opt.get());
+	}
+
 
 	public Boolean saveCarDetail(CarDetailsDTO carDetailsDTO) {
 		if (carDetailsDTO.getType().toLowerCase().equals("brand")) {

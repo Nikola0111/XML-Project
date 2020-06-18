@@ -1,9 +1,7 @@
 package com.projekat.XML.service;
 
 import java.security.SecureRandom;
-import java.util.Base64;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import java.util.Set;
 
 @Service
 public class UserService {
@@ -89,7 +86,7 @@ public class UserService {
         Long userId = (Long) session.getAttribute("user");
 
         for (EndUser endUser : all) {
-            if (endUser.getUser().getId().equals(userId)) {
+            if (endUser.getEntityUser().getId().equals(userId)) {
                 return endUser;
             }
         }
@@ -149,16 +146,16 @@ public class UserService {
 
         EndUser endUser = new EndUser();
 
-        endUser.setNumber_of_requests(0);
+        endUser.setNumberOfRequestsCanceled(0);
         endUser.setAccount_activated(false);
         endUser.setAdminApproved(false);
-        endUser.setUser(findOneByid(entityUser.getId()));
+        endUser.setEntityUser(findOneByid(entityUser.getId()));
         endUser.setNumberOfAds(0);
 
         endUserService.save(endUser);
 
-        // String verificationToken = UUID.randomUUID().toString();
-        // verificationTokenService.save(endUser, verificationToken);
+        String verificationToken = UUID.randomUUID().toString();
+        verificationTokenService.save(endUser, verificationToken);
     }
 
 

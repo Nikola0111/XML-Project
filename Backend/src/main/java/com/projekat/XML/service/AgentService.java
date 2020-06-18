@@ -61,6 +61,9 @@ public class AgentService {
         Agent agent = new Agent(agentDTO.getName(), agentDTO.getSurname(), loginInfo, agentDTO.getJmbg(),
                 agentDTO.getPhone(), UserType.AGENT, 0, true, agentDTO.getAdress(), agentDTO.getBsregnum());
 
+        EntityUser newUser = new EntityUser(agentDTO.getName(),agentDTO.getSurname(), loginInfo, agentDTO.getJmbg(), agentDTO.getJmbg(), UserType.AGENT);
+        userRepository.save(newUser);
+        agent.setUser(newUser);
         agentRepository.save(agent);
 
         return 0;
@@ -72,7 +75,8 @@ public class AgentService {
         HttpSession session = attr.getRequest().getSession(true);
         Long id = (Long) session.getAttribute("user");
 
-        Agent opt = agentRepository.findOneById(id);
+        EntityUser entityUser = userRepository.findOneByid(id);
+        Agent opt = agentRepository.findByUser(entityUser);
         if(opt!=null){
             
             return opt.isFirst_login() ? false : true;
