@@ -84,6 +84,11 @@ export class AdvertisementDetailsComponent implements OnInit {
 
       this.comment = '';
       this.selectedValue = -1;
+
+      if (data !== -1.0) {
+        this.dataSource.grade = data;
+      }
+
     });
   }
 

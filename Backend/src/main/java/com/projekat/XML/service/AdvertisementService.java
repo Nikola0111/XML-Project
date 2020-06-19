@@ -201,7 +201,7 @@ public class AdvertisementService {
 		return filteredAvailableAds;
 	}
 
-	public void saveCommentAndGrade(CommentDTO commentDTO) {
+	public Double saveCommentAndGrade(CommentDTO commentDTO) {
 		Advertisement ad = advertisementRepository.findOneByid(commentDTO.getAd());
 		Grade grade = new Grade(commentDTO.getGrade(), ad);
 
@@ -215,10 +215,14 @@ public class AdvertisementService {
 
 			Comment comment = new Comment(commentDTO.getMessage(), date, ad, (EndUser) obj.get(),
 					commentDTO.getGrade());
-
+			comment.setApproved(false);
+			comment.setDeleted(false);
 			commentRepository.save(comment);
+
+			return gradeService.calculateGradeForAd(commentDTO.getAd());
 		}
 		// sacuvaj komentar
+		return -1.0;
 	}
 
 	public AdvertisementDTO findAdAndComments(Long id) {
@@ -229,10 +233,23 @@ public class AdvertisementService {
 		// sredjivanje komentara
 		List<CommentPreviewDTO> comments = new ArrayList<CommentPreviewDTO>();
 		for (int i = 0; i < db.size(); i++) {
+			if(!db.get(i).getApproved()){
+				continue;
+			}
+
 			CommentPreviewDTO temp = new CommentPreviewDTO(db.get(i).getValue(),
 					db.get(i).getEndUser().getEntityUser().getLoginInfo().getEmail(), db.get(i).getGrade(),
 					db.get(i).getDate());
 			temp.setId(db.get(i).getId());
+
+			String commentValue = "";
+			if(db.get(i).getDeleted() == true){
+				commentValue = "Komentar je obrisan od strane administratora";
+			}else {
+				commentValue = db.get(i).getValue();
+			}
+
+			temp.setComment(commentValue);
 
 			if (db.get(i).getReply() != null) {
 				ReplyDTO replyDTO = new ReplyDTO();
@@ -394,5 +411,32 @@ public class AdvertisementService {
 		return usersAds;
 	}
 
+	public List<CommentPreviewDTO> getUnapprovedComments(){
+		List<Comment> list = commentRepository.findByApproved(false);
+		List<CommentPreviewDTO> comments = new ArrayList<>();
 
+		String email;
+		for (Comment temp : list) {
+			EndUser endUser = endUserRepository.findOneById(temp.getEndUser().getId());
+			System.out.println("Email komentara: " + endUser.getEntityUser().getLoginInfo().getEmail());
+			comments.add(new CommentPreviewDTO(temp.getId(), temp.getValue(), endUser.getEntityUser().getLoginInfo().getEmail(), gradeService.calculateGradeForAd(temp.getId()), temp.getDate()));
+		}
+
+		return comments;
+	}
+
+	public void approveComment(Long id){
+		Comment comment = commentRepository.findOneById(id);
+
+		comment.setApproved(true);
+		commentRepository.save(comment);
+	}
+
+	public void deleteComment(Long id){
+		Comment comment = commentRepository.findOneById(id);
+
+		comment.setApproved(true);
+		comment.setDeleted(true);
+		commentRepository.save(comment);
+	}
 }

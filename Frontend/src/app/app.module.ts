@@ -56,6 +56,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from "@angular/material/select";
 import { AuthInterceptor } from './services/httpInterceptor.service';
 import { ReserveComponent } from './modules/reserve/reserve.component';
+import { CommentManagmentComponent } from './modules/administrator/comment-managment/comment-managment.component';
 
 
 
@@ -90,7 +91,8 @@ import { ReserveComponent } from './modules/reserve/reserve.component';
     ChangeDiscountDialogComponent,
     ImagesDialogComponent,
     AgentsAdvertisementsComponent,
-    ReserveComponent
+    ReserveComponent,
+    CommentManagmentComponent
 ],
   imports: [
     BrowserModule,
