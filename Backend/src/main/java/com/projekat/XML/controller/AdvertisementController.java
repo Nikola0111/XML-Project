@@ -89,10 +89,9 @@ public class AdvertisementController {
     }
 
 	@PostMapping(value = "/saveCommentAndGrade", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<Long> saveCommentAndGrade(@RequestBody CommentDTO commentDTO){
-		advertisementService.saveCommentAndGrade(commentDTO);
+	public  ResponseEntity<Double> saveCommentAndGrade(@RequestBody CommentDTO commentDTO){
 
-		return new ResponseEntity<>((long) 1, HttpStatus.OK);
+		return new ResponseEntity<>(advertisementService.saveCommentAndGrade(commentDTO), HttpStatus.OK);
 
 	}
 
@@ -167,5 +166,21 @@ public class AdvertisementController {
 		return new ResponseEntity<>(ads, HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/getUnapprovedComments", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<CommentPreviewDTO>> getUnapprovedComments(){
+		return new ResponseEntity<>(advertisementService.getUnapprovedComments(), HttpStatus.OK);
+	}
 
+	@PostMapping(value = "/approve/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> approve(@PathVariable("id") Long id){
+		System.out.println(id + " Id komentara");
+		advertisementService.approveComment(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+		advertisementService.deleteComment(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }
