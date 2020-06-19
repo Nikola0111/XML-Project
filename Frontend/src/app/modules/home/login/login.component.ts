@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
         this.loginService.getUserByUsername(this.username).subscribe(user => {
           console.log(user);
           this.sessionService.ulogovaniKorisnik = user;
+          localStorage.setItem("korisnik",user.loginInfo.username);
           console.log('proverava')
           if (user.userType.toString() === 'ADMINISTRATOR') {
             console.log('administrator je');

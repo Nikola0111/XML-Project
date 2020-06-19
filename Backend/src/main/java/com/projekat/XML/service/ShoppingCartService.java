@@ -31,6 +31,7 @@ public class ShoppingCartService {
 
 public void save(Long id){
 
+    System.out.println("POGODI KREIRANJE KORPE");
     shoppingCartRepository.save(new ShoppingCart(id, new ArrayList<Long>()));
 
 }
@@ -41,6 +42,10 @@ public void addAItemInCart(Long itemId){
     
 
     ShoppingCart cart=shoppingCartRepository.findOneByuserId(getLogedUserId());
+
+    System.out.println("User id je ="+getLogedUserId());
+    System.out.println("CART JE"+cart);
+
     cart.addOneItemInCart(itemId);
     shoppingCartRepository.save(cart);
 }

@@ -13,6 +13,8 @@ import com.projekat.XML.model.Advertisement;
 import com.projekat.XML.model.requests.BookingRequest;
 import com.projekat.XML.repository.AdvertisementRepository;
 import com.projekat.XML.repository.BookingRequestRepository;
+import com.projekat.XML.repository.EndUserRepository;
+import com.projekat.XML.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,8 @@ public class BookingRequestService {
 
     @Autowired
     AdvertisementRepository advertisementRepository;
+
+  
 
 
 
@@ -281,7 +285,11 @@ public class BookingRequestService {
              }
          }
 
+    
          bookingRequestRepository.save(toBook);
+      
+
+
 
      }
      
@@ -366,6 +374,7 @@ public class BookingRequestService {
         }
 
     }
+
     
 
 }
