@@ -207,13 +207,13 @@ public class AdvertisementService {
 
 		gradeService.save(grade);
 
-		Optional obj = endUserRepository.findById(commentDTO.getUserId());
+		EndUser endUser = endUserRepository.findByEntityUser(userRepository.findOneByid(commentDTO.getUserId()));
 
-		if (obj.isPresent()) {
+		if (endUser != null) {
 			Date date = new Date();
 			System.out.println(date);
 
-			Comment comment = new Comment(commentDTO.getMessage(), date, ad, (EndUser) obj.get(),
+			Comment comment = new Comment(commentDTO.getMessage(), date, ad, endUser,
 					commentDTO.getGrade());
 			comment.setApproved(false);
 			comment.setDeleted(false);
@@ -232,6 +232,7 @@ public class AdvertisementService {
 
 		// sredjivanje komentara
 		List<CommentPreviewDTO> comments = new ArrayList<CommentPreviewDTO>();
+		List<CommentPreviewDTO> actualComments = new ArrayList<>();
 		for (int i = 0; i < db.size(); i++) {
 			if(!db.get(i).getApproved()){
 				continue;
@@ -248,7 +249,6 @@ public class AdvertisementService {
 			}else {
 				commentValue = db.get(i).getValue();
 			}
-
 			temp.setComment(commentValue);
 
 			if (db.get(i).getReply() != null) {
@@ -259,6 +259,29 @@ public class AdvertisementService {
 				temp.setReplyDTO(replyDTO);
 			}
 			System.out.println(temp);
+
+//			actualComments = new ArrayList<>();
+////			if(comments.size() == 0){
+////				actualComments.add(temp);
+////				comments = actualComments;
+////				continue;
+////			}
+////			for(int index = 0; index < comments.size(); index++){
+////				if(actualComments.contains(temp)){
+////					continue;
+////				}
+////				System.out.println(temp.getDate().compareTo(comments.get(index).getDate()));
+////				if(temp.getDate().compareTo(comments.get(index).getDate()) == -1){
+////					CommentPreviewDTO tempComment = comments.get(index);
+////					actualComments.set(index, temp);
+////					actualComments.add(tempComment);
+////				}else{
+////					actualComments.add(temp);
+////				}
+////			}
+////			comments = actualComments;
+////
+////			System.out.println("Komentari" + comments);
 
 			comments.add(temp);
 		}

@@ -10,10 +10,15 @@ import com.projekat.XML.dtos.ItemInCartDTO;
 import com.projekat.XML.dtos.ReservationDTO;
 import com.projekat.XML.enums.RequestStates;
 import com.projekat.XML.model.Advertisement;
+import com.projekat.XML.model.EndUser;
+import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.model.requests.BookingRequest;
 import com.projekat.XML.repository.AdvertisementRepository;
 import com.projekat.XML.repository.BookingRequestRepository;
 
+import com.projekat.XML.repository.EndUserRepository;
+import com.projekat.XML.repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -28,8 +33,11 @@ public class BookingRequestService {
     @Autowired
     AdvertisementRepository advertisementRepository;
 
+    @Autowired
+    EndUserRepository endUserRepository;
 
-
+    @Autowired
+    UserRepository userRepository;
 
     public void makeRequests(List<ItemInCartDTO> listaZahteva){
         //pretrazujem za svakog vlasnika, ako se pogodi da je isti, pogledam dal ide oglas odvojeno ili zajedno i na osnovu toga 
