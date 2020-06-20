@@ -1,11 +1,10 @@
 package com.projekat.XML.service;
 
+import com.projekat.XML.model.Agent;
 import com.projekat.XML.model.EndUser;
 import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.model.LoginInfo;
-import com.projekat.XML.repository.EndUserRepository;
-import com.projekat.XML.repository.LoginInfoRepository;
-import com.projekat.XML.repository.UserRepository;
+import com.projekat.XML.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +26,15 @@ public class EndUserService {
 
     @Autowired
     private ShoppingCartService shoppingCartService;
+
+    @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
+    private AgentRepository agentRepository;
+
+    @Autowired
+    private ReplyRepository replyRepository;
 
     public void save(EndUser endUser) {
 
@@ -108,7 +116,12 @@ public class EndUserService {
 
     @Transactional
     public void deactivate(Long id){
-        endUserRepository.deleteById(id);
+        EndUser endUser = endUserRepository.findOneById(id);
+        System.out.println("Id usera:" + id);
+        if(endUser != null){
+            commentRepository.deleteByEndUser(endUser);
+            endUserRepository.delete(endUser);
+        }
     }
 
     @Transactional
