@@ -15,6 +15,8 @@ import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.model.requests.BookingRequest;
 import com.projekat.XML.repository.AdvertisementRepository;
 import com.projekat.XML.repository.BookingRequestRepository;
+import com.projekat.XML.repository.EndUserRepository;
+import com.projekat.XML.repository.UserRepository;
 
 import com.projekat.XML.repository.EndUserRepository;
 import com.projekat.XML.repository.UserRepository;
@@ -289,7 +291,11 @@ public class BookingRequestService {
              }
          }
 
+    
          bookingRequestRepository.save(toBook);
+      
+
+
 
      }
      
@@ -374,6 +380,7 @@ public class BookingRequestService {
         }
 
     }
+
     
 
 }

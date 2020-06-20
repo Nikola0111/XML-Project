@@ -80,8 +80,8 @@ export class AdvertisementDetailsComponent implements OnInit {
       const listComment = new CommentPreviewDTO(this.comment,
         this.sessionService.ulogovaniKorisnik.loginInfo.email, this.selectedValue);
       listComment.replyDTO = reply;
-      this.dataSource.comments.push(listComment);
-
+     // this.dataSource.comments.push(listComment);
+        alert("Komentar je poslat na reviziju");
       this.comment = '';
       this.selectedValue = -1;
 

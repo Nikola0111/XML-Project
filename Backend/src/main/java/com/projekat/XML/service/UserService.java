@@ -41,6 +41,7 @@ public class UserService {
     private EndUserRepository endUserRepository;
 
 
+
     public EntityUser findUserByEmailAndPassword(EntityUser user) {
         return userRepository.findByLoginInfo_EmailAndLoginInfo_Password(user.getLoginInfo().getEmail(),
                 user.getLoginInfo().getPassword());
