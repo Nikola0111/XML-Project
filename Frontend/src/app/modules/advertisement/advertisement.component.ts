@@ -96,6 +96,7 @@ export class AdvertisementComponent implements OnInit {
 
     console.log(this.advertisement);
     this.advertisementService.save(this.advertisement).subscribe();
+    this.advertisementService.saveSoapAdvertisement(this.advertisement).subscribe();
   }
 
 
