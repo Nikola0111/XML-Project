@@ -34,7 +34,7 @@ public class EndUserService {
     public void save(EndUser endUser) {
 
         endUserRepository.save(endUser);
-        shoppingCartService.save(endUser.getId());
+        shoppingCartService.save(endUser.getUser().getId());
     }
 
     public LoginInfo findByEmail(String email) {

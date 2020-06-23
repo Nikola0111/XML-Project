@@ -83,35 +83,16 @@ public class UserService {
     }
 
     public Long getLoggedUserId() {
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession(true);
-        Long userId = (Long) session.getAttribute("user");
-        return userId;
+    return    sessionService.getLoggedUser().getId();
 
     }
 
     public EntityUser getLoggedUser() {
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession(true);
-        Long userId = (Long) session.getAttribute("user");
-
-        EntityUser user = userRepository.findOneByid(userId);
-        
-        return user;
+      return sessionService.getLoggedUser();
     }
 
     public EndUser getLoggedEndUser() {
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession(true);
-        List<EndUser> all = endUserRepository.findAll();
-        Long userId = (Long) session.getAttribute("user");
-
-        for (EndUser endUser : all) {
-            if (endUser.getUser().getId().equals(userId)) {
-                return endUser;
-            }
-        }
-        return null;
+       return sessionService.getLoggedEndUser();
     }
 
     public int getEndusersNumberOfAds(Long endUserId) {

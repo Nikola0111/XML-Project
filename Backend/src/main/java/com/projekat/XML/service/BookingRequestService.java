@@ -32,6 +32,9 @@ public class BookingRequestService {
     @Autowired
     LoggerService loggerService;
 
+    @Autowired
+    SessionService sessionService;
+
 
     public void makeRequests(List<ItemInCartDTO> listaZahteva){
         //pretrazujem za svakog vlasnika, ako se pogodi da je isti, pogledam dal ide oglas odvojeno ili zajedno i na osnovu toga 
@@ -356,13 +359,10 @@ public class BookingRequestService {
         }
     }
 
-    private Long getLogedUserId(){
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession(true);
-    
-        Long id = (Long) session.getAttribute("user");
-        return id;
+    public Long getLogedUserId(){
+        return sessionService.getLoggedUser().getId();
     }
+    
 
     private void cancelInSameGroup(List<BookingRequest> svi, Long groupId) {
 

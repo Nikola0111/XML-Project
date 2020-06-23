@@ -1,7 +1,7 @@
 {
   "/server/*": {
     "target": "https://localhost:8443",
-    "secure": true,
+    "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
     "pathRewrite": {

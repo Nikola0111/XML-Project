@@ -17,8 +17,16 @@ public class LoginInfoService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         
+    for (LoginInfo login : loginInfoRepository.findAll()) {
         
-        return loginInfoRepository.findByUsername(username);
+        if(login.getUsername().equals(username)){
+            return login;
+        }
+
+    }
+
+    System.out.println("NIJE PROSAO");
+        return null;
 
     }
 
@@ -53,6 +61,7 @@ return loginInfoRepository.findByUsername(username).getSalt();
     public LoginInfo findOneByUsername(String username){
 
         return loginInfoRepository.findByUsername(username);
+        
     }
 
 }

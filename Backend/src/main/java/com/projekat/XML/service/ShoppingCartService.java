@@ -29,6 +29,9 @@ public class ShoppingCartService {
     @Autowired
     ItemInCartRepository itemInCartRepository;
 
+    @Autowired
+    SessionService sessionService;
+
 public void save(Long id){
 
     shoppingCartRepository.save(new ShoppingCart(id, new ArrayList<Long>()));
@@ -91,11 +94,7 @@ return vrati;
 
 
 public Long getLogedUserId(){
-    ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-    HttpSession session = attr.getRequest().getSession(true);
-
-    Long id = (Long) session.getAttribute("user");
-    return id;
+    return sessionService.getLoggedUser().getId();
 }
 
     

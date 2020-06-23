@@ -34,6 +34,9 @@ public class MessageService {
     @Autowired
     LoggerService loggerService;
 
+    @Autowired
+    SessionService sessionService;
+
     public List<Message> getConversation(Long id) {
         List<Message> allMessages = messageRepository.findAll();
         List<Message> filteredMessages = new ArrayList<Message>();
@@ -162,13 +165,10 @@ public class MessageService {
         return messagableUsers;
     }
 
-    private Long getLogedUserId() {
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession(true);
-
-        Long id = (Long) session.getAttribute("user");
-        return id;
+    public Long getLogedUserId(){
+        return sessionService.getLoggedUser().getId();
     }
+    
 
     private EntityUser getLoggedUser() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
