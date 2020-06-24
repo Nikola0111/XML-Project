@@ -1,6 +1,7 @@
 package com.projekat.XML.dtos;
 
 import com.projekat.XML.enums.UserType;
+import com.projekat.XML.model.EntityUser;
 
 public class UserDTO {
 
@@ -14,6 +15,19 @@ public class UserDTO {
 
     public UserDTO() {
     }
+
+    
+    public UserDTO(String name, String surname, String username, String email, String password, String jmbg,
+            String phone) {
+        this.name = name;
+        this.surname = surname;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.jmbg = jmbg;
+        this.phone = phone;
+    }
+    
 
     public String getName() {
         return name;
@@ -70,4 +84,5 @@ public class UserDTO {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
 }

@@ -31,6 +31,9 @@ public class EndUserService {
     @Autowired
     LoggerService loggerService;
 
+    @Autowired
+    LoginInfoService loginInfoService;
+
     public void save(EndUser endUser) {
 
         endUserRepository.save(endUser);
@@ -72,8 +75,11 @@ public class EndUserService {
             endUser.setBlocked(false);
             endUserRepository.save(endUser);
 
+
+            String username=loginInfoService.findOneById(endUser.getUser().getLoginInfoId()).getUsername();
+
             loggerService.doLog("10",
-                    "Username: " + userRepository.findOneByid(endUser.getUser().getId()).getLoginInfo().getUsername(),
+                    "Username: "+ username,
                     "INFO");
             return endUser;
         }
@@ -128,8 +134,11 @@ public class EndUserService {
         endUser.setBlocked(true);
 
         endUserRepository.save(endUser);
+
+        String username=loginInfoService.findOneById(endUser.getUser().getLoginInfoId()).getUsername();
+
         loggerService.doLog("11",
-                "Username: " + userRepository.findOneByid(endUser.getUser().getId()).getLoginInfo().getUsername(),
+                "Username: " + username,
                 "INFO");
         return true;
     }

@@ -72,6 +72,9 @@ public class AdvertisementService {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	LoginInfoService loginInfoService;
+
 	public Advertisement save(AdvertisementCreationDTO advertisementCreationDTO) {
 
 		Model model = modelRepository.findByName(advertisementCreationDTO.getModel());
@@ -251,8 +254,11 @@ public class AdvertisementService {
 		List<CommentPreviewDTO> comments = new ArrayList<CommentPreviewDTO>();
 
 		for (int i = 0; i < db.size(); i++) {
+
+			String email=loginInfoService.findOneById(db.get(i).getEndUser().getUser().getLoginInfoId()).getEmail();
+
 			CommentPreviewDTO temp = new CommentPreviewDTO(db.get(i).getValue(),
-					db.get(i).getEndUser().getUser().getLoginInfo().getEmail(), db.get(i).getGrade(),
+					email, db.get(i).getGrade(),
 					db.get(i).getDate());
 
 			temp.setId(db.get(i).getId());
@@ -261,7 +267,7 @@ public class AdvertisementService {
 				ReplyDTO replyDTO = new ReplyDTO();
 				replyDTO.setComment(db.get(i).getReply().getComment());
 
-				replyDTO.setAgentMail(db.get(i).getReply().getAgent().getUser().getLoginInfo().getEmail());
+				replyDTO.setAgentMail(email);
 
 				temp.setReplyDTO(replyDTO);
 			}

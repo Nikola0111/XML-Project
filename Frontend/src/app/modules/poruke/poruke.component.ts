@@ -29,6 +29,8 @@ export class PorukeComponent implements OnInit {
       
       data=>{
         this.users=data;
+       
+
         console.log(data);
       }
 

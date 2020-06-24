@@ -1,5 +1,6 @@
 package com.projekat.XML.controller;
 
+import com.projekat.XML.dtos.RegistrationDTO;
 import com.projekat.XML.model.*;
 import com.projekat.XML.model.LoginInfo;
 
@@ -7,6 +8,7 @@ import com.projekat.XML.model.EntityUser;
 
 import com.projekat.XML.model.VerificationToken;
 import com.projekat.XML.service.EndUserService;
+import com.projekat.XML.service.LoginInfoService;
 import com.projekat.XML.service.MailSenderService;
 import com.projekat.XML.service.UserService;
 import com.projekat.XML.service.VerificationTokenService;
@@ -46,30 +48,33 @@ public class EndUserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LoginInfoService loginInfoService;
+
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> register(@RequestBody EntityUser entityUser){
-        System.out.println("OVO SU PODATCI:"+entityUser.getLoginInfo());
+    public ResponseEntity<String> register(@RequestBody RegistrationDTO registrationDTO){
+
 
         LoginInfo loginInfo;
 
-        loginInfo = endUserService.findByEmail(entityUser.getLoginInfo().getEmail());
+        loginInfo = endUserService.findByEmail(registrationDTO.getLoginInfo().getEmail());
         if(loginInfo != null){
             return new ResponseEntity<>("email", HttpStatus.BAD_REQUEST);
         }
 
-        loginInfo = endUserService.findByUsername(entityUser.getLoginInfo().getUsername());
+        loginInfo = endUserService.findByUsername(registrationDTO.getLoginInfo().getUsername());
         if(loginInfo != null){
             return new ResponseEntity<>("username", HttpStatus.BAD_REQUEST);
         }
 
-        EntityUser user = endUserService.findByJmbg(entityUser.getJmbg());
+        EntityUser user = endUserService.findByJmbg(registrationDTO.getJmbg());
         if(user != null){
             return new ResponseEntity<>("jmbg", HttpStatus.BAD_REQUEST);
         }
 
 
-        userService.saveNewUser(entityUser);
+        userService.saveNewUser(registrationDTO);
 
 
         return new ResponseEntity<>("ok", HttpStatus.OK);
@@ -99,7 +104,10 @@ public class EndUserController {
         VerificationToken verificationToken = verificationTokenService.findByUser(endUser);
 
         try {
-            mailSenderService.sendSimpleMessage(endUser.getUser().getLoginInfo().getEmail(), "Aktivacioni link",
+
+            String email= loginInfoService.findOneById(endUser.getUser().getLoginInfoId()).getEmail();
+
+            mailSenderService.sendSimpleMessage(email, "Aktivacioni link",
                     "Vaša registracija je prihvaćena! Kliknite na link da bi aktivirali vaš nalog i koristili usluge našeg servisa!\n\n"
                             + "http://localhost:4200/registrationConfirm.html?token=" + verificationToken.getToken());
         }catch (Exception e){

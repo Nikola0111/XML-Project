@@ -1,5 +1,6 @@
 package com.projekat.XML.model;
 
+import com.projekat.XML.dtos.RegistrationDTO;
 import com.projekat.XML.enums.UserType;
 
 import com.projekat.XML.model.*;
@@ -32,9 +33,8 @@ public class EntityUser {
     @Pattern(regexp="^$|[a-zA-Z ]+$", message="Name must not include special characters.")
     private String surname;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "login_info", referencedColumnName = "id")
-    private LoginInfo loginInfo;
+   
+    private Long loginInfoId;
 
 
     @Column(name = "jmbg", unique = true, nullable = false)
@@ -52,13 +52,20 @@ public class EntityUser {
     @Column(name = "user_type")
     private UserType userType;
 
-    public EntityUser(String name, String surname, LoginInfo loginInfo, String jmbg, String phoneNumber, UserType ut) {
+    public EntityUser(String name, String surname, Long loginInfoId, String jmbg, String phoneNumber, UserType ut) {
         this.name = name;
         this.surname = surname;
-        this.loginInfo = loginInfo;
+        this.loginInfoId = loginInfoId;
         this.jmbg = jmbg;
         this.phoneNumber = phoneNumber;
         this.userType = ut;
+    }
+
+    public EntityUser(RegistrationDTO registrationDTO) {
+        this.name = registrationDTO.getName();
+        this.surname = registrationDTO.getSurname();
+        this.jmbg = registrationDTO.getJmbg();
+        this.phoneNumber = registrationDTO.getPhoneNumber();
     }
 
     public EntityUser() {
@@ -73,12 +80,12 @@ public class EntityUser {
         this.surname = surname;
     }
 
-    public LoginInfo getLoginInfo() {
-        return loginInfo;
+    public Long getLoginInfoId() {
+        return loginInfoId;
     }
 
-    public void setLoginInfo(LoginInfo loginInfo) {
-        this.loginInfo = loginInfo;
+    public void setLoginInfoId(Long loginInfoId) {
+        this.loginInfoId = loginInfoId;
     }
 
     public String getJmbg() {
@@ -121,14 +128,6 @@ public class EntityUser {
         this.userType = userType;
     }
 
-    public String getPassword(){
-        return this.loginInfo.getPassword();
-    }
-
-
-    public String getUsername(){
-        return this.loginInfo.getUsername();
-    }
 
 
     @Override
@@ -136,7 +135,7 @@ public class EntityUser {
         return "User{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", loginInfo=" + loginInfo +
+                ", loginInfo="  +
                 ", jmbg='" + jmbg + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", userType=" + userType +

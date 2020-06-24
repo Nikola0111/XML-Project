@@ -53,7 +53,7 @@ public class SessionService {
 
         List<EntityUser> users = userRepository.findAll();
         for(EntityUser user : users){
-            if(user.getLoginInfo().getId() == loginInfoID){
+            if(user.getLoginInfoId() == loginInfoID){
                 return user;
             }
         }

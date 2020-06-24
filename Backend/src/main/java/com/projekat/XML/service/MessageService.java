@@ -1,5 +1,6 @@
 package com.projekat.XML.service;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -14,6 +15,8 @@ import java.util.*;
 import javax.servlet.http.HttpSession;
 
 import com.projekat.XML.dtos.MessageDTO;
+import com.projekat.XML.dtos.UserDTO;
+import com.projekat.XML.dtos.UserMessageDTO;
 import com.projekat.XML.enums.RequestStates;
 import com.projekat.XML.model.*;
 import com.projekat.XML.model.requests.BookingRequest;
@@ -36,6 +39,9 @@ public class MessageService {
 
     @Autowired
     SessionService sessionService;
+
+    @Autowired
+    LoginInfoService loginInfoService;
 
     public List<Message> getConversation(Long id) {
         List<Message> allMessages = messageRepository.findAll();
@@ -75,8 +81,12 @@ public class MessageService {
         List<EntityUser> allUsers = userService.findAll();
         
         if(messageDTO.getEmail() != null && !messageDTO.getEmail().equals("")){
+            String email="";
+
             for (EntityUser user : allUsers) {
-                if (user.getLoginInfo().getEmail().equals(messageDTO.getEmail())) {
+                email=loginInfoService.findOneById(user.getLoginInfoId()).getEmail();
+
+                if (email.equals(messageDTO.getEmail())) {
                     
                     message.setReceiver(user);
                 }
@@ -90,8 +100,10 @@ public class MessageService {
         message.setText(messageDTO.text);
         message.setTimeSent(LocalDateTime.now());
 
+        String email=loginInfoService.findOneById(message.getReceiver().getLoginInfoId()).getEmail();
+
         messageRepository.save(message);
-        loggerService.doLog("12", "Tekst: " + message.getText() + " Primalac: " + message.getReceiver().getLoginInfo().getEmail(), "INFO");
+        loggerService.doLog("12", "Tekst: " + message.getText() + " Primalac: " + email, "INFO");
 
         return 1;
     }
@@ -102,11 +114,12 @@ public class MessageService {
         return userService.findAll();
     }
 
-    public List<EntityUser> getInboxUsers()
+    public List<UserMessageDTO> getInboxUsers()
     {
         List<Message> allMessages = messageRepository.findAll();
         List<Message> filteredMessages = new ArrayList<Message>();
         List<EntityUser> users = new ArrayList<EntityUser>();
+        List<UserMessageDTO> returnUsers=new ArrayList<UserMessageDTO>();
         Long loggedID = getLogedUserId();
 
         for (Message message : allMessages) {
@@ -132,15 +145,25 @@ public class MessageService {
             }
         }
 
-        return users;  
+
+        for (EntityUser entityUser : users) {
+            LoginInfo login= loginInfoService.findOneById(entityUser.getLoginInfoId());
+
+            returnUsers.add(new UserMessageDTO(entityUser.getId(),entityUser.getName(), entityUser.getSurname(),
+             login, entityUser.getJmbg(), entityUser.getPhoneNumber()));
+
+        }
+
+        return returnUsers;  
 
     }
 
-    public List<EntityUser> getAllMessagableUsers()
+    public List<UserMessageDTO> getAllMessagableUsers()
     {
 
         List<EntityUser> messagableUsers = new ArrayList<EntityUser>();
         List<BookingRequest> bookingRequests = bookingRequestService.findAll();
+        List<UserMessageDTO> returnUsers=new ArrayList<UserMessageDTO>();
         Long loggedID = getLogedUserId();
 
         for(BookingRequest bookingRequest : bookingRequests)
@@ -162,7 +185,15 @@ public class MessageService {
             }
         }
 
-        return messagableUsers;
+        for (EntityUser entityUser : messagableUsers) {
+            LoginInfo login= loginInfoService.findOneById(entityUser.getLoginInfoId());
+
+            returnUsers.add(new UserMessageDTO(entityUser.getId(),entityUser.getName(), entityUser.getSurname(),
+             login, entityUser.getJmbg(), entityUser.getPhoneNumber()));
+
+        }
+
+        return returnUsers;  
     }
 
     public Long getLogedUserId(){
@@ -171,13 +202,9 @@ public class MessageService {
     
 
     private EntityUser getLoggedUser() {
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession(true);
+      
 
-        Long id = (Long) session.getAttribute("user");
-        EntityUser user = userService.findOneByid(id);
-
-        return user;
+        return sessionService.getLoggedUser();
     }
 
     

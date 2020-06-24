@@ -3,7 +3,7 @@ package com.projekat.XML.controller;
 import java.util.List;
 
 import com.projekat.XML.dtos.MessageDTO;
-import com.projekat.XML.model.EntityUser;
+import com.projekat.XML.dtos.UserMessageDTO;
 import com.projekat.XML.model.Message;
 import com.projekat.XML.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,8 @@ MessageService messageService;
 
 
     @GetMapping(value = "/allInboxUsers")
-    public ResponseEntity<List<EntityUser>> getInboxUsers() {
-		List<EntityUser> users = messageService.getInboxUsers();
+    public ResponseEntity<List<UserMessageDTO>> getInboxUsers() {
+		List<UserMessageDTO> users = messageService.getInboxUsers();
 
 		
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -37,8 +37,8 @@ MessageService messageService;
 
 
     @GetMapping(value = "/allMessagableUsers")
-    public ResponseEntity<List<EntityUser>> getAllMessagableUsers() {
-		List<EntityUser> users = messageService.getAllMessagableUsers();
+    public ResponseEntity<List<UserMessageDTO>> getAllMessagableUsers() {
+		List<UserMessageDTO> users = messageService.getAllMessagableUsers();
 		
         return new ResponseEntity<>(users, HttpStatus.OK);
     }

@@ -9,6 +9,7 @@ import java.util.Base64.Encoder;
 
 import javax.servlet.http.HttpSession;
 
+import com.projekat.XML.dtos.RegistrationDTO;
 import com.projekat.XML.enums.UserType;
 import com.projekat.XML.model.Agent;
 import com.projekat.XML.model.EndUser;
@@ -16,6 +17,7 @@ import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.model.LoginInfo;
 import com.projekat.XML.repository.AgentRepository;
 import com.projekat.XML.repository.EndUserRepository;
+import com.projekat.XML.repository.LoginInfoRepository;
 import com.projekat.XML.repository.UserRepository;
 import com.projekat.XML.security.ApplicationUserRole;
 import com.projekat.XML.security.PasswordConfig;
@@ -53,17 +55,16 @@ public class UserService {
     @Autowired
     private EndUserRepository endUserRepository;
 
-  @Autowired
+    @Autowired
     private LoggerService loggerService;
 
     @Autowired
     private SessionService sessionService;
 
+    @Autowired
+    private LoginInfoRepository loginInfoRepository;
+
     private final PasswordEncoder passwordEncoder=new BCryptPasswordEncoder(10);
-    
-    public EntityUser findUserByEmailAndPassword(EntityUser user) {
-        return userRepository.findByLoginInfo_EmailAndLoginInfo_Password(user.getLoginInfo().getEmail(), user.getLoginInfo().getPassword());
-    }
 
 
     public void login(LoginInfo log) {
@@ -75,7 +76,7 @@ public class UserService {
 
         for (EntityUser user : userRepository.findAll()) {
 
-            if (user.getLoginInfo().getId().equals(log.getId())) {
+            if (user.getLoginInfoId().equals(log.getId())) {
                 session.setAttribute("user", user.getId());
             }
 
@@ -83,7 +84,7 @@ public class UserService {
     }
 
     public Long getLoggedUserId() {
-    return    sessionService.getLoggedUser().getId();
+    return sessionService.getLoggedUser().getId();
 
     }
 
@@ -129,22 +130,23 @@ public class UserService {
 
 
     public EntityUser findByUsername(String username) {
-        return userRepository.findByLoginInfo_Username(username);
+
+        LoginInfo login=loginInfoRepository.findByUsername(username);
+
+        return userRepository.findByLoginInfoId(login.getId());
     }
 
 
-    public void saveNewUser(EntityUser entityUser){
+    public void saveNewUser(RegistrationDTO registrationDTO){
 
         String salt=makeSalt();      
 
-        System.out.println("Naso ga je lepo"+ findOneByid(entityUser.getId()));
-
-        System.out.println("HESOVAN PASSWORD == "+hashIt(entityUser.getPassword(),salt));
+        
 
         LoginInfo loginInfo=new LoginInfo(
-        entityUser.getUsername(),
-        hashIt(entityUser.getPassword(),salt ), 
-        entityUser.getLoginInfo().getEmail(),
+            registrationDTO.getLoginInfo().getUsername(),
+        hashIt(registrationDTO.getLoginInfo().getPassword(),salt ), 
+        registrationDTO.getLoginInfo().getEmail(),
         salt,
         ApplicationUserRole.ENDUSER.getGrantedAuthorities(),
         true,
@@ -155,7 +157,9 @@ public class UserService {
 
         loginInfoService.save(loginInfo);
 
-        entityUser.setLoginInfo(loginInfoService.findOneById(loginInfo.getId()));
+        EntityUser entityUser = new EntityUser(registrationDTO);
+        entityUser.setLoginInfoId(loginInfo.getId());
+        entityUser.setUserType(UserType.ENDUSER);
 
 
         // cuvanje u bazi
