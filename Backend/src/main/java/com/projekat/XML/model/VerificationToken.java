@@ -1,5 +1,7 @@
 package com.projekat.XML.model;
 
+import java.util.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,14 +14,21 @@ public class VerificationToken {
     @Column
     private String token;
 
-    @OneToOne(targetEntity = EntityUser.class, fetch = FetchType.EAGER)
+    private Date expiryDate;
+
+    @OneToOne(targetEntity = EndUser.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
     private EndUser user;
 
     public VerificationToken(){
 
     }
-
+    public VerificationToken(String token, EndUser user, Date expiryDate) {
+        this.token = token;
+        this.user = user;
+        this.expiryDate = expiryDate;
+    }
+    
     public VerificationToken(String token, EndUser user) {
         this.token = token;
         this.user = user;
@@ -39,5 +48,21 @@ public class VerificationToken {
 
     public void setUser(EndUser user) {
         this.user = user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
     }
 }

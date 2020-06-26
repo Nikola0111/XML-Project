@@ -1,6 +1,2 @@
-May 25, 2020 5:52:57 PM com.projekat.XML.service.LoggerService doLog
-WARNING:  | kajza | neka funkcija | neki rezultat;
-May 25, 2020 5:52:57 PM com.projekat.XML.service.LoggerService doLog
-SEVERE:  | kajza | neka funkcija | neki rezultat;
-May 25, 2020 5:52:57 PM com.projekat.XML.service.LoggerService doLog
-INFO:  | kajza | neka funkcija | neki rezultat;
+Jun 27, 2020 12:55:31 AM com.projekat.XML.service.LoggerService doLog
+INFO:  | susa | 1 | ime:NETSTO;

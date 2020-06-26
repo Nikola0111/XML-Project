@@ -35,6 +35,8 @@
               <li><a [routerLink]="['/statistics']">Statistics</a></li>
               <li><a [routerLink]="['/reserve']">Reserve</a></li>
 
+              <li  class = "button" (click)="addPredefined()"><a>Add Predefined</a></li>
+
               <li> <a [routerLink]="['/shoppingCart']"> <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</a></li>
 
               <!--      <li *ngIf="sessionService.ulogovaniKorisnik === undefined"><a [routerLink]="['/registracija']">Welcome</a></li>
@@ -45,7 +47,7 @@
                     <li *ngIf="sessionService.isEndUser"><a [routerLink]="['/shoppingCart']"> -->
 
 
-              <li *ngIf="sessionService.isAdmin" class = "button" (click)="showRequests()"><a>Requests</a></li>
+                      <li *ngIf="sessionService.isAdmin" class = "button" (click)="showRequests()"><a>Requests</a></li>
               <li *ngIf="sessionService.isAdmin" class = "button" (click)="showAgentReg()"><a>Register Agents</a></li>
               <li *ngIf="sessionService.isAdmin" class = "button" (click)="manageUsers()"><a>Manage users</a></li>
               <li *ngIf="sessionService.isAdmin" class = "button" (click)="codebook()"><a>Codebook</a></li>

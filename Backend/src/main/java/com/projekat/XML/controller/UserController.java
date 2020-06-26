@@ -49,6 +49,19 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping(value = "/dodajUsere")
+    public ResponseEntity addUsers() {
+
+        System.out.println("POGODIO JE ADD USERS");
+
+
+       userService.saveAdmin();
+       userService.saveAgent();
+       userService.saveEndUser();
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 /*
     @PostMapping(value = "/login", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EntityUser> Login(@RequestBody EntityUser user){

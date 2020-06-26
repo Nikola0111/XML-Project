@@ -11,10 +11,12 @@ import javax.servlet.http.HttpSession;
 
 import com.projekat.XML.dtos.RegistrationDTO;
 import com.projekat.XML.enums.UserType;
+import com.projekat.XML.model.Administrator;
 import com.projekat.XML.model.Agent;
 import com.projekat.XML.model.EndUser;
 import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.model.LoginInfo;
+import com.projekat.XML.repository.AdministratorRepository;
 import com.projekat.XML.repository.AgentRepository;
 import com.projekat.XML.repository.EndUserRepository;
 import com.projekat.XML.repository.LoginInfoRepository;
@@ -30,6 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -63,6 +66,10 @@ public class UserService {
 
     @Autowired
     private LoginInfoRepository loginInfoRepository;
+
+    @Autowired
+    private AdministratorRepository adminRepository;
+
 
     private final PasswordEncoder passwordEncoder=new BCryptPasswordEncoder(10);
 
@@ -176,8 +183,90 @@ public class UserService {
 
         endUserService.save(endUser);
 
-        // String verificationToken = UUID.randomUUID().toString();
-        // verificationTokenService.save(endUser, verificationToken);
+         String verificationToken = UUID.randomUUID().toString();
+         verificationTokenService.save(endUser, verificationToken);
+    }
+
+
+    public void saveAdmin() {
+        if (adminRepository.findAll() == null || adminRepository.findAll().size() == 0) {
+            String salt = makeSalt();
+
+            LoginInfo loginInfo = new LoginInfo("admin", hashIt("Susa*k0njina", salt), "nikola@gmail.com", salt,
+                    ApplicationUserRole.ADMIN.getGrantedAuthorities(), true, true, true, true);
+
+            loginInfoService.save(loginInfo);
+
+            EntityUser entityUser = new EntityUser("Admin", "Adminic", loginInfoService.findOneByUsername("admin").getId(),
+                    "7777777777777", "064555555", UserType.ADMINISTRATOR);
+
+            // cuvanje u bazi
+            saveInDatabase(entityUser);
+
+            Administrator admin = new Administrator();
+            admin.setUser(userRepository.findByJmbg("7777777777777"));
+
+            adminRepository.save(admin);
+
+           
+        }
+
+    }
+
+     public void saveEndUser() {
+        if (endUserRepository.findAll() == null || endUserRepository.findAll().size() == 0) {
+
+        String salt = makeSalt();
+
+        LoginInfo loginInfo = new LoginInfo("susa", hashIt("Susa*k0njina", salt), "susa@gmail.com", salt,
+                ApplicationUserRole.ENDUSER.getGrantedAuthorities(), true, true, true, true);
+
+        loginInfoService.save(loginInfo);
+
+        EntityUser entityUser = new EntityUser("Enduser", "Enduseric", loginInfoService.findOneByUsername("susa").getId(),
+                    "7777777777779", "064555558", UserType.ENDUSER);
+        // cuvanje u bazi
+        saveInDatabase(entityUser);
+
+        EndUser endUser = new EndUser();
+
+        
+        endUser.setAccount_activated(true);
+        endUser.setAdminApproved(true);
+        endUser.setUser(userRepository.findByJmbg("7777777777779"));
+        endUser.setNumberOfAds(0);
+
+        endUserService.save(endUser);
+
+        }
+    }
+
+    public void saveAgent() {
+        if (agentRepository.findAll() == null || agentRepository.findAll().size() == 0) {
+            String salt = makeSalt();
+
+            LoginInfo loginInfo = new LoginInfo("agent", hashIt("Susa*k0njina", salt), "agent@gmail.com", salt,
+                    ApplicationUserRole.AGENT.getGrantedAuthorities(), true, true, true, true);
+
+            loginInfoService.save(loginInfo);
+
+            EntityUser entityUser = new EntityUser("Agent", "Agentic", loginInfoService.findOneByUsername("agent").getId(),
+                    "7777777777778", "064555556", UserType.AGENT);
+
+            // cuvanje u bazi
+            saveInDatabase(entityUser);
+
+            Agent agent = new Agent();
+            agent.setUser(userRepository.findByJmbg("7777777777778"));
+            agent.setAdress("adresa");
+            agent.setBsregnum("438274823");
+            agent.setNumber_ads(0);
+            agent.setFirst_login(false);
+
+            agentRepository.save(agent);
+
+        }
+
     }
 
 

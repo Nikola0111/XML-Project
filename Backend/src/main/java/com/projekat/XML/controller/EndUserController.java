@@ -25,7 +25,7 @@ import javax.print.attribute.standard.Media;
 
 import java.security.SecureRandom;
 import java.util.Base64;
-
+import java.util.Calendar;
 import java.util.List;
 
 import java.util.UUID;
@@ -81,7 +81,7 @@ public class EndUserController {
     }
 
     @PreAuthorize("hasAuthority('user:read')")
-    @GetMapping(value = "/getUnregistered", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getUnregistered", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EndUser>> getUnregistered(){
         List<EndUser> users = endUserService.getUnregistered();
 
@@ -89,8 +89,8 @@ public class EndUserController {
     }
 
 
-    @PreAuthorize("hasAuthority('userRead')")
-    @GetMapping(value = "/getAdminUnregistered", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('user:read')")
+    @GetMapping(value = "/getAdminUnregistered", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EndUser>> getAdminUnregistered(){
         List<EndUser> users = endUserService.getAdminUnregistered();
 
@@ -109,7 +109,7 @@ public class EndUserController {
 
             mailSenderService.sendSimpleMessage(email, "Aktivacioni link",
                     "Vaša registracija je prihvaćena! Kliknite na link da bi aktivirali vaš nalog i koristili usluge našeg servisa!\n\n"
-                            + "http://localhost:4200/registrationConfirm.html?token=" + verificationToken.getToken());
+                            + "https://localhost:4200/registrationConfirm.html?token=" + verificationToken.getToken());
         }catch (Exception e){
             System.out.println("Slanje mail-a nije uspelo!");
         }
@@ -136,8 +136,14 @@ public class EndUserController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
-        //iz nekog razloga ne vraca nista na front, servis se nikad ne izvrsi na frontu i ne ode na homepage, vecno se zaglavi u ucitavanju
 
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -7);
+        if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
+        
+                return new ResponseEntity(0, HttpStatus.BAD_REQUEST);
+            }
+            
         EndUser endUser = verificationToken.getUser();
         endUserService.acceptRegistration(endUser.getId());
         verificationTokenService.delete(endUser.getId());

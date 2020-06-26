@@ -1,6 +1,11 @@
 package com.projekat.XML.service;
+import com.projekat.XML.model.EndUser;
+import com.projekat.XML.model.EntityUser;
 import com.projekat.XML.model.LoginInfo;
+import com.projekat.XML.repository.EndUserRepository;
 import com.projekat.XML.repository.LoginInfoRepository;
+import com.projekat.XML.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,20 +19,44 @@ public class LoginInfoService implements UserDetailsService {
    @Autowired
    private LoginInfoRepository loginInfoRepository;
 
+   @Autowired
+   private UserRepository userRepository;
+
+   @Autowired
+   private EndUserRepository endUserRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         
-    for (LoginInfo login : loginInfoRepository.findAll()) {
-        
-        if(login.getUsername().equals(username)){
-            return login;
+        LoginInfo login = loginInfoRepository.findByUsername(username);
+        EndUser endUser = new EndUser();
+        for(EntityUser user : userRepository.findAll()){
+            if(user.getLoginInfoId().equals(login.getId())){
+                endUser = getEndUserByUser(user);
+
+
+                if(endUser != null ){
+                    if(endUser.isAccount_activated()) {
+                        return login;
+                    }
+                } else {
+                    return login;
+                }
+            }
         }
+
+        return null;
+
 
     }
 
-    System.out.println("NIJE PROSAO");
+    public EndUser getEndUserByUser(EntityUser user){
+        for(EndUser endUser : endUserRepository.findAll()){
+            if(endUser.getUser().getId().equals(user.getId())){
+                return endUser;
+            }
+        }
         return null;
-
     }
 
 

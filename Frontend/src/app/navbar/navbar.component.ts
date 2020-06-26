@@ -19,6 +19,10 @@ export class NavbarComponent implements OnInit {
     this.sessionService.register = false;
   }
 
+  addPredefined(){
+    this.loginService.addPredefined().subscribe();
+  }
+
   showRegister() {
     this.router.navigate(['/register']);
   }

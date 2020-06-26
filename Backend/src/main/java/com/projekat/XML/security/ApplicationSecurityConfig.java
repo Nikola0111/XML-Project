@@ -45,7 +45,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).ignoringAntMatchers("/authentication/callMe", "/authentication/increaseEndUsersNumberOfAds", "/authentication/getCsrf",
+                "/authentication/dodajUsere", "/authentication/getUserByUsername/","/authentication/registrationConfirm"
+                )
                 .and()
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -53,7 +55,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
                 .addFilterAfter(new JwtTokenVerifier(),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/authentication/login", "/authentication/register","/authentication/loginToken","/authentication/logout").permitAll()
+                .antMatchers("/authentication/login","/authentication/dodajUsere","/authentication/registrationConfirm", "/authentication/register","/authentication/loginToken","/authentication/logout").permitAll()
                 .anyRequest()
                 .authenticated();
     }

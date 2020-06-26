@@ -86,4 +86,8 @@ console.log("POGODIO TRAZENJE COOKIeA")
     this.requestUrl = '/server/authentication/logout';
     return this.http.get<string>(this.requestUrl, httpOptions);
     }
+
+    public addPredefined() {
+      return this.http.get<User>('/server/authentication/dodajUsere', httpOptions);
+    }
 }
