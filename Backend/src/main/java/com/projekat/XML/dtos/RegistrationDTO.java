@@ -1,6 +1,6 @@
 package com.projekat.XML.dtos;
 
-import com.projekat.XML.dtos.*;
+
 
 public class RegistrationDTO {
     private String name;

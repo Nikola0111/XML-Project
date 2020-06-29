@@ -1,8 +1,5 @@
 package com.projekat.XML.dtos;
 
-import com.projekat.XML.enums.CarClass;
-import com.projekat.XML.enums.FuelType;
-import com.projekat.XML.enums.TransmissionType;
 
 public class CarDTO {
 
