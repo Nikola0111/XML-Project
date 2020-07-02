@@ -2,10 +2,13 @@ package com.projekat.XML.controller;
 
 import com.projekat.XML.dtos.*;
 import com.projekat.XML.model.Advertisement;
+import com.projekat.XML.model.Brand;
 import com.projekat.XML.model.Comment;
+import com.projekat.XML.rebbit.SenderClass;
 import com.projekat.XML.service.AdvertisementService;
 import com.projekat.XML.service.ShoppingCartService;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +30,39 @@ public class AdvertisementController {
 	@Autowired
 	private AdvertisementService advertisementService;
 
+	@Autowired
+	private SenderClass sender;
+
+	private final RabbitTemplate rabbitTemplate;
+
+	public AdvertisementController(RabbitTemplate rabbitTemplate){
+		this.rabbitTemplate=rabbitTemplate;
+	}
+
+
+	//@GetMapping(value = "/sendRabbit")
+    public ResponseEntity<?> rabbit() {
+	   
+		System.out.println("Pogodio kontroler");
+		sender.sendMessage();
+
+		
+        return new ResponseEntity<>( HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/sendRabbit")
+	public String sendMessage(){
+		Brand brand=new Brand();
+        brand.setName("IMEEE LEPO IME");
+       // rabbitTemplate.convertAndSend("spring-boot-exchange",
+		//		"foo.bar.blaa", advert);
+
+		rabbitTemplate.convertAndSend("spring-boot-exchange","foo.bar.blaa", brand);
+		
+		
+		
+        return "We have sent a message! :";
+    }
 	
 	@RequestMapping(value = "/saveImage", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
     public ResponseEntity<Long> uploadImage(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {

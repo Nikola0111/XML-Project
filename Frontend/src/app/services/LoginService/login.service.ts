@@ -81,6 +81,11 @@ console.log("POGODIO TRAZENJE COOKIeA")
     return this.http.post('/server/user/passwordChange', body, httpOptions);
   }
 
+  public rabbitSend(){
+    this.requestUrl = '/server/advertisement/sendRabbit';
+    return this.http.get<string>(this.requestUrl, httpOptions);
+  }
+
   public logOut() {
     console.log('Izlogovan');
     localStorage.removeItem("jwt");

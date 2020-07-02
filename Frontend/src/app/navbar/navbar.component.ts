@@ -23,6 +23,12 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/register']);
   }
 
+  rabbitSend(){
+
+    this.loginService.rabbitSend().subscribe();
+
+  }
+
   showLogin() {
     this.router.navigate(['/login']);
   }

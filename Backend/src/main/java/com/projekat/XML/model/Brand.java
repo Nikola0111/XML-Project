@@ -1,11 +1,12 @@
 package com.projekat.XML.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.persistence.*;
 
 @Entity
-public class Brand {
+public class Brand implements Serializable{
     
 
     @Id
