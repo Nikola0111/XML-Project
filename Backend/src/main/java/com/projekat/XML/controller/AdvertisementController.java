@@ -190,8 +190,14 @@ public class AdvertisementController {
 	}
 
 	@PostMapping(value = "/saveAdvertisementSoap")
-	public GetAdvertisementResponse invokeSoapClientSaveAdvertisement(@RequestBody GetAdvertisementRequest request){
-		System.out.println("Adv name: " + request.getAdvertisement().getName());
-		return soapClient.saveAdvertisement(request);
+	public GetAdvertisementResponse invokeSoapClientSaveAdvertisement(@RequestBody AdvertisementCreationDTO advertisement){
+		System.out.println(advertisement.getName());
+		return soapClient.saveAdvertisement(advertisement);
 	}
+
+//	@PostMapping(value = "/saveAdvertisementSoap")
+//	public GetAdvertisementResponse invokeSoapClientSaveAdvertisement(@RequestBody GetAdvertisementRequest request){
+//		System.out.println("Adv name: " + request.getAdvertisement().getName());
+//		return soapClient.saveAdvertisement(request);
+//	}
 }

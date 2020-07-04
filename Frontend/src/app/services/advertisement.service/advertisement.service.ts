@@ -46,9 +46,7 @@ export class AdvertisementService {
 
   public saveSoapAdvertisement(advertisement: Advertisement){
     const body = JSON.stringify(advertisement);
-    console.log(body);
-    const newBody = ' {"advertisement":  ' + body + '}';
-    return this.http.post('/server/advertisement/saveAdvertisementSoap', newBody, httpOptions);
+    return this.http.post('/server/advertisement/saveAdvertisementSoap', body, httpOptions);
   }
 
   public getAll() {

@@ -48,4 +48,12 @@ public class FuelType {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "FuelType{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }

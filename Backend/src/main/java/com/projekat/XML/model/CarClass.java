@@ -47,4 +47,13 @@ public class CarClass {
     public CarClass(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "CarClass{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }
