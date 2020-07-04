@@ -44,6 +44,11 @@ export class AdvertisementService {
     return this.http.post<Advertisement>('/server/advertisement/save', advertisement, httpOptions);
   }
 
+  public saveSoapAdvertisement(advertisement: Advertisement){
+    const body = JSON.stringify(advertisement);
+    return this.http.post('/server/advertisement/saveAdvertisementSoap', body, httpOptions);
+  }
+
   public getAll() {
     this.requestUrl = '/server/advertisement/all';
     return this.http.get<Array<Advertisement>>(this.requestUrl, httpOptions);
@@ -105,7 +110,7 @@ export class AdvertisementService {
   public getRentedCars(id: number) {
     return this.http.get<number[]>('/server/advertisement/getRentedCars/' + id, httpOptions);
   }
-  
+
 
   public getAllByPostedBy(id: number) {
       return this.http.get<Advertisement[]>('server/advertisement/getAllByPostedBy/' + id, httpOptions);

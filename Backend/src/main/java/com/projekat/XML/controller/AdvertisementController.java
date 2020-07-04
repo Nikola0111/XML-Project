@@ -6,6 +6,9 @@ import com.projekat.XML.model.Comment;
 import com.projekat.XML.service.AdvertisementService;
 import com.projekat.XML.service.ShoppingCartService;
 
+import com.projekat.XML.service.SoapClient;
+import com.soap.SaveAdvertisement.GetAdvertisementRequest;
+import com.soap.SaveAdvertisement.GetAdvertisementResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +30,8 @@ public class AdvertisementController {
 	@Autowired
 	private AdvertisementService advertisementService;
 
+	@Autowired
+	private SoapClient soapClient;
 	
 	@RequestMapping(value = "/saveImage", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
     public ResponseEntity<Long> uploadImage(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
@@ -38,7 +43,7 @@ public class AdvertisementController {
 		advertisementService.saveImage(file);
 
          return new ResponseEntity<>(HttpStatus.OK);
-}
+	}
 
 	@PostMapping(value="/save")
 	public ResponseEntity<Long> save(@RequestBody AdvertisementCreationDTO advertisementDTO) {
@@ -183,4 +188,16 @@ public class AdvertisementController {
 		advertisementService.deleteComment(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+
+	@PostMapping(value = "/saveAdvertisementSoap")
+	public GetAdvertisementResponse invokeSoapClientSaveAdvertisement(@RequestBody AdvertisementCreationDTO advertisement){
+		System.out.println(advertisement.getName());
+		return soapClient.saveAdvertisement(advertisement);
+	}
+
+//	@PostMapping(value = "/saveAdvertisementSoap")
+//	public GetAdvertisementResponse invokeSoapClientSaveAdvertisement(@RequestBody GetAdvertisementRequest request){
+//		System.out.println("Adv name: " + request.getAdvertisement().getName());
+//		return soapClient.saveAdvertisement(request);
+//	}
 }
