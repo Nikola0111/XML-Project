@@ -1,6 +1,12 @@
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://com.Advertisement/JavaGeneratedFiles" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://com.Advertisement/JavaGeneratedFiles" targetNamespace="http://com.Advertisement/JavaGeneratedFiles">
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:sch="http://com.Advertisement/JavaGeneratedFiles"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://com.Advertisement/JavaGeneratedFiles"
+                  targetNamespace="http://com.Advertisement/JavaGeneratedFiles">
     <wsdl:types>
-        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://com.Advertisement/JavaGeneratedFiles">
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   attributeFormDefault="unqualified" elementFormDefault="qualified"
+                   targetNamespace="http://com.Advertisement/JavaGeneratedFiles">
             <xs:element name="getAdvertisementRequest">
                 <xs:complexType>
                     <xs:sequence>
@@ -67,6 +73,27 @@
                     </xs:element>
                     <xs:element name="travelled" type="xs:int"/>
                     <xs:element name="userID" type="xs:long"/>
+                    <xs:element name="idInMonolith" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:element name="getBookingRequestRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="bookingRequest" type="tns:bookingRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="bookingRequest">
+                <xs:sequence>
+                    <xs:element name="userForId" type="xs:long"/>
+                    <xs:element name="userToId" type="xs:long"/>
+                    <xs:element name="stateOfRequest" type="xs:boolean"/>
+                    <xs:element name="advertisementIdInMonolith" type="xs:long"/>
+                    <xs:element name="groupId" type="xs:long"/>
+                    <xs:element name="together" type="xs:boolean"/>
+                    <xs:element name="timeFrom" type="xs:dateTime"/>
+                    <xs:element name="timeTo" type="xs:dateTime"/>
                 </xs:sequence>
             </xs:complexType>
         </xs:schema>

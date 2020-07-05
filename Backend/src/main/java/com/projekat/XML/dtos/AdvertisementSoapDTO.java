@@ -19,6 +19,9 @@ public class AdvertisementSoapDTO implements Serializable {
     @XmlElement(name="id", required = true)
     private Long id;
 
+    @XmlElement(name="idInMonolith", required = true)
+    private Long idInMonolith;
+
     @XmlElement(name="name", required = true)
     private String name;
 
@@ -66,6 +69,7 @@ public class AdvertisementSoapDTO implements Serializable {
     }
 
     public AdvertisementSoapDTO(String name, Advertisement.Model model, Advertisement.Brand brand, Advertisement.FuelType fuelType, Advertisement.TransType transmissionType, Advertisement.CarClass carClass, int travelled, int carSeats, double price, double discount, ArrayList<String> pictures, long postedByID) {
+        this.idInMonolith = this.id;
         this.name=name;
         this.model = model;
         this.brand = brand;
