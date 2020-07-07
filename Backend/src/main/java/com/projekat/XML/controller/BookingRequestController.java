@@ -9,10 +9,12 @@ import com.projekat.XML.dtos.ReservationDTO;
 import com.projekat.XML.enums.RequestStates;
 import com.projekat.XML.model.ItemInCart;
 import com.projekat.XML.model.requests.BookingRequest;
+import com.projekat.XML.service.BookingClient;
 import com.projekat.XML.service.BookingRequestService;
 import com.projekat.XML.service.ItemInCartService;
 import com.projekat.XML.service.ShoppingCartService;
 
+import com.projekat.XML.soapconfig.SoapBookingWsConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,18 +25,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+
 @RestController
 @RequestMapping(value = "booking")
 public class BookingRequestController {
 
-@Autowired
-BookingRequestService bookingRequestService;
+    @Autowired
+    BookingRequestService bookingRequestService;
 
-@Autowired
-ItemInCartService itemInCartService;
+    @Autowired
+    ItemInCartService itemInCartService;
 
-@Autowired
-ShoppingCartService shoppingCartService;
+    @Autowired
+    ShoppingCartService shoppingCartService;
+
+    @Autowired
+    BookingClient bookingClient;
 
     @PostMapping(value = "/save", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ItemInCart>> Login(@RequestBody List<ItemInCartDTO> lista){
@@ -126,5 +133,10 @@ ShoppingCartService shoppingCartService;
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
+
+    @PostMapping(value = "saveSoapBooking")
+    public ResponseEntity<Void> saveSoapBooking(@RequestBody BookingRequest bookingRequest) throws DatatypeConfigurationException {
+        bookingClient.saveSoapBooking(bookingRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

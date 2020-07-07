@@ -66,6 +66,9 @@ public class AdvertisementService {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	SoapClient soapClient;
+
 	public Advertisement save(AdvertisementCreationDTO advertisementCreationDTO) {
 
 		Model model = modelRepository.findByName(advertisementCreationDTO.getModel());
@@ -82,7 +85,11 @@ public class AdvertisementService {
 				userService.getLoggedUser(), advertisementCreationDTO.getDiscount(),
 				advertisementCreationDTO.getPictures(), 0.0);
 
-		return advertisementRepository.save(ad);
+		advertisementRepository.save(ad);
+
+		soapClient.saveAdvertisement(ad);
+
+		return ad;
 	}
 
 	public void saveImage(MultipartFile image) {

@@ -39,55 +39,63 @@ public class SoapClient extends WebServiceGatewaySupport {
     private WebServiceTemplate template;
 
 
-    public GetAdvertisementResponse saveAdvertisement(AdvertisementCreationDTO adv){
-        GetAdvertisementRequest request = new GetAdvertisementRequest();
+    public GetAdvertisementResponse saveAdvertisement(com.projekat.XML.model.Advertisement adv){
+        GetAdvertisementResponse ret = new GetAdvertisementResponse();
 
-        Model model = modelRepository.findByName(adv.getModel());
-        Brand brand = brandRepository.findByName(adv.getBrand());
+        try {
+            GetAdvertisementRequest request = new GetAdvertisementRequest();
 
-        CarClass carClass = carClassRepository.findByName(adv.getCarClass());
-        FuelType fuelType = fuelTypeRepository.findByName(adv.getFuelType());
-        TransmissionType transmissionType = transmissionTypeRepository
-                .findByName(adv.getTransType());
+            Model model = modelRepository.findByName(adv.getModel().getName());
+            Brand brand = brandRepository.findByName(adv.getBrand().getName());
 
-        System.out.println(model);
-        System.out.println(brand);
-        System.out.println(carClass);
-        System.out.println(fuelType);
-        System.out.println(transmissionType);
+            CarClass carClass = carClassRepository.findByName(adv.getCarClass().getName());
+            FuelType fuelType = fuelTypeRepository.findByName(adv.getFuelType().getName());
+            TransmissionType transmissionType = transmissionTypeRepository
+                    .findByName(adv.getTransmissionType().getName());
 
-        Advertisement temp = new Advertisement();
-        Advertisement.CarClass carClass1 = new Advertisement.CarClass();
-        Advertisement.Brand brand1 = new Advertisement.Brand();
-        Advertisement.TransType transType = new Advertisement.TransType();
-        Advertisement.Model model1 = new Advertisement.Model();
-        Advertisement.FuelType fuelType1 = new Advertisement.FuelType();
+            System.out.println(model);
+            System.out.println(brand);
+            System.out.println(carClass);
+            System.out.println(fuelType);
+            System.out.println(transmissionType);
 
-        carClass1.setId(carClass.getID());
-        model1.setId(model.getID());
-        fuelType1.setId(fuelType.getID());
-        brand1.setId(brand.getID());
-        transType.setId(transmissionType.getID());
+            Advertisement temp = new Advertisement();
+            Advertisement.CarClass carClass1 = new Advertisement.CarClass();
+            Advertisement.Brand brand1 = new Advertisement.Brand();
+            Advertisement.TransType transType = new Advertisement.TransType();
+            Advertisement.Model model1 = new Advertisement.Model();
+            Advertisement.FuelType fuelType1 = new Advertisement.FuelType();
 
-        temp.setCarClass(carClass1);
-        temp.setFuelType(fuelType1);
-        temp.setModel(model1);
-        temp.setBrand(brand1);
-        temp.setTransType(transType);
-        temp.setUserID(userService.getLoggedUserId());
-        request.setAdvertisement(temp);
+            carClass1.setId(carClass.getID());
+            model1.setId(model.getID());
+            fuelType1.setId(fuelType.getID());
+            brand1.setId(brand.getID());
+            transType.setId(transmissionType.getID());
 
-        request.getAdvertisement().setTravelled(adv.getTravelled());
-        request.getAdvertisement().setName(adv.getName());
-        request.getAdvertisement().setCarSeats(adv.getCarSeats());
-        request.getAdvertisement().setPrice(adv.getPrice());
+            temp.setCarClass(carClass1);
+            temp.setFuelType(fuelType1);
+            temp.setModel(model1);
+            temp.setBrand(brand1);
+            temp.setTransType(transType);
+            temp.setUserID(userService.getLoggedUserId());
+            temp.setIdInMonolith(adv.getId());
+            request.setAdvertisement(temp);
 
-        template = new WebServiceTemplate(marshaller);
-        GetAdvertisementResponse ret = (GetAdvertisementResponse) template.marshalSendAndReceive("http://localhost:8085/ws/saveAdvertisementSoap", request,
-                new SoapActionCallback("http://com.Advertisement/JavaGeneratedFiles/getAdvertisementRequest"));
-        System.out.println("The advertisement is here: " + ret.getName());
+            request.getAdvertisement().setTravelled(adv.getTravelled());
+            request.getAdvertisement().setName(adv.getName());
+            request.getAdvertisement().setCarSeats(adv.getCarSeats());
+            request.getAdvertisement().setPrice(adv.getPrice());
+
+            template = new WebServiceTemplate(marshaller);
+            ret = (GetAdvertisementResponse) template.marshalSendAndReceive("http://localhost:8085/ws/saveAdvertisementSoap", request,
+                    new SoapActionCallback("http://com.Advertisement/JavaGeneratedFiles/getAdvertisementRequest"));
+        } catch(Exception e) {
+            System.out.println("Sacuvan!");
+        }
         return ret;
     }
+
+
 
 //    public GetAdvertisementResponse saveSoapAdvertisement(GetAdvertisementRequest request){
 //        template = new WebServiceTemplate(marshaller);

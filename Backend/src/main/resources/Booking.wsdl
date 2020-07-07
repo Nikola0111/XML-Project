@@ -1,0 +1,56 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://com.Advertisement/JavaGeneratedFiles" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://com.Advertisement/JavaGeneratedFiles" targetNamespace="http://com.Advertisement/JavaGeneratedFiles">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://com.Advertisement/JavaGeneratedFiles">
+            <xs:element name="getBookingRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="userFromID" type="xs:long"/>
+                        <xs:element name="userToID" type="xs:long"/>
+                        <xs:element name="advertisementIdInMonolith" type="xs:long"/>
+                        <xs:element name="together" type="xs:boolean"/>
+                        <xs:element name="groupID" type="xs:long"/>
+                        <xs:element name="timeFrom" type="xs:dateTime"/>
+                        <xs:element name="timeTo" type="xs:dateTime"/>
+                        <xs:element name="timeAccepted" type="xs:dateTime"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getBookingResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="response" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getBookingRequest">
+        <wsdl:part element="tns:getBookingRequest" name="getBookingRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getBookingResponse">
+        <wsdl:part element="tns:getBookingResponse" name="getBookingResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="SaveSoapBookingPort">
+        <wsdl:operation name="getBooking">
+            <wsdl:input message="tns:getBookingRequest" name="getBookingRequest"> </wsdl:input>
+            <wsdl:output message="tns:getBookingResponse" name="getBookingResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="SaveSoapBookingPortSoap11" type="tns:SaveSoapBookingPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getBooking">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="getBookingRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getBookingResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="SaveSoapBookingPortService">
+        <wsdl:port binding="tns:SaveSoapBookingPortSoap11" name="SaveSoapBookingPortSoap11">
+            <soap:address location="http://localhost:8086/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
