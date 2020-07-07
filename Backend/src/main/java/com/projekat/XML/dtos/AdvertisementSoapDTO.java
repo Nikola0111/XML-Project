@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "advertisementSoapDTO",
         namespace="com.projekat.XML.dtos",
         propOrder = {"id", "name", "model", "brand", "fuelType", "transmissionType","carClass", "travelled",
-                "carSeats", "price", "discount", "priceWithDiscount", "pictures", "grade", "postedByID"})
+                "carSeats", "price", "discount", "priceWithDiscount", "pictures", "grade", "postedByID", "idInMonolith"})
 public class AdvertisementSoapDTO implements Serializable {
 
     @XmlElement(name="id", required = true)

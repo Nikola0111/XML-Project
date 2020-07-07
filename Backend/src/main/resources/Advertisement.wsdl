@@ -76,26 +76,6 @@
                     <xs:element name="idInMonolith" type="xs:long"/>
                 </xs:sequence>
             </xs:complexType>
-
-            <xs:element name="getBookingRequestRequest">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="bookingRequest" type="tns:bookingRequest"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:complexType name="bookingRequest">
-                <xs:sequence>
-                    <xs:element name="userForId" type="xs:long"/>
-                    <xs:element name="userToId" type="xs:long"/>
-                    <xs:element name="stateOfRequest" type="xs:boolean"/>
-                    <xs:element name="advertisementIdInMonolith" type="xs:long"/>
-                    <xs:element name="groupId" type="xs:long"/>
-                    <xs:element name="together" type="xs:boolean"/>
-                    <xs:element name="timeFrom" type="xs:dateTime"/>
-                    <xs:element name="timeTo" type="xs:dateTime"/>
-                </xs:sequence>
-            </xs:complexType>
         </xs:schema>
     </wsdl:types>
     <wsdl:message name="getAdvertisementRequest">
