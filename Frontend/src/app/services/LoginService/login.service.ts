@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {EndUser} from '../../model/endUser';
 import {User} from '../../model/user';
+/*
 import {Observable} from 'rxjs';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/shareReplay';
+import 'rxjs/add/operator/shareReplay';*/
 
 import {UserDTO} from '../../dtos/user-dto';
 import { LoginInfo } from 'src/app/model/login-info';
@@ -37,13 +38,13 @@ export class LoginService {
   public getUserByUsername(username: string) {
     return this.http.get<User>(`/server/authentication/getUserByUsername/${username}`, httpOptions);
   }
-
+/*
   public loginToken(){
     console.log("Pogodio");
     return this.http.get<HttpResponse<any>>('/server/authentication/loginToken', { observe: 'response' })
     .do(response=> localStorage.setItem("xsrfToken",(this.getCookie("XSRF-TOKEN"))))
     .shareReplay();
-  }
+  }*/
 
 
   public setSession(authResult) {
