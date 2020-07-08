@@ -5,11 +5,13 @@ public class CarReportDTO {
     private Long carId;
     private int travelled;
     private String comment;
+    private Long bookingID;
 
-    public CarReportDTO(Long carId, int travelled, String comment) {
+    public CarReportDTO(Long carId, int travelled, String comment, Long bookingID) {
         this.carId = carId;
         this.travelled = travelled;
         this.comment = comment;
+        this.bookingID = bookingID;
     }
 
     public int getTravelled() {
@@ -34,5 +36,13 @@ public class CarReportDTO {
 
     public void setCarId(Long carId) {
         this.carId = carId;
+    }
+
+    public Long getBookingID() {
+        return bookingID;
+    }
+
+    public void setBookingID(Long bookingID) {
+        this.bookingID = bookingID;
     }
 }

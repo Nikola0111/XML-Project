@@ -9,6 +9,7 @@ import {CommentPreviewDTO} from "../../dtos/comment-preview-dto";
 import {CarDetails} from '../../model/car-details';
 import { AdvertisementInCart } from 'src/app/model/advertisementInCart';
 import { ReserveDTO } from 'src/app/dtos/reserveDTO';
+import {AdvertisementreportDTO} from '../../dtos/advertisementreportDTO';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type' : 'application/json'})
@@ -114,6 +115,10 @@ export class AdvertisementService {
 
   public getAllByPostedBy(id: number) {
       return this.http.get<Advertisement[]>('server/advertisement/getAllByPostedBy/' + id, httpOptions);
+  }
+
+  public getAllByPostedByCars(id: number) {
+    return this.http.get<AdvertisementreportDTO[]>('server/advertisement/getAllByPostedByCars/' + id, httpOptions);
   }
 
   public sendReply(replyDTO: ReplyDTO) {

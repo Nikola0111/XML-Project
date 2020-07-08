@@ -69,6 +69,9 @@ public class AdvertisementService {
 	@Autowired
 	SoapClient soapClient;
 
+	@Autowired
+	CarReportRepository carReportRepository;
+
 	public Advertisement save(AdvertisementCreationDTO advertisementCreationDTO) {
 
 		Model model = modelRepository.findByName(advertisementCreationDTO.getModel());
@@ -316,7 +319,36 @@ public class AdvertisementService {
 	}
 
 	public List<Advertisement> getAllByPostedBy(Long id) {
-		return advertisementRepository.findAllByPostedBy_Id(id);
+		List<Advertisement> ads = advertisementRepository.findAllByPostedBy_Id(id);
+
+		return ads;
+	}
+
+	public List<AdvertisementReportDTO> getAllByPostedByCars(Long id) {
+		System.out.println("ID korisnika: " + id);
+		List<Advertisement> ads = advertisementRepository.findAllByPostedBy_Id(id);
+
+		System.out.println("Ovo su reklame: " + ads);
+
+		List<AdvertisementReportDTO> ret = new ArrayList<>();
+		for (Advertisement temp: ads) {
+			List<BookingRequest> bookings = bookingRequestRepository.findByAdvertisement(temp);
+
+			for(BookingRequest tempBooking: bookings) {
+				CarReport carReport = carReportRepository.findByForBooking(tempBooking);
+
+				if(carReport == null){
+
+					LocalDateTime currentDate = LocalDateTime.now();
+
+					if(currentDate.isAfter(tempBooking.getTimeTo())) {
+						ret.add(new AdvertisementReportDTO(temp.getId(), temp.getName(), temp.getModel().getName(), temp.getBrand().getName(), temp.getTravelled(), tempBooking.getId()));
+					}
+				}
+			}
+		}
+
+		return ret;
 	}
 
 

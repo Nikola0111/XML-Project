@@ -1,5 +1,7 @@
 package com.projekat.XML.model;
 
+import com.projekat.XML.model.requests.BookingRequest;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,9 +17,16 @@ public class CarReport {
     @Column(name = "comment")
     private String comment;
 
+    @OneToOne
+    private BookingRequest forBooking;
+
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", name = "advertisement_id")
     private Advertisement ad;
+
+    public CarReport(){
+
+    }
 
     public CarReport(int travelled, String comment, Advertisement ad) {
         this.travelled = travelled;
@@ -55,5 +64,13 @@ public class CarReport {
 
     public void setAd(Advertisement ad) {
         this.ad = ad;
+    }
+
+    public BookingRequest getForBooking() {
+        return forBooking;
+    }
+
+    public void setForBooking(BookingRequest forBooking) {
+        this.forBooking = forBooking;
     }
 }

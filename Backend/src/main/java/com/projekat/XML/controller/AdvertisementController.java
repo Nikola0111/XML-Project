@@ -135,6 +135,12 @@ public class AdvertisementController {
 		return new ResponseEntity<>(advertisements, HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/getAllByPostedByCars/{id}", produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<AdvertisementReportDTO>> getAllByPostedByCars(@PathVariable Long id) {
+		List<AdvertisementReportDTO> advertisements = advertisementService.getAllByPostedByCars(id);
+		return new ResponseEntity<>(advertisements, HttpStatus.OK);
+	}
+
 	@PostMapping(value = "/saveReply",  produces = MediaType.APPLICATION_JSON_VALUE,  consumes= MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Long> saveReply(@RequestBody ReplyDTO replyDTO){
 		advertisementService.saveReply(replyDTO);
@@ -193,10 +199,4 @@ public class AdvertisementController {
 	public void invokeSoapClientSaveAdvertisement(@RequestBody AdvertisementCreationDTO advertisement){
 		System.out.println(advertisement.getName());
 	}
-
-//	@PostMapping(value = "/saveAdvertisementSoap")
-//	public GetAdvertisementResponse invokeSoapClientSaveAdvertisement(@RequestBody GetAdvertisementRequest request){
-//		System.out.println("Adv name: " + request.getAdvertisement().getName());
-//		return soapClient.saveAdvertisement(request);
-//	}
 }

@@ -44,7 +44,7 @@ public class BookingRequestController {
     BookingClient bookingClient;
 
     @PostMapping(value = "/save", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ItemInCart>> Login(@RequestBody List<ItemInCartDTO> lista){
+    public ResponseEntity<List<ItemInCart>> Login(@RequestBody List<ItemInCartDTO> lista) throws DatatypeConfigurationException {
 
         System.out.println("Pogodio je back");
 

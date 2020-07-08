@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CarDTO} from '../../dtos/car-dto';
 import {CarReport} from '../../model/car-report';
+import {AdvertisementreportDTO} from '../../dtos/advertisementreportDTO';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -17,7 +18,7 @@ export class AgentService {
   }
 
   public getOwnersCars() {
-    return this.http.get<CarDTO[]>('/server/agent/getOwnersCars', httpOptions);
+    return this.http.get<AdvertisementreportDTO[]>('/server/agent/getOwnersCars', httpOptions);
   }
 
   public saveReport(report: CarReport){

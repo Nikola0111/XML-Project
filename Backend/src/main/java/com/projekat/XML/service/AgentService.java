@@ -6,10 +6,8 @@ import com.projekat.XML.dtos.CarReportDTO;
 import com.projekat.XML.dtos.UserDTO;
 import com.projekat.XML.enums.UserType;
 import com.projekat.XML.model.*;
-import com.projekat.XML.repository.AdvertisementRepository;
-import com.projekat.XML.repository.AgentRepository;
-import com.projekat.XML.repository.CarReportRepository;
-import com.projekat.XML.repository.UserRepository;
+import com.projekat.XML.model.requests.BookingRequest;
+import com.projekat.XML.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -34,6 +32,9 @@ public class AgentService {
 
     @Autowired
     private CarReportRepository carReportRepository;
+
+    @Autowired
+    private BookingRequestRepository bookingRequestRepository;
 
     public int save(AgentDTO agentDTO) {
         EntityUser user;
@@ -117,7 +118,10 @@ public class AgentService {
 
         ad.setTravelled(ad.getTravelled() + carReportDTO.getTravelled());
 
+        BookingRequest bookingRequest = bookingRequestRepository.findOneByid(carReportDTO.getBookingID());
+
         CarReport newReport = new CarReport(carReportDTO.getTravelled(), carReportDTO.getComment(), ad);
+        newReport.setForBooking(bookingRequest);
 
         carReportRepository.save(newReport);
     }

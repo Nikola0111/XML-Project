@@ -3,6 +3,8 @@ import {AgentService} from '../../../services/AgentService/agent.service';
 import {SessionService} from '../../../services/SessionService/session.service';
 import {CarDTO} from '../../../dtos/car-dto';
 import {Router} from '@angular/router';
+import {AdvertisementreportDTO} from '../../../dtos/advertisementreportDTO';
+import {AdvertisementService} from '../../../services/advertisement.service/advertisement.service';
 
 @Component({
   selector: 'app-agents-cars',
@@ -10,17 +12,18 @@ import {Router} from '@angular/router';
   styleUrls: ['./agents-cars.component.css']
 })
 export class AgentsCarsComponent implements OnInit {
-  cars: CarDTO[];
-  constructor(private agentService: AgentService, private sessionService: SessionService, private router: Router) { }
+  cars: AdvertisementreportDTO[];
+  constructor(private advertisementService: AdvertisementService, private sessionService: SessionService, private router: Router) { }
 
   ngOnInit() {
-    this.agentService.getOwnersCars().subscribe(data => {
+    this.advertisementService.getAllByPostedByCars(this.sessionService.ulogovaniKorisnik.id).subscribe(data => {
       this.cars = data;
       console.log(this.cars);
     });
   }
 
-  enterReport(car: CarDTO) {
+  enterReport(car: AdvertisementreportDTO) {
+    this.sessionService.bookingID = car.bookingID;
     this.router.navigate(['/report', car.id]);
   }
 }
