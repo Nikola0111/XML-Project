@@ -1,6 +1,8 @@
 package com.projekat.XML.model;
 
 import javax.persistence.*;
+import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 public class VerificationToken {
@@ -16,6 +18,8 @@ public class VerificationToken {
     @JoinColumn(nullable = false, name = "user_id")
     private EndUser user;
 
+    private Date expiryDate;
+
     public VerificationToken(){
 
     }
@@ -23,6 +27,15 @@ public class VerificationToken {
     public VerificationToken(String token, EndUser user) {
         this.token = token;
         this.user = user;
+        this.expiryDate = new Date();
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
     }
 
     public String getToken() {

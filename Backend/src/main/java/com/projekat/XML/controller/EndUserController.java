@@ -13,9 +13,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 
 @RestController
@@ -103,12 +105,19 @@ public class EndUserController {
     }
 
     @PostMapping(value = "/registrationConfirm")
-    public ResponseEntity<Void> confirmRegistration(@RequestBody String token){
+    public ResponseEntity<Integer> confirmRegistration(@RequestBody String token){
         System.out.println("usao je ovde");
         VerificationToken verificationToken = verificationTokenService.findByToken(token);
 
         if(verificationToken == null){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(1, HttpStatus.BAD_REQUEST);
+        }
+
+        Date currentDate = new Date();
+        Long diffInMilliseconds = Math.abs(currentDate.getTime() - verificationToken.getExpiryDate().getTime());
+        int diff = (int) TimeUnit.DAYS.convert(diffInMilliseconds, TimeUnit.MILLISECONDS);
+        if(diff > 7) {
+            return new ResponseEntity<>(2, HttpStatus.BAD_REQUEST);
         }
 
         //iz nekog razloga ne vraca nista na front, servis se nikad ne izvrsi na frontu i ne ode na homepage, vecno se zaglavi u ucitavanju
@@ -116,7 +125,7 @@ public class EndUserController {
         EndUser endUser = verificationToken.getUser();
         endUserService.acceptRegistration(endUser.getId());
         verificationTokenService.delete(endUser.getId());
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(0, HttpStatus.OK);
     }
 
     @GetMapping(value = "/getRegisteredUsers", produces = MediaType.APPLICATION_JSON_VALUE)
