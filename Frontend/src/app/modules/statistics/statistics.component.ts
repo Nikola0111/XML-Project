@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AdvertisementService} from '../../services/advertisement.service/advertisement.service';
+import {SessionService} from '../../services/SessionService/session.service';
 
 @Component({
   selector: 'app-statistics',
@@ -17,10 +18,11 @@ export class StatisticsComponent implements OnInit {
   private maxComments: number;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
-              private advertisementService: AdvertisementService) { }
+              private advertisementService: AdvertisementService,
+              private sessionService: SessionService) { }
 
   ngOnInit() {
-    this.idMaxTravelled = 1;
+    /*this.idMaxTravelled = 1;
     this.idMaxComments = 1;
     this.idBestGrade = 1;
     this.maxTravelled = 0;
@@ -56,19 +58,25 @@ export class StatisticsComponent implements OnInit {
         console.log('maxTravelled' + this.maxTravelled);
         console.log('maxComments' + this.maxComments);
         console.log('bestGrade' + this.bestGrade);
-      });
+      });*/
 
   }
 
   openMostTravelled() {
-    this.router.navigate(['/advertisement-details', this.idMaxTravelled]);
+    // if (this.sessionService.ulogovaniKorisnik != null) {
+      this.router.navigate(['/max-travelled-chart']);
+    // } else {}
   }
 
   openMostComments() {
-    this.router.navigate(['/advertisement-details', this.idMaxComments]);
+    // if (this.sessionService.ulogovaniKorisnik != null) {
+    this.router.navigate(['/advertisement-comments-chart']);
+    // } else {}
   }
 
   openBestReview() {
-    this.router.navigate(['/advertisement-details', this.idBestGrade]);
+    // if (this.sessionService.ulogovaniKorisnik != null) {
+    this.router.navigate(['/advertisement-reviews-chart']);
+    // } else {}
   }
 }

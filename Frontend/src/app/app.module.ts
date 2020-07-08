@@ -53,13 +53,13 @@ import {MatInput, MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import { AgentsAdvertisementsComponent } from './modules/agent/agents-advertisements/agents-advertisements.component';
 import {MatRadioModule} from '@angular/material/radio';
-import {MatSelectModule} from "@angular/material/select";
+import {MatSelectModule} from '@angular/material/select';
 import { AuthInterceptor } from './services/httpInterceptor.service';
 import { ReserveComponent } from './modules/reserve/reserve.component';
 import { CommentManagmentComponent } from './modules/administrator/comment-managment/comment-managment.component';
-
-
-
+import { MaxTravelledChartComponent } from './modules/statistics/max-travelled-chart/max-travelled-chart.component';
+import { AdvertisementReviewsChartComponent } from './modules/statistics/advertisement-reviews-chart/advertisement-reviews-chart.component';
+import {AdvertisementCommentsChartComponent} from './modules/statistics/advertisement-comments-chart/advertisement-comments-chart.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +92,10 @@ import { CommentManagmentComponent } from './modules/administrator/comment-manag
     ImagesDialogComponent,
     AgentsAdvertisementsComponent,
     ReserveComponent,
-    CommentManagmentComponent
+    CommentManagmentComponent,
+    MaxTravelledChartComponent,
+    AdvertisementReviewsChartComponent,
+    AdvertisementCommentsChartComponent
 ],
   imports: [
     BrowserModule,
@@ -123,7 +126,10 @@ import { CommentManagmentComponent } from './modules/administrator/comment-manag
       {path: 'conversation/:id', component: ConversationComponent},
       {path: 'statistics', component: StatisticsComponent},
       {path: 'advertisement-details/:id', component: AdvertisementDetailsComponent},
-      {path: 'reserve', component: ReserveComponent}
+      {path: 'reserve', component: ReserveComponent},
+      {path: 'max-travelled-chart', component: MaxTravelledChartComponent},
+      {path: 'advertisement-comments-chart', component: AdvertisementCommentsChartComponent},
+      {path: 'advertisement-reviews-chart', component: AdvertisementReviewsChartComponent}
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
