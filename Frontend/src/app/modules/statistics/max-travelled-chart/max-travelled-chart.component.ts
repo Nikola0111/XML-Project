@@ -23,23 +23,19 @@ export class MaxTravelledChartComponent implements OnInit {
     this.advertisements = new Array<Advertisement>();
     this.advertisementNames = new Array<string>();
     this.advertisementsTravelled = new Array<number>();
-    /*this.advertisementService.getAllByPostedBy(this.sessionService.ulogovaniKorisnik.id).subscribe(
-      data => {
-     this.advertisements = data;
-   });*/
     const ctx = document.getElementById('myChart');
 
-    this.advertisementService.getAll().subscribe(
+    this.advertisementService.getAllByPostedBy(this.sessionService.ulogovaniKorisnik.id).subscribe(
       data => {
-        this.advertisements = data;
-        for (let i = 0; i < data.length; i ++) {
+     this.advertisements = data;
+     for (let i = 0; i < data.length; i ++) {
           this.advertisementNames[i] = data[i].name;
         }
-        for (let i = 0; i < data.length; i ++) {
+     for (let i = 0; i < data.length; i ++) {
           this.advertisementsTravelled[i] = data[i].travelled;
         }
 
-        const myChart = new Chart(ctx, {
+     const myChart = new Chart(ctx, {
           type: 'bar',
           data: {
             labels: this.advertisementNames,
@@ -77,6 +73,11 @@ export class MaxTravelledChartComponent implements OnInit {
         });
       }
     );
+
+    /*this.advertisementService.getAll().subscribe(
+      data => {
+        this.advertisements = data;
+        */
   }
 
 }

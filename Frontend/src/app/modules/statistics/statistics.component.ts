@@ -63,20 +63,20 @@ export class StatisticsComponent implements OnInit {
   }
 
   openMostTravelled() {
-    // if (this.sessionService.ulogovaniKorisnik != null) {
+    if (this.sessionService.ulogovaniKorisnik != null) {
       this.router.navigate(['/max-travelled-chart']);
-    // } else {}
+    } else {}
   }
 
   openMostComments() {
-    // if (this.sessionService.ulogovaniKorisnik != null) {
+    if (this.sessionService.ulogovaniKorisnik != null) {
     this.router.navigate(['/advertisement-comments-chart']);
-    // } else {}
+    } else {}
   }
 
   openBestReview() {
-    // if (this.sessionService.ulogovaniKorisnik != null) {
+    if (this.sessionService.ulogovaniKorisnik != null) {
     this.router.navigate(['/advertisement-reviews-chart']);
-    // } else {}
+    } else {}
   }
 }
